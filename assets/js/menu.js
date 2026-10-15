@@ -53,17 +53,75 @@
   let currentModalMediaIndex = 0;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Scroll a chip/button horizontally inside its own scroller ONLY.
-  // Instant (never smooth): smooth animations retrigger on every scroll /
-  // resize frame and visibly fight the user, shaking the whole menu.
-  function scrollChipIntoView(container, el) {
+  // Premium smooth glide: center a chip inside its own horizontal
+  // scroller ONLY (never moves the page vertically, never shakes).
+  // Guards: dead-zone stops micro-jitter, swipe-guard never fights an
+  // active finger drag, resize-guard freezes work mid-reflow.
+  let lastActiveChipId = null;
+  let isUserSwipingChips = false;
+  let swipeResumeTimer = null;
+
+  function centerChipPremium(container, el, opts) {
+    opts = opts || {};
     if (!container || !el) return;
+    if (!opts.force && isUserSwipingChips) return;
+    if (document.body.classList.contains('is-resizing')) return;
     const cRect = container.getBoundingClientRect();
     const eRect = el.getBoundingClientRect();
     const delta = (eRect.left + eRect.width / 2) - (cRect.left + cRect.width / 2);
-    if (Math.abs(delta) > 4) {
+    // Already centered enough: skip so scroll-spy doesn't micro-nudge every frame
+    if (Math.abs(delta) < 6 && !opts.force) return;
+    if (reduceMotion) {
       container.scrollLeft += delta;
+      return;
     }
+    try {
+      container.scrollTo({ left: container.scrollLeft + delta, behavior: 'smooth' });
+    } catch (_) {
+      // Older browsers: center horizontally without touching vertical scroll
+      if (el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      else container.scrollLeft += delta;
+    }
+    // Subtle springy pop on the newly-active pill (phones only, cheap WAAPI)
+    if (opts.pop && el.animate && window.innerWidth <= 640) {
+      try {
+        el.animate(
+          [
+            { transform: 'scale(0.94)' },
+            { transform: 'scale(1.08)', offset: 0.55 },
+            { transform: 'scale(1.05)' }
+          ],
+          { duration: 380, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }
+        );
+      } catch (_) {}
+    }
+  }
+
+  // Back-compat wrapper for existing call sites (primary buttons etc.)
+  function scrollChipIntoView(container, el) {
+    centerChipPremium(container, el, { force: false, pop: false });
+  }
+
+  // While the user's finger is dragging the strip, freeze programmatic
+  // glides so they never fight each other (the old shake bug).
+  function initChipSwipeGuard() {
+    if (!secondaryChipsContainer || secondaryChipsContainer.dataset.swipeGuard) return;
+    secondaryChipsContainer.dataset.swipeGuard = '1';
+    const pause = () => {
+      isUserSwipingChips = true;
+      if (swipeResumeTimer) clearTimeout(swipeResumeTimer);
+    };
+    const resume = () => {
+      if (swipeResumeTimer) clearTimeout(swipeResumeTimer);
+      swipeResumeTimer = setTimeout(() => { isUserSwipingChips = false; }, 450);
+    };
+    secondaryChipsContainer.addEventListener('touchstart', pause, { passive: true });
+    secondaryChipsContainer.addEventListener('pointerdown', pause, { passive: true });
+    secondaryChipsContainer.addEventListener('wheel', pause, { passive: true });
+    secondaryChipsContainer.addEventListener('touchend', resume, { passive: true });
+    secondaryChipsContainer.addEventListener('touchcancel', resume, { passive: true });
+    secondaryChipsContainer.addEventListener('pointerup', resume, { passive: true });
+    secondaryChipsContainer.addEventListener('pointercancel', resume, { passive: true });
   }
 
   // Initialize
@@ -97,6 +155,12 @@
     initHeroVideo();
     ensurePageScrollable();
     window.addEventListener('pageshow', ensurePageScrollable);
+
+    // Deep-linked category (?cat=cat_X): premium-glide the pill to center
+    // + land on its section once chunked rendering has painted it.
+    if (catParam && catParam !== 'all') {
+      setTimeout(() => selectCategory(catParam), 650);
+    }
 
     // Scroll to first dish if search parameter was supplied
     if (searchParam) {
@@ -210,6 +274,8 @@
     });
 
     secondaryChipsContainer.innerHTML = html;
+    lastActiveChipId = currentCategory;
+    initChipSwipeGuard();
 
     // Attach click handlers to secondary chips
     secondaryChipsContainer.querySelectorAll('.secondary-filter-chip').forEach(btn => {
@@ -223,12 +289,17 @@
   // Single shared category selection (chips row + mobile bottom sheet)
   function selectCategory(catId) {
     currentCategory = catId;
+    lastActiveChipId = catId;
 
-    // Update active class in chips row
+    // Update active class in chips row + premium-glide the tapped pill to center
     if (secondaryChipsContainer) {
+      let activeEl = null;
       secondaryChipsContainer.querySelectorAll('.secondary-filter-chip').forEach(b => {
-        b.classList.toggle('active', b.getAttribute('data-cat-id') === catId);
+        const on = b.getAttribute('data-cat-id') === catId;
+        b.classList.toggle('active', on);
+        if (on) activeEl = b;
       });
+      if (activeEl) centerChipPremium(secondaryChipsContainer, activeEl, { force: true, pop: true });
     }
 
     // Smooth scroll to category section or top without removing other categories from DOM
@@ -755,6 +826,7 @@
   // Active Category ScrollSpy for secondary navigation
   function initScrollSpy() {
     if (!secondaryChipsContainer) return;
+    initChipSwipeGuard();
 
     // While the viewport is changing (resize / rotate / URL-bar show-hide),
     // browsers fire scroll + resize rapidly: freeze spy work so nothing
@@ -766,9 +838,13 @@
       resizeTimer = setTimeout(() => document.body.classList.remove('is-resizing'), 250);
     }, { passive: true });
 
+    // Seed so the first scroll-spy change always glides (no instant jump)
+    if (!lastActiveChipId) lastActiveChipId = currentCategory;
+
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (document.body.classList.contains('is-resizing')) return;
+      if (isUserSwipingChips) return;
       if (!ticking) {
         window.requestAnimationFrame(() => {
           updateActiveChipOnScroll();
@@ -780,7 +856,9 @@
   }
 
   function updateActiveChipOnScroll() {
+    if (isUserSwipingChips || document.body.classList.contains('is-resizing')) return;
     const sections = document.querySelectorAll('.category-block');
+    if (!sections.length) return;
     let currentId = null;
 
     sections.forEach(sec => {
@@ -790,14 +868,16 @@
       }
     });
 
-    if (currentId) {
-      const activeChip = secondaryChipsContainer.querySelector(`[data-cat-id="${currentId}"]`);
-      if (activeChip && !activeChip.classList.contains('active')) {
-        secondaryChipsContainer.querySelectorAll('.secondary-filter-chip').forEach(b => b.classList.remove('active'));
-        activeChip.classList.add('active');
-        scrollChipIntoView(secondaryChipsContainer, activeChip);
-      }
-    }
+    // No section in the spy band, or same as before: do nothing (kills jitter)
+    if (!currentId || currentId === lastActiveChipId) return;
+    const activeChip = secondaryChipsContainer.querySelector(`[data-cat-id="${currentId}"]`);
+    if (!activeChip) return;
+    lastActiveChipId = currentId;
+    currentCategory = currentId;
+    secondaryChipsContainer.querySelectorAll('.secondary-filter-chip').forEach(b => b.classList.remove('active'));
+    activeChip.classList.add('active');
+    // Premium: glide the newly-active pill to center with a soft pop
+    centerChipPremium(secondaryChipsContainer, activeChip, { force: false, pop: true });
   }
 
 
