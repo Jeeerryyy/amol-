@@ -258,7 +258,7 @@
   }
 
   // Mobile bottom sheet: category browser (FAB, bottom-left)
-  const categoryFab = document.getElementById('category-fab');
+  const categoryToolbarBtn = document.getElementById('category-toolbar-btn');
   const categorySheet = document.getElementById('category-sheet');
   const categoryBackdrop = document.getElementById('category-sheet-backdrop');
   const categorySheetList = document.getElementById('category-sheet-list');
@@ -269,7 +269,7 @@
     if (!categorySheet) return;
     categorySheet.classList.add('open');
     if (categoryBackdrop) categoryBackdrop.classList.add('open');
-    if (categoryFab) categoryFab.setAttribute('aria-expanded', 'true');
+    if (categoryToolbarBtn) categoryToolbarBtn.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
     if (categorySheetClose) categorySheetClose.focus({ preventScroll: true });
   }
@@ -278,9 +278,9 @@
     if (!categorySheet) return;
     categorySheet.classList.remove('open');
     if (categoryBackdrop) categoryBackdrop.classList.remove('open');
-    if (categoryFab) {
-      categoryFab.setAttribute('aria-expanded', 'false');
-      categoryFab.focus({ preventScroll: true });
+    if (categoryToolbarBtn) {
+      categoryToolbarBtn.setAttribute('aria-expanded', 'false');
+      categoryToolbarBtn.focus({ preventScroll: true });
     }
     // Restore page scroll unless the dish lightbox is holding it
     if (!dishModalBackdrop || !dishModalBackdrop.classList.contains('open')) {
@@ -329,7 +329,7 @@
     });
   }
 
-  if (categoryFab) categoryFab.addEventListener('click', openCategorySheet);
+  if (categoryToolbarBtn) categoryToolbarBtn.addEventListener('click', openCategorySheet);
   if (categorySheetClose) categorySheetClose.addEventListener('click', closeCategorySheet);
   if (categoryBackdrop) categoryBackdrop.addEventListener('click', closeCategorySheet);
 

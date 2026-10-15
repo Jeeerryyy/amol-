@@ -2469,33 +2469,36 @@ select:focus-visible,
 /* --------------------------------------------------------------------------
    19. MOBILE CATEGORY SHEET (bottom-left hamburger, phones only)
    -------------------------------------------------------------------------- */
-.cat-fab,
 .cat-sheet-backdrop,
 .cat-sheet { display: none; }
+
+/* Toolbar Categories button (mobile only, swaps in for the dish count) */
+.category-toolbar-btn { display: none; }
 
 @media (max-width: 640px) {
   /* Chips row moves into the sheet on phones */
   .menu-secondary-nav { display: none; }
 
-  .cat-fab {
-    display: flex;
+  /* Toolbar Categories button takes the dish-count spot on phones */
+  .menu-count-display { display: none; }
+  .category-toolbar-btn {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    position: fixed;
-    left: 16px;
-    bottom: 18px;
-    z-index: 70;
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 999px;
     background: var(--color-text-primary);
+    border: 1px solid var(--color-text-primary);
     color: #F4F4EA;
-    border: 1px solid rgba(255, 255, 255, .18);
-    box-shadow: 0 10px 26px rgba(38, 24, 15, .32);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
     cursor: pointer;
-    transition: transform .2s ease;
+    box-shadow: 0 4px 12px rgba(38, 24, 15, .22);
+    white-space: nowrap;
   }
-  .cat-fab:active { transform: scale(.93); }
+  .category-toolbar-btn:active { transform: scale(.96); }
 
   .cat-sheet-backdrop {
     display: block;
