@@ -2665,3 +2665,50 @@ select:focus-visible,
     mask-image: radial-gradient(120% 135% at 50% 50%, #000 58%, transparent 100%);
   }
 }
+
+/* --------------------------------------------------------------------------
+   22. PROFESSIONAL SKELETON LOADING (menu grid shimmer)
+   -------------------------------------------------------------------------- */
+.skel-card {
+  background: #FFFFFF;
+  border: 1px solid #E8E1D7;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.skel-thumb {
+  aspect-ratio: 4 / 3;
+  background: #EFEAE2;
+  position: relative;
+  overflow: hidden;
+}
+.skel-line {
+  height: 12px;
+  margin: 12px 14px 0;
+  border-radius: 6px;
+  background: #EFEAE2;
+  position: relative;
+  overflow: hidden;
+}
+.skel-line.short { width: 45%; margin-bottom: 14px; }
+.skel-thumb::after,
+.skel-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .75) 50%, transparent 70%);
+  animation: skel-sweep 1.3s infinite;
+}
+@keyframes skel-sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+@media (max-width: 640px) {
+  .skel-card { border-radius: 8px; }
+  .skel-thumb { aspect-ratio: 1 / 1; }
+  .skel-line { margin: 7px 7px 0; }
+  .skel-line.short { margin-bottom: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skel-thumb::after,
+  .skel-line::after { animation: none; }
+}
