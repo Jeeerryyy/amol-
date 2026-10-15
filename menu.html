@@ -68,21 +68,18 @@
       </div>
     </div>
 
+  </section>
+
     <!-- Secondary Category Filter Chips (Pill Shaped) -->
     <div class="menu-secondary-nav" aria-label="Specific category filters">
       <div id="secondary-category-chips" class="secondary-chips-scroll">
         <!-- Rendered dynamically by menu.js using real categories and exact counts -->
       </div>
     </div>
-  </section>
 
   <!-- Menu Count & Accessible Sorting Toolbar -->
   <div class="menu-toolbar-section">
     <div class="container menu-toolbar-container">
-      <button id="category-toolbar-btn" class="category-toolbar-btn" type="button" aria-label="Browse categories" aria-expanded="false" aria-controls="category-sheet">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
-        <span>Categories</span>
-      </button>
       <div class="menu-count-display">
         <svg class="dish-count-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B78324" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M12 4v2"/>
@@ -192,21 +189,6 @@
           <span>Prepared in 100% pure vegetarian kitchen. Please inform our captain for Jain preparation.</span>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Mobile category browser: toolbar button lifts a sheet -->
-  <div id="category-sheet-backdrop" class="cat-sheet-backdrop"></div>
-  <div id="category-sheet" class="cat-sheet" role="dialog" aria-modal="true" aria-label="Browse categories">
-    <div class="cat-sheet-header">
-      <div>
-        <strong class="cat-sheet-title">Browse Categories</strong>
-        <span class="cat-sheet-sub" id="category-sheet-count"></span>
-      </div>
-      <button id="category-sheet-close" class="cat-sheet-close" type="button" aria-label="Close categories">&times;</button>
-    </div>
-    <div id="category-sheet-list" class="cat-sheet-list">
-      <!-- Rendered dynamically by menu.js -->
     </div>
   </div>
 

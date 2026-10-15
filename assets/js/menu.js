@@ -54,15 +54,15 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Scroll a chip/button horizontally inside its own scroller ONLY.
-  // Never touches vertical page scroll (unlike scrollIntoView, which
-  // browsers may apply to every scrollable ancestor and fight the user).
+  // Instant (never smooth): smooth animations retrigger on every scroll /
+  // resize frame and visibly fight the user, shaking the whole menu.
   function scrollChipIntoView(container, el) {
     if (!container || !el) return;
     const cRect = container.getBoundingClientRect();
     const eRect = el.getBoundingClientRect();
     const delta = (eRect.left + eRect.width / 2) - (cRect.left + cRect.width / 2);
     if (Math.abs(delta) > 4) {
-      container.scrollBy({ left: delta, behavior: reduceMotion ? 'auto' : 'smooth' });
+      container.scrollLeft += delta;
     }
   }
 
@@ -218,7 +218,6 @@
       });
     });
 
-    renderCategorySheet();
   }
 
   // Single shared category selection (chips row + mobile bottom sheet)
@@ -232,109 +231,29 @@
       });
     }
 
-    // Update active class in mobile sheet
-    if (categorySheetList) {
-      categorySheetList.querySelectorAll('.cat-sheet-item').forEach(b => {
-        b.classList.toggle('active', b.getAttribute('data-cat-id') === catId);
-      });
-    }
-
     // Smooth scroll to category section or top without removing other categories from DOM
     if (catId === 'all') {
       const menuSection = document.getElementById('menu-container');
       if (menuSection) {
-        const yOffset = -130;
+        const yOffset = window.innerWidth <= 640 ? -80 : -130;
         const y = menuSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: Math.max(0, y), behavior: reduceMotion ? 'auto' : 'smooth' });
       }
     } else {
       const section = document.getElementById(`section-${catId}`);
       if (section) {
-        const yOffset = -130;
+        const yOffset = window.innerWidth <= 640 ? -80 : -130;
         const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: Math.max(0, y), behavior: reduceMotion ? 'auto' : 'smooth' });
       }
     }
   }
 
-  // Mobile bottom sheet: category browser (FAB, bottom-left)
-  const categoryToolbarBtn = document.getElementById('category-toolbar-btn');
-  const categorySheet = document.getElementById('category-sheet');
-  const categoryBackdrop = document.getElementById('category-sheet-backdrop');
-  const categorySheetList = document.getElementById('category-sheet-list');
-  const categorySheetClose = document.getElementById('category-sheet-close');
-  const categorySheetCount = document.getElementById('category-sheet-count');
 
-  function openCategorySheet() {
-    if (!categorySheet) return;
-    categorySheet.classList.add('open');
-    if (categoryBackdrop) categoryBackdrop.classList.add('open');
-    if (categoryToolbarBtn) categoryToolbarBtn.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-    if (categorySheetClose) categorySheetClose.focus({ preventScroll: true });
-  }
-
-  function closeCategorySheet() {
-    if (!categorySheet) return;
-    categorySheet.classList.remove('open');
-    if (categoryBackdrop) categoryBackdrop.classList.remove('open');
-    if (categoryToolbarBtn) {
-      categoryToolbarBtn.setAttribute('aria-expanded', 'false');
-      categoryToolbarBtn.focus({ preventScroll: true });
-    }
-    // Restore page scroll unless the dish lightbox is holding it
-    if (!dishModalBackdrop || !dishModalBackdrop.classList.contains('open')) {
-      document.body.style.overflow = '';
-    }
-  }
-
-  function renderCategorySheet() {
-    if (!categorySheetList) return;
-
-    let totalAllCount = 0;
-    const catCounts = [];
-    menuData.categories.forEach(cat => {
-      const matchingCount = cat.items.filter(item => itemMatchesFilter(item, cat)).length;
-      totalAllCount += matchingCount;
-      catCounts.push({ id: cat.id, name: cat.name, count: matchingCount });
-    });
-
-    if (categorySheetCount) {
-      categorySheetCount.textContent = totalAllCount + ' dishes';
-    }
-
-    let html = `
-      <button class="cat-sheet-item ${currentCategory === 'all' ? 'active' : ''}" data-cat-id="all" type="button">
-        <span class="cat-sheet-name">All Categories</span>
-        <span class="chip-count-badge">${totalAllCount}</span>
-      </button>
-    `;
-    catCounts.forEach(cat => {
-      if (cat.count > 0 || currentCategory === cat.id) {
-        html += `
-          <button class="cat-sheet-item ${currentCategory === cat.id ? 'active' : ''}" data-cat-id="${cat.id}" type="button">
-            <span class="cat-sheet-name">${cat.name}</span>
-            <span class="chip-count-badge">${cat.count}</span>
-          </button>
-        `;
-      }
-    });
-    categorySheetList.innerHTML = html;
-
-    categorySheetList.querySelectorAll('.cat-sheet-item').forEach(btn => {
-      btn.addEventListener('click', () => {
-        selectCategory(btn.getAttribute('data-cat-id'));
-        closeCategorySheet();
-      });
-    });
-  }
-
-  if (categoryToolbarBtn) categoryToolbarBtn.addEventListener('click', openCategorySheet);
-  if (categorySheetClose) categorySheetClose.addEventListener('click', closeCategorySheet);
-  if (categoryBackdrop) categoryBackdrop.addEventListener('click', closeCategorySheet);
 
   // Filter and Render Menu Items (chunked over frames: holds 60fps scroll)
   let renderSeq = 0;
+  let bootDone = false; // one-time 1s blur intro on menu open
   const RENDER_CHUNK = 6; // category sections painted per frame
 
   function bindDishCards(root) {
@@ -404,6 +323,8 @@
     }
 
     if (totalVisible === 0) {
+      bootDone = true;
+      menuContainer.classList.remove('menu-booting');
       menuContainer.innerHTML = `
         <div style="text-align: center; padding: 4.5rem 1rem; color: #746D66;">
           <div style="font-size: 2.4rem; margin-bottom: 0.75rem;">🌿</div>
@@ -437,6 +358,35 @@
           renderMenu();
         });
       }
+      return;
+    }
+
+    // First-ever open: blur glides IN over the skeletons, dishes drip in
+    // underneath, then focus glides OUT. Later renders stay instant.
+    const boot = !bootDone && !reduceMotion;
+    if (boot) {
+      menuContainer.classList.add('menu-booting');
+      let i = 0;
+      const drip = () => {
+        if (mySeq !== renderSeq) return;
+        // Fewer, bigger inserts = fewer layout passes mid-animation
+        menuContainer.insertAdjacentHTML('beforeend', sections.slice(i, i + 8).join(''));
+        bindDishCards(menuContainer);
+        i += 8;
+        if (i < sections.length) setTimeout(drip, 140);
+        else playCardEntrance(totalVisible);
+      };
+      setTimeout(() => {
+        if (mySeq !== renderSeq) return;
+        menuContainer.innerHTML = '';
+        void menuContainer.offsetWidth;
+        setTimeout(drip, 120);
+      }, 450);
+      setTimeout(() => {
+        if (mySeq !== renderSeq) return;
+        bootDone = true;
+        menuContainer.classList.remove('menu-booting');
+      }, 1250);
       return;
     }
 
@@ -783,8 +733,6 @@
         } else if (e.key === 'ArrowRight') {
           showModalMedia(currentModalMediaIndex + 1);
         }
-      } else if (e.key === 'Escape' && categorySheet && categorySheet.classList.contains('open')) {
-        closeCategorySheet();
       }
     });
 
@@ -808,8 +756,19 @@
   function initScrollSpy() {
     if (!secondaryChipsContainer) return;
 
+    // While the viewport is changing (resize / rotate / URL-bar show-hide),
+    // browsers fire scroll + resize rapidly: freeze spy work so nothing
+    // animates mid-reflow and the menu can't shake.
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      document.body.classList.add('is-resizing');
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => document.body.classList.remove('is-resizing'), 250);
+    }, { passive: true });
+
     let ticking = false;
     window.addEventListener('scroll', () => {
+      if (document.body.classList.contains('is-resizing')) return;
       if (!ticking) {
         window.requestAnimationFrame(() => {
           updateActiveChipOnScroll();
@@ -837,11 +796,6 @@
         secondaryChipsContainer.querySelectorAll('.secondary-filter-chip').forEach(b => b.classList.remove('active'));
         activeChip.classList.add('active');
         scrollChipIntoView(secondaryChipsContainer, activeChip);
-      }
-      if (categorySheetList) {
-        categorySheetList.querySelectorAll('.cat-sheet-item').forEach(b => {
-          b.classList.toggle('active', b.getAttribute('data-cat-id') === currentId);
-        });
       }
     }
   }
