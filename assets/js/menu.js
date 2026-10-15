@@ -333,17 +333,51 @@
   if (categorySheetClose) categorySheetClose.addEventListener('click', closeCategorySheet);
   if (categoryBackdrop) categoryBackdrop.addEventListener('click', closeCategorySheet);
 
-  // Filter and Render Menu Items
+  // Filter and Render Menu Items (chunked over frames: holds 60fps scroll)
+  let renderSeq = 0;
+  const RENDER_CHUNK = 6; // category sections painted per frame
+
+  function bindDishCards(root) {
+    root.querySelectorAll('.dish-card:not([data-bound])').forEach(card => {
+      card.setAttribute('data-bound', '1');
+      card.addEventListener('click', () => {
+        const dish = findDishById(card.getAttribute('data-item-id'));
+        if (dish) {
+          openDishPreviewModal(dish);
+        }
+      });
+
+      // Keyboard accessibility (Enter or Space to open modal)
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const dish = findDishById(card.getAttribute('data-item-id'));
+          if (dish) {
+            openDishPreviewModal(dish);
+          }
+        }
+      });
+    });
+  }
+
+  function playCardEntrance(count) {
+    // Mass renders paint instantly; animate only small result sets
+    if (!window.gsap || count > 60) return;
+    window.gsap.fromTo('.dish-card',
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.24, stagger: 0.012, ease: 'power2.out', overwrite: true }
+    );
+  }
+
   function renderMenu() {
     if (!menuContainer) return;
+    const mySeq = ++renderSeq; // stale chunk pumps abort themselves
 
+    const sections = [];
     let totalVisible = 0;
-    let html = '';
 
     // Always keep all matching categories in DOM so user can scroll down through all menus continuously!
-    const categoriesToRender = menuData.categories;
-
-    categoriesToRender.forEach(cat => {
+    menuData.categories.forEach(cat => {
       const visibleItems = cat.items.filter(item => itemMatchesFilter(item, cat));
 
       if (visibleItems.length === 0) return;
@@ -351,7 +385,7 @@
 
       const sortedItems = sortItems(visibleItems);
 
-      html += `
+      sections.push(`
         <section id="section-${cat.id}" class="category-block" style="margin-bottom: 3rem;">
           <div class="category-section-title-wrap">
             <h2 class="category-section-title">${cat.name}</h2>
@@ -361,11 +395,16 @@
             ${sortedItems.map(item => createDishCardHTML(item)).join('')}
           </div>
         </section>
-      `;
+      `);
     });
 
+    // Update real dish count in toolbar
+    if (dishCountNum) {
+      dishCountNum.textContent = totalVisible;
+    }
+
     if (totalVisible === 0) {
-      html = `
+      menuContainer.innerHTML = `
         <div style="text-align: center; padding: 4.5rem 1rem; color: #746D66;">
           <div style="font-size: 2.4rem; margin-bottom: 0.75rem;">🌿</div>
           <h3 class="font-serif" style="font-size: 1.5rem; color: #2B1B13; font-weight: 600;">No dishes found</h3>
@@ -377,66 +416,42 @@
           </button>
         </div>
       `;
-    }
 
-    menuContainer.innerHTML = html;
+      // Reset button in empty state
+      const resetBtn = document.getElementById('reset-filters-btn');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (searchInput) searchInput.value = '';
+          searchQuery = '';
+          activePrimaryFilter = 'all';
+          currentCategory = 'all';
+          currentSort = 'default';
+          if (menuSortSelect) menuSortSelect.value = 'default';
+          if (searchClearBtn) searchClearBtn.style.display = 'none';
 
-    // Update real dish count in toolbar
-    if (dishCountNum) {
-      dishCountNum.textContent = totalVisible;
-    }
+          primaryCatButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-primary-filter') === 'all');
+          });
 
-    // Attach card click handlers for Dish Preview Lightbox
-    menuContainer.querySelectorAll('.dish-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const itemId = card.getAttribute('data-item-id');
-        const dish = findDishById(itemId);
-        if (dish) {
-          openDishPreviewModal(dish);
-        }
-      });
-
-      // Keyboard accessibility (Enter or Space to open modal)
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const itemId = card.getAttribute('data-item-id');
-          const dish = findDishById(itemId);
-          if (dish) {
-            openDishPreviewModal(dish);
-          }
-        }
-      });
-    });
-
-    // Reset button in empty state
-    const resetBtn = document.getElementById('reset-filters-btn');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        if (searchInput) searchInput.value = '';
-        searchQuery = '';
-        activePrimaryFilter = 'all';
-        currentCategory = 'all';
-        currentSort = 'default';
-        if (menuSortSelect) menuSortSelect.value = 'default';
-        if (searchClearBtn) searchClearBtn.style.display = 'none';
-
-        primaryCatButtons.forEach(btn => {
-          btn.classList.toggle('active', btn.getAttribute('data-primary-filter') === 'all');
+          renderSecondaryChips();
+          renderMenu();
         });
-
-        renderSecondaryChips();
-        renderMenu();
-      });
+      }
+      return;
     }
 
-    // Subtle GSAP entrance if available
-    if (window.gsap) {
-      window.gsap.fromTo('.dish-card',
-        { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.24, stagger: 0.012, ease: 'power2.out' }
-      );
-    }
+    menuContainer.innerHTML = '';
+    let i = 0;
+    const pump = () => {
+      if (mySeq !== renderSeq) return;
+      menuContainer.insertAdjacentHTML('beforeend', sections.slice(i, i + RENDER_CHUNK).join(''));
+      bindDishCards(menuContainer);
+      i += RENDER_CHUNK;
+      if (i < sections.length) requestAnimationFrame(pump);
+      else playCardEntrance(totalVisible);
+    };
+    // Double rAF lets the skeleton paint first, then streams real content
+    requestAnimationFrame(() => requestAnimationFrame(pump));
   }
 
   // Create HTML for a single dish card (Clean Minimal Editorial Style)
@@ -447,7 +462,7 @@
     return `
       <div class="dish-card" data-item-id="${item.id}" role="button" tabindex="0" aria-label="${item.name}, ₹${item.price}">
         <div class="dish-thumb-box">
-          <img src="${imgSrc}" alt="${item.name}" class="dish-thumb-img" loading="lazy" onerror="this.src='${fallbackImage}'">
+          <img src="${imgSrc}" alt="${item.name}" class="dish-thumb-img" loading="lazy" decoding="async" onerror="this.src='${fallbackImage}'">
           <div class="dish-badge-top-left">
             <span class="veg-indicator" title="100% Pure Vegetarian">
               <span class="veg-indicator-dot"></span>
@@ -615,7 +630,7 @@
     if (modalGalleryThumbs) {
       modalGalleryThumbs.innerHTML = currentModalMediaList.map((m, idx) => `
         <button class="modal-thumb-btn ${idx === 0 ? 'active' : ''}" type="button" data-media-idx="${idx}" aria-label="${m.label}">
-          <img src="${m.thumb}" alt="${m.label}" class="modal-thumb-img" loading="lazy">
+          <img src="${m.thumb}" alt="${m.label}" class="modal-thumb-img" loading="lazy" decoding="async">
           ${m.type === 'video' ? '<span class="modal-thumb-video-badge">▶</span>' : ''}
         </button>
       `).join('');
