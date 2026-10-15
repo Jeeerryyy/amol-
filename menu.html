@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Digital Menu | Amol Veg Restro · 100% Pure Vegetarian Solapur</title>
+  <meta name="description" content="Browse the complete digital paper menu of Amol Veg Restro in Solapur. 270+ pure vegetarian dishes with authentic prices and mouthwatering pictures. Starters, Tandoor, Paneer, Gravies, Sandwiches, and Shakes.">
+  <meta name="keywords" content="Amol Veg Restro, Solapur restaurant menu, pure veg menu Solapur, digital paper menu, paneer butter masala price, amol restaurant dishes">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="./assets/images/amol_logo.jpg">
+  
+  <!-- Villa Bliss Fonts & CSS Stylesheet -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+  
+  <!-- GSAP Animation Library CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body class="menu-page">
+  <!-- Hero Background Section with Unified Top Brand & Details, Centered Search, Primary Categories, and Secondary Chips -->
+  <section class="menu-hero-section">
+    <!-- Top Header Bar inside Hero Canvas: Brand Identity on Left, Restaurant Details on Right -->
+    <header class="menu-site-header menu-hero-header-bar">
+      <a href="./index.html" class="menu-brand-identity" title="Amol Veg Restro - Pure Vegetarian Heritage">
+        <img src="./assets/images/amol_brand_mark.png" alt="Amol Veg Restro Logo" class="menu-brand-logo" onerror="this.onerror=null;this.src='./assets/images/amol_logo.jpg';">
+        <div class="menu-brand-text">
+          <span class="menu-brand-name">Amol Veg Restro</span>
+          <span class="menu-brand-tagline">100% PURE VEGETARIAN</span>
+        </div>
+      </a>
+
+      <!-- 4 Restaurant Details in a Single Horizontal Row with Dividers -->
+      <div class="menu-details-row" role="region" aria-label="Restaurant information">
+        <div class="menu-detail-item">
+          <svg class="detail-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B78324" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Old Pune Naka, Solapur</span>
+        </div>
+        <span class="detail-divider" aria-hidden="true">|</span>
+        <div class="menu-detail-item">
+          <svg class="detail-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B78324" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>11:00 AM – 11:00 PM</span>
+        </div>
+        <span class="detail-divider" aria-hidden="true">|</span>
+        <div class="menu-detail-item">
+          <svg class="detail-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B78324" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93 4.93 19.07M9 3l3 3 3-3M3 9l3 3-3 3M15 21l-3-3-3 3M21 15l-3-3 3-3"/></svg>
+          <span>Air-Conditioned Dining</span>
+        </div>
+        <span class="detail-divider" aria-hidden="true">|</span>
+        <div class="menu-detail-item">
+          <svg class="detail-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B78324" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+          <span>Pure Vegetarian &amp; Jain Options</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Centered Pill-Shaped Search Bar -->
+    <div class="menu-search-container">
+      <div class="menu-search-wrapper">
+        <svg class="menu-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B78324" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="search-input" class="menu-search-input" placeholder="Search dishes, ingredients or categories..." autocomplete="off" aria-label="Search dishes, ingredients or categories">
+        <button id="search-clear-btn" class="menu-search-clear-btn" type="button" title="Clear search" aria-label="Clear search">&times;</button>
+      </div>
+    </div>
+
+    <!-- Primary Category Navigation (8 categories with icon stacked above text) -->
+    <nav class="menu-primary-nav" aria-label="Primary menu categories">
+      <div id="primary-category-bar" class="menu-primary-categories">
+        <button class="primary-cat-btn active" data-primary-filter="all" type="button">
+          <svg class="cat-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 2v20M18 2c-1.5 0-3 1.5-3 5v5h3M6 2v7a3 3 0 0 0 6 0V2M9 12v10"/>
+          </svg>
+          <span>All Dishes</span>
+          <span class="active-indicator-bar" aria-hidden="true"></span>
+        </button>
+        <button class="primary-cat-btn" data-primary-filter="bestseller" type="button">
+          <svg class="cat-icon popular-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          <span>Popular</span>
+          <span class="active-indicator-bar" aria-hidden="true"></span>
+        </button>
+        <button class="primary-cat-btn" data-primary-filter="spicy" type="button">
+          <svg class="cat-icon spicy-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17.5 5.5c-2-1.5-4-1.2-5.5.5l-1.2 1.4C8 10.2 6.5 13.8 7.2 17c.6 2.8 3.2 3.6 5.3 2.2 2.8-1.8 4.7-5.5 5.2-9 .4-2.2-.2-3.7-.2-4.7z"/>
+            <path d="m14 4 2-2"/>
+          </svg>
+          <span>Spicy Specials</span>
+          <span class="active-indicator-bar" aria-hidden="true"></span>
+        </button>
+        <button class="primary-cat-btn" data-primary-filter="paneer" type="button">
+          <svg class="cat-icon paneer-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m21 7-9-5-9 5 9 5 9-5z"/>
+            <path d="m3 7 0 10 9 5 0-10"/>
+            <path d="m21 7 0 10-9 5"/>
+          </svg>
+          <span>Paneer Specials</span>
+          <span class="active-indicator-bar" aria-hidden="true"></span>
+        </button>
+        <button class="primary-cat-btn" data-primary-filter="starters" type="button">
+          <svg class="cat-icon soup-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 11h16a1 1 0 0 1 1 1c0 5-4 8.5-9 8.5S3 17 3 12a1 1 0 0 1 1-1z"/>
+            <path d="M2 21h20"/>
+            <path d="M8 4c0 1.5 1 2 1 3"/>
+            <path d="M12 2c0 1.5 1 2 1 4"/>
+            <path d="M16 4c0 1.5 1 2 1 3"/>
+          </svg>
+          <span>Starters &amp; Soups</span>
+          <span class="active-indicator-bar" aria-hidden="true"></span>
+        </button>
+        <button class="primary-cat-btn" data-primary-filter="main" type="button">
+          <svg class="cat-icon crown-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 4v2"/>
+            <path d="M4 16c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+            <line x1="2" y1="16" x2="22" y2="16"/>
+            <path d="M5 19h14"/>
+          </svg>
+          <span>Royal Punjabi Gravies</span>
+          <span class="active-indicator-bar" aria-hidden="true"></span>
+        </button>
+        <button class="primary-cat-btn" data-primary-filter="fastfood" type="button">
+          <svg class="cat-icon pizza-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2a14.8 14.8 0 0 1 8.5 2.7c.3.2.4.7.1 1L12.6 21.4a.8.8 0 0 1-1.2 0L3.4 5.7c-.3-.3-.2-.8.1-1A14.8 14.8 0 0 1 12 2z"/>
+            <circle cx="10" cy="8.5" r="1.1" fill="currentColor"/>
+            <circle cx="14" cy="12.5" r="1.1" fill="currentColor"/>
+            <circle cx="10.5" cy="15" r="0.9" fill="currentColor"/>
+          </svg>
+          <span>Sandwiches &amp; Pizzas</span>
+          <span class="active-indicator-bar" aria-hidden="true"></span>
+        </button>
+        <button class="primary-cat-btn" data-primary-filter="drinks" type="button">
+          <svg class="cat-icon shake-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 8h10l-1.3 12.2a1.5 1.5 0 0 1-1.5 1.3h-4.4a1.5 1.5 0 0 1-1.5-1.3L7 8z"/>
+            <path d="M6 8h12a1 1 0 0 0 1-1 3 3 0 0 0-3-3H8a3 3 0 0 0-3 3 1 1 0 0 0 1 1z"/>
+            <line x1="15" y1="2" x2="11.5" y2="10"/>
+          </svg>
+          <span>Shakes &amp; Cold Coffee</span>
+          <span class="active-indicator-bar" aria-hidden="true"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Secondary Category Filter Chips (Pill Shaped) -->
+    <div class="menu-secondary-nav" aria-label="Specific category filters">
+      <div id="secondary-category-chips" class="secondary-chips-scroll">
+        <!-- Rendered dynamically by menu.js using real categories and exact counts -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Count & Accessible Sorting Toolbar -->
+  <div class="menu-toolbar-section">
+    <div class="container menu-toolbar-container">
+      <div class="menu-count-display">
+        <svg class="dish-count-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B78324" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 4v2"/>
+          <path d="M4 16c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+          <line x1="2" y1="16" x2="22" y2="16"/>
+          <path d="M5 19h14"/>
+        </svg>
+        <span id="dish-count-num" class="dish-count-number">279</span>
+        <span class="dish-count-label">dishes</span>
+      </div>
+
+      <div class="menu-sort-wrapper">
+        <svg class="sort-icon-prefix" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B78324" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m3 8 4-4 4 4"/>
+          <path d="M7 4v16"/>
+          <path d="m21 16-4 4-4-4"/>
+          <path d="M17 20V4"/>
+        </svg>
+        <label for="menu-sort-select" class="menu-sort-label">Sort by:</label>
+        <div class="menu-select-frame">
+          <select id="menu-sort-select" class="menu-sort-select" aria-label="Sort dishes">
+            <option value="default">Default Order</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="popular">Popular First</option>
+            <option value="name">Name (A–Z)</option>
+          </select>
+          <svg class="select-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Cards Grid Container -->
+  <main class="container" style="padding-top: 1.5rem; padding-bottom: 5rem;">
+    <div id="menu-container">
+      <!-- Rendered dynamically by menu.js -->
+    </div>
+  </main>
+
+  <!-- Dish Preview Lightbox Modal (View Only - Multiple Photos & Video Reel) -->
+  <div id="dish-modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-dish-title">
+    <div id="dish-modal-dialog" class="modal-dialog">
+      <button id="dish-modal-close" class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      
+      <!-- Multi-media Stage (Images + Video Player) -->
+      <div class="modal-media-stage-wrap">
+        <div id="modal-media-stage" class="modal-media-stage">
+          <img id="modal-dish-img" src="" alt="Dish preview" class="modal-stage-img">
+          
+          <video id="modal-dish-video" class="modal-stage-video" controls playsinline loop preload="metadata" style="display: none;">
+            <source id="modal-video-source" src="" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+
+          <!-- Top-left media counter -->
+          <div class="modal-media-counter-pill">
+            <span id="modal-media-counter">1 / 4</span>
+          </div>
+
+          <!-- Top-right media tag -->
+          <div id="modal-media-type-badge" class="modal-media-type-pill">
+            <span>📸 Photo</span>
+          </div>
+
+          <!-- Prev/Next Navigation Controls -->
+          <button id="modal-media-prev" class="modal-media-arrow arrow-prev" type="button" aria-label="Previous photo or video">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button id="modal-media-next" class="modal-media-arrow arrow-next" type="button" aria-label="Next photo or video">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <!-- Thumbnails Strip (Multiple Images & Video) -->
+        <div id="modal-gallery-thumbs" class="modal-gallery-thumbs" role="tablist" aria-label="Dish media gallery">
+          <!-- Populated dynamically: 3 photos + 1 video placeholder -->
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div id="modal-dish-badges" class="modal-meta-row">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div class="modal-header-row">
+          <h2 id="modal-dish-title" class="modal-title"></h2>
+          <span id="modal-dish-price" class="modal-price"></span>
+        </div>
+
+        <div id="modal-dish-category" class="modal-category-label"></div>
+
+        <p id="modal-dish-desc" class="modal-description"></p>
+
+        <div class="modal-dietary-notice">
+          <span>🌱</span>
+          <span>Prepared in 100% pure vegetarian kitchen. Please inform our captain for Jain preparation.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Back to Top Button -->
+  <button id="back-to-top-btn" class="back-to-top-btn" title="Back to top" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+            <img src="./assets/images/amol_logo.jpg" alt="Amol Veg Restro" style="height: 44px; border-radius: var(--radius-sm);">
+            <div>
+              <div class="font-serif" style="font-size: 1.45rem; color: #FFFFFF; font-weight: 700;">Amol Veg Restro</div>
+              <div style="font-size: 0.72rem; color: var(--color-gold-accent); letter-spacing: 0.16em; text-transform: uppercase;">100% Pure Vegetarian</div>
+            </div>
+          </div>
+          <p style="font-size: 0.88rem; color: rgba(255, 255, 255, 0.75); line-height: 1.6;">
+            Solapur's beloved pure vegetarian kitchen. Offering rich Punjabi curries, clay oven tandoor, wholesome grilled sandwiches, and delicious refreshments.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="./index.html">Main Website</a></li>
+            <li><a href="./menu.html">Digital Menu (All 270+ Dishes)</a></li>
+            <li><a href="./index.html#story">Our Story</a></li>
+            <li><a href="./index.html#specialties">Culinary Heritage</a></li>
+            <li><a href="./index.html#location">Location & Timings</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Popular Categories</h4>
+          <ul class="footer-links-list">
+            <li><a href="./menu.html?cat=cat_17">Paneer Special Gravies</a></li>
+            <li><a href="./menu.html?cat=cat_1">Grilled Sandwiches</a></li>
+            <li><a href="./menu.html?cat=cat_11">Tandoori Starters</a></li>
+            <li><a href="./menu.html?cat=cat_10">Chinese Delicacies</a></li>
+            <li><a href="./menu.html?cat=cat_5">Cold Coffee & Shakes</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Address & Hours</h4>
+          <ul class="footer-links-list">
+            <li>Old Pune Naka, Near Bus Stand</li>
+            <li>Solapur, Maharashtra 413001</li>
+            <li><a href="tel:7218860775">Phone: +91 72188 60775</a></li>
+            <li>Open Daily: 11:00 AM – 11:00 PM</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <div>
+          © 2026 Amol Veg Restro · Pure Vegetarian Dining · Solapur
+        </div>
+        <div style="display: flex; gap: 14px; align-items: center;">
+          <a href="./index.html" style="color: var(--color-gold-accent);">Homepage</a>
+          <span>·</span>
+          <span style="color: #8BE3B0;">🌱 100% Pure Veg</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./js/menu-data.js"></script>
+  <script src="./assets/js/menu.js"></script>
+</body>
+</html>

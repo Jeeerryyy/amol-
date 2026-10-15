@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Amol Veg Restro | 100% Pure Vegetarian Restaurant in Solapur</title>
+  <meta name="description" content="Welcome to Amol Veg Restro, Solapur's premier 100% pure vegetarian destination since 1990. Authentic North Indian gravies, Tandoori starters, Sandwiches, and our complete Digital Paper Menu.">
+  <meta name="keywords" content="Amol Veg Restro, Solapur pure veg restaurant, best veg food in Solapur, paneer butter masala, digital menu, contactless paper menu">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="./assets/images/amol_logo.jpg">
+  
+  <!-- Google Fonts for Editorial Luxury -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+  
+  <!-- GSAP Animation Library CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- Cinematic curtain reveal (parts on page load) -->
+  <div class="curtain curtain-left" aria-hidden="true"></div>
+  <div class="curtain curtain-right" aria-hidden="true"></div>
+
+  <!-- Professional Minimal Hero (Amol Veg Restro storefront) -->
+  <section class="hero" id="home" aria-labelledby="hero-title">
+    <img class="hero-media" src="./assets/images/hero_storefront.jpg" alt="Amol Veg Restro storefront in Solapur" fetchpriority="high">
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="hero-title-wrap">
+      <p class="hero-kicker">100% Pure Vegetarian &bull; Solapur &bull; Since 1990</p>
+      <h1 id="hero-title">Amol Veg Restro</h1>
+      <p class="hero-sub">Solapur&rsquo;s trusted pure-veg kitchen &mdash; 270+ dishes, honest prices, one simple digital menu.</p>
+      <div class="hero-cta">
+        <a href="./menu.html" class="hero-btn-primary">
+          <span>View Digital Menu</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
+        <a href="#location" class="hero-btn-ghost">Find Us &middot; 11 AM &ndash; 11 PM</a>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true">
+      <span class="mouse"></span>
+      <span>Scroll down</span>
+    </div>
+  </section>
+
+  <!-- Minimal Sticky Navigation (cream glass, circular brand mark) -->
+  <div class="nav-dock">
+    <nav class="navbar" aria-label="Main navigation">
+      <div class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="#story">Our Story</a>
+        <a href="#specialties">Specialties</a>
+        <a href="#location">Visit Us</a>
+      </div>
+
+      <a class="brand" href="./index.html" aria-label="Amol Veg Restro home">
+        <img src="./assets/images/amol_brand_mark.png" alt="Amol Veg Restro logo">
+      </a>
+
+      <a class="menu-button" href="./menu.html">
+        View Menu
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Infinite marquee strip (speed reacts to scroll) -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>100% Pure Vegetarian</span><i>✦</i><span>Since 1990</span><i>✦</i><span>270+ Dishes</span><i>✦</i><span>Solapur</span><i>✦</i><span>Farm-Fresh Paneer</span><i>✦</i><span>Tandoor &amp; Gravies</span><i>✦</i>
+      <span>100% Pure Vegetarian</span><i>✦</i><span>Since 1990</span><i>✦</i><span>270+ Dishes</span><i>✦</i><span>Solapur</span><i>✦</i><span>Farm-Fresh Paneer</span><i>✦</i><span>Tandoor &amp; Gravies</span><i>✦</i>
+    </div>
+  </div>
+
+  <!-- Curated Signature Delights (Interactive Tabs) -->
+  <section id="specialties" style="padding: clamp(3.5rem, 6vw, 5.5rem) 0; background-color: var(--color-canvas-subtle); border-top: 1px solid var(--color-border-subtle); border-bottom: 1px solid var(--color-border-subtle);">
+    <div class="container">
+      <div style="text-align: center; max-width: 640px; margin: 0 auto 2.5rem auto;">
+        <span class="subheading-label">Culinary Signatures</span>
+        <h2 class="heading-section" style="margin-top: 6px;">
+          Celebrated Flavors of Amol
+        </h2>
+        <p style="font-size: 1rem; color: var(--color-text-secondary); margin-top: 8px;">
+          Handcrafted using farm-fresh dairy paneer, fresh seasonal vegetables, and authentic fragrant Indian spices.
+        </p>
+
+        <!-- Category Tabs -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 1.5rem;">
+          <button class="specialty-tab-btn active" data-tab="popular" style="padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 600; background: var(--color-text-primary); color: #FFFFFF; border: 1px solid var(--color-text-primary); transition: all var(--transition-fast);">
+            Popular Favorites
+          </button>
+          <button class="specialty-tab-btn" data-tab="starters" style="padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 600; background: var(--color-surface); color: var(--color-text-secondary); border: 1px solid var(--color-border-subtle); transition: all var(--transition-fast);">
+            Sizzling Starters
+          </button>
+          <button class="specialty-tab-btn" data-tab="mains" style="padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 600; background: var(--color-surface); color: var(--color-text-secondary); border: 1px solid var(--color-border-subtle); transition: all var(--transition-fast);">
+            Royal Punjabi Gravies
+          </button>
+          <button class="specialty-tab-btn" data-tab="desserts" style="padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 600; background: var(--color-surface); color: var(--color-text-secondary); border: 1px solid var(--color-border-subtle); transition: all var(--transition-fast);">
+            Shakes & Beverages
+          </button>
+        </div>
+      </div>
+
+      <!-- Dishes Showcase Grid (Populated by main.js) -->
+      <div id="specialties-display-grid" class="menu-grid" style="margin-top: 2rem;">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div style="text-align: center; margin-top: 2.75rem;">
+        <a href="./menu.html" class="btn-secondary" style="font-size: 0.92rem; padding: 12px 24px;">
+          <span>View All 24 Categories in Menu →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact stats (scroll-triggered counters) -->
+  <section class="stats-strip" aria-label="Amol Veg Restro in numbers">
+    <div class="container stats-grid">
+      <div class="stat">
+        <span class="stat-num" data-count="35" data-suffix="+">0+</span>
+        <span class="stat-label">Years of Legacy</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" data-count="270" data-suffix="+">0+</span>
+        <span class="stat-label">Dishes on Menu</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" data-count="24" data-suffix="">0</span>
+        <span class="stat-label">Curated Categories</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" data-count="100" data-suffix="%">0%</span>
+        <span class="stat-label">Pure Vegetarian</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Heritage & Vegetarian Philosophy -->
+  <section id="story" style="padding: clamp(3.5rem, 6vw, 5.5rem) 0; background-color: var(--color-canvas);">
+    <div class="container">
+      <div class="story-grid">
+        <div style="position: relative;">
+          <img src="./assets/images/hero_storefront.jpg" alt="Amol Veg Restro restaurant in Solapur" class="story-card-img" loading="lazy">
+          <div style="position: absolute; bottom: 18px; left: 18px; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(8px); padding: 12px 18px; border-radius: var(--radius-md); border: 1px solid var(--color-border-hairline);">
+            <div style="font-family: var(--font-numeric); font-size: 1.1rem; font-weight: 700; color: var(--color-text-primary);">Established 1990</div>
+            <div style="font-size: 0.75rem; color: var(--color-text-secondary);">35+ Years of Trust & Quality in Solapur</div>
+          </div>
+        </div>
+
+        <div>
+          <span class="subheading-label">Our Heritage</span>
+          <h2 class="heading-section" style="margin: 6px 0 16px 0;">
+            Pure Vegetarian Excellence, Time-Honored Tradition
+          </h2>
+          <p style="font-size: 0.98rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 1.25rem;">
+            Since opening our doors at Old Pune Naka in 1990, Amol Veg Restro has remained dedicated to serving the finest pure vegetarian delicacies in Solapur. We believe dining should be an experience of comfort, celebration, and uncompromising hygiene.
+          </p>
+          <p style="font-size: 0.98rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 1.75rem;">
+            From freshly ground whole spices and slow-cooked tomato-cashew gravies to our crispy golden sandwiches and refreshing thick cold coffees, each dish is prepared with pride in a strictly vegetarian kitchen.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.92rem; color: var(--color-text-primary); font-weight: 500;">
+              <span style="color: var(--color-veg-green); font-size: 1.1rem;">✓</span>
+              <span>100% Pure Vegetarian Kitchen (No meat, eggs, or gelatin)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.92rem; color: var(--color-text-primary); font-weight: 500;">
+              <span style="color: var(--color-veg-green); font-size: 1.1rem;">✓</span>
+              <span>Fresh dairy cottage cheese (Paneer) sourced daily</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.92rem; color: var(--color-veg-green); font-weight: 500;">
+              <span style="color: var(--color-veg-green); font-size: 1.1rem;">✓</span>
+              <span>Jain food preparations prepared separately upon request</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ambience & Dining Hall -->
+  <section id="ambience" style="padding: clamp(3.5rem, 6vw, 5.5rem) 0; background-color: var(--color-canvas-subtle); border-top: 1px solid var(--color-border-subtle);">
+    <div class="container">
+      <div style="text-align: center; max-width: 640px; margin: 0 auto 3rem auto;">
+        <span class="subheading-label">Dining Spaces</span>
+        <h2 class="heading-section" style="margin-top: 6px;">
+          Warm Hospitality, Relaxed Ambience
+        </h2>
+        <p style="font-size: 1rem; color: var(--color-text-secondary); margin-top: 8px;">
+          Whether joining us for a family dinner, quick business lunch, or casual get-together, our dining spaces are crafted for complete comfort.
+        </p>
+      </div>
+
+      <div class="amb-carousel" id="ambience-carousel" aria-roledescription="carousel" aria-label="Dining ambience photo tour">
+        <div class="amb-viewport">
+          <div class="amb-track">
+            <figure class="amb-slide" aria-roledescription="slide" aria-label="1 of 3">
+              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=80" alt="Air-conditioned dining hall with comfortable seating" loading="lazy" onerror="this.onerror=null;this.src='./assets/images/hero_storefront.jpg';">
+              <figcaption class="amb-caption">
+                <strong>A/C Dining Hall</strong>
+                <span>Cool, serene air-conditioned hall with comfortable seating, pleasant lighting, and prompt table service for peaceful family meals.</span>
+              </figcaption>
+            </figure>
+            <figure class="amb-slide" aria-roledescription="slide" aria-label="2 of 3">
+              <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1200&auto=format&fit=crop&q=80" alt="Family and group dining tables" loading="lazy" onerror="this.onerror=null;this.src='./assets/images/hero_storefront.jpg';">
+              <figcaption class="amb-caption">
+                <strong>Family &amp; Group Dining</strong>
+                <span>Spacious group tables designed to accommodate family celebrations, birthday gatherings, and intimate group feasts.</span>
+              </figcaption>
+            </figure>
+            <figure class="amb-slide" aria-roledescription="slide" aria-label="3 of 3">
+              <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200&auto=format&fit=crop&q=80" alt="Hygienic pure vegetarian kitchen preparation" loading="lazy" onerror="this.onerror=null;this.src='./assets/images/hero_storefront.jpg';">
+              <figcaption class="amb-caption">
+                <strong>Hygienic Kitchen Standards</strong>
+                <span>Spotlessly maintained kitchen facilities with filtered drinking water and strict hygiene protocols from preparation to plating.</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+        <button class="amb-arrow amb-prev" type="button" aria-label="Previous photo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button class="amb-arrow amb-next" type="button" aria-label="Next photo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+        <div class="amb-dots" role="tablist" aria-label="Choose photo">
+          <button class="amb-dot active" type="button" role="tab" aria-label="Photo 1" data-slide="0"></button>
+          <button class="amb-dot" type="button" role="tab" aria-label="Photo 2" data-slide="1"></button>
+          <button class="amb-dot" type="button" role="tab" aria-label="Photo 3" data-slide="2"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location & Hours Section -->
+  <section id="location" class="location-strip">
+    <div class="container">
+      <div class="location-grid">
+        <div>
+          <span class="subheading-label">Visit Our Restaurant</span>
+          <h2 class="heading-section" style="margin: 6px 0 16px 0;">
+            Easy to Reach in Solapur
+          </h2>
+          <p style="font-size: 0.98rem; color: var(--color-text-secondary); line-height: 1.65; margin-bottom: 1.5rem;">
+            Conveniently located near Old Pune Naka and the Central Bus Stand, Amol Veg Restro is Solapur's go-to destination for authentic pure vegetarian food.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 2rem;">
+            <div style="display: flex; align-items: flex-start; gap: 12px;">
+              <span style="font-size: 1.2rem; color: var(--color-gold-deep);">📍</span>
+              <div>
+                <strong style="color: var(--color-text-primary); font-size: 0.95rem;">Address:</strong>
+                <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin-top: 2px;">Old Pune Naka, Near Bus Stand, Solapur, Maharashtra 413001</p>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: flex-start; gap: 12px;">
+              <span style="font-size: 1.2rem; color: var(--color-gold-deep);">🕒</span>
+              <div>
+                <strong style="color: var(--color-text-primary); font-size: 0.95rem;">Opening Hours:</strong>
+                <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin-top: 2px;">Monday – Sunday: 11:00 AM – 11:00 PM</p>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: flex-start; gap: 12px;">
+              <span style="font-size: 1.2rem; color: var(--color-gold-deep);">📞</span>
+              <div>
+                <strong style="color: var(--color-text-primary); font-size: 0.95rem;">Telephone:</strong>
+                <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin-top: 2px;">
+                  <a href="tel:7218860775" style="color: var(--color-text-primary); font-weight: 600;">+91 72188 60775</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <a href="./menu.html" class="btn-primary" style="padding: 12px 24px;">
+            <span>Browse Complete Digital Menu →</span>
+          </a>
+        </div>
+
+        <div class="map-wrapper">
+          <iframe 
+            title="Amol Veg Restro Solapur Location Map" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121650.32049929853!2d75.83621455!3d17.65991885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc5db0425310657%3A0x6b86fb6c339a0fa0!2sSolapur%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (Villa Bliss Style) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+            <img src="./assets/images/amol_logo.jpg" alt="Amol Veg Restro" style="height: 44px; border-radius: var(--radius-sm);">
+            <div>
+              <div class="font-serif" style="font-size: 1.45rem; color: #FFFFFF; font-weight: 700;">Amol Veg Restro</div>
+              <div style="font-size: 0.72rem; color: var(--color-gold-accent); letter-spacing: 0.16em; text-transform: uppercase;">100% Pure Vegetarian</div>
+            </div>
+          </div>
+          <p style="font-size: 0.88rem; color: rgba(255, 255, 255, 0.75); line-height: 1.6;">
+            Solapur's beloved pure vegetarian kitchen. Offering rich Punjabi curries, clay oven tandoor, wholesome grilled sandwiches, and delicious refreshments.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="./index.html">Homepage</a></li>
+            <li><a href="./menu.html">Digital Menu (All 270+ Dishes)</a></li>
+            <li><a href="#ambience">Dining Ambience</a></li>
+            <li><a href="#specialties">Signature Dishes</a></li>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#location">Location & Hours</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Popular Categories</h4>
+          <ul class="footer-links-list">
+            <li><a href="./menu.html?cat=cat_17">Paneer Special Gravies</a></li>
+            <li><a href="./menu.html?cat=cat_1">Grilled Sandwiches</a></li>
+            <li><a href="./menu.html?cat=cat_11">Tandoori Starters</a></li>
+            <li><a href="./menu.html?cat=cat_10">Chinese Delicacies</a></li>
+            <li><a href="./menu.html?cat=cat_5">Cold Coffee & Shakes</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Address & Hours</h4>
+          <ul class="footer-links-list">
+            <li>Old Pune Naka, Near Bus Stand</li>
+            <li>Solapur, Maharashtra 413001</li>
+            <li><a href="tel:7218860775">Phone: +91 72188 60775</a></li>
+            <li>Open Daily: 11:00 AM – 11:00 PM</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <div>
+          © 2026 Amol Veg Restro · Pure Vegetarian Dining · Solapur
+        </div>
+        <div style="display: flex; gap: 14px; align-items: center;">
+          <a href="./menu.html" style="color: var(--color-gold-accent);">View Digital Menu</a>
+          <span>·</span>
+          <span style="color: #8BE3B0;">🌱 100% Pure Veg</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./assets/js/main.js"></script>
+</body>
+</html>
