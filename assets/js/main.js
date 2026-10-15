@@ -13,9 +13,52 @@
     initAmbienceCarousel();
     initGSAPAnimations();
     initScrollEffects();
+    initRevealWatchdog();
   });
 
+  // Reveal safety watchdog: if a scroll/entrance tween ever gets
+  // interrupted (heavy jank, backgrounded tab, late image loads shifting
+  // trigger positions), its element can be left invisible (opacity 0),
+  // shrunken, or mid-count — the section then looks "broken". Twice after
+  // load, snap any such stuck on-screen element back to its natural
+  // visible state. Healthy tweens are untouched (their inline opacity is
+  // already ~1), and parked below-fold triggers keep working because only
+  // on-screen stuck items are fixed.
+  function initRevealWatchdog() {
+    if (!window.gsap) return;
+    function fixStuck() {
+      document.querySelectorAll(
+        '.heading-section .wi, #hero-title .ch, .dish-card, ' +
+        '.subheading-label, #story p, #location p, .stat, ' +
+        '.amb-caption, .location-grid strong, .hero-media, .hero-kicker, ' +
+        '.hero-sub, .hero-cta, .scroll-cue, .story-card-img, .amb-viewport'
+      ).forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom <= 0 || r.top >= window.innerHeight) return;
+        const inlineOpacity = parseFloat(el.style.opacity);
+        if (!isNaN(inlineOpacity) && inlineOpacity < 0.5) {
+          window.gsap.set(el, { clearProps: 'opacity,transform,filter,clipPath' });
+        }
+      });
+      // Counters: never leave a half-counted number on screen
+      document.querySelectorAll('.stat-num').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom <= 0 || r.top >= window.innerHeight) return;
+        const target = el.getAttribute('data-count');
+        const suffix = el.getAttribute('data-suffix') || '';
+        if (target !== null) el.textContent = target + suffix;
+      });
+      // Late-loading images shift trigger positions: recompute once settled
+      if (window.ScrollTrigger) {
+        try { window.ScrollTrigger.refresh(); } catch (_) {}
+      }
+    }
+    setTimeout(fixStuck, 5500);
+    setTimeout(fixStuck, 12000);
+  }
+
   // Sticky Nav-Dock Scroll State (subtle shadow on scroll)
+  // + professional mobile hamburger for Home / Our Story / Specialties / Visit Us
   function initNavbar() {
     const header = document.querySelector('.nav-dock');
     if (!header) return;
@@ -27,6 +70,59 @@
         header.classList.remove('scrolled');
       }
     }, { passive: true });
+
+    const toggle = header.querySelector('.nav-toggle');
+    const panel = header.querySelector('#mobile-nav-panel');
+    if (!toggle || !panel) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let closeTimer = null;
+
+    function openPanel() {
+      if (closeTimer) clearTimeout(closeTimer);
+      panel.hidden = false;
+      // Next frame so the max-height / fade transition plays
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => panel.classList.add('open'));
+      });
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close menu');
+    }
+
+    function closePanel() {
+      panel.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open menu');
+      const hide = () => { panel.hidden = true; };
+      if (reduceMotion) hide();
+      else {
+        if (closeTimer) clearTimeout(closeTimer);
+        closeTimer = setTimeout(hide, 430);
+      }
+    }
+
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (toggle.getAttribute('aria-expanded') === 'true') closePanel();
+      else openPanel();
+    });
+
+    // Choosing a link always closes the panel first (anchor still navigates)
+    panel.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closePanel);
+    });
+
+    // Escape closes; tapping anywhere outside the dock closes
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        closePanel();
+        toggle.focus();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (toggle.getAttribute('aria-expanded') === 'true' && !header.contains(e.target)) {
+        closePanel();
+      }
+    });
   }
 
   // Interactive Signature Specialties on Homepage

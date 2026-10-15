@@ -623,13 +623,15 @@ body.menu-page {
 }
 
 .menu-brand-logo {
-  height: 46px;
-  width: 46px;
-  object-fit: contain;
-  border-radius: 8px;
-  border: 1px solid rgba(189, 129, 45, 0.22);
-  background-color: #FFFAF1;
-  box-shadow: 0 3px 10px rgba(43, 27, 18, 0.1);
+  height: 48px;
+  width: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  background-color: transparent;
+  box-shadow: none;
+  display: block;
 }
 
 .menu-brand-text {
@@ -879,24 +881,6 @@ body.menu-page {
     0 8px 20px rgba(183, 131, 36, 0.24),
     0 1px 4px rgba(43, 27, 19, 0.08),
     inset 0 0 0 1px rgba(183, 131, 36, 0.12);
-}
-
-.secondary-filter-chip.active::after {
-  /* Premium gold dot pulse under the active pill */
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -6px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #B78324;
-  transform: translateX(-50%) scale(0);
-  animation: chip-dot-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s forwards;
-}
-
-@keyframes chip-dot-in {
-  to { transform: translateX(-50%) scale(1); }
 }
 
 .chip-count-badge {
@@ -2669,12 +2653,8 @@ select:focus-visible,
     justify-content: flex-start;
     gap: 8px;
     padding: 4px 18px 12px;
-    /* Buttery swipe + gentle magnetic assist toward active pill */
-    scroll-snap-type: x proximity;
-  }
-
-  .secondary-filter-chip {
-    scroll-snap-align: center;
+    /* No snap: JS pins the tapped pill dead-center with zero post-shift */
+    scroll-snap-type: none;
   }
 
   .secondary-filter-chip.active {
@@ -2684,4 +2664,200 @@ select:focus-visible,
 
   /* Anchor landings clear the pinned strip */
   .category-block { scroll-margin-top: 78px; contain-intrinsic-size: auto 480px; }
+}
+
+/* --------------------------------------------------------------------------
+   24. MAIN WEBSITE: PROFESSIONAL MOBILE HAMBURGER NAV
+   Desktop keeps inline links; phones collapse Home / Our Story /
+   Specialties / Visit Us into a three-line toggle with a dropdown panel.
+   -------------------------------------------------------------------------- */
+.nav-cta-group {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Three-line toggle (mobile only — desktop keeps inline links) */
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(189, 129, 45, 0.35);
+  background: #fffaf1;
+  box-shadow: 0 3px 12px rgba(43, 27, 18, 0.08);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+}
+
+.nav-toggle:hover {
+  border-color: var(--color-gold, #bd812d);
+}
+
+.nav-toggle:active {
+  transform: scale(0.93);
+}
+
+.nav-toggle span {
+  display: block;
+  width: 17px;
+  height: 2px;
+  border-radius: 2px;
+  background: #2b1b13;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, background 0.25s ease;
+}
+
+/* Open state: three lines morph into an X */
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+  background: var(--color-gold-deep, #a88219);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+  background: var(--color-gold-deep, #a88219);
+}
+
+/* Dropdown panel (mobile only) */
+.mobile-nav-panel {
+  display: none;
+}
+
+/* The `hidden` attribute must always win (author display beats UA style) */
+.mobile-nav-panel[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  /* Collapse the inline links into the hamburger */
+  .navbar .nav-links {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  .navbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .nav-cta-group {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .mobile-nav-panel {
+    display: block;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      max-height 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.3s ease,
+      transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    background: rgba(255, 250, 241, 0.98);
+    border: 1px solid rgba(189, 129, 45, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(43, 27, 18, 0.1);
+    margin-top: 10px;
+    padding: 0 6px;
+  }
+
+  .mobile-nav-panel.open {
+    max-height: 420px;
+    opacity: 1;
+    transform: translateY(0);
+    padding: 6px;
+  }
+
+  .mobile-nav-panel a {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 13px 14px;
+    border-radius: 10px;
+    color: #2b1b13;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(43, 27, 18, 0.07);
+    opacity: 0;
+    transform: translateX(10px);
+    transition:
+      opacity 0.3s ease,
+      transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.2s ease;
+  }
+
+  .mobile-nav-panel a:last-of-type {
+    border-bottom: none;
+  }
+
+  .mobile-nav-panel a:active {
+    background: rgba(183, 131, 36, 0.1);
+  }
+
+  .mobile-nav-panel.open a {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .mobile-nav-panel.open a:nth-child(1) { transition-delay: 0.06s; }
+  .mobile-nav-panel.open a:nth-child(2) { transition-delay: 0.12s; }
+  .mobile-nav-panel.open a:nth-child(3) { transition-delay: 0.18s; }
+  .mobile-nav-panel.open a:nth-child(4) { transition-delay: 0.24s; }
+
+  .mobile-nav-panel a em {
+    font-style: normal;
+    font-family: var(--font-numeric);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--color-gold-deep, #a88219);
+  }
+
+  .mobile-nav-note {
+    margin: 0;
+    padding: 10px 14px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    opacity: 0;
+    transition: opacity 0.3s ease 0.28s;
+  }
+
+  .mobile-nav-panel.open .mobile-nav-note {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-toggle span,
+  .mobile-nav-panel,
+  .mobile-nav-panel a,
+  .mobile-nav-note {
+    transition: none;
+  }
 }

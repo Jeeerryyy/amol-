@@ -41,7 +41,7 @@
           <span>View Digital Menu</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg>
         </a>
-        <a href="#location" class="hero-btn-ghost">Find Us &middot; 11 AM &ndash; 11 PM</a>
+
       </div>
     </div>
     <div class="scroll-cue" aria-hidden="true">
@@ -64,11 +64,25 @@
         <img src="./assets/images/amol_brand_mark.png" alt="Amol Veg Restro logo">
       </a>
 
-      <a class="menu-button" href="./menu.html">
-        View Menu
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-      </a>
+      <div class="nav-cta-group">
+        <a class="menu-button" href="./menu.html">
+          View Menu
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav-panel" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </nav>
+    <div id="mobile-nav-panel" class="mobile-nav-panel" hidden>
+      <a href="./index.html"><em>01</em><span>Home</span></a>
+      <a href="#story"><em>02</em><span>Our Story</span></a>
+      <a href="#specialties"><em>03</em><span>Specialties</span></a>
+      <a href="#location"><em>04</em><span>Visit Us</span></a>
+      <p class="mobile-nav-note">Open Daily · 11 AM – 11 PM</p>
+    </div>
   </div>
 
   <!-- Infinite marquee strip (speed reacts to scroll) -->
@@ -203,7 +217,7 @@
         <div class="amb-viewport">
           <div class="amb-track">
             <figure class="amb-slide" aria-roledescription="slide" aria-label="1 of 3">
-              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=80" alt="Air-conditioned dining hall with comfortable seating" loading="lazy" onerror="this.onerror=null;this.src='./assets/images/hero_storefront.jpg';">
+              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=80" alt="Air-conditioned dining hall with comfortable seating" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.src='./assets/images/hero_storefront.jpg';">
               <figcaption class="amb-caption">
                 <strong>A/C Dining Hall</strong>
                 <span>Cool, serene air-conditioned hall with comfortable seating, pleasant lighting, and prompt table service for peaceful family meals.</span>

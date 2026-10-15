@@ -60,6 +60,9 @@
   let lastActiveChipId = null;
   let isUserSwipingChips = false;
   let swipeResumeTimer = null;
+  // After a tap, the page smooth-scrolls through intermediate sections.
+  // Lock the spy so the strip doesn't dance left/right mid-flight.
+  let spyLockUntil = 0;
 
   function centerChipPremium(container, el, opts) {
     opts = opts || {};
@@ -287,9 +290,13 @@
   }
 
   // Single shared category selection (chips row + mobile bottom sheet)
+  // Tapped pill glides to the exact horizontal center of the strip and
+  // stays pinned there (no left/right shifting) while the page lands.
   function selectCategory(catId) {
     currentCategory = catId;
     lastActiveChipId = catId;
+    // Hold the strip steady until the page smooth-scroll settles
+    spyLockUntil = Date.now() + 1400;
 
     // Update active class in chips row + premium-glide the tapped pill to center
     if (secondaryChipsContainer) {
@@ -299,7 +306,21 @@
         b.classList.toggle('active', on);
         if (on) activeEl = b;
       });
-      if (activeEl) centerChipPremium(secondaryChipsContainer, activeEl, { force: true, pop: true });
+      if (activeEl) {
+        centerChipPremium(secondaryChipsContainer, activeEl, { force: true, pop: true });
+        // Second-pass exact pin: kills any smooth-easing residue so the
+        // pill sits pixel-perfect center (equal space left & right).
+        setTimeout(() => {
+          if (!secondaryChipsContainer || isUserSwipingChips) return;
+          if (lastActiveChipId !== catId) return;
+          const stillActive = secondaryChipsContainer.querySelector(`[data-cat-id="${catId}"]`);
+          if (!stillActive || !stillActive.classList.contains('active')) return;
+          const cRect = secondaryChipsContainer.getBoundingClientRect();
+          const eRect = stillActive.getBoundingClientRect();
+          const residual = (eRect.left + eRect.width / 2) - (cRect.left + cRect.width / 2);
+          if (Math.abs(residual) > 2) secondaryChipsContainer.scrollLeft += residual;
+        }, 500);
+      }
     }
 
     // Smooth scroll to category section or top without removing other categories from DOM
@@ -857,6 +878,8 @@
 
   function updateActiveChipOnScroll() {
     if (isUserSwipingChips || document.body.classList.contains('is-resizing')) return;
+    // Tap-lock: tapped pill stays pinned center, spy doesn't steal it mid-flight
+    if (Date.now() < spyLockUntil) return;
     const sections = document.querySelectorAll('.category-block');
     if (!sections.length) return;
     let currentId = null;
