@@ -42,6 +42,7 @@ export const Footer: React.FC = () => {
               height="110"
             />
           </a>
+          <h3 className="footer-brand-title">{brand.name}</h3>
           <p className="footer-tagline">{footer.tagline}</p>
           <div className="footer-flourish" aria-hidden="true">
             <svg width="48" height="12" viewBox="0 0 48 12" fill="none" stroke="var(--color-border)">
@@ -118,20 +119,32 @@ export const Footer: React.FC = () => {
         <div className="footer-col">
           <h4 className="footer-col-title">Follow Us</h4>
           <div className="footer-title-rule" aria-hidden="true" />
-          <div className="footer-social-icons">
-            <a href="#" className="social-icon-btn" aria-label="Instagram">
-              <Instagram size={15} />
-            </a>
-            <a href="#" className="social-icon-btn" aria-label="Facebook">
-              <Facebook size={15} />
-            </a>
-            <a href={footer.socials[2]?.url || '#'} className="social-icon-btn" aria-label="WhatsApp">
-              <MessageCircle size={15} />
-            </a>
-            <a href="#" className="social-icon-btn" aria-label="YouTube">
-              <Youtube size={15} />
-            </a>
-          </div>
+          <ul className="footer-links-list footer-social-vertical">
+            <li>
+              <a href="#" className="footer-social-link" aria-label="Instagram">
+                <span className="social-icon-btn"><Instagram size={14} /></span>
+                <span>Instagram</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" className="footer-social-link" aria-label="Facebook">
+                <span className="social-icon-btn"><Facebook size={14} /></span>
+                <span>Facebook</span>
+              </a>
+            </li>
+            <li>
+              <a href={footer.socials[2]?.url || '#'} className="footer-social-link" aria-label="WhatsApp">
+                <span className="social-icon-btn"><MessageCircle size={14} /></span>
+                <span>WhatsApp</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" className="footer-social-link" aria-label="YouTube">
+                <span className="social-icon-btn"><Youtube size={14} /></span>
+                <span>YouTube</span>
+              </a>
+            </li>
+          </ul>
         </div>
 
         {/* Column 5: Legal */}
