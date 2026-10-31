@@ -18,19 +18,8 @@ export const GallerySection: React.FC = () => {
   return (
     <section className="gallery-section" id="gallery">
       <div className="container gallery-container">
-        {/* Left Side: Timeline + Text Info */}
+        {/* Left Side: Text Info */}
         <div className="gallery-left-wrap">
-          {/* Vertical Timeline Indicator */}
-          <div className="gallery-timeline" aria-hidden="true">
-            <div className="timeline-node timeline-dot" />
-            <div className="timeline-node timeline-badge">
-              <span>{gallery.timelineNumber}</span>
-            </div>
-            <div className="timeline-node timeline-dot" />
-            <div className="timeline-node timeline-dot" />
-            <div className="timeline-line" />
-          </div>
-
           {/* Text Content */}
           <div className="gallery-text-block">
             <span className="gallery-eyebrow">{gallery.eyebrow}</span>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { siteConfig } from '../../siteConfig';
-import { SectionDivider } from '../common/SectionDivider';
 import { DishCard } from './DishCard';
 import './PopularDishes.css';
 
@@ -10,9 +9,6 @@ export const PopularDishes: React.FC = () => {
   return (
     <section className="popular-dishes-section" id="popular-dishes">
       <div className="container">
-        {/* Decorative Lotus Divider */}
-        <SectionDivider />
-
         {/* Section Header */}
         <div className="section-header-center">
           <h2 className="section-main-heading">

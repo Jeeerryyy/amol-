@@ -1,6 +1,5 @@
 import React from 'react';
 import { siteConfig } from '../../siteConfig';
-import { SectionDivider } from '../common/SectionDivider';
 import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import './TestimonialsSection.css';
 
@@ -10,9 +9,6 @@ export const TestimonialsSection: React.FC = () => {
   return (
     <section className="testimonials-section" id="testimonials">
       <div className="container">
-        {/* Lotus Divider */}
-        <SectionDivider />
-
         {/* Section Heading */}
         <div className="testimonials-header">
           <h2 className="testimonials-title">

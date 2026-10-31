@@ -4,20 +4,6 @@
   overflow: hidden;
 }
 
-.hero-leaf-left {
-  position: absolute;
-  top: 16px;
-  left: 12px;
-  pointer-events: none;
-}
-
-.hero-leaf-right {
-  position: absolute;
-  top: 16px;
-  right: 12px;
-  pointer-events: none;
-}
-
 .hero-container {
   display: grid;
   grid-template-columns: 280px 1fr 280px;
@@ -92,10 +78,6 @@
   align-items: center;
   text-align: center;
   z-index: 2;
-}
-
-.hero-right-leaf-icon {
-  margin-bottom: 8px;
 }
 
 .right-eyebrow {
