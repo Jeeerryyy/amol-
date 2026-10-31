@@ -78,3 +78,4 @@ export const PlaceholderImage: React.FC<PlaceholderImageProps> = ({
     </div>
   );
 };
+

@@ -31,3 +31,4 @@ export const DishCard: React.FC<DishCardProps> = ({ dish }) => {
     </div>
   );
 };
+

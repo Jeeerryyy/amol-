@@ -22,3 +22,4 @@ dist-ssr
 # Video and large zip files in assets
 assets/*.zip
 assets/*.mp4
+

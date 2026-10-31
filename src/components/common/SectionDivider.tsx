@@ -63,3 +63,4 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({ className = '' }
     </div>
   );
 };
+

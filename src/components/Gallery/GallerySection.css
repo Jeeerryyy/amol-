@@ -78,8 +78,8 @@
   font-family: var(--font-sans);
   font-size: 11px;
   font-weight: var(--fw-semibold);
-  letter-spacing: 0.22em;
-  color: var(--color-accent-orange);
+  letter-spacing: 0.14em;
+  color: var(--color-orange-text);
   margin-bottom: 12px;
 }
 
@@ -159,7 +159,7 @@
 
 .gallery-carousel-track {
   display: flex;
-  gap: 18px;
+  gap: 16px;
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
@@ -189,6 +189,7 @@
     grid-template-columns: 1fr;
     gap: 40px;
   }
+
   .gallery-heading {
     font-size: 38px;
   }

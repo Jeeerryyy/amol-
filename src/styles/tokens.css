@@ -9,6 +9,7 @@
   --color-cream-card: #FBF1E3;        /* Soft cream card surface */
   --color-accent-orange: #D4561A;     /* Signature burnt orange */
   --color-accent-orange-hover: #B8440E;
+  --color-orange-text: #A94B00;       /* Accessible deep orange for small text & links on cream (WCAG AA > 5.5:1) */
   --color-text-dark: #2B170B;         /* Deep espresso brown for headings & text */
   --color-text-muted: #6B5545;        /* Muted cocoa brown for descriptions */
   --color-border: #E6D5BF;            /* Hairline borders & section dividers */
@@ -124,3 +125,4 @@ button {
   background-image: radial-gradient(rgba(107, 85, 69, 0.04) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+

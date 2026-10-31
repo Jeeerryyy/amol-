@@ -39,3 +39,4 @@ export const PopularDishes: React.FC = () => {
     </section>
   );
 };
+
