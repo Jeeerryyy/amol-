@@ -44,9 +44,13 @@
 - [x] Configured `npm test` script in `package.json`
 
 ### Phase 5: Cleanup & Restructure
-- [ ] Clean up redundant/unreferenced backup files and scripts
-- [ ] Organize design reference assets into `docs/design-reference/`
-- [ ] Ensure single package manager and pristine `package.json`
+- [x] Cleaned root-level temporary test frame images (`frame_*.jpg`)
+- [x] Moved `backup menu design/` to `docs/design-reference/backup-menu-design/`
+- [x] Archived UI design mockups into `docs/design-reference/`
+- [x] Streamlined `package.json` scripts (`dev`, `build`, `preview`, `test`, `lint`, `server`, `migrate`, `seed`, `reset-password`)
+- [x] Single package manager verified (`package-lock.json`)
+- [x] Configured Vite watcher ignores to prevent OneDrive EBUSY lockouts
+- [x] Verified clean production build (`npm run build` in 8.6s) and smoke tests (`npm test` in 8.8s)
 
 ### Phase 6: Documentation
 - [ ] Professional GitHub showcase `README.md` (<120 lines, tech stack, Mermaid diagram, screenshots)

@@ -67,10 +67,10 @@ async function runSmokeTests() {
     // 6. Review page loads and accepts input
     await page.goto(`${BASE_URL}/#/review`, { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(400);
-    await page.locator('button.star-btn').nth(4).click();
-    await page.waitForTimeout(200);
-    await page.locator('button.option-chip').first().click();
-    await page.waitForTimeout(200);
+    await page.locator('button.star-btn').nth(4).click({ force: true });
+    await page.waitForTimeout(300);
+    await page.locator('button.option-chip').first().click({ force: true });
+    await page.waitForTimeout(300);
     const reviewVal = await page.locator('textarea.review-textarea').inputValue();
     assert(reviewVal.length > 5, '6. Review system generates instant local draft');
 

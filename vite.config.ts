@@ -21,7 +21,16 @@ export default defineConfig({
   ],
   server: {
     watch: {
-      ignored: ['**/backup menu design/**', '**/.git/**', '**/*.mp4', '**/public/**/*.mp4', '**/assets/**/*.mp4'],
+      ignored: [
+        '**/backup menu design/**',
+        '**/.git/**',
+        '**/*.mp4',
+        '**/public/**/*.mp4',
+        '**/assets/**/*.mp4',
+        '**/docs/**',
+        '**/baseline-screenshots/**',
+        '**/audit-artifacts/**',
+      ],
     },
     proxy: {
       '/api': {
