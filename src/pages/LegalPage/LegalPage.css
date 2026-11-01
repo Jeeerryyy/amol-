@@ -1,0 +1,134 @@
+.legal-page-root {
+  min-height: 100vh;
+  padding: 40px 20px 80px 20px;
+  background-color: var(--color-cream-bg);
+}
+
+.legal-container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.legal-back-nav {
+  margin-bottom: 24px;
+}
+
+.legal-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 3px rgba(43, 23, 11, 0.04);
+  transition: all 0.2s ease;
+}
+
+.legal-back-btn:hover {
+  border-color: var(--color-accent-orange);
+  color: var(--color-accent-orange);
+}
+
+.legal-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  box-shadow: 0 4px 20px rgba(43, 23, 11, 0.05);
+}
+
+.legal-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.legal-icon-wrap {
+  width: 56px;
+  height: 56px;
+  background-color: #F8EFE4;
+  color: var(--color-accent-orange);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.legal-title {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  color: var(--color-text-dark);
+  margin-bottom: 8px;
+}
+
+.legal-date {
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+}
+
+.legal-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin-bottom: 32px;
+}
+
+.legal-loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--color-text-muted);
+  font-size: 15px;
+}
+
+.legal-content-body {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--color-text-dark);
+}
+
+.legal-content-body h2 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--color-text-dark);
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+
+.legal-content-body h3 {
+  font-size: 17px;
+  color: var(--color-text-dark);
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.legal-content-body p {
+  margin-bottom: 16px;
+}
+
+.legal-content-body ul,
+.legal-content-body ol {
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+
+.legal-content-body li {
+  margin-bottom: 6px;
+}
+
+.legal-content-body a {
+  color: var(--color-accent-orange);
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .legal-card {
+    padding: 24px 20px;
+  }
+  .legal-title {
+    font-size: 24px;
+  }
+}

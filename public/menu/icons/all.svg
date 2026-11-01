@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <!-- Cloche Dome -->
+  <path d="M8 32 C8 19 16 14 24 14 C32 14 40 19 40 32 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Cloche Handle -->
+  <path d="M21 14 C21 11.5 22.3 9.5 24 9.5 C25.7 9.5 27 11.5 27 14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="24" cy="8.5" r="1.5" fill="currentColor"/>
+  <!-- Base Platter Tray -->
+  <path d="M4 36 L44 36" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M10 36 C10 38.5 14 40 24 40 C34 40 38 38.5 38 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <!-- Steam lines -->
+  <path d="M17 21 Q19 19 17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+  <path d="M24 20 Q26 18 24 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+  <path d="M31 21 Q33 19 31 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+</svg>

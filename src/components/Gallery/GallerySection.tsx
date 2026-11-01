@@ -1,12 +1,40 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { siteConfig } from '../../siteConfig';
 import { PlaceholderImage } from '../common/PlaceholderImage';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import './GallerySection.css';
 
+interface GallerySectionItem {
+  id: string;
+  label: string;
+  imageUrl?: string;
+}
+
 export const GallerySection: React.FC = () => {
   const { gallery } = siteConfig;
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [items, setItems] = useState<GallerySectionItem[]>(gallery.items);
+
+  useEffect(() => {
+    fetch('/api/public/gallery')
+      .then((res) => {
+        if (!res.ok) throw new Error('API unavailable');
+        return res.json();
+      })
+      .then((data: any[]) => {
+        if (Array.isArray(data) && data.length > 0) {
+          const mapped: GallerySectionItem[] = data.map((item) => ({
+            id: item.id,
+            label: item.caption || item.alt_text || 'Amol Veg Gallery',
+            imageUrl: item.url,
+          }));
+          setItems(mapped);
+        }
+      })
+      .catch((err) => {
+        console.warn('[GallerySection] Using bundled gallery fallback:', err);
+      });
+  }, []);
 
   const scrollByAmount = (direction: 'left' | 'right') => {
     if (carouselRef.current) {
@@ -53,31 +81,35 @@ export const GallerySection: React.FC = () => {
 
           {/* Carousel Track */}
           <div className="gallery-carousel-track" ref={carouselRef}>
-            {gallery.items.map((item) => (
+            {items.map((item) => (
               <div key={item.id} className="gallery-card-item">
-                <PlaceholderImage
-                  label={item.label}
-                  width="250px"
-                  height="280px"
-                  borderRadius="var(--radius-md)"
-                  className="gallery-placeholder"
-                />
+                {item.imageUrl ? (
+                  <img
+                    src={item.imageUrl}
+                    alt={item.label}
+                    style={{
+                      width: '250px',
+                      height: '280px',
+                      objectFit: 'cover',
+                      borderRadius: 'var(--radius-md)',
+                      display: 'block',
+                    }}
+                    loading="lazy"
+                  />
+                ) : (
+                  <PlaceholderImage
+                    label={item.label}
+                    width="250px"
+                    height="280px"
+                    borderRadius="var(--radius-md)"
+                    className="gallery-placeholder"
+                  />
+                )}
               </div>
             ))}
-            {/* Additional item to show the trailing cutoff edge */}
-            <div className="gallery-card-item">
-              <PlaceholderImage
-                label="Gallery Photo 5"
-                width="250px"
-                height="280px"
-                borderRadius="var(--radius-md)"
-                className="gallery-placeholder"
-              />
-            </div>
           </div>
         </div>
       </div>
     </section>
   );
 };
-

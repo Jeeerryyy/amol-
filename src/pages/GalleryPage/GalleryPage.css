@@ -1,0 +1,588 @@
+/* ==========================================================================
+   AMOL VEG RESTO - GALLERY PAGE STYLES
+   Crafted to match the reference layout (wireframe) with authentic Solapuri heritage theme
+   ========================================================================== */
+
+.gallery-subpage {
+  position: relative;
+  background-color: transparent;
+  min-height: calc(100vh - 120px);
+  padding: 68px 0 100px 0;
+  overflow: hidden;
+}
+
+/* Background Soft Organic Waves (Corner Shapes from reference layout) */
+.gallery-corner-shape-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 380px;
+  height: 340px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.65;
+}
+
+.gallery-corner-shape-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 360px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.65;
+}
+
+.gallery-page-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ========================================================================== */
+/* SECTION 1: Header (Framed Eyebrow + Serif Headline + Subtitle)             */
+/* ========================================================================== */
+.gallery-page-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gallery-eyebrow-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.gallery-eyebrow-rule {
+  width: 46px;
+  height: 2px;
+  background-color: var(--color-accent-orange);
+  border-radius: 2px;
+}
+
+.gallery-eyebrow-text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #C85A17;
+  text-transform: uppercase;
+}
+
+.gallery-page-heading {
+  font-family: var(--font-serif);
+  font-size: 48px;
+  font-weight: var(--fw-bold);
+  line-height: 1.18;
+  color: var(--color-text-dark);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.gallery-page-subtitle {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: #5A3E31;
+  opacity: 0.92;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ========================================================================== */
+/* SECTION 2: Category Filter Pills (5 Capsules as in reference)              */
+/* ========================================================================== */
+.gallery-filter-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+  padding: 6px;
+}
+
+.gallery-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-cream-card);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-dark);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(53, 28, 18, 0.03);
+  transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+}
+
+.gallery-filter-pill .pill-icon {
+  color: #8B6A50;
+  transition: color 0.22s ease;
+}
+
+.gallery-filter-pill .pill-badge {
+  font-size: 11px;
+  font-weight: 700;
+  background-color: rgba(200, 90, 23, 0.12);
+  color: #9C3D06;
+  padding: 2px 8px;
+  border-radius: 10px;
+  transition: background-color 0.22s ease, color 0.22s ease;
+}
+
+/* Hover effect: simple smooth color fill per site rule */
+.gallery-filter-pill:hover {
+  background-color: #F3E7D8;
+  border-color: rgba(212, 86, 26, 0.4);
+}
+
+/* Active Pill State: solid dark brown */
+.gallery-filter-pill.active {
+  background-color: #351C12;
+  border-color: #351C12;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(53, 28, 18, 0.2);
+}
+
+.gallery-filter-pill.active .pill-icon {
+  color: #FDE8D4;
+}
+
+.gallery-filter-pill.active .pill-badge {
+  background-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+/* ========================================================================== */
+/* SECTION 3: Main Gallery Display (Exact Reference Rhythm: 3 Top, 4 Bottom)  */
+/* ========================================================================== */
+.gallery-display-stage {
+  margin-bottom: 72px;
+}
+
+.gallery-reference-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Row 1: 3 Wide Landscape Cards */
+.gallery-row-top {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Row 2: 4 Standard Cards */
+.gallery-row-bottom {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* Filtered Category Responsive Grid */
+.gallery-filtered-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* Card Container */
+.gallery-card {
+  background-color: var(--color-cream-card);
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 6px 20px rgba(53, 28, 18, 0.04);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gallery-card:hover {
+  border-color: var(--color-accent-orange);
+}
+
+.gallery-card:focus-visible {
+  box-shadow: 0 0 0 3px rgba(212, 86, 26, 0.3);
+}
+
+.gallery-card-inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* Media Box */
+.gallery-card-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #EBDDCF;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Row 1 cards: Wide Aspect Ratio */
+.card-wide .gallery-card-media {
+  aspect-ratio: 16 / 10;
+  min-height: 240px;
+}
+
+/* Row 2 cards: Standard Aspect Ratio */
+.card-standard .gallery-card-media {
+  aspect-ratio: 4 / 3;
+  min-height: 200px;
+}
+
+.gallery-filtered-grid .gallery-card-media {
+  aspect-ratio: 16 / 11;
+  min-height: 210px;
+}
+
+.gallery-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Wireframe Placeholder Matching Uploaded Layout Reference */
+.gallery-wireframe-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #EFE2D4 0%, #E5D5C4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.placeholder-icon-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(139, 90, 43, 0.18);
+}
+
+.placeholder-icon {
+  color: #8B6A50;
+  opacity: 0.85;
+}
+
+/* Hover Overlay */
+.gallery-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(43, 23, 11, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  z-index: 3;
+}
+
+.gallery-card:hover .gallery-hover-overlay {
+  opacity: 1;
+}
+
+.overlay-zoom-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-cream-card);
+  color: #351C12;
+  padding: 9px 20px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.gallery-card:hover .overlay-zoom-btn:hover {
+  background-color: var(--color-accent-orange);
+  color: #ffffff;
+}
+
+/* ========================================================================== */
+/* SECTION 4: Bottom Experience CTA                                           */
+/* ========================================================================== */
+.gallery-experience-cta {
+  background-color: var(--color-cream-card);
+  border-radius: 24px;
+  border: 1px solid var(--color-border);
+  padding: 44px 32px;
+  text-align: center;
+  box-shadow: 0 8px 28px rgba(53, 28, 18, 0.04);
+}
+
+.experience-cta-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.experience-cta-title {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-dark);
+  margin-bottom: 10px;
+}
+
+.experience-cta-desc {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5A3E31;
+  margin-bottom: 24px;
+}
+
+.experience-cta-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.gallery-cta-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-accent-orange);
+  color: #ffffff;
+  padding: 11px 24px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.22s ease;
+}
+
+.gallery-cta-btn-primary:hover {
+  background-color: var(--color-accent-orange-hover);
+}
+
+.gallery-cta-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #351C12;
+  color: #ffffff;
+  padding: 11px 24px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.22s ease;
+}
+
+.gallery-cta-btn-secondary:hover {
+  background-color: #1F0F08;
+}
+
+/* ========================================================================== */
+/* SECTION 5: Lightbox Modal                                                  */
+/* ========================================================================== */
+.gallery-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 16, 10, 0.88);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.gallery-lightbox-content {
+  position: relative;
+  width: 100%;
+  max-width: 840px;
+  background-color: var(--color-cream-card);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--color-border);
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(53, 28, 18, 0.75);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background-color 0.2s ease;
+}
+
+.lightbox-close-btn:hover {
+  background-color: var(--color-accent-orange);
+}
+
+.lightbox-nav-btn {
+  position: absolute;
+  top: 42%;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(250, 244, 236, 0.9);
+  color: #351C12;
+  border: 1px solid rgba(212, 86, 26, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.lightbox-nav-btn.prev-btn {
+  left: 16px;
+}
+
+.lightbox-nav-btn.next-btn {
+  right: 16px;
+}
+
+.lightbox-nav-btn:hover {
+  background-color: var(--color-accent-orange);
+  color: #ffffff;
+}
+
+.lightbox-image-stage {
+  width: 100%;
+  min-height: 440px;
+  max-height: 80vh;
+  background: linear-gradient(135deg, #EFE2D4 0%, #E5D5C4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.lightbox-img {
+  width: 100%;
+  height: 100%;
+  max-height: 80vh;
+  object-fit: cover;
+  display: block;
+}
+
+.lightbox-placeholder-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  width: 100%;
+  min-height: 440px;
+}
+
+.lightbox-icon-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(139, 90, 43, 0.2);
+}
+
+/* ========================================================================== */
+/* RESPONSIVE BREAKPOINTS                                                     */
+/* ========================================================================== */
+@media (max-width: 1024px) {
+  .gallery-row-top {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-row-bottom {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-page-heading {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-subpage {
+    padding-top: 50px;
+  }
+
+  .gallery-filter-navbar {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gallery-filter-pill {
+    flex-shrink: 0;
+  }
+
+  .gallery-row-top {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-row-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-page-heading {
+    font-size: 34px;
+  }
+
+  .gallery-experience-cta {
+    padding: 32px 20px;
+  }
+}
+

@@ -1,6 +1,7 @@
 .about-section {
   padding: 88px 0;
   position: relative;
+  overflow: hidden;
 }
 
 .about-container {

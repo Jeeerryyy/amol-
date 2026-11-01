@@ -1,6 +1,6 @@
 import React from 'react';
 import { siteConfig } from '../../siteConfig';
-import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ExternalLink, Star } from 'lucide-react';
 import './TestimonialsSection.css';
 
 export const TestimonialsSection: React.FC = () => {
@@ -49,8 +49,17 @@ export const TestimonialsSection: React.FC = () => {
           </button>
         </div>
 
-        {/* External Google Reviews Link */}
-        <div className="google-reviews-link-wrap">
+        {/* Actions: Review Us Button + External Google Reviews Link */}
+        <div className="testimonials-actions-wrap">
+          <a
+            href="#/review"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-review-us-main"
+          >
+            <Star size={16} fill="currentColor" />
+            <span>Review Us</span>
+          </a>
           <a
             href={testimonials.googleReviewsLink.href}
             target="_blank"

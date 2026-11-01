@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { siteConfig } from '../../siteConfig';
 import {
   Home,
@@ -13,21 +13,62 @@ import {
   Facebook,
   MessageCircle,
   Youtube,
+  Star,
+  UtensilsCrossed,
 } from 'lucide-react';
 import './Footer.css';
 
 export const Footer: React.FC = () => {
   const { brand, footer } = siteConfig;
+  const [siteData, setSiteData] = useState<any>(null);
+
+  useEffect(() => {
+    fetch('/api/public/site')
+      .then((res) => {
+        if (!res.ok) throw new Error('API unavailable');
+        return res.json();
+      })
+      .then((data) => {
+        if (data && data.content) {
+          setSiteData(data.content);
+        }
+      })
+      .catch((err) => {
+        console.warn('[Footer] Using default footer settings:', err);
+      });
+  }, []);
+
+  const contact = siteData?.contact || {};
+  const footerContent = siteData?.footer || {};
+
+  const address = contact.address || footer.visitUs.address;
+  const hours = footerContent.opening_hours || footer.visitUs.hours;
+  const phone = contact.phone || footer.visitUs.phone;
+  const telHref = contact.phone ? `tel:${contact.phone.replace(/\s+/g, '')}` : footer.visitUs.tel;
+  const mapsHref = contact.maps_url || footer.visitUs.directionsUrl;
+
+  const instagramHref = contact.instagram || '#';
+  const facebookHref = contact.facebook || '#';
+  const whatsappHref = contact.whatsapp
+    ? `https://wa.me/${contact.whatsapp.replace(/\D/g, '')}`
+    : footer.socials[2]?.url || '#';
+
+  const copyright = footerContent.copyright_text || footer.bottomBar.copyright;
+  const fssaiText = footerContent.fssai_license
+    ? `FSSAI Lic. No: ${footerContent.fssai_license}`
+    : footer.bottomBar.fssai;
 
   return (
     <footer className="site-footer" id="site-footer">
-      {/* Decorative Scenery Illustration Placeholder Backdrop */}
-      <div className="footer-scenery-backdrop" aria-hidden="true">
-        <div className="scenery-placeholder-banner">
-          <div className="scenery-inner-text">
-            <span>[Footer Scenery Illustration Placeholder: Solapur Landmarks, Gopuram, Palms, Dosa & Fort]</span>
-          </div>
-        </div>
+      {/* Full Footer Scenery Background Layer */}
+      <div className="footer-scenery-background" aria-hidden="true">
+        <img
+          src={footer.illustrationSrc}
+          alt={footer.illustrationAlt || ''}
+          className="footer-scenery-image"
+          loading="lazy"
+        />
+        <div className="footer-bg-overlay" />
       </div>
 
       <div className="container footer-content-container">
@@ -57,27 +98,44 @@ export const Footer: React.FC = () => {
           <div className="footer-title-rule" aria-hidden="true" />
           <ul className="footer-links-list">
             <li>
-              <a href="#" className="footer-icon-link">
+              <a href="#/" className="footer-icon-link">
                 <Home size={15} className="link-icon" />
                 <span>Home</span>
               </a>
             </li>
             <li>
-              <a href="#about" className="footer-icon-link">
+              <a href="/menu/" className="footer-icon-link">
+                <UtensilsCrossed size={15} className="link-icon" />
+                <span>Menu</span>
+              </a>
+            </li>
+            <li>
+              <a href="#/about" className="footer-icon-link">
                 <User size={15} className="link-icon" />
                 <span>About</span>
               </a>
             </li>
             <li>
-              <a href="#gallery" className="footer-icon-link">
+              <a href="#/gallery" className="footer-icon-link">
                 <ImageIcon size={15} className="link-icon" />
                 <span>Gallery</span>
               </a>
             </li>
             <li>
-              <a href="#contact" className="footer-icon-link">
+              <a href="#/contact" className="footer-icon-link">
                 <Phone size={15} className="link-icon" />
                 <span>Contact</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-icon-link"
+              >
+                <Star size={15} className="link-icon" />
+                <span>Review Us</span>
               </a>
             </li>
           </ul>
@@ -90,20 +148,20 @@ export const Footer: React.FC = () => {
           <div className="visit-info-group">
             <div className="visit-info-row">
               <MapPin size={16} className="visit-icon" />
-              <span className="visit-address">{footer.visitUs.address}</span>
+              <span className="visit-address">{address}</span>
             </div>
             <div className="visit-info-row">
               <Clock size={16} className="visit-icon" />
-              <span>{footer.visitUs.hours}</span>
+              <span>{hours}</span>
             </div>
             <div className="visit-info-row">
               <Phone size={16} className="visit-icon" />
-              <a href={footer.visitUs.tel} className="visit-phone-link">
-                {footer.visitUs.phone}
+              <a href={telHref} className="visit-phone-link">
+                {phone}
               </a>
             </div>
             <a
-              href={footer.visitUs.directionsUrl}
+              href={mapsHref}
               target="_blank"
               rel="noopener noreferrer"
               className="footer-directions-btn"
@@ -121,19 +179,19 @@ export const Footer: React.FC = () => {
           <div className="footer-title-rule" aria-hidden="true" />
           <ul className="footer-links-list footer-social-vertical">
             <li>
-              <a href="#" className="footer-social-link" aria-label="Instagram">
+              <a href={instagramHref} className="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                 <span className="social-icon-btn"><Instagram size={14} /></span>
                 <span>Instagram</span>
               </a>
             </li>
             <li>
-              <a href="#" className="footer-social-link" aria-label="Facebook">
+              <a href={facebookHref} className="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                 <span className="social-icon-btn"><Facebook size={14} /></span>
                 <span>Facebook</span>
               </a>
             </li>
             <li>
-              <a href={footer.socials[2]?.url || '#'} className="footer-social-link" aria-label="WhatsApp">
+              <a href={whatsappHref} className="footer-social-link" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
                 <span className="social-icon-btn"><MessageCircle size={14} /></span>
                 <span>WhatsApp</span>
               </a>
@@ -152,14 +210,18 @@ export const Footer: React.FC = () => {
           <h4 className="footer-col-title">Legal</h4>
           <div className="footer-title-rule" aria-hidden="true" />
           <ul className="footer-links-list">
-            {footer.legal.map((item) => (
-              <li key={item.label}>
-                <a href={item.href} className="footer-icon-link">
-                  <FileText size={15} className="link-icon" />
-                  <span>{item.label}</span>
-                </a>
-              </li>
-            ))}
+            <li>
+              <a href="#/privacy-policy" className="footer-icon-link">
+                <FileText size={15} className="link-icon" />
+                <span>Privacy Policy</span>
+              </a>
+            </li>
+            <li>
+              <a href="#/terms-and-conditions" className="footer-icon-link">
+                <FileText size={15} className="link-icon" />
+                <span>Terms & Conditions</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -167,9 +229,9 @@ export const Footer: React.FC = () => {
       {/* Bottom Bar: Full Width Dark Brown */}
       <div className="footer-bottom-bar">
         <div className="container bottom-bar-container">
-          <span>{footer.bottomBar.copyright}</span>
+          <span>{copyright}</span>
           <span className="bottom-bar-sep">|</span>
-          <span>{footer.bottomBar.fssai}</span>
+          <span>{fssaiText}</span>
           <span className="bottom-bar-sep">|</span>
           <a
             href={footer.bottomBar.agencyUrl}
@@ -185,4 +247,3 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
-

@@ -3,6 +3,11 @@ node_modules
 .pnp
 .pnp.js
 
+# Environment Variables
+.env
+.env.*
+!.env.example
+
 # Production build
 dist
 dist-ssr
@@ -22,4 +27,11 @@ dist-ssr
 # Video and large zip files in assets
 assets/*.zip
 assets/*.mp4
+
+# Scratch and database
+scratch/
+frame_*.jpg
+data/
+*.db
+*.db-journal
 

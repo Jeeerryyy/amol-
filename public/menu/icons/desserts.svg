@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <!-- Ice Cream Scoops -->
+  <path d="M14 22 C14 17 18 13 24 13 C30 13 34 17 34 22 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <!-- Cherry on Top -->
+  <circle cx="24" cy="9.5" r="3" fill="currentColor"/>
+  <path d="M25 7 C28 5 30 7 31 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <!-- Coupe Cup Body -->
+  <path d="M10 22 C10 32 17 35 24 35 C31 35 38 32 38 22 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M8 22 H40" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+  <!-- Stem and Base -->
+  <path d="M24 35 V42" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M15 42 H33" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+</svg>

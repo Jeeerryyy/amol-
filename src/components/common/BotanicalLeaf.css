@@ -1,0 +1,62 @@
+.botanical-leaf-wrapper {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  display: block;
+  line-height: 0;
+  transition: opacity 0.3s ease;
+}
+
+.botanical-leaf-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 8px rgba(90, 80, 60, 0.04));
+}
+
+/* Canonical Corner Anchor Placements */
+.leaf-pos-top-left {
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+}
+
+.leaf-pos-top-right {
+  top: 0;
+  right: 0;
+  transform: scaleX(-1);
+  transform-origin: top right;
+}
+
+.leaf-pos-bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: scaleY(-1);
+  transform-origin: bottom left;
+}
+
+.leaf-pos-bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: scale(-1, -1);
+  transform-origin: bottom right;
+}
+
+/* Responsive scaling for mobile devices */
+@media (max-width: 768px) {
+  .botanical-leaf-wrapper {
+    max-width: 130px !important;
+    opacity: 0.75;
+  }
+}
+
+@media (max-width: 480px) {
+  .botanical-leaf-wrapper {
+    max-width: 95px !important;
+    opacity: 0.65;
+  }
+}
+

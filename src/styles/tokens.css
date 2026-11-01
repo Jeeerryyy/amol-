@@ -5,14 +5,14 @@
 
 :root {
   /* Colors */
-  --color-cream-bg: #F8EBD8;          /* Warm parchment/paper page background */
-  --color-cream-card: #FBF1E3;        /* Soft cream card surface */
+  --color-cream-bg: #FAF4EC;          /* Unified warm ivory parchment background matching all artwork */
+  --color-cream-card: #FAF4EC;        /* Matching card surface */
   --color-accent-orange: #D4561A;     /* Signature burnt orange */
   --color-accent-orange-hover: #B8440E;
   --color-orange-text: #A94B00;       /* Accessible deep orange for small text & links on cream (WCAG AA > 5.5:1) */
   --color-text-dark: #2B170B;         /* Deep espresso brown for headings & text */
   --color-text-muted: #6B5545;        /* Muted cocoa brown for descriptions */
-  --color-border: #E6D5BF;            /* Hairline borders & section dividers */
+  --color-border: #E8DACB;            /* Hairline borders & section dividers */
   --color-peach-card: #F1D3B0;        /* Rotated accent card behind About image */
   --color-placeholder-bg: #D9CFC4;    /* Image placeholder box fill */
   --color-placeholder-icon: #A89B8C;  /* Placeholder icon color */
@@ -75,7 +75,7 @@ body {
   min-height: 100vh;
   line-height: 1.6;
   background-color: var(--color-cream-bg);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img {

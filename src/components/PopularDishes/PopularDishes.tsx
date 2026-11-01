@@ -1,10 +1,37 @@
-import React from 'react';
-import { siteConfig } from '../../siteConfig';
+import React, { useState, useEffect } from 'react';
+import { siteConfig, DishItem } from '../../siteConfig';
 import { DishCard } from './DishCard';
+import { ArrowRight } from 'lucide-react';
 import './PopularDishes.css';
 
 export const PopularDishes: React.FC = () => {
   const { popularDishes } = siteConfig;
+  const [dishes, setDishes] = useState<DishItem[]>(popularDishes.dishes);
+
+  useEffect(() => {
+    fetch('/api/public/popular-dishes')
+      .then((res) => {
+        if (!res.ok) throw new Error('API unavailable');
+        return res.json();
+      })
+      .then((data: any[]) => {
+        if (Array.isArray(data) && data.length > 0) {
+          const mapped: DishItem[] = data.map((d) => ({
+            id: d.id,
+            title: d.title,
+            description: d.description || '',
+            price: d.price || '',
+            imageSrc: d.image_url || undefined,
+            placeholderText: d.title,
+          }));
+          setDishes(mapped);
+        }
+      })
+      .catch((err) => {
+        // Fall back gracefully to bundled siteConfig dishes
+        console.warn('[PopularDishes] Using bundled fallback dishes:', err);
+      });
+  }, []);
 
   return (
     <section className="popular-dishes-section" id="popular-dishes">
@@ -18,21 +45,21 @@ export const PopularDishes: React.FC = () => {
           <p className="section-subtitle">{popularDishes.subtitle}</p>
         </div>
 
-        {/* 4 Cards Grid */}
+        {/* Cards Grid */}
         <div className="dishes-grid">
-          {popularDishes.dishes.map((dish) => (
+          {dishes.map((dish) => (
             <DishCard key={dish.id} dish={dish} />
           ))}
         </div>
 
-        {/* Footer Note with lines */}
-        <div className="menu-coming-soon-note">
-          <div className="note-line" aria-hidden="true" />
-          <span className="note-text">{popularDishes.footerNote}</span>
-          <div className="note-line" aria-hidden="true" />
+        {/* Full Menu CTA Button */}
+        <div className="view-full-menu-action">
+          <a href="/menu/" className="btn-explore-digital-menu">
+            <span>Explore Full Digital Menu</span>
+            <ArrowRight size={16} />
+          </a>
         </div>
       </div>
     </section>
   );
 };
-

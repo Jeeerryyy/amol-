@@ -9,8 +9,20 @@ export const Hero: React.FC = () => {
 
   return (
     <section className="hero-section" id="hero">
+      {/* Full Hero Background Layer */}
+      <div className="hero-background-layer" aria-hidden="true">
+        <PlaceholderImage
+          label={hero.heroImage.label}
+          width="100%"
+          height="100%"
+          borderRadius="0"
+          className="hero-bg-placeholder"
+        />
+        <div className="hero-bg-overlay" />
+      </div>
+
       <div className="container hero-container">
-        {/* Left Column: Authentic Flavours Feel Like Home */}
+        {/* Left Content: Authentic Flavours Feel Like Home */}
         <div className="hero-col hero-col-left">
           <span className="hero-eyebrow">{hero.leftEyebrow}</span>
           <h1 className="hero-title">
@@ -21,19 +33,7 @@ export const Hero: React.FC = () => {
           <span className="hero-subtag">{hero.subtag}</span>
         </div>
 
-        {/* Center Column: Table Spread Placeholder */}
-        <div className="hero-col hero-col-center">
-          <div className="hero-placeholder-wrapper">
-            <PlaceholderImage
-              label={hero.heroImage.label}
-              height="460px"
-              borderRadius="var(--radius-lg)"
-              className="hero-image-placeholder"
-            />
-          </div>
-        </div>
-
-        {/* Right Column: Good Food Brings People Together */}
+        {/* Right Content: Good Food Brings People Together */}
         <div className="hero-col hero-col-right">
           <span className="hero-eyebrow right-eyebrow">{hero.rightEyebrow}</span>
 
@@ -50,7 +50,7 @@ export const Hero: React.FC = () => {
           <a href={hero.exploreMenuButton.href} className="hero-explore-btn">
             <span className="explore-text">{hero.exploreMenuButton.text}</span>
             <span className="explore-icon-circle">
-              <ArrowRight size={16} strokeWidth={2.4} color="var(--color-accent-orange)" />
+              <ArrowRight size={16} strokeWidth={2.4} className="explore-arrow-icon" />
             </span>
           </a>
         </div>
