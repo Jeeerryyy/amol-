@@ -116,3 +116,4 @@ for (const pl of publicLinks) {
 
 console.log(`\n=== STATIC AUDIT RESULT: ${failures} Failures, ${warnings} Warnings ===`);
 if (failures > 0) process.exit(1);
+

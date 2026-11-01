@@ -146,3 +146,4 @@ Per the Global Audit Rules:
 2. **Guest Testimonials Carousel**: The 3 testimonial cards in `src/siteConfig.ts` (`TESTIMONIALS` array: Rahul Sharma, Priya Patil, Amit Deshmukh) are static in code.
 3. **Hero Header & Subtitle**: `"Pure Vegetarian Culinary Excellence in Solapur"` in `src/components/Hero/Hero.tsx` is static in code (as specified in Global Rules: hero text remains static).
 4. **Our Story Narrative**: Text in `src/components/About/AboutSection.tsx` is static in code (frozen per spec).
+
