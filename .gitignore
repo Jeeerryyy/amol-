@@ -34,4 +34,6 @@ frame_*.jpg
 data/
 *.db
 *.db-journal
+baseline-screenshots/
+audit-artifacts/
 
