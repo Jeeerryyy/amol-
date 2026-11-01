@@ -93,3 +93,4 @@ export const LegalPage: React.FC<LegalPageProps> = ({ slug }) => {
     </div>
   );
 };
+

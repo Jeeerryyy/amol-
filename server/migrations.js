@@ -207,3 +207,4 @@ if (process.argv[1]?.endsWith('migrations.js')) {
     process.exit(1);
   });
 }
+

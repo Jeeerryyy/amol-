@@ -186,3 +186,4 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
     </div>
   );
 };
+

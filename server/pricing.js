@@ -67,3 +67,4 @@ export async function recalculateAllNonOverriddenPrices() {
 
   return { updatedDishes: dishes.length, updatedVariants: variants.length, markup, rounding };
 }
+

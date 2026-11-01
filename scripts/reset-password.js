@@ -33,3 +33,4 @@ resetPassword().catch((err) => {
   console.error('[Error] Failed to reset password:', err);
   process.exit(1);
 });
+

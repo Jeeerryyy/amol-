@@ -427,3 +427,4 @@ router.get('/api/public/legal/:id', async (req, res) => {
 });
 
 export default router;
+
