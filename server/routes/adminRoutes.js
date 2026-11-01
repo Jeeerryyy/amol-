@@ -316,6 +316,23 @@ router.post('/dishes', async (req, res) => {
     if (!name || !name.trim()) return res.status(400).json({ error: 'Dish name is required' });
     if (!category_id) return res.status(400).json({ error: 'Category is required' });
 
+    if (price_type === 'single') {
+      const numPrice = Number(base_price);
+      if (isNaN(numPrice) || numPrice <= 0) {
+        return res.status(400).json({ error: 'Dish price must be a valid positive number' });
+      }
+    } else if (price_type === 'variants') {
+      if (!Array.isArray(variants) || variants.length === 0) {
+        return res.status(400).json({ error: 'Variants list is required for variant pricing' });
+      }
+      for (const v of variants) {
+        const numVarPrice = Number(v.base_price);
+        if (isNaN(numVarPrice) || numVarPrice <= 0) {
+          return res.status(400).json({ error: `Variant price for "${v.label || 'Variant'}" must be a valid positive number` });
+        }
+      }
+    }
+
     const { markup, rounding } = await getPricingSettings();
     const id = `dish_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`;
     const now = new Date().toISOString();
@@ -422,6 +439,23 @@ router.put('/dishes/:id', async (req, res) => {
       scope = 'both',
       sort_order = 0,
     } = req.body || {};
+
+    if (name !== undefined && !name.trim()) return res.status(400).json({ error: 'Dish name cannot be empty' });
+    if (category_id !== undefined && !category_id) return res.status(400).json({ error: 'Category cannot be empty' });
+
+    if (price_type === 'single' && base_price !== undefined) {
+      const numPrice = Number(base_price);
+      if (isNaN(numPrice) || numPrice <= 0) {
+        return res.status(400).json({ error: 'Dish price must be a valid positive number' });
+      }
+    } else if (price_type === 'variants' && Array.isArray(variants)) {
+      for (const v of variants) {
+        const numVarPrice = Number(v.base_price);
+        if (isNaN(numVarPrice) || numVarPrice <= 0) {
+          return res.status(400).json({ error: `Variant price for "${v.label || 'Variant'}" must be a valid positive number` });
+        }
+      }
+    }
 
     const { markup, rounding } = await getPricingSettings();
     const now = new Date().toISOString();

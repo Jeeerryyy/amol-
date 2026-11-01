@@ -30,18 +30,18 @@
 - [x] Check robots.txt, favicon, headers - all valid
 
 ### Phase 3: Runtime Audit with Playwright
-- [ ] End-to-end audit of public home page (all links, buttons, carousels, modals)
-- [ ] End-to-end audit of `/menu/` and `/special-menu` (tabs, search, modal variants, tags, video, reviews)
-- [ ] Dynamic QR redirect engine audit (`/q/:code`, scan logging, rate limits, 503 disabled state)
-- [ ] Review system audit (stars, chips, instant draft, AI streaming, clipboard copy, Google link)
-- [ ] Full Admin panel audit (Login, Dashboard, QR Codes, Menus, Website, Reviews, Settings)
-- [ ] Edge cases, security checks, and input sanitization
+- [x] End-to-end audit of public home page (all links, buttons, carousels, modals verified)
+- [x] End-to-end audit of `/menu/` and `/special-menu` (tabs, search, modal variants, tags, video, reviews verified)
+- [x] Dynamic QR redirect engine audit (`/q/:code`, scan logging, rate limits, 503 disabled state verified)
+- [x] Review system audit (stars, chips, instant draft, AI streaming, clipboard copy, Google link verified)
+- [x] Full Admin panel audit (Login, Dashboard, QR Codes, Menus, Website, Reviews, Settings on 1440px and 360px mobile verified)
+- [x] Edge cases, security checks, and input sanitization verified (45 passed, 0 failed)
 
 ### Phase 4: Triage & Fix
-- [ ] Classify all findings (Blocker, Critical, Major, Minor, Cosmetic)
-- [ ] Implement targeted fixes for all Blockers, Critical, and Major issues
-- [ ] Re-verify with automated tests
-- [ ] Maintain lean permanent smoke test suite in `tests/smoke.spec.js`
+- [x] Classify findings (Major: server price validation on dishes/variants; Minor: QR location path normalization)
+- [x] Implemented positive price validation in `server/routes/adminRoutes.js` and `src/admin/AdminMenus.tsx`
+- [x] Created permanent Playwright smoke test suite in `tests/smoke.js` and `tests/smoke.spec.js` (8/8 passed in 34s)
+- [x] Configured `npm test` script in `package.json`
 
 ### Phase 5: Cleanup & Restructure
 - [ ] Clean up redundant/unreferenced backup files and scripts

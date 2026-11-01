@@ -170,6 +170,21 @@ export const AdminMenus: React.FC = () => {
     if (!dishForm.name.trim()) return alert('Dish name is required');
     if (!dishForm.category_id) return alert('Category is required');
 
+    if (dishForm.price_type === 'single') {
+      if (isNaN(Number(dishForm.base_price)) || Number(dishForm.base_price) <= 0) {
+        return alert('Dish price must be a positive number greater than 0');
+      }
+    } else if (dishForm.price_type === 'variants') {
+      if (!dishForm.variants || dishForm.variants.length === 0) {
+        return alert('At least one variant is required');
+      }
+      for (const v of dishForm.variants) {
+        if (isNaN(Number(v.base_price)) || Number(v.base_price) <= 0) {
+          return alert(`Price for variant "${v.label}" must be greater than 0`);
+        }
+      }
+    }
+
     try {
       if (editingDish) {
         await adminFetch(`/api/admin/dishes/${editingDish.id}`, {
