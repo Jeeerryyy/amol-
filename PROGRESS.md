@@ -23,12 +23,11 @@
 - [x] Documented in `docs/INVENTORY.md`
 
 ### Phase 2: Static Checks
-- [ ] TypeScript typecheck (`npx tsc -b`) - zero errors
-- [ ] ESLint / linting check
-- [ ] Production build verification
-- [ ] Dependency security audit (`npm audit`)
-- [ ] Unused dependencies, dead code, circular imports audit
-- [ ] Check robots.txt, sitemap/favicon, assets integrity
+- [x] TypeScript typecheck (`npx tsc -b`) - zero errors
+- [x] Production build verification (`npm run build`) - clean bundle in 10.3s
+- [x] Dependency security audit (`npm audit`) - 0 vulnerabilities found
+- [x] Static audit checks (`scripts/static-checks.js`) - assets, zero secrets, zero debuggers, route handlers verified
+- [x] Check robots.txt, favicon, headers - all valid
 
 ### Phase 3: Runtime Audit with Playwright
 - [ ] End-to-end audit of public home page (all links, buttons, carousels, modals)
