@@ -97,14 +97,27 @@ Allow: /menu/
 `);
 });
 
-// Enable CORS restricted to allowed origin
+// Enable CORS: allow configured origins, localhost, and all *.vercel.app deployments
+const allowedOriginsList = (process.env.ALLOWED_ORIGIN || 'http://localhost:5173')
+  .split(',')
+  .map((o) => o.trim().replace(/\/$/, ''))
+  .filter(Boolean);
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || origin === ALLOWED_ORIGIN || origin === 'http://localhost:5173') {
+      if (!origin) return callback(null, true);
+      const cleanOrigin = origin.replace(/\/$/, '');
+      if (
+        allowedOriginsList.includes(cleanOrigin) ||
+        cleanOrigin === 'http://localhost:5173' ||
+        cleanOrigin === 'http://localhost:3000' ||
+        cleanOrigin === 'http://localhost:3001' ||
+        cleanOrigin.endsWith('.vercel.app')
+      ) {
         callback(null, true);
       } else {
-        callback(new Error('Blocked by CORS'));
+        callback(new Error('Blocked by CORS: ' + origin));
       }
     },
     credentials: true,
