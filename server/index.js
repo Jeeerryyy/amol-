@@ -255,6 +255,10 @@ app.get('/api/health', (req, res) => {
 // Auto-seed database on server start
 seedDatabase().catch((err) => console.error('[Server Seed Error]', err));
 
-app.listen(PORT, () => {
-  console.log(`Unified Backend running on http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Unified Backend running on http://localhost:${PORT}`);
+  });
+}
+
+export default app;

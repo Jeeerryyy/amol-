@@ -213,14 +213,14 @@ export async function seedDatabase() {
     }
   }
 
-  // 8. SEED GALLERY ITEMS
+  // 8. SEED GALLERY ITEMS (Placeholder wireframes - real photos uploaded via Admin)
   const existingGal = await query('SELECT id FROM gallery_items');
   if (existingGal.length === 0) {
     const gallerySeed = [
-      { id: 'gal-1', url: '/images/amol-sketch.jpg', alt_text: 'Amol Veg Resto Front Architectural Sketch', caption: 'Serving Solapur authentic pure veg delights since 1990.', category: 'ambience', aspect: 'wide' },
-      { id: 'gal-2', url: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=1000&q=85', alt_text: 'Crisp Golden Masala Dosa', caption: 'Ritual morning dosa served sizzling hot with coconut chutney & sambar.', category: 'food', aspect: 'wide' },
-      { id: 'gal-3', url: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=1000&q=85', alt_text: 'Air-Conditioned Family Dining Hall', caption: 'Spotless, spacious and comfortable seating designed for family meals.', category: 'ambience', aspect: 'wide' },
-      { id: 'gal-4', url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=1000&q=85', alt_text: 'Ritual Kitchen Tadka & Fresh Cooking', caption: 'Prepared daily with pure ingredients and zero compromise.', category: 'kitchen', aspect: 'standard' },
+      { id: 'gal-1', url: '', alt_text: 'Amol Veg Resto Front Architectural Sketch', caption: 'Serving Solapur authentic pure veg delights since 1990.', category: 'ambience', aspect: 'wide' },
+      { id: 'gal-2', url: '', alt_text: 'Crisp Golden Masala Dosa', caption: 'Ritual morning delicacies served sizzling hot with authentic chutneys.', category: 'food', aspect: 'wide' },
+      { id: 'gal-3', url: '', alt_text: 'Air-Conditioned Family Dining Hall', caption: 'Spotless, spacious and comfortable seating designed for family meals.', category: 'ambience', aspect: 'wide' },
+      { id: 'gal-4', url: '', alt_text: 'Ritual Kitchen Tadka & Fresh Cooking', caption: 'Prepared daily with pure ingredients and zero compromise.', category: 'kitchen', aspect: 'standard' },
     ];
     for (let i = 0; i < gallerySeed.length; i++) {
       const g = gallerySeed[i];

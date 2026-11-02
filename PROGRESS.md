@@ -1,6 +1,6 @@
 # AMOL VEG RESTO - Audit & Handover Progress
 
-## Overall Status: 100% COMPLETE
+## Overall Status: IN PROGRESS
 **Branch:** `chore/audit-and-handover`  
 **Baseline Git Tag:** `pre-handover-baseline`  
 **Testing Target:** Zero defects, evidence-backed verification, frozen public design, handover documentation.
@@ -24,7 +24,7 @@
 
 ### Phase 2: Static Checks
 - [x] TypeScript typecheck (`npx tsc -b`) - zero errors
-- [x] Production build verification (`npm run build`) - clean bundle in 15.8s
+- [x] Production build verification (`npm run build`) - clean bundle in 10.3s
 - [x] Dependency security audit (`npm audit`) - 0 vulnerabilities found
 - [x] Static audit checks (`scripts/static-checks.js`) - assets, zero secrets, zero debuggers, route handlers verified
 - [x] Check robots.txt, favicon, headers - all valid
@@ -40,7 +40,7 @@
 ### Phase 4: Triage & Fix
 - [x] Classify findings (Major: server price validation on dishes/variants; Minor: QR location path normalization)
 - [x] Implemented positive price validation in `server/routes/adminRoutes.js` and `src/admin/AdminMenus.tsx`
-- [x] Created permanent Playwright smoke test suite in `tests/smoke.js` and `tests/smoke.spec.js` (8/8 passed in 9.4s)
+- [x] Created permanent Playwright smoke test suite in `tests/smoke.js` and `tests/smoke.spec.js` (8/8 passed in 34s)
 - [x] Configured `npm test` script in `package.json`
 
 ### Phase 5: Cleanup & Restructure
@@ -50,15 +50,14 @@
 - [x] Streamlined `package.json` scripts (`dev`, `build`, `preview`, `test`, `lint`, `server`, `migrate`, `seed`, `reset-password`)
 - [x] Single package manager verified (`package-lock.json`)
 - [x] Configured Vite watcher ignores to prevent OneDrive EBUSY lockouts
-- [x] Verified clean production build (`npm run build`) and smoke tests (`npm test` in 9.4s)
+- [x] Verified clean production build (`npm run build` in 8.6s) and smoke tests (`npm test` in 8.8s)
 
 ### Phase 6: Documentation
-- [x] Professional GitHub showcase `README.md` (<120 lines, tech stack, Mermaid diagram, screenshots)
-- [x] Technical guide `docs/HANDOVER.md`
-- [x] Restaurant owner manual `docs/ADMIN_GUIDE.md`
-- [x] Exhaustive audit report `docs/AUDIT_REPORT.md`
-- [x] Showcase screenshots saved to `docs/screenshots/`
+- [ ] Professional GitHub showcase `README.md` (<120 lines, tech stack, Mermaid diagram, screenshots)
+- [ ] Technical guide `docs/HANDOVER.md`
+- [ ] Restaurant owner manual `docs/ADMIN_GUIDE.md`
+- [ ] Exhaustive audit report `docs/AUDIT_REPORT.md`
 
 ### Phase 7: Final Verification & Handover
-- [x] Final smoke tests and visual regression verification against baseline (100% PASS)
-- [x] Present 6-point handover report to user
+- [ ] Final smoke tests and visual regression verification against baseline
+- [ ] Present 6-point handover report to user

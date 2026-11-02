@@ -37,3 +37,8 @@ data/
 baseline-screenshots/
 audit-artifacts/
 
+# Temporary screenshots
+current_menu_*.png
+*.png.tmp
+
+

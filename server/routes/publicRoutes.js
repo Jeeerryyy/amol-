@@ -271,29 +271,35 @@ router.get('/api/public/menu/:menuId', async (req, res) => {
 
     const dishes = await query(dishSql);
 
-    // 3. Enrich dishes with images & variants
+    // 3. Batch fetch all images & variants in 2 single queries (prevents N+1 latency over remote DB)
+    const allImages = await query('SELECT dish_id, url FROM dish_images ORDER BY sort_order ASC');
+    const imageMap = new Map();
+    for (const img of allImages) {
+      if (!imageMap.has(img.dish_id)) imageMap.set(img.dish_id, []);
+      imageMap.get(img.dish_id).push(img.url);
+    }
+
+    const variantSql = `
+      SELECT dish_id, id, label, ${menuId === 'special' ? 'special_price AS price' : 'base_price AS price'}, sort_order
+      FROM dish_variants
+      ORDER BY sort_order ASC
+    `;
+    const allVariants = await query(variantSql);
+    const variantMap = new Map();
+    for (const v of allVariants) {
+      if (!variantMap.has(v.dish_id)) variantMap.set(v.dish_id, []);
+      variantMap.get(v.dish_id).push(v);
+    }
+
     const categoryIdsWithDishes = new Set();
     for (const d of dishes) {
       categoryIdsWithDishes.add(d.category_id);
-      d.images = (await query('SELECT url FROM dish_images WHERE dish_id = $1 ORDER BY sort_order ASC', [d.id])).map(
-        (img) => img.url
-      );
-
-      if (d.price_type === 'variants') {
-        const variantSql = `
-          SELECT id, label, ${menuId === 'special' ? 'special_price AS price' : 'base_price AS price'}, sort_order
-          FROM dish_variants
-          WHERE dish_id = $1
-          ORDER BY sort_order ASC
-        `;
-        d.variants = await query(variantSql, [d.id]);
-      } else {
-        d.variants = [];
-      }
+      d.images = imageMap.get(d.id) || [];
+      d.variants = d.price_type === 'variants' ? (variantMap.get(d.id) || []) : [];
 
       try {
-        d.tags = JSON.parse(d.tags || '[]');
-        d.badges = JSON.parse(d.badges || '[]');
+        d.tags = typeof d.tags === 'string' ? JSON.parse(d.tags || '[]') : (d.tags || []);
+        d.badges = typeof d.badges === 'string' ? JSON.parse(d.badges || '[]') : (d.badges || []);
       } catch {
         d.tags = [];
         d.badges = [];
