@@ -1,0 +1,160 @@
+.popular-dishes-section {
+  padding: 64px 0;
+  position: relative;
+}
+
+.section-header-center {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-main-heading {
+  font-family: var(--font-serif);
+  font-size: 48px;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-dark);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+/* 4-Column Card Grid */
+.dishes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+.dish-card {
+  background-color: var(--color-cream-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dish-card-media {
+  width: 100%;
+  overflow: hidden;
+}
+
+.dish-img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+.dish-card-content {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.dish-title {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-dark);
+  margin-bottom: 8px;
+}
+
+.dish-description {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.dish-price {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: var(--fw-bold);
+  color: var(--color-accent-orange);
+}
+
+/* View Full Menu Button */
+.view-full-menu-action {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.btn-explore-digital-menu {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 28px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent-orange);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(212, 86, 26, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+.btn-explore-digital-menu:hover {
+  background-color: var(--color-accent-orange-hover);
+  color: #ffffff;
+}
+
+/* Footer Note with flanking lines */
+.menu-coming-soon-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.note-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.note-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--color-text-muted);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .dishes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section-main-heading {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 640px) {
+  .dishes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-main-heading {
+    font-size: 34px;
+  }
+}

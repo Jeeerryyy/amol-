@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <!-- Curry Pot / Handi Body -->
+  <path d="M10 21 C10 35 15 41 24 41 C33 41 38 35 38 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <!-- Rim -->
+  <ellipse cx="24" cy="21" rx="14" ry="4" stroke="currentColor" stroke-width="2.6"/>
+  <!-- Handles -->
+  <path d="M10 24 C5 24 5 30 10 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M38 24 C43 24 43 30 38 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Ladle / Spoon -->
+  <path d="M32 9 L23 23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M20 22 C19 25 24 27 26 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Steam -->
+  <path d="M17 14 C16 11 18 9 17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M23 13 C22 10.5 24 8.5 23 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>

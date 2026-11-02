@@ -1,0 +1,2802 @@
+{
+  "dish_1": {
+    "name": "Veg Grill Sandwich",
+    "category": "Grill Sandwich",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_2": {
+    "name": "Veg Cheese Sandwich",
+    "category": "Grill Sandwich",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_3": {
+    "name": "Corn Cheese",
+    "category": "Grill Sandwich",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_4": {
+    "name": "Veg Mayonnaise",
+    "category": "Grill Sandwich",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_5": {
+    "name": "Peri Peri Sandwich",
+    "category": "Grill Sandwich",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_6": {
+    "name": "Club Cheese",
+    "category": "Grill Sandwich",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_7": {
+    "name": "Paneer Tikka Sandwich",
+    "category": "Grill Sandwich",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_8": {
+    "name": "Bombay Sandwich",
+    "category": "Grill Sandwich",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_9": {
+    "name": "Margherita Pizza",
+    "category": "Pizza",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_10": {
+    "name": "Sweetcorn Pizza",
+    "category": "Pizza",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_11": {
+    "name": "Veg Crunch Pizza",
+    "category": "Pizza",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_12": {
+    "name": "Spicy Veg Pizza",
+    "category": "Pizza",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_13": {
+    "name": "Farm House Pizza",
+    "category": "Pizza",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_14": {
+    "name": "Peri Peri Pizza",
+    "category": "Pizza",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_15": {
+    "name": "Cheese Loaded Pizza",
+    "category": "Pizza",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_16": {
+    "name": "Crowded House Pizza",
+    "category": "Pizza",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_17": {
+    "name": "Salted French Fries",
+    "category": "French Fries",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_18": {
+    "name": "Masala French Fries",
+    "category": "French Fries",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_19": {
+    "name": "Peri Peri French Fries",
+    "category": "French Fries",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_20": {
+    "name": "Veg Burger",
+    "category": "Burger",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_21": {
+    "name": "Double Cheese Burger",
+    "category": "Burger",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_22": {
+    "name": "Garlic Cheese Burger",
+    "category": "Burger",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_23": {
+    "name": "Schezwan Cheese Burger",
+    "category": "Burger",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_24": {
+    "name": "Peri Peri Cheese Burger",
+    "category": "Burger",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_25": {
+    "name": "Tandoor Paneer Burger",
+    "category": "Burger",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_26": {
+    "name": "Crispy Paneer Burger",
+    "category": "Burger",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_27": {
+    "name": "Cold Coffee",
+    "category": "Cold Coffee",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_28": {
+    "name": "Cold Coffee with Ice Cream",
+    "category": "Cold Coffee",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_29": {
+    "name": "Chocolate Cold Coffee",
+    "category": "Cold Coffee",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_30": {
+    "name": "Choco Crunch Cold Coffee",
+    "category": "Cold Coffee",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_31": {
+    "name": "Oreo Milk Shake",
+    "category": "Milk Shake",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_32": {
+    "name": "Strawberry Milk Shake",
+    "category": "Milk Shake",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_33": {
+    "name": "Butter Scotch Milk Shake",
+    "category": "Milk Shake",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_34": {
+    "name": "Vanilla Milk Shake",
+    "category": "Milk Shake",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_35": {
+    "name": "Chocolate Milk Shake",
+    "category": "Milk Shake",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_36": {
+    "name": "Kit Kat Milk Shake",
+    "category": "Milk Shake",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_37": {
+    "name": "Rose Milk Shake",
+    "category": "Milk Shake",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_38": {
+    "name": "Brownie Milk Shake",
+    "category": "Milk Shake",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_39": {
+    "name": "Brownie with Ice Cream",
+    "category": "Brownie",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_40": {
+    "name": "Roasted Papad",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_41": {
+    "name": "Fry Papad",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_42": {
+    "name": "Masala Papad",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_43": {
+    "name": "Butter Masala Papad",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_44": {
+    "name": "Masala Bhakri",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_45": {
+    "name": "Cheese Masala Papad",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_46": {
+    "name": "Green Salad",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_47": {
+    "name": "Tomato Salad",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_48": {
+    "name": "Kakdi Salad",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_49": {
+    "name": "Aloo Paratha",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_50": {
+    "name": "Methi Paratha",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_51": {
+    "name": "Paneer Stuff Paratha",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_52": {
+    "name": "Paneer Pakoda",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_53": {
+    "name": "Cheese Pakoda",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_54": {
+    "name": "Harabhara Kabab",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_55": {
+    "name": "Aloo Tikki",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_56": {
+    "name": "Methi Aloo Tikki",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_57": {
+    "name": "Masala Kulcha",
+    "category": "Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_58": {
+    "name": "Paneer Manchurian",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_59": {
+    "name": "Paneer Chilly",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_60": {
+    "name": "Paneer Finger",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_61": {
+    "name": "Crispy Thread Paneer",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_62": {
+    "name": "Paneer Shanghai",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_63": {
+    "name": "Paneer Peanut Satay",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_64": {
+    "name": "Paneer in Hot Garlic Sauce",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_65": {
+    "name": "Paneer Crispy",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_66": {
+    "name": "Paneer 65",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_67": {
+    "name": "Paneer Hot Pan",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_68": {
+    "name": "Paneer Barbeque",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_69": {
+    "name": "Paneer Steak Schezwan Sauce",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_70": {
+    "name": "Thai Panner",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_71": {
+    "name": "Paneer Pepper Fry",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_72": {
+    "name": "Cottage Cheese Satay",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_73": {
+    "name": "Paneer Sesame Satay",
+    "category": "Paneer Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_74": {
+    "name": "Veg Manchurian",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_75": {
+    "name": "Veg Manchurian Gravy",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_76": {
+    "name": "Veg Manchurian Chilly",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_77": {
+    "name": "Veg Schezwan Finger",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_78": {
+    "name": "Veg Crispy",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_79": {
+    "name": "Veg 65",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_80": {
+    "name": "Gobi Manchurian",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_81": {
+    "name": "Gobi 65",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_82": {
+    "name": "Gobi Lolly Pop",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_83": {
+    "name": "Veg Lolly Pop",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_84": {
+    "name": "Baby Corn Chilly",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_85": {
+    "name": "Baby Corn Manchurian",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_86": {
+    "name": "Baby Corn 65",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_87": {
+    "name": "Mushroom Manchurian",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_88": {
+    "name": "Mushroom Chilly",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_89": {
+    "name": "Gobi Chilly",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_90": {
+    "name": "Chinese Bhel",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_91": {
+    "name": "Chinese Sizzler",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_92": {
+    "name": "Veg Spring Roll",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_93": {
+    "name": "Cheese Ball",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_94": {
+    "name": "Honey Chilli Potato",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_95": {
+    "name": "Shezwan Potato",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_96": {
+    "name": "Corn Cheese Balls",
+    "category": "Chinese",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_97": {
+    "name": "Paneer Tikka Snacks",
+    "category": "Tandoori Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_98": {
+    "name": "Tandoori Aloo Tikha",
+    "category": "Tandoori Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_99": {
+    "name": "Hariyali Shikh Kabab",
+    "category": "Tandoori Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_100": {
+    "name": "Panner Pahadi Tikka",
+    "category": "Tandoori Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_101": {
+    "name": "Tandoori Baby Corn",
+    "category": "Tandoori Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_102": {
+    "name": "Tandoori Mushroom",
+    "category": "Tandoori Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_103": {
+    "name": "Tandoori Platter",
+    "category": "Tandoori Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_104": {
+    "name": "Paneer Garlic Tikka",
+    "category": "Tandoori Starters",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_105": {
+    "name": "Veg Manchow Soup",
+    "category": "Soup",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_106": {
+    "name": "Hot & Sour Veg Soup",
+    "category": "Soup",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_107": {
+    "name": "Lemon Coriander Soup",
+    "category": "Soup",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_108": {
+    "name": "Veg Noodle Soup",
+    "category": "Soup",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_109": {
+    "name": "Cream of Spinach Soup",
+    "category": "Soup",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_110": {
+    "name": "Cream of Veg Soup",
+    "category": "Soup",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_111": {
+    "name": "Cream of Tomato Soup",
+    "category": "Soup",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_112": {
+    "name": "Cream of Mushroom Soup",
+    "category": "Soup",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_113": {
+    "name": "Amol Special Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_114": {
+    "name": "Veg Fried Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_115": {
+    "name": "Veg Triple Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_116": {
+    "name": "Shezwan Fried Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_117": {
+    "name": "Shezwan Triple Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_118": {
+    "name": "Mushroom Fried Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_119": {
+    "name": "Babycorn Fried Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_120": {
+    "name": "Paneer Fried Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_121": {
+    "name": "Hongkong Fried Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_122": {
+    "name": "Singapuri Fried Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_123": {
+    "name": "Onion Chilly Fried Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_124": {
+    "name": "Garlic Fried Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_125": {
+    "name": "Combination Fried Rice",
+    "category": "Chinese Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_126": {
+    "name": "Amol Special Noodles",
+    "category": "Noodles",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_127": {
+    "name": "Thai Hakka Noodles",
+    "category": "Noodles",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_128": {
+    "name": "Veg Hakka Noodles",
+    "category": "Noodles",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_129": {
+    "name": "Veg Hongkong Noodles",
+    "category": "Noodles",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_130": {
+    "name": "Veg Schezwan Noodles",
+    "category": "Noodles",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_131": {
+    "name": "Mushroom Noodles",
+    "category": "Noodles",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_132": {
+    "name": "Paneer Noodles",
+    "category": "Noodles",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_133": {
+    "name": "Babycorn Noodles",
+    "category": "Noodles",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_134": {
+    "name": "Garlic Corn Noodles",
+    "category": "Noodles",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_135": {
+    "name": "Tava Bhaji",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_136": {
+    "name": "Veg Bhuna",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_137": {
+    "name": "Veg Maratha",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_138": {
+    "name": "Veg Hyderabadi",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_139": {
+    "name": "Veg Kolhapuri",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_140": {
+    "name": "Veg Maharani",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_141": {
+    "name": "Veg Kadai",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_142": {
+    "name": "Veg Makhanwala",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_143": {
+    "name": "Veg Banarasi",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_144": {
+    "name": "Veg Shahi Kurma",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_145": {
+    "name": "Veg Khema",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_146": {
+    "name": "Veg Jaipuri",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_147": {
+    "name": "Veg Kofta",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_148": {
+    "name": "Malai Kofta",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_149": {
+    "name": "Nargisi Kofta",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_150": {
+    "name": "Methi Masala",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_151": {
+    "name": "Methi Malai",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_152": {
+    "name": "Methi Malai Mutter",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_153": {
+    "name": "Methi Fry",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_154": {
+    "name": "Methi Besan",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_155": {
+    "name": "Gobi Masala",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_156": {
+    "name": "Mushroom Masala",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_157": {
+    "name": "Mushroom Methi",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_158": {
+    "name": "Stuff Capsicum",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_159": {
+    "name": "Stuff Tomato",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_160": {
+    "name": "Cheese Tomato",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_161": {
+    "name": "Cheese Anguri",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_162": {
+    "name": "Palak Maharani",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_163": {
+    "name": "Mix Veg",
+    "category": "Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_164": {
+    "name": "Dal Fry",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_165": {
+    "name": "Dal Tadaka",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_166": {
+    "name": "Dal Makhanwala",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_167": {
+    "name": "Dal Butter Fry",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_168": {
+    "name": "Dal Fry Methi",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_169": {
+    "name": "Dal Kolhapuri",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_170": {
+    "name": "Dal Achari",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_171": {
+    "name": "Dal Maharani",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_172": {
+    "name": "Aloo Masala",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_173": {
+    "name": "Aloo Jeera",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_174": {
+    "name": "Aloo Fry",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_175": {
+    "name": "Dum Aloo",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_176": {
+    "name": "Aloo Methi",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_177": {
+    "name": "Aloo Gobi",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_178": {
+    "name": "Aloo Palak",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_179": {
+    "name": "Aloo Matar",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_180": {
+    "name": "Aloo Capsicum Masala",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_181": {
+    "name": "Capsicum Masala",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_182": {
+    "name": "Baingan Masala",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_183": {
+    "name": "Baingan Bharta",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_184": {
+    "name": "Achari Baingan",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_185": {
+    "name": "Baingan Aloo",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_186": {
+    "name": "Bhendi Masala",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_187": {
+    "name": "Bhendi Fry",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_188": {
+    "name": "Green Peas Masala",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_189": {
+    "name": "Shenga Bhaji",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_190": {
+    "name": "Tomato Bhaji",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_191": {
+    "name": "Plain Palak",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_192": {
+    "name": "Garlic Palak",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_193": {
+    "name": "Shev Masala Bhaji",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_194": {
+    "name": "Shev Masala Tadka",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_195": {
+    "name": "Onion Bhaji",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_196": {
+    "name": "Ghati Gravy",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_197": {
+    "name": "Besan Fry",
+    "category": "Punjabi Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_198": {
+    "name": "Paneer Masala",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_199": {
+    "name": "Paneer Butter Masala",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_200": {
+    "name": "Paneer Kadai",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_201": {
+    "name": "Paneer Tikka Masala",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_202": {
+    "name": "Paneer Chilly Milly",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_203": {
+    "name": "Shahi Panner",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_204": {
+    "name": "Mutter Paneer",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_205": {
+    "name": "Palak Paneer",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_206": {
+    "name": "Paneer Kolhapuri",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_207": {
+    "name": "Paneer Hyderabadi",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_208": {
+    "name": "Paneer Makhanwala",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_209": {
+    "name": "Paneer Kaju Kurma",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_210": {
+    "name": "Paneer Burji",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_211": {
+    "name": "Paneer Methi",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_212": {
+    "name": "Paneer Kofta",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_213": {
+    "name": "Paneer Jalfrezi",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_214": {
+    "name": "Paneer Sismi",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_215": {
+    "name": "Paneer Rajwadi",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_216": {
+    "name": "Achar Paneer",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_217": {
+    "name": "Paneer Lababdar",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_218": {
+    "name": "Paneer Kurkure",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_219": {
+    "name": "Paneer Kaju Masala",
+    "category": "Paneer Main Course",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_220": {
+    "name": "Kaju Masala",
+    "category": "Kaju Special",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_221": {
+    "name": "Kaju Curry",
+    "category": "Kaju Special",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_222": {
+    "name": "Kaju Mastana",
+    "category": "Kaju Special",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_223": {
+    "name": "Matar Kaju Kurma",
+    "category": "Kaju Special",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_224": {
+    "name": "Veg Kaju Kurma",
+    "category": "Kaju Special",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_225": {
+    "name": "Kaju Masala Creamy",
+    "category": "Kaju Special",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_226": {
+    "name": "Achar Kaju",
+    "category": "Kaju Special",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_227": {
+    "name": "Kaju Palak",
+    "category": "Kaju Special",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_228": {
+    "name": "Amol Veg Garden",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_229": {
+    "name": "Amol Veg Handi",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_230": {
+    "name": "Amol Veg Pahadi",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_231": {
+    "name": "Amol Veg Jalfrezi",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_232": {
+    "name": "Amol Veg Hariyali",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_233": {
+    "name": "Amol Veg Patiala",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_234": {
+    "name": "Amol Veg Chilly Milly",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_235": {
+    "name": "Amol Veg Diwani Handi",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_236": {
+    "name": "Amol Veg Sham Savera",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_237": {
+    "name": "Amol Veg Dilruba",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_238": {
+    "name": "Amol Special Paneer Malvani",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_239": {
+    "name": "Special Kaju Malvani",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_240": {
+    "name": "Amol Veg Malvani",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_241": {
+    "name": "Paneer Kaju Malvani",
+    "category": "Amol Special Dishes",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_242": {
+    "name": "Half Plain Rice",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_243": {
+    "name": "Basmati Plain Rice",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_244": {
+    "name": "Basmati Jeera Rice",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_245": {
+    "name": "Half Basmati Jeera Rice",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_246": {
+    "name": "Basmati Masala Rice",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_247": {
+    "name": "Curd Rice",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_248": {
+    "name": "Basmati Ghee Rice",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_249": {
+    "name": "Veg Pulav",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_250": {
+    "name": "Veg Biryani",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_251": {
+    "name": "Veg Hyderabadi Biryani",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_252": {
+    "name": "Green Peas Pulav",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_253": {
+    "name": "Dal Chawal Khichadi",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_254": {
+    "name": "Dal Khichadi Tadka",
+    "category": "Rice",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_255": {
+    "name": "Kanda Raita",
+    "category": "Raita",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_256": {
+    "name": "Kakdi Raita",
+    "category": "Raita",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_257": {
+    "name": "Boondi Raita",
+    "category": "Raita",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_258": {
+    "name": "Kadak Bhakari",
+    "category": "Bhartiya Roti",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_259": {
+    "name": "Chapati",
+    "category": "Bhartiya Roti",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_260": {
+    "name": "Butter Chapati",
+    "category": "Bhartiya Roti",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_261": {
+    "name": "Tava Paratha",
+    "category": "Bhartiya Roti",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_262": {
+    "name": "Butter Tava Paratha",
+    "category": "Bhartiya Roti",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_263": {
+    "name": "Tandoori Roti",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_264": {
+    "name": "Butter Tandoori Roti",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_265": {
+    "name": "Plain Naan",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_266": {
+    "name": "Butter Naan",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_267": {
+    "name": "Cheese Naan",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_268": {
+    "name": "Butter Cheese Naan",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_269": {
+    "name": "Garlic Naan",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_270": {
+    "name": "Butter Garlic Naan",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_271": {
+    "name": "Garlic Cheese Naan",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_272": {
+    "name": "Butter Cheese Garlic Naan",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_273": {
+    "name": "Plain Kulcha",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_274": {
+    "name": "Butter Kulcha",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_275": {
+    "name": "Laccha Paratha",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_276": {
+    "name": "Butter Laccha Paratha",
+    "category": "Tandoori Roti & Naan",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_277": {
+    "name": "Vanilla Ice Cream",
+    "category": "Ice Cream & Cold Drinks",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_278": {
+    "name": "Butterscotch Ice Cream",
+    "category": "Ice Cream & Cold Drinks",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_279": {
+    "name": "Chocolate Ice Cream",
+    "category": "Ice Cream & Cold Drinks",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  },
+  "dish_280": {
+    "name": "Cold Drinks (250 ml)",
+    "category": "Ice Cream & Cold Drinks",
+    "images": [
+      {
+        "url": "/images/dish-placeholder.svg",
+        "public_id": null
+      }
+    ]
+  }
+}

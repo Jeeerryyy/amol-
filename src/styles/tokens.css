@@ -1,0 +1,128 @@
+/* ==========================================================================
+   AMOL VEG RESTO - DESIGN TOKENS & GLOBAL STYLES
+   Sampled directly from 'lanmding page.png' source of truth
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --color-cream-bg: #FAF4EC;          /* Unified warm ivory parchment background matching all artwork */
+  --color-cream-card: #FAF4EC;        /* Matching card surface */
+  --color-accent-orange: #D4561A;     /* Signature burnt orange */
+  --color-accent-orange-hover: #B8440E;
+  --color-orange-text: #A94B00;       /* Accessible deep orange for small text & links on cream (WCAG AA > 5.5:1) */
+  --color-text-dark: #2B170B;         /* Deep espresso brown for headings & text */
+  --color-text-muted: #6B5545;        /* Muted cocoa brown for descriptions */
+  --color-border: #E8DACB;            /* Hairline borders & section dividers */
+  --color-peach-card: #F1D3B0;        /* Rotated accent card behind About image */
+  --color-placeholder-bg: #D9CFC4;    /* Image placeholder box fill */
+  --color-placeholder-icon: #A89B8C;  /* Placeholder icon color */
+  --color-footer-bar: #351C12;         /* Dark brown bottom footer bar */
+  --color-quote-mark: #F1B98A;        /* Large testimonial quote mark */
+  --color-olive-leaf: #6B7A3A;        /* Olive green for botanical accents */
+
+  /* Typography */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Montserrat', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Font Weights */
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 88px;
+
+  /* Layout */
+  --container-max-width: 1320px;
+  --section-gutter: 24px;
+
+  /* Border Radii */
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-card: 0 4px 18px rgba(60, 30, 10, 0.08);
+  --shadow-hover: 0 8px 24px rgba(60, 30, 10, 0.12);
+}
+
+/* Base Resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-cream-bg);
+  color: var(--color-text-dark);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.6;
+  background-color: var(--color-cream-bg);
+  overflow-x: clip;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all 0.2s ease;
+}
+
+/* Utility Layout Classes */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--section-gutter);
+  padding-right: var(--section-gutter);
+}
+
+.text-orange {
+  color: var(--color-accent-orange) !important;
+}
+
+.text-serif {
+  font-family: var(--font-serif);
+}
+
+.text-sans {
+  font-family: var(--font-sans);
+}
+
+/* Subtle texture overlay for paper look */
+.paper-bg {
+  background-color: var(--color-cream-bg);
+  background-image: radial-gradient(rgba(107, 85, 69, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+

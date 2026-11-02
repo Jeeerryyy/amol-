@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amol Veg Resto | View-Only Digital Menu</title>
+  <meta name="description"
+    content="Official view-only digital menu for Amol Veg Resto. 100% pure vegetarian culinary delights in Solapur.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --color-cream-bg: #FAF4EC;
+      --color-cream-card: #FAF4EC;
+      --color-accent-orange: #D4561A;
+      --color-accent-orange-hover: #B8440E;
+      --color-text-dark: #2B170B;
+      --color-text-muted: #6B5545;
+      --color-border: #E8DACB;
+      --color-footer-bar: #351C12;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-pill: 9999px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--color-cream-bg);
+      background-image: radial-gradient(rgba(107, 85, 69, 0.045) 1px, transparent 1px);
+      background-size: 24px 24px;
+      color: var(--color-text-dark);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      padding: 12px 0 80px 0;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .menu-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* TOP BAR ACTIONS */
+    .menu-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .menu-top-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 20px;
+      border-radius: var(--radius-pill);
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-review-us {
+      background-color: var(--color-text-dark);
+      color: #FAF4EC;
+      border: 1px solid var(--color-text-dark);
+      box-shadow: 0 2px 8px rgba(43, 23, 11, 0.15);
+    }
+
+    .btn-review-us:hover {
+      background-color: var(--color-accent-orange);
+      border-color: var(--color-accent-orange);
+      color: #ffffff;
+    }
+
+    .btn-back-website {
+      background-color: var(--color-cream-card);
+      color: var(--color-text-dark);
+      border: 1.5px solid var(--color-border);
+      box-shadow: 0 1px 4px rgba(43, 23, 11, 0.04);
+    }
+
+    .btn-back-website:hover {
+      background-color: #F1E3D3;
+      border-color: var(--color-text-dark);
+      color: var(--color-text-dark);
+    }
+
+    /* HERO VIDEO SECTION (1/2 Screen Height, Full Visibility, Top Buttons & Categories Visible) */
+    .menu-hero-video-section {
+      width: 100%;
+      margin-bottom: 14px;
+    }
+
+    .hero-video-wrapper {
+      position: relative;
+      width: 100%;
+      height: 50vh;
+      min-height: 300px;
+      max-height: 540px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background-color: #1a0d06;
+      box-shadow: 0 4px 18px rgba(43, 23, 11, 0.08);
+      border: 1px solid rgba(232, 218, 203, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-video-player {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* STICKY CONTROL BAR (Seamless Screen Color Match, Pinned at top) */
+    .menu-sticky-control-bar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--color-cream-bg);
+      padding: 8px 0 14px 0;
+      margin: 0 0 18px 0;
+      border-bottom: 1px solid rgba(232, 218, 203, 0.85);
+    }
+
+    .menu-category-nav {
+      margin-bottom: 12px;
+      overflow-x: auto;
+      padding: 2px 2px 4px 2px;
+      scrollbar-width: none;
+    }
+
+    .menu-category-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-tabs-track {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: nowrap;
+    }
+
+    .category-tab-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    /* Card-style Category Button */
+    .category-tab-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 96px;
+      height: 74px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background-color: #FFFFFF;
+      border: 1.5px solid var(--color-border);
+      color: var(--color-text-dark);
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(43, 23, 11, 0.04);
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      user-select: none;
+    }
+
+    .category-tab-btn:hover {
+      background-color: #F8EFE4;
+      border-color: var(--color-accent-orange);
+    }
+
+    .category-tab-btn.active {
+      background-color: var(--color-text-dark);
+      border-color: var(--color-text-dark);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(43, 23, 11, 0.16);
+    }
+
+    .category-icon-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      margin-bottom: 4px;
+    }
+
+    .tab-label {
+      font-size: 13px;
+      font-weight: 650;
+      text-align: center;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
+    .tab-active-indicator {
+      width: 34px;
+      height: 3px;
+      background-color: var(--color-accent-orange);
+      border-radius: 2px;
+    }
+
+    /* SEARCH BAR & ITEM COUNT */
+    .menu-search-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 520px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 42px;
+      padding: 0 40px 0 44px;
+      background-color: #FFFFFF;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      font-size: 13.5px;
+      color: var(--color-text-dark);
+      box-shadow: 0 1px 4px rgba(43, 23, 11, 0.03);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--color-accent-orange);
+      box-shadow: 0 0 0 3px rgba(212, 86, 26, 0.12);
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: var(--color-border);
+      color: var(--color-text-dark);
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .menu-results-count {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      font-family: var(--font-sans);
+    }
+
+    .menu-results-count strong {
+      color: var(--color-text-dark);
+      font-size: 15px;
+      font-weight: 750;
+    }
+
+    /* CATEGORY GROUP SECTIONS */
+    .dishes-container {
+      width: 100%;
+    }
+
+    .category-group-block {
+      margin-bottom: 36px;
+    }
+
+    .category-group-block:last-child {
+      margin-bottom: 8px;
+    }
+
+    .category-group-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(232, 218, 203, 0.7);
+    }
+
+    .category-group-heading {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-text-dark);
+      letter-spacing: 0.01em;
+      margin: 0;
+    }
+
+    .category-group-badge {
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      background-color: rgba(43, 23, 11, 0.06);
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+
+    /* DISH CARDS GRID (4 Columns on Desktop) */
+    .dishes-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .menu-dish-card {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      border: 1.5px solid var(--color-border);
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(43, 23, 11, 0.04);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s ease;
+    }
+
+    .menu-dish-card:hover {
+      border-color: var(--color-accent-orange);
+    }
+
+    .dish-card-image-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1.25 / 1;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #F1E3D3;
+      border: 1px solid rgba(232, 218, 203, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .dish-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .dish-tag-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background-color: #E8F5E9;
+      color: #2E7D32;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(46, 125, 50, 0.2);
+      z-index: 2;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .dish-card-body {
+      display: flex;
+      flex-direction: column;
+      padding: 2px;
+    }
+
+    .dish-card-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--color-text-dark);
+      margin: 0 0 6px 0;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dish-orange-bar {
+      width: 26px;
+      height: 3px;
+      background-color: var(--color-accent-orange);
+      border-radius: 2px;
+      margin-bottom: 8px;
+    }
+
+    .dish-card-price {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--color-text-dark);
+      letter-spacing: -0.01em;
+    }
+
+    /* DISH DETAIL MODAL */
+    .dish-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(43, 23, 11, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .dish-modal-backdrop.open {
+      display: flex;
+    }
+
+    .dish-modal-container {
+      position: relative;
+      width: 100%;
+      max-width: 820px;
+      max-height: calc(100vh - 40px);
+      background-color: #FFFFFF;
+      border-radius: 20px;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 20px 48px rgba(43, 23, 11, 0.25);
+      overflow-y: auto;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #FAF4EC;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      background-color: var(--color-accent-orange);
+      border-color: var(--color-accent-orange);
+      color: #FFFFFF;
+    }
+
+    .dish-modal-content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 32px;
+      gap: 30px;
+      align-items: flex-start;
+    }
+
+    .modal-media-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-main-media-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1.25 / 1;
+      border-radius: 14px;
+      overflow: hidden;
+      background-color: #F1E3D3;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-main-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-thumbnails-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .modal-thumb-btn {
+      aspect-ratio: 1.25 / 1;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      background-color: #F1E3D3;
+      padding: 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s ease;
+    }
+
+    .modal-thumb-btn.active {
+      border-color: var(--color-accent-orange);
+      box-shadow: 0 0 0 2px rgba(212, 86, 26, 0.25);
+    }
+
+    .modal-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-dish-title {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--color-text-dark);
+      margin: 0 0 4px 0;
+      line-height: 1.25;
+    }
+
+    .modal-dish-price {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--color-text-dark);
+      margin-bottom: 8px;
+    }
+
+    .modal-orange-bar {
+      width: 36px;
+      height: 3px;
+      background-color: var(--color-accent-orange);
+      border-radius: 2px;
+      margin-bottom: 14px;
+    }
+
+    .modal-dish-description {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--color-text-muted);
+      margin-bottom: 18px;
+    }
+
+    .modal-divider {
+      width: 100%;
+      height: 1px;
+      background-color: var(--color-border);
+      margin-bottom: 16px;
+    }
+
+    .modal-attributes-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .modal-attr-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .attr-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background-color: #FAF4EC;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 1px 4px rgba(43, 23, 11, 0.04);
+    }
+
+    .attr-label {
+      font-size: 11.5px;
+      font-weight: 650;
+      color: var(--color-text-dark);
+    }
+
+    .modal-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .modal-action-btn {
+      flex: 1;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 16px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary-brown {
+      background-color: var(--color-accent-orange);
+      color: #ffffff;
+      border: 1px solid var(--color-accent-orange);
+      box-shadow: 0 2px 8px rgba(212, 86, 26, 0.25);
+    }
+
+    .btn-primary-brown:hover {
+      background-color: var(--color-accent-orange-hover);
+      border-color: var(--color-accent-orange-hover);
+    }
+
+    .btn-secondary-outline {
+      background-color: transparent;
+      color: var(--color-text-dark);
+      border: 1.5px solid var(--color-text-dark);
+    }
+
+    .btn-secondary-outline:hover {
+      background-color: rgba(43, 23, 11, 0.06);
+    }
+
+    /* SOLD OUT & BADGES STYLING */
+    .menu-dish-card.sold-out {
+      opacity: 0.65;
+      filter: grayscale(0.45);
+    }
+
+    .dish-soldout-badge {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(43, 23, 11, 0.88);
+      color: #FAF4EC;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      z-index: 3;
+    }
+
+    .dish-badge-pill {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--color-accent-orange);
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      z-index: 3;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
+    }
+
+    .dish-veg-symbol {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 13px;
+      height: 13px;
+      border: 1.5px solid #2E7D32;
+      border-radius: 3px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .dish-veg-symbol-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #2E7D32;
+      border-radius: 50%;
+    }
+
+    .dish-variants-row {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .variant-select-btn {
+      padding: 6px 12px;
+      border: 1.5px solid var(--color-border);
+      border-radius: 8px;
+      background: #FFFFFF;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--color-text-dark);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .variant-select-btn.active {
+      background: var(--color-text-dark);
+      border-color: var(--color-text-dark);
+      color: #FFFFFF;
+    }
+
+    /* TOAST */
+    .menu-toast-banner {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-footer-bar);
+      border: 1px solid var(--color-accent-orange);
+      color: #FAF4EC;
+      padding: 12px 24px;
+      border-radius: var(--radius-pill);
+      font-size: 13.5px;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(53, 28, 18, 0.35);
+      z-index: 2000;
+      display: none;
+    }
+
+    .menu-toast-banner.show {
+      display: block;
+    }
+
+    /* RESPONSIVE LAYOUT */
+    @media (max-width: 1100px) {
+      .dishes-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .dish-modal-content-grid {
+        grid-template-columns: 1fr;
+        padding: 24px;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-video-wrapper {
+        height: 44vh;
+        min-height: 240px;
+      }
+
+      .dishes-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .category-tab-btn {
+        min-width: 86px;
+        height: 68px;
+        padding: 8px 10px;
+        border-radius: 14px;
+      }
+
+      .category-icon-box {
+        width: 28px;
+        height: 28px;
+      }
+
+      .tab-label {
+        font-size: 12px;
+      }
+
+      .tab-active-indicator {
+        width: 28px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .dishes-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .menu-sticky-control-bar {
+        padding: 8px 0 12px 0;
+        margin: 0 0 16px 0;
+      }
+
+      .menu-search-section {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+
+      .search-input-wrap {
+        max-width: 100%;
+      }
+
+      .menu-results-count {
+        text-align: right;
+      }
+
+      .modal-actions-row {
+        flex-direction: column;
+      }
+
+      .modal-action-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="menu-container">
+    <!-- TOP BAR -->
+    <header class="menu-top-bar">
+      <a href="/#/review" target="_blank" rel="noopener noreferrer" class="menu-top-btn btn-review-us">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+          </polygon>
+        </svg>
+        <span>Review Us</span>
+      </a>
+
+      <a href="/#/" class="menu-top-btn btn-back-website">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+        <span>Back to Website</span>
+      </a>
+    </header>
+
+    <!-- HERO VIDEO BANNER (Full video, no banners, no cropping, looping) -->
+    <section class="menu-hero-video-section" aria-label="Restaurant Atmosphere">
+      <div class="hero-video-wrapper">
+        <video id="heroVideo" class="hero-video-player" src="./hero-video.mp4" autoplay loop muted playsinline
+          preload="auto"></video>
+      </div>
+    </section>
+
+    <!-- STICKY CONTROL BAR (Category Tabs + Search + Count locked at top) -->
+    <div class="menu-sticky-control-bar">
+      <!-- CATEGORY TABS -->
+      <nav class="menu-category-nav" aria-label="Menu categories">
+        <div class="category-tabs-track" id="categoryTrack">
+          <!-- Rendered by JS -->
+        </div>
+      </nav>
+
+      <!-- SEARCH BAR & COUNT -->
+      <div class="menu-search-section">
+        <div class="search-input-wrap">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" class="search-input"
+            placeholder="Search delicious dishes, starters, paneer specialties..." oninput="handleSearch(this.value)">
+          <button type="button" id="searchClearBtn" class="search-clear-btn" onclick="clearSearch()"
+            style="display: none;">✕</button>
+        </div>
+        <div class="menu-results-count" id="resultsCount">
+          Showing <strong>22</strong> items
+        </div>
+      </div>
+    </div>
+
+    <!-- DISHES CONTAINER (Grouped by Category under 'All') -->
+    <div class="dishes-container" id="dishesGrid"></div>
+  </div>
+
+  <!-- DISH DETAIL MODAL -->
+  <div class="dish-modal-backdrop" id="dishModal" onclick="closeModal()">
+    <div class="dish-modal-container" onclick="event.stopPropagation()">
+      <button type="button" class="modal-close-btn" onclick="closeModal()">✕</button>
+      <div class="dish-modal-content-grid">
+        <!-- Left Media -->
+        <div class="modal-media-column">
+          <div class="modal-main-media-box">
+            <img src="" id="modalMainImg" alt="" class="modal-main-img">
+          </div>
+          <div class="modal-thumbnails-strip" id="modalThumbStrip"></div>
+        </div>
+        <!-- Right Info -->
+        <div class="modal-info-column">
+          <h2 class="modal-dish-title" id="modalDishTitle"></h2>
+          <div class="modal-dish-price" id="modalDishPrice"></div>
+          <div class="modal-orange-bar"></div>
+          <p class="modal-dish-description" id="modalDishDesc"></p>
+          <div class="modal-divider"></div>
+          <div class="modal-attributes-row">
+            <div class="modal-attr-item">
+              <span class="attr-icon-circle">🍃</span>
+              <span class="attr-label">100% Pure Veg</span>
+            </div>
+            <div class="modal-attr-item">
+              <span class="attr-icon-circle">🌶️</span>
+              <span class="attr-label" id="modalSpiceLevel">Medium Spicy</span>
+            </div>
+            <div class="modal-attr-item">
+              <span class="attr-icon-circle">🍽️</span>
+              <span class="attr-label">Fresh Made</span>
+            </div>
+          </div>
+          <div class="modal-divider"></div>
+          <div class="modal-actions-row">
+            <a href="#" id="modalWhatsAppBtn" target="_blank" class="modal-action-btn btn-primary-brown">Order via
+              WhatsApp</a>
+            <button type="button" class="modal-action-btn btn-secondary-outline"
+              onclick="showToast('🛎️ Waiter notified! A server will visit your table shortly.')">Call Waiter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="menu-toast-banner" id="toastBanner"></div>
+
+  <script>
+    let allDishes = [];
+    let currentCategory = 'All';
+    let currentSearch = '';
+
+    const categories = [
+      {
+        id: 'All',
+        label: 'All',
+        icon: `<svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M8 32 C8 19 16 14 24 14 C32 14 40 19 40 32 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 14 C21 11.5 22.3 9.5 24 9.5 C25.7 9.5 27 11.5 27 14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="24" cy="8.5" r="1.5" fill="currentColor"/><path d="M4 36 L44 36" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M10 36 C10 38.5 14 40 24 40 C34 40 38 38.5 38 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`
+      },
+      {
+        id: 'Starters',
+        label: 'Starters',
+        icon: `<svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M7 23 C7 35 15 39 24 39 C33 39 41 35 41 23 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 23 L43 23" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M16 39 L14 42 H34 L32 39" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M15 16 C14 13 16 11 15 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M24 17 C23 13.5 25 11 24 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M33 16 C32 13 34 11 33 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`
+      },
+      {
+        id: 'Main Course',
+        label: 'Main Course',
+        icon: `<svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 21 C10 35 15 41 24 41 C33 41 38 35 38 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="24" cy="21" rx="14" ry="4" stroke="currentColor" stroke-width="2.6"/><path d="M10 24 C5 24 5 30 10 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M38 24 C43 24 43 30 38 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M32 9 L23 23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M20 22 C19 25 24 27 26 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`
+      },
+      {
+        id: 'Breads',
+        label: 'Breads',
+        icon: `<svg viewBox="0 0 48 48" width="30" height="30" fill="none"><ellipse cx="24" cy="27" rx="17" ry="11" stroke="currentColor" stroke-width="2.6"/><path d="M11 26 C13 32 35 34 37 26" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="19" cy="24" r="1.5" fill="currentColor"/><circle cx="27" cy="22" r="1.5" fill="currentColor"/><circle cx="23" cy="28" r="1.5" fill="currentColor"/><circle cx="31" cy="26" r="1.2" fill="currentColor"/><circle cx="15" cy="27" r="1.2" fill="currentColor"/></svg>`
+      },
+      {
+        id: 'Beverages',
+        label: 'Beverages',
+        icon: `<svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M14 16 L17.5 41 C17.8 42.5 19 43.5 20.5 43.5 H27.5 C29 43.5 30.2 42.5 30.5 41 L34 16 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M12 16 H36" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M16 26 C20 28 28 24 32 26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M28 6 L23 18 L21 40" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="13" r="6" stroke="currentColor" stroke-width="2.2"/></svg>`
+      },
+      {
+        id: 'Desserts',
+        label: 'Desserts',
+        icon: `<svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M14 22 C14 17 18 13 24 13 C30 13 34 17 34 22 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="24" cy="9.5" r="3" fill="currentColor"/><path d="M25 7 C28 5 30 7 31 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 22 C10 32 17 35 24 35 C31 35 38 32 38 22 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 22 H40" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M24 35 V42" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M15 42 H33" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>`
+      }
+    ];
+
+    function renderCategoryTabs() {
+      const track = document.getElementById('categoryTrack');
+      track.innerHTML = categories.map(c => {
+        const isActive = c.id === currentCategory;
+        return `
+          <div class="category-tab-wrapper">
+            <button
+              type="button"
+              class="category-tab-btn ${isActive ? 'active' : ''}"
+              onclick="selectCategory('${c.id}')"
+              aria-label="${c.label} category"
+              aria-pressed="${isActive}"
+            >
+              <div class="category-icon-box">
+                ${c.icon}
+              </div>
+              <span class="tab-label">${c.label}</span>
+            </button>
+            ${isActive ? '<div class="tab-active-indicator"></div>' : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectCategory(cat) {
+      currentCategory = cat;
+      renderCategoryTabs();
+      renderDishes();
+    }
+
+    function handleSearch(val) {
+      currentSearch = val.toLowerCase().trim();
+      const clearBtn = document.getElementById('searchClearBtn');
+      if (clearBtn) {
+        clearBtn.style.display = currentSearch ? 'flex' : 'none';
+      }
+      renderDishes();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      if (input) {
+        input.value = '';
+        handleSearch('');
+        input.focus();
+      }
+    }
+
+    function renderDishCard(d) {
+      return `
+        <div class="menu-dish-card" onclick="openDish(${d.id})">
+          <div class="dish-card-image-box">
+            <img src="${d.images[0]}" alt="${d.name}" class="dish-card-img" loading="lazy" onerror="this.style.display='none'">
+            ${d.tag ? `<span class="dish-tag-badge">${d.tag}</span>` : ''}
+          </div>
+          <div class="dish-card-body">
+            <h3 class="dish-card-title">${d.name}</h3>
+            <div class="dish-orange-bar"></div>
+            <div class="dish-card-price">₹ ${d.price}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDishes() {
+      const container = document.getElementById('dishesGrid');
+      const q = (currentSearch || '').toLowerCase().trim();
+
+      const filtered = allDishes.filter(d => {
+        const matchesCat = currentCategory === 'All' || d.category === currentCategory;
+        const matchesQ = !q ||
+          d.name.toLowerCase().includes(q) ||
+          d.description.toLowerCase().includes(q);
+        return matchesCat && matchesQ;
+      });
+
+      document.getElementById('resultsCount').innerHTML = `Showing <strong>${filtered.length}</strong> items`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding: 48px 20px; color: #6B5545;">
+            <h3 style="font-family: var(--font-serif); font-size: 20px; color: var(--color-text-dark); margin-bottom: 8px;">No dishes found</h3>
+            <p style="font-size: 14px;">Try searching another keyword or select a different category.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const definedCategories = ['Starters', 'Main Course', 'Breads', 'Beverages', 'Desserts'];
+
+      if (currentCategory === 'All') {
+        const extraCategories = [...new Set(filtered.map(d => d.category))].filter(c => !definedCategories.includes(c));
+        const categoryOrder = [...definedCategories, ...extraCategories];
+
+        let html = '';
+        categoryOrder.forEach(cat => {
+          const catDishes = filtered.filter(d => d.category === cat);
+          if (catDishes.length > 0) {
+            html += `
+              <section class="category-group-block" aria-label="${cat}">
+                <div class="category-group-header">
+                  <h2 class="category-group-heading">${cat}</h2>
+                  <span class="category-group-badge">${catDishes.length} ${catDishes.length === 1 ? 'item' : 'items'}</span>
+                </div>
+                <div class="dishes-cards-grid">
+                  ${catDishes.map(renderDishCard).join('')}
+                </div>
+              </section>
+            `;
+          }
+        });
+        container.innerHTML = html;
+      } else {
+        container.innerHTML = `
+          <section class="category-group-block" aria-label="${currentCategory}">
+            <div class="category-group-header">
+              <h2 class="category-group-heading">${currentCategory}</h2>
+              <span class="category-group-badge">${filtered.length} ${filtered.length === 1 ? 'item' : 'items'}</span>
+            </div>
+            <div class="dishes-cards-grid">
+              ${filtered.map(renderDishCard).join('')}
+            </div>
+          </section>
+        `;
+      }
+    }
+
+    let activeDishSelectedVariant = null;
+
+    function renderDishCard(d) {
+      const isSoldOut = d.is_available === 0 || d.is_available === false;
+      const cardClasses = `menu-dish-card ${isSoldOut ? 'sold-out' : ''}`;
+      const imgUrl = (d.images && d.images.length > 0) ? d.images[0] : '/logo.png';
+      
+      // Determine badge
+      let badgeHtml = '';
+      if (Array.isArray(d.badges) && d.badges.length > 0) {
+        badgeHtml = `<span class="dish-badge-pill">${d.badges[0]}</span>`;
+      } else if (d.tag) {
+        badgeHtml = `<span class="dish-badge-pill">${d.tag}</span>`;
+      }
+
+      // Determine price string
+      let priceStr = `₹ ${d.price}`;
+      if (d.variants && d.variants.length > 0) {
+        const lowest = Math.min(...d.variants.map(v => v.price));
+        priceStr = `From ₹ ${lowest}`;
+      }
+
+      const isJain = Array.isArray(d.tags) && d.tags.includes('jain');
+
+      return `
+        <div class="${cardClasses}" onclick="openDish('${d.id}')">
+          <div class="dish-card-image-box">
+            <img src="${imgUrl}" alt="${d.name}" class="dish-card-img" loading="lazy" onerror="this.src='/logo.png'">
+            ${badgeHtml}
+            ${isSoldOut ? '<span class="dish-soldout-badge">Sold Out</span>' : ''}
+          </div>
+          <div class="dish-card-body">
+            <h3 class="dish-card-title">
+              <span class="dish-veg-symbol" title="Pure Veg"><span class="dish-veg-symbol-dot"></span></span>
+              ${d.name}
+              ${isJain ? '<span style="font-size:10px; color:#2E7D32; font-weight:700; margin-left:4px;">[JAIN]</span>' : ''}
+            </h3>
+            <div class="dish-orange-bar"></div>
+            <div class="dish-card-price">${priceStr}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDishes() {
+      const container = document.getElementById('dishesGrid');
+      const q = (currentSearch || '').toLowerCase().trim();
+
+      const filtered = allDishes.filter(d => {
+        const dishCatName = (typeof d.category === 'object' && d.category !== null) ? d.category.name : d.category;
+        const matchesCat = currentCategory === 'All' || dishCatName === currentCategory || d.category_id === currentCategory;
+        const matchesQ = !q ||
+          (d.name && d.name.toLowerCase().includes(q)) ||
+          (d.description && d.description.toLowerCase().includes(q));
+        return matchesCat && matchesQ;
+      });
+
+      document.getElementById('resultsCount').innerHTML = `Showing <strong>${filtered.length}</strong> items`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding: 48px 20px; color: #6B5545;">
+            <h3 style="font-family: var(--font-serif); font-size: 20px; color: var(--color-text-dark); margin-bottom: 8px;">No dishes found</h3>
+            <p style="font-size: 14px;">Try searching another keyword or select a different category.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const definedCategories = ['Starters', 'Main Course', 'Breads', 'Beverages', 'Desserts'];
+
+      if (currentCategory === 'All') {
+        const extractedCats = [...new Set(filtered.map(d => (typeof d.category === 'object' && d.category !== null) ? d.category.name : d.category))];
+        const extraCategories = extractedCats.filter(c => c && !definedCategories.includes(c));
+        const categoryOrder = [...definedCategories, ...extraCategories];
+
+        let html = '';
+        categoryOrder.forEach(cat => {
+          const catDishes = filtered.filter(d => {
+            const cName = (typeof d.category === 'object' && d.category !== null) ? d.category.name : d.category;
+            return cName === cat;
+          });
+          if (catDishes.length > 0) {
+            html += `
+              <section class="category-group-block" aria-label="${cat}">
+                <div class="category-group-header">
+                  <h2 class="category-group-heading">${cat}</h2>
+                  <span class="category-group-badge">${catDishes.length} ${catDishes.length === 1 ? 'item' : 'items'}</span>
+                </div>
+                <div class="dishes-cards-grid">
+                  ${catDishes.map(renderDishCard).join('')}
+                </div>
+              </section>
+            `;
+          }
+        });
+        container.innerHTML = html;
+      } else {
+        container.innerHTML = `
+          <section class="category-group-block" aria-label="${currentCategory}">
+            <div class="category-group-header">
+              <h2 class="category-group-heading">${currentCategory}</h2>
+              <span class="category-group-badge">${filtered.length} ${filtered.length === 1 ? 'item' : 'items'}</span>
+            </div>
+            <div class="dishes-cards-grid">
+              ${filtered.map(renderDishCard).join('')}
+            </div>
+          </section>
+        `;
+      }
+    }
+
+    function openDish(id) {
+      const dish = allDishes.find(d => String(d.id) === String(id));
+      if (!dish) return;
+
+      activeDishSelectedVariant = null;
+      document.getElementById('modalDishTitle').innerText = dish.name;
+      document.getElementById('modalDishDesc').innerText = dish.description || '';
+
+      const isSoldOut = dish.is_available === 0 || dish.is_available === false;
+      const img0 = (dish.images && dish.images.length > 0) ? dish.images[0] : '/logo.png';
+      document.getElementById('modalMainImg').src = img0;
+
+      // Handle variants vs single price
+      const priceEl = document.getElementById('modalDishPrice');
+      let currentPrice = dish.price;
+
+      let variantsContainer = document.getElementById('modalVariantsBox');
+      if (!variantsContainer) {
+        variantsContainer = document.createElement('div');
+        variantsContainer.id = 'modalVariantsBox';
+        priceEl.parentNode.insertBefore(variantsContainer, priceEl.nextSibling);
+      }
+
+      if (dish.variants && dish.variants.length > 0) {
+        activeDishSelectedVariant = dish.variants[0];
+        currentPrice = activeDishSelectedVariant.price;
+        priceEl.innerText = `₹ ${currentPrice} (${activeDishSelectedVariant.label})`;
+
+        variantsContainer.innerHTML = `
+          <div class="dish-variants-row">
+            ${dish.variants.map((v, idx) => `
+              <button type="button" class="variant-select-btn ${idx === 0 ? 'active' : ''}" onclick="selectVariant('${dish.id}', '${v.id}')">
+                ${v.label} - ₹ ${v.price}
+              </button>
+            `).join('')}
+          </div>
+        `;
+      } else {
+        priceEl.innerText = `₹ ${currentPrice}`;
+        variantsContainer.innerHTML = '';
+      }
+
+      updateWhatsAppLink(dish, currentPrice, isSoldOut);
+
+      const thumbStrip = document.getElementById('modalThumbStrip');
+      if (dish.images && dish.images.length > 1) {
+        thumbStrip.innerHTML = dish.images.map((img, idx) => `
+          <button class="modal-thumb-btn ${idx === 0 ? 'active' : ''}" onclick="selectModalImg(this, '${img}')">
+            <img src="${img}" class="modal-thumb-img" alt="">
+          </button>
+        `).join('');
+      } else {
+        thumbStrip.innerHTML = '';
+      }
+
+      document.getElementById('dishModal').classList.add('open');
+    }
+
+    function selectVariant(dishId, variantId) {
+      const dish = allDishes.find(d => String(d.id) === String(dishId));
+      if (!dish || !dish.variants) return;
+      const variant = dish.variants.find(v => String(v.id) === String(variantId));
+      if (!variant) return;
+
+      activeDishSelectedVariant = variant;
+      document.getElementById('modalDishPrice').innerText = `₹ ${variant.price} (${variant.label})`;
+
+      document.querySelectorAll('.variant-select-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.innerText.includes(variant.label));
+      });
+
+      const isSoldOut = dish.is_available === 0 || dish.is_available === false;
+      updateWhatsAppLink(dish, variant.price, isSoldOut);
+    }
+
+    function updateWhatsAppLink(dish, price, isSoldOut) {
+      const btn = document.getElementById('modalWhatsAppBtn');
+      if (isSoldOut) {
+        btn.innerText = 'Currently Sold Out';
+        btn.style.opacity = '0.5';
+        btn.style.pointerEvents = 'none';
+      } else {
+        btn.innerText = 'Order via WhatsApp';
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+        const label = activeDishSelectedVariant ? ` (${activeDishSelectedVariant.label})` : '';
+        const msg = `Hello Amol Veg Resto! I would like to order: ${dish.name}${label} - ₹${price}`;
+        btn.href = `https://wa.me/917249664983?text=${encodeURIComponent(msg)}`;
+      }
+    }
+
+    function selectModalImg(btn, src) {
+      document.getElementById('modalMainImg').src = src;
+      document.querySelectorAll('.modal-thumb-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('dishModal').classList.remove('open');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toastBanner');
+      t.innerText = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    // Determine Main vs Special menu mode
+    const isSpecial = window.location.pathname.includes('special') || window.location.search.includes('special');
+    const menuType = isSpecial ? 'special' : 'main';
+
+    if (isSpecial) {
+      document.title = 'Special Menu | Amol Veg Resto';
+      let metaRobots = document.querySelector('meta[name="robots"]');
+      if (!metaRobots) {
+        metaRobots = document.createElement('meta');
+        metaRobots.name = 'robots';
+        document.head.appendChild(metaRobots);
+      }
+      metaRobots.content = 'noindex';
+    }
+
+    // Load menu data (Live API with graceful fallback to bundled JSON)
+    fetch(`/api/public/menu/${menuType}`)
+      .then(r => {
+        if (!r.ok) throw new Error('API unavailable');
+        return r.json();
+      })
+      .then(data => {
+        allDishes = (data.dishes || []).map(d => {
+          if (d.category_id && data.categories) {
+            const foundCat = data.categories.find(c => c.id === d.category_id);
+            d.category = foundCat ? foundCat.name : d.category_id;
+          }
+          return d;
+        });
+
+        if (data.menu && data.menu.video_url) {
+          const videoEl = document.querySelector('.hero-video-player');
+          if (videoEl && videoEl.src !== data.menu.video_url) {
+            videoEl.src = data.menu.video_url;
+            if (data.menu.poster_url) videoEl.poster = data.menu.poster_url;
+          }
+        }
+
+        renderCategoryTabs();
+        renderDishes();
+      })
+      .catch(err => {
+        console.warn('[Menu] API fallback to local JSON', err);
+        fetch('./restaurant_menu_data.json')
+          .then(r => r.json())
+          .then(data => {
+            allDishes = data.dishes || [];
+            renderCategoryTabs();
+            renderDishes();
+          });
+      });
+  </script>
+</body>
+
+</html>

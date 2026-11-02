@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <!-- Stacked / Folded Naan Flatbread -->
+  <ellipse cx="24" cy="27" rx="17" ry="11" stroke="currentColor" stroke-width="2.6"/>
+  <!-- Front fold / second bread -->
+  <path d="M11 26 C13 32 35 34 37 26" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+  <!-- Tandoor blister dots / texture -->
+  <circle cx="19" cy="24" r="1.5" fill="currentColor"/>
+  <circle cx="27" cy="22" r="1.5" fill="currentColor"/>
+  <circle cx="23" cy="28" r="1.5" fill="currentColor"/>
+  <circle cx="31" cy="26" r="1.2" fill="currentColor"/>
+  <circle cx="15" cy="27" r="1.2" fill="currentColor"/>
+  <!-- Butter brush lines / aroma -->
+  <path d="M20 14 C19 12 21 10 20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M26 13 C25 11 27 9 26 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,4241 @@
+{
+  "restaurant": {
+    "name": "Amol Veg Resto",
+    "phoneDisplay": "+91 72496 64983",
+    "phoneDigits": "917249664983",
+    "website": "#/",
+    "reviewUrl": "#/review",
+    "heroPhoto": "",
+    "eyebrow": "Pure",
+    "headlineHtml": "Vegetarian<br><em>Delights</em>",
+    "description": "Fresh Ingredients • Authentic Taste\nFamily Friendly"
+  },
+  "categories": [
+    "Grill Sandwich",
+    "Pizza",
+    "French Fries",
+    "Burger",
+    "Cold Coffee",
+    "Milk Shake",
+    "Brownie",
+    "Starters",
+    "Paneer Starters",
+    "Chinese",
+    "Tandoori Starters",
+    "Soup",
+    "Chinese Rice",
+    "Noodles",
+    "Main Course",
+    "Punjabi Dishes",
+    "Paneer Main Course",
+    "Kaju Special",
+    "Amol Special Dishes",
+    "Rice",
+    "Raita",
+    "Bhartiya Roti",
+    "Tandoori Roti & Naan",
+    "Ice Cream & Cold Drinks"
+  ],
+  "dishes": [
+    {
+      "id": 1,
+      "name": "Veg Grill Sandwich",
+      "category": "Grill Sandwich",
+      "category_id": "grill-sandwich",
+      "price": 70,
+      "base_price": 70,
+      "special_price": 77,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Grill Sandwich prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 2,
+      "name": "Veg Cheese Sandwich",
+      "category": "Grill Sandwich",
+      "category_id": "grill-sandwich",
+      "price": 90,
+      "base_price": 90,
+      "special_price": 99,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Cheese Sandwich prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 3,
+      "name": "Corn Cheese",
+      "category": "Grill Sandwich",
+      "category_id": "grill-sandwich",
+      "price": 90,
+      "base_price": 90,
+      "special_price": 99,
+      "tag": "",
+      "description": "Authentic pure vegetarian Corn Cheese prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 4,
+      "name": "Veg Mayonnaise",
+      "category": "Grill Sandwich",
+      "category_id": "grill-sandwich",
+      "price": 90,
+      "base_price": 90,
+      "special_price": 99,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Mayonnaise prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 5,
+      "name": "Peri Peri Sandwich",
+      "category": "Grill Sandwich",
+      "category_id": "grill-sandwich",
+      "price": 90,
+      "base_price": 90,
+      "special_price": 99,
+      "tag": "",
+      "description": "Authentic pure vegetarian Peri Peri Sandwich prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 6,
+      "name": "Club Cheese",
+      "category": "Grill Sandwich",
+      "category_id": "grill-sandwich",
+      "price": 100,
+      "base_price": 100,
+      "special_price": 110,
+      "tag": "",
+      "description": "Authentic pure vegetarian Club Cheese prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 7,
+      "name": "Paneer Tikka Sandwich",
+      "category": "Grill Sandwich",
+      "category_id": "grill-sandwich",
+      "price": 100,
+      "base_price": 100,
+      "special_price": 110,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Tikka Sandwich prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 8,
+      "name": "Bombay Sandwich",
+      "category": "Grill Sandwich",
+      "category_id": "grill-sandwich",
+      "price": 110,
+      "base_price": 110,
+      "special_price": 121,
+      "tag": "",
+      "description": "Authentic pure vegetarian Bombay Sandwich prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 9,
+      "name": "Margherita Pizza",
+      "category": "Pizza",
+      "category_id": "pizza",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Margherita Pizza prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 10,
+      "name": "Sweetcorn Pizza",
+      "category": "Pizza",
+      "category_id": "pizza",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Sweetcorn Pizza prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 11,
+      "name": "Veg Crunch Pizza",
+      "category": "Pizza",
+      "category_id": "pizza",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Crunch Pizza prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 12,
+      "name": "Spicy Veg Pizza",
+      "category": "Pizza",
+      "category_id": "pizza",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Spicy Veg Pizza prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 13,
+      "name": "Farm House Pizza",
+      "category": "Pizza",
+      "category_id": "pizza",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Farm House Pizza prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 14,
+      "name": "Peri Peri Pizza",
+      "category": "Pizza",
+      "category_id": "pizza",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Peri Peri Pizza prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 15,
+      "name": "Cheese Loaded Pizza",
+      "category": "Pizza",
+      "category_id": "pizza",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cheese Loaded Pizza prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 16,
+      "name": "Crowded House Pizza",
+      "category": "Pizza",
+      "category_id": "pizza",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Crowded House Pizza prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 17,
+      "name": "Salted French Fries",
+      "category": "French Fries",
+      "category_id": "french-fries",
+      "price": 80,
+      "base_price": 80,
+      "special_price": 88,
+      "tag": "",
+      "description": "Authentic pure vegetarian Salted French Fries prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 18,
+      "name": "Masala French Fries",
+      "category": "French Fries",
+      "category_id": "french-fries",
+      "price": 90,
+      "base_price": 90,
+      "special_price": 99,
+      "tag": "",
+      "description": "Authentic pure vegetarian Masala French Fries prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 19,
+      "name": "Peri Peri French Fries",
+      "category": "French Fries",
+      "category_id": "french-fries",
+      "price": 90,
+      "base_price": 90,
+      "special_price": 99,
+      "tag": "",
+      "description": "Authentic pure vegetarian Peri Peri French Fries prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 20,
+      "name": "Veg Burger",
+      "category": "Burger",
+      "category_id": "burger",
+      "price": 60,
+      "base_price": 60,
+      "special_price": 66,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Burger prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 21,
+      "name": "Double Cheese Burger",
+      "category": "Burger",
+      "category_id": "burger",
+      "price": 80,
+      "base_price": 80,
+      "special_price": 88,
+      "tag": "",
+      "description": "Authentic pure vegetarian Double Cheese Burger prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 22,
+      "name": "Garlic Cheese Burger",
+      "category": "Burger",
+      "category_id": "burger",
+      "price": 80,
+      "base_price": 80,
+      "special_price": 88,
+      "tag": "",
+      "description": "Authentic pure vegetarian Garlic Cheese Burger prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 23,
+      "name": "Schezwan Cheese Burger",
+      "category": "Burger",
+      "category_id": "burger",
+      "price": 80,
+      "base_price": 80,
+      "special_price": 88,
+      "tag": "",
+      "description": "Authentic pure vegetarian Schezwan Cheese Burger prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 24,
+      "name": "Peri Peri Cheese Burger",
+      "category": "Burger",
+      "category_id": "burger",
+      "price": 90,
+      "base_price": 90,
+      "special_price": 99,
+      "tag": "",
+      "description": "Authentic pure vegetarian Peri Peri Cheese Burger prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 25,
+      "name": "Tandoor Paneer Burger",
+      "category": "Burger",
+      "category_id": "burger",
+      "price": 90,
+      "base_price": 90,
+      "special_price": 99,
+      "tag": "",
+      "description": "Authentic pure vegetarian Tandoor Paneer Burger prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 26,
+      "name": "Crispy Paneer Burger",
+      "category": "Burger",
+      "category_id": "burger",
+      "price": 100,
+      "base_price": 100,
+      "special_price": 110,
+      "tag": "",
+      "description": "Authentic pure vegetarian Crispy Paneer Burger prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 27,
+      "name": "Cold Coffee",
+      "category": "Cold Coffee",
+      "category_id": "cold-coffee",
+      "price": 100,
+      "base_price": 100,
+      "special_price": 110,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cold Coffee prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 28,
+      "name": "Cold Coffee with Ice Cream",
+      "category": "Cold Coffee",
+      "category_id": "cold-coffee",
+      "price": 130,
+      "base_price": 130,
+      "special_price": 143,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cold Coffee with Ice Cream prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 29,
+      "name": "Chocolate Cold Coffee",
+      "category": "Cold Coffee",
+      "category_id": "cold-coffee",
+      "price": 110,
+      "base_price": 110,
+      "special_price": 121,
+      "tag": "",
+      "description": "Authentic pure vegetarian Chocolate Cold Coffee prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 30,
+      "name": "Choco Crunch Cold Coffee",
+      "category": "Cold Coffee",
+      "category_id": "cold-coffee",
+      "price": 120,
+      "base_price": 120,
+      "special_price": 132,
+      "tag": "",
+      "description": "Authentic pure vegetarian Choco Crunch Cold Coffee prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 31,
+      "name": "Oreo Milk Shake",
+      "category": "Milk Shake",
+      "category_id": "milk-shake",
+      "price": 110,
+      "base_price": 110,
+      "special_price": 121,
+      "tag": "",
+      "description": "Authentic pure vegetarian Oreo Milk Shake prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 32,
+      "name": "Strawberry Milk Shake",
+      "category": "Milk Shake",
+      "category_id": "milk-shake",
+      "price": 110,
+      "base_price": 110,
+      "special_price": 121,
+      "tag": "",
+      "description": "Authentic pure vegetarian Strawberry Milk Shake prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 33,
+      "name": "Butter Scotch Milk Shake",
+      "category": "Milk Shake",
+      "category_id": "milk-shake",
+      "price": 110,
+      "base_price": 110,
+      "special_price": 121,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butter Scotch Milk Shake prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 34,
+      "name": "Vanilla Milk Shake",
+      "category": "Milk Shake",
+      "category_id": "milk-shake",
+      "price": 110,
+      "base_price": 110,
+      "special_price": 121,
+      "tag": "",
+      "description": "Authentic pure vegetarian Vanilla Milk Shake prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 35,
+      "name": "Chocolate Milk Shake",
+      "category": "Milk Shake",
+      "category_id": "milk-shake",
+      "price": 110,
+      "base_price": 110,
+      "special_price": 121,
+      "tag": "",
+      "description": "Authentic pure vegetarian Chocolate Milk Shake prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 36,
+      "name": "Kit Kat Milk Shake",
+      "category": "Milk Shake",
+      "category_id": "milk-shake",
+      "price": 110,
+      "base_price": 110,
+      "special_price": 121,
+      "tag": "",
+      "description": "Authentic pure vegetarian Kit Kat Milk Shake prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 37,
+      "name": "Rose Milk Shake",
+      "category": "Milk Shake",
+      "category_id": "milk-shake",
+      "price": 120,
+      "base_price": 120,
+      "special_price": 132,
+      "tag": "",
+      "description": "Authentic pure vegetarian Rose Milk Shake prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 38,
+      "name": "Brownie Milk Shake",
+      "category": "Milk Shake",
+      "category_id": "milk-shake",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Brownie Milk Shake prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 39,
+      "name": "Brownie with Ice Cream",
+      "category": "Brownie",
+      "category_id": "brownie",
+      "price": 130,
+      "base_price": 130,
+      "special_price": 143,
+      "tag": "",
+      "description": "Authentic pure vegetarian Brownie with Ice Cream prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 40,
+      "name": "Roasted Papad",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 15,
+      "base_price": 15,
+      "special_price": 17,
+      "tag": "",
+      "description": "Authentic pure vegetarian Roasted Papad prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 41,
+      "name": "Fry Papad",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 20,
+      "base_price": 20,
+      "special_price": 22,
+      "tag": "",
+      "description": "Authentic pure vegetarian Fry Papad prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 42,
+      "name": "Masala Papad",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 25,
+      "base_price": 25,
+      "special_price": 28,
+      "tag": "",
+      "description": "Authentic pure vegetarian Masala Papad prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 43,
+      "name": "Butter Masala Papad",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 30,
+      "base_price": 30,
+      "special_price": 33,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butter Masala Papad prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 44,
+      "name": "Masala Bhakri",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 50,
+      "base_price": 50,
+      "special_price": 55,
+      "tag": "",
+      "description": "Authentic pure vegetarian Masala Bhakri prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 45,
+      "name": "Cheese Masala Papad",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 70,
+      "base_price": 70,
+      "special_price": 77,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cheese Masala Papad prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 46,
+      "name": "Green Salad",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 80,
+      "base_price": 80,
+      "special_price": 88,
+      "tag": "",
+      "description": "Authentic pure vegetarian Green Salad prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 47,
+      "name": "Tomato Salad",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 60,
+      "base_price": 60,
+      "special_price": 66,
+      "tag": "",
+      "description": "Authentic pure vegetarian Tomato Salad prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 48,
+      "name": "Kakdi Salad",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 60,
+      "base_price": 60,
+      "special_price": 66,
+      "tag": "",
+      "description": "Authentic pure vegetarian Kakdi Salad prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 49,
+      "name": "Aloo Paratha",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 70,
+      "base_price": 70,
+      "special_price": 77,
+      "tag": "",
+      "description": "Authentic pure vegetarian Aloo Paratha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 50,
+      "name": "Methi Paratha",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 80,
+      "base_price": 80,
+      "special_price": 88,
+      "tag": "",
+      "description": "Authentic pure vegetarian Methi Paratha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 51,
+      "name": "Paneer Stuff Paratha",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 100,
+      "base_price": 100,
+      "special_price": 110,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Stuff Paratha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 52,
+      "name": "Paneer Pakoda",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 100,
+      "base_price": 100,
+      "special_price": 110,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Pakoda prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 53,
+      "name": "Cheese Pakoda",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 120,
+      "base_price": 120,
+      "special_price": 132,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cheese Pakoda prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 54,
+      "name": "Harabhara Kabab",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Harabhara Kabab prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 55,
+      "name": "Aloo Tikki",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Aloo Tikki prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 56,
+      "name": "Methi Aloo Tikki",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Methi Aloo Tikki prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 57,
+      "name": "Masala Kulcha",
+      "category": "Starters",
+      "category_id": "starters",
+      "price": 70,
+      "base_price": 70,
+      "special_price": 77,
+      "tag": "",
+      "description": "Authentic pure vegetarian Masala Kulcha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 58,
+      "name": "Paneer Manchurian",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Manchurian prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 59,
+      "name": "Paneer Chilly",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Chilly prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 60,
+      "name": "Paneer Finger",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Finger prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 61,
+      "name": "Crispy Thread Paneer",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 230,
+      "base_price": 230,
+      "special_price": 253,
+      "tag": "",
+      "description": "Authentic pure vegetarian Crispy Thread Paneer prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 62,
+      "name": "Paneer Shanghai",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Shanghai prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 63,
+      "name": "Paneer Peanut Satay",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Peanut Satay prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 64,
+      "name": "Paneer in Hot Garlic Sauce",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer in Hot Garlic Sauce prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 65,
+      "name": "Paneer Crispy",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Crispy prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 66,
+      "name": "Paneer 65",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer 65 prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 67,
+      "name": "Paneer Hot Pan",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Hot Pan prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 68,
+      "name": "Paneer Barbeque",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Barbeque prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 69,
+      "name": "Paneer Steak Schezwan Sauce",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Steak Schezwan Sauce prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 70,
+      "name": "Thai Panner",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Thai Panner prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 71,
+      "name": "Paneer Pepper Fry",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Pepper Fry prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 72,
+      "name": "Cottage Cheese Satay",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 230,
+      "base_price": 230,
+      "special_price": 253,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cottage Cheese Satay prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 73,
+      "name": "Paneer Sesame Satay",
+      "category": "Paneer Starters",
+      "category_id": "paneer-starters",
+      "price": 230,
+      "base_price": 230,
+      "special_price": 253,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Sesame Satay prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 74,
+      "name": "Veg Manchurian",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Manchurian prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 75,
+      "name": "Veg Manchurian Gravy",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Manchurian Gravy prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 76,
+      "name": "Veg Manchurian Chilly",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Manchurian Chilly prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 77,
+      "name": "Veg Schezwan Finger",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Schezwan Finger prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 78,
+      "name": "Veg Crispy",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Crispy prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 79,
+      "name": "Veg 65",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg 65 prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 80,
+      "name": "Gobi Manchurian",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Gobi Manchurian prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 81,
+      "name": "Gobi 65",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Gobi 65 prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 82,
+      "name": "Gobi Lolly Pop",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Gobi Lolly Pop prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 83,
+      "name": "Veg Lolly Pop",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Lolly Pop prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 84,
+      "name": "Baby Corn Chilly",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Baby Corn Chilly prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 85,
+      "name": "Baby Corn Manchurian",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Baby Corn Manchurian prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 86,
+      "name": "Baby Corn 65",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Baby Corn 65 prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 87,
+      "name": "Mushroom Manchurian",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Mushroom Manchurian prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 88,
+      "name": "Mushroom Chilly",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Mushroom Chilly prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 89,
+      "name": "Gobi Chilly",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Gobi Chilly prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 90,
+      "name": "Chinese Bhel",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Chinese Bhel prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 91,
+      "name": "Chinese Sizzler",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 330,
+      "base_price": 330,
+      "special_price": 363,
+      "tag": "",
+      "description": "Authentic pure vegetarian Chinese Sizzler prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 92,
+      "name": "Veg Spring Roll",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Spring Roll prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 93,
+      "name": "Cheese Ball",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cheese Ball prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 94,
+      "name": "Honey Chilli Potato",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Honey Chilli Potato prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 95,
+      "name": "Shezwan Potato",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Shezwan Potato prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 96,
+      "name": "Corn Cheese Balls",
+      "category": "Chinese",
+      "category_id": "chinese",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Corn Cheese Balls prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 97,
+      "name": "Paneer Tikka Snacks",
+      "category": "Tandoori Starters",
+      "category_id": "tandoori-starters",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Tikka Snacks prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 98,
+      "name": "Tandoori Aloo Tikha",
+      "category": "Tandoori Starters",
+      "category_id": "tandoori-starters",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Tandoori Aloo Tikha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 99,
+      "name": "Hariyali Shikh Kabab",
+      "category": "Tandoori Starters",
+      "category_id": "tandoori-starters",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Hariyali Shikh Kabab prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 100,
+      "name": "Panner Pahadi Tikka",
+      "category": "Tandoori Starters",
+      "category_id": "tandoori-starters",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Panner Pahadi Tikka prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 101,
+      "name": "Tandoori Baby Corn",
+      "category": "Tandoori Starters",
+      "category_id": "tandoori-starters",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Tandoori Baby Corn prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 102,
+      "name": "Tandoori Mushroom",
+      "category": "Tandoori Starters",
+      "category_id": "tandoori-starters",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Tandoori Mushroom prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 103,
+      "name": "Tandoori Platter",
+      "category": "Tandoori Starters",
+      "category_id": "tandoori-starters",
+      "price": 420,
+      "base_price": 420,
+      "special_price": 462,
+      "tag": "",
+      "description": "Authentic pure vegetarian Tandoori Platter prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 104,
+      "name": "Paneer Garlic Tikka",
+      "category": "Tandoori Starters",
+      "category_id": "tandoori-starters",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Garlic Tikka prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 105,
+      "name": "Veg Manchow Soup",
+      "category": "Soup",
+      "category_id": "soup",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Manchow Soup prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 106,
+      "name": "Hot & Sour Veg Soup",
+      "category": "Soup",
+      "category_id": "soup",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Hot & Sour Veg Soup prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 107,
+      "name": "Lemon Coriander Soup",
+      "category": "Soup",
+      "category_id": "soup",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Lemon Coriander Soup prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 108,
+      "name": "Veg Noodle Soup",
+      "category": "Soup",
+      "category_id": "soup",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Noodle Soup prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 109,
+      "name": "Cream of Spinach Soup",
+      "category": "Soup",
+      "category_id": "soup",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cream of Spinach Soup prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 110,
+      "name": "Cream of Veg Soup",
+      "category": "Soup",
+      "category_id": "soup",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cream of Veg Soup prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 111,
+      "name": "Cream of Tomato Soup",
+      "category": "Soup",
+      "category_id": "soup",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cream of Tomato Soup prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 112,
+      "name": "Cream of Mushroom Soup",
+      "category": "Soup",
+      "category_id": "soup",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cream of Mushroom Soup prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 113,
+      "name": "Amol Special Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Special Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 114,
+      "name": "Veg Fried Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Fried Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 115,
+      "name": "Veg Triple Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Triple Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 116,
+      "name": "Shezwan Fried Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Shezwan Fried Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 117,
+      "name": "Shezwan Triple Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Shezwan Triple Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 118,
+      "name": "Mushroom Fried Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Mushroom Fried Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 119,
+      "name": "Babycorn Fried Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Babycorn Fried Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 120,
+      "name": "Paneer Fried Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Fried Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 121,
+      "name": "Hongkong Fried Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Hongkong Fried Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 122,
+      "name": "Singapuri Fried Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Singapuri Fried Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 123,
+      "name": "Onion Chilly Fried Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Onion Chilly Fried Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 124,
+      "name": "Garlic Fried Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Garlic Fried Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 125,
+      "name": "Combination Fried Rice",
+      "category": "Chinese Rice",
+      "category_id": "chinese-rice",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Combination Fried Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 126,
+      "name": "Amol Special Noodles",
+      "category": "Noodles",
+      "category_id": "noodles",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Special Noodles prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 127,
+      "name": "Thai Hakka Noodles",
+      "category": "Noodles",
+      "category_id": "noodles",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Thai Hakka Noodles prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 128,
+      "name": "Veg Hakka Noodles",
+      "category": "Noodles",
+      "category_id": "noodles",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Hakka Noodles prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 129,
+      "name": "Veg Hongkong Noodles",
+      "category": "Noodles",
+      "category_id": "noodles",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Hongkong Noodles prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 130,
+      "name": "Veg Schezwan Noodles",
+      "category": "Noodles",
+      "category_id": "noodles",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Schezwan Noodles prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 131,
+      "name": "Mushroom Noodles",
+      "category": "Noodles",
+      "category_id": "noodles",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Mushroom Noodles prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 132,
+      "name": "Paneer Noodles",
+      "category": "Noodles",
+      "category_id": "noodles",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Noodles prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 133,
+      "name": "Babycorn Noodles",
+      "category": "Noodles",
+      "category_id": "noodles",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Babycorn Noodles prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 134,
+      "name": "Garlic Corn Noodles",
+      "category": "Noodles",
+      "category_id": "noodles",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Garlic Corn Noodles prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 135,
+      "name": "Tava Bhaji",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Tava Bhaji prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 136,
+      "name": "Veg Bhuna",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Bhuna prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 137,
+      "name": "Veg Maratha",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Maratha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 138,
+      "name": "Veg Hyderabadi",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Hyderabadi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 139,
+      "name": "Veg Kolhapuri",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Kolhapuri prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 140,
+      "name": "Veg Maharani",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Maharani prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 141,
+      "name": "Veg Kadai",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Kadai prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 142,
+      "name": "Veg Makhanwala",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Makhanwala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 143,
+      "name": "Veg Banarasi",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Banarasi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 144,
+      "name": "Veg Shahi Kurma",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Shahi Kurma prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 145,
+      "name": "Veg Khema",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Khema prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 146,
+      "name": "Veg Jaipuri",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Jaipuri prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 147,
+      "name": "Veg Kofta",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Kofta prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 148,
+      "name": "Malai Kofta",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Malai Kofta prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 149,
+      "name": "Nargisi Kofta",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Nargisi Kofta prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 150,
+      "name": "Methi Masala",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Methi Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 151,
+      "name": "Methi Malai",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Methi Malai prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 152,
+      "name": "Methi Malai Mutter",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Methi Malai Mutter prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 153,
+      "name": "Methi Fry",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Methi Fry prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 154,
+      "name": "Methi Besan",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Methi Besan prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 155,
+      "name": "Gobi Masala",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Gobi Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 156,
+      "name": "Mushroom Masala",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Mushroom Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 157,
+      "name": "Mushroom Methi",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Mushroom Methi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 158,
+      "name": "Stuff Capsicum",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Stuff Capsicum prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 159,
+      "name": "Stuff Tomato",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Stuff Tomato prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 160,
+      "name": "Cheese Tomato",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cheese Tomato prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 161,
+      "name": "Cheese Anguri",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cheese Anguri prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 162,
+      "name": "Palak Maharani",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Palak Maharani prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 163,
+      "name": "Mix Veg",
+      "category": "Main Course",
+      "category_id": "main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Mix Veg prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 164,
+      "name": "Dal Fry",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Dal Fry prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 165,
+      "name": "Dal Tadaka",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Dal Tadaka prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 166,
+      "name": "Dal Makhanwala",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Dal Makhanwala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 167,
+      "name": "Dal Butter Fry",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Dal Butter Fry prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 168,
+      "name": "Dal Fry Methi",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Dal Fry Methi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 169,
+      "name": "Dal Kolhapuri",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Dal Kolhapuri prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 170,
+      "name": "Dal Achari",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Dal Achari prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 171,
+      "name": "Dal Maharani",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Dal Maharani prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 172,
+      "name": "Aloo Masala",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Aloo Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 173,
+      "name": "Aloo Jeera",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Aloo Jeera prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 174,
+      "name": "Aloo Fry",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Aloo Fry prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 175,
+      "name": "Dum Aloo",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Dum Aloo prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 176,
+      "name": "Aloo Methi",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Aloo Methi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 177,
+      "name": "Aloo Gobi",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Aloo Gobi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 178,
+      "name": "Aloo Palak",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Aloo Palak prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 179,
+      "name": "Aloo Matar",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Aloo Matar prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 180,
+      "name": "Aloo Capsicum Masala",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Aloo Capsicum Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 181,
+      "name": "Capsicum Masala",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Capsicum Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 182,
+      "name": "Baingan Masala",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Baingan Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 183,
+      "name": "Baingan Bharta",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Baingan Bharta prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 184,
+      "name": "Achari Baingan",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Achari Baingan prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 185,
+      "name": "Baingan Aloo",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Baingan Aloo prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 186,
+      "name": "Bhendi Masala",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Bhendi Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 187,
+      "name": "Bhendi Fry",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Bhendi Fry prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 188,
+      "name": "Green Peas Masala",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Green Peas Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 189,
+      "name": "Shenga Bhaji",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Shenga Bhaji prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 190,
+      "name": "Tomato Bhaji",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Tomato Bhaji prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 191,
+      "name": "Plain Palak",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Plain Palak prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 192,
+      "name": "Garlic Palak",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Garlic Palak prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 193,
+      "name": "Shev Masala Bhaji",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Shev Masala Bhaji prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 194,
+      "name": "Shev Masala Tadka",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Shev Masala Tadka prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 195,
+      "name": "Onion Bhaji",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Onion Bhaji prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 196,
+      "name": "Ghati Gravy",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Ghati Gravy prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 197,
+      "name": "Besan Fry",
+      "category": "Punjabi Dishes",
+      "category_id": "punjabi-dishes",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Besan Fry prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 198,
+      "name": "Paneer Masala",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 199,
+      "name": "Paneer Butter Masala",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Butter Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 200,
+      "name": "Paneer Kadai",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Kadai prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 201,
+      "name": "Paneer Tikka Masala",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Tikka Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 202,
+      "name": "Paneer Chilly Milly",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Chilly Milly prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 203,
+      "name": "Shahi Panner",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Shahi Panner prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 204,
+      "name": "Mutter Paneer",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Mutter Paneer prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 205,
+      "name": "Palak Paneer",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Palak Paneer prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 206,
+      "name": "Paneer Kolhapuri",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Kolhapuri prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 207,
+      "name": "Paneer Hyderabadi",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Hyderabadi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 208,
+      "name": "Paneer Makhanwala",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Makhanwala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 209,
+      "name": "Paneer Kaju Kurma",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Kaju Kurma prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 210,
+      "name": "Paneer Burji",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Burji prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 211,
+      "name": "Paneer Methi",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Methi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 212,
+      "name": "Paneer Kofta",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Kofta prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 213,
+      "name": "Paneer Jalfrezi",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Jalfrezi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 214,
+      "name": "Paneer Sismi",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Sismi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 215,
+      "name": "Paneer Rajwadi",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Rajwadi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 216,
+      "name": "Achar Paneer",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 190,
+      "base_price": 190,
+      "special_price": 209,
+      "tag": "",
+      "description": "Authentic pure vegetarian Achar Paneer prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 217,
+      "name": "Paneer Lababdar",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Lababdar prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 218,
+      "name": "Paneer Kurkure",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Kurkure prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 219,
+      "name": "Paneer Kaju Masala",
+      "category": "Paneer Main Course",
+      "category_id": "paneer-main-course",
+      "price": 230,
+      "base_price": 230,
+      "special_price": 253,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Kaju Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 220,
+      "name": "Kaju Masala",
+      "category": "Kaju Special",
+      "category_id": "kaju-special",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Kaju Masala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 221,
+      "name": "Kaju Curry",
+      "category": "Kaju Special",
+      "category_id": "kaju-special",
+      "price": 200,
+      "base_price": 200,
+      "special_price": 220,
+      "tag": "",
+      "description": "Authentic pure vegetarian Kaju Curry prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 222,
+      "name": "Kaju Mastana",
+      "category": "Kaju Special",
+      "category_id": "kaju-special",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Kaju Mastana prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 223,
+      "name": "Matar Kaju Kurma",
+      "category": "Kaju Special",
+      "category_id": "kaju-special",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Matar Kaju Kurma prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 224,
+      "name": "Veg Kaju Kurma",
+      "category": "Kaju Special",
+      "category_id": "kaju-special",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Kaju Kurma prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 225,
+      "name": "Kaju Masala Creamy",
+      "category": "Kaju Special",
+      "category_id": "kaju-special",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Kaju Masala Creamy prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 226,
+      "name": "Achar Kaju",
+      "category": "Kaju Special",
+      "category_id": "kaju-special",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Achar Kaju prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 227,
+      "name": "Kaju Palak",
+      "category": "Kaju Special",
+      "category_id": "kaju-special",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Kaju Palak prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 228,
+      "name": "Amol Veg Garden",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 230,
+      "base_price": 230,
+      "special_price": 253,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Veg Garden prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 229,
+      "name": "Amol Veg Handi",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Veg Handi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 230,
+      "name": "Amol Veg Pahadi",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Veg Pahadi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 231,
+      "name": "Amol Veg Jalfrezi",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Veg Jalfrezi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 232,
+      "name": "Amol Veg Hariyali",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Veg Hariyali prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 233,
+      "name": "Amol Veg Patiala",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 230,
+      "base_price": 230,
+      "special_price": 253,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Veg Patiala prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 234,
+      "name": "Amol Veg Chilly Milly",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Veg Chilly Milly prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 235,
+      "name": "Amol Veg Diwani Handi",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 220,
+      "base_price": 220,
+      "special_price": 242,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Veg Diwani Handi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 236,
+      "name": "Amol Veg Sham Savera",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 230,
+      "base_price": 230,
+      "special_price": 253,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Veg Sham Savera prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 237,
+      "name": "Amol Veg Dilruba",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 210,
+      "base_price": 210,
+      "special_price": 231,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Veg Dilruba prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 238,
+      "name": "Amol Special Paneer Malvani",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 360,
+      "base_price": 360,
+      "special_price": 396,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Special Paneer Malvani prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 239,
+      "name": "Special Kaju Malvani",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 380,
+      "base_price": 380,
+      "special_price": 418,
+      "tag": "",
+      "description": "Authentic pure vegetarian Special Kaju Malvani prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 240,
+      "name": "Amol Veg Malvani",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 330,
+      "base_price": 330,
+      "special_price": 363,
+      "tag": "",
+      "description": "Authentic pure vegetarian Amol Veg Malvani prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 241,
+      "name": "Paneer Kaju Malvani",
+      "category": "Amol Special Dishes",
+      "category_id": "amol-special-dishes",
+      "price": 400,
+      "base_price": 400,
+      "special_price": 440,
+      "tag": "",
+      "description": "Authentic pure vegetarian Paneer Kaju Malvani prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 242,
+      "name": "Half Plain Rice",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 50,
+      "base_price": 50,
+      "special_price": 55,
+      "tag": "",
+      "description": "Authentic pure vegetarian Half Plain Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 243,
+      "name": "Basmati Plain Rice",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 90,
+      "base_price": 90,
+      "special_price": 99,
+      "tag": "",
+      "description": "Authentic pure vegetarian Basmati Plain Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 244,
+      "name": "Basmati Jeera Rice",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 110,
+      "base_price": 110,
+      "special_price": 121,
+      "tag": "",
+      "description": "Authentic pure vegetarian Basmati Jeera Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 245,
+      "name": "Half Basmati Jeera Rice",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 80,
+      "base_price": 80,
+      "special_price": 88,
+      "tag": "",
+      "description": "Authentic pure vegetarian Half Basmati Jeera Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 246,
+      "name": "Basmati Masala Rice",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 120,
+      "base_price": 120,
+      "special_price": 132,
+      "tag": "",
+      "description": "Authentic pure vegetarian Basmati Masala Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 247,
+      "name": "Curd Rice",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 130,
+      "base_price": 130,
+      "special_price": 143,
+      "tag": "",
+      "description": "Authentic pure vegetarian Curd Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 248,
+      "name": "Basmati Ghee Rice",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 140,
+      "base_price": 140,
+      "special_price": 154,
+      "tag": "",
+      "description": "Authentic pure vegetarian Basmati Ghee Rice prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 249,
+      "name": "Veg Pulav",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Pulav prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 250,
+      "name": "Veg Biryani",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Biryani prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 251,
+      "name": "Veg Hyderabadi Biryani",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 180,
+      "base_price": 180,
+      "special_price": 198,
+      "tag": "",
+      "description": "Authentic pure vegetarian Veg Hyderabadi Biryani prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 252,
+      "name": "Green Peas Pulav",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 150,
+      "base_price": 150,
+      "special_price": 165,
+      "tag": "",
+      "description": "Authentic pure vegetarian Green Peas Pulav prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 253,
+      "name": "Dal Chawal Khichadi",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 160,
+      "base_price": 160,
+      "special_price": 176,
+      "tag": "",
+      "description": "Authentic pure vegetarian Dal Chawal Khichadi prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 254,
+      "name": "Dal Khichadi Tadka",
+      "category": "Rice",
+      "category_id": "rice",
+      "price": 170,
+      "base_price": 170,
+      "special_price": 187,
+      "tag": "",
+      "description": "Authentic pure vegetarian Dal Khichadi Tadka prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 255,
+      "name": "Kanda Raita",
+      "category": "Raita",
+      "category_id": "raita",
+      "price": 80,
+      "base_price": 80,
+      "special_price": 88,
+      "tag": "",
+      "description": "Authentic pure vegetarian Kanda Raita prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 256,
+      "name": "Kakdi Raita",
+      "category": "Raita",
+      "category_id": "raita",
+      "price": 80,
+      "base_price": 80,
+      "special_price": 88,
+      "tag": "",
+      "description": "Authentic pure vegetarian Kakdi Raita prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 257,
+      "name": "Boondi Raita",
+      "category": "Raita",
+      "category_id": "raita",
+      "price": 90,
+      "base_price": 90,
+      "special_price": 99,
+      "tag": "",
+      "description": "Authentic pure vegetarian Boondi Raita prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 258,
+      "name": "Kadak Bhakari",
+      "category": "Bhartiya Roti",
+      "category_id": "bhartiya-roti",
+      "price": 25,
+      "base_price": 25,
+      "special_price": 28,
+      "tag": "",
+      "description": "Authentic pure vegetarian Kadak Bhakari prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 259,
+      "name": "Chapati",
+      "category": "Bhartiya Roti",
+      "category_id": "bhartiya-roti",
+      "price": 15,
+      "base_price": 15,
+      "special_price": 17,
+      "tag": "",
+      "description": "Authentic pure vegetarian Chapati prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 260,
+      "name": "Butter Chapati",
+      "category": "Bhartiya Roti",
+      "category_id": "bhartiya-roti",
+      "price": 20,
+      "base_price": 20,
+      "special_price": 22,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butter Chapati prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 261,
+      "name": "Tava Paratha",
+      "category": "Bhartiya Roti",
+      "category_id": "bhartiya-roti",
+      "price": 20,
+      "base_price": 20,
+      "special_price": 22,
+      "tag": "",
+      "description": "Authentic pure vegetarian Tava Paratha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 262,
+      "name": "Butter Tava Paratha",
+      "category": "Bhartiya Roti",
+      "category_id": "bhartiya-roti",
+      "price": 25,
+      "base_price": 25,
+      "special_price": 28,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butter Tava Paratha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 263,
+      "name": "Tandoori Roti",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 20,
+      "base_price": 20,
+      "special_price": 22,
+      "tag": "",
+      "description": "Authentic pure vegetarian Tandoori Roti prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 264,
+      "name": "Butter Tandoori Roti",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 25,
+      "base_price": 25,
+      "special_price": 28,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butter Tandoori Roti prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 265,
+      "name": "Plain Naan",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 40,
+      "base_price": 40,
+      "special_price": 44,
+      "tag": "",
+      "description": "Authentic pure vegetarian Plain Naan prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 266,
+      "name": "Butter Naan",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 50,
+      "base_price": 50,
+      "special_price": 55,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butter Naan prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 267,
+      "name": "Cheese Naan",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 70,
+      "base_price": 70,
+      "special_price": 77,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cheese Naan prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 268,
+      "name": "Butter Cheese Naan",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 80,
+      "base_price": 80,
+      "special_price": 88,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butter Cheese Naan prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 269,
+      "name": "Garlic Naan",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 60,
+      "base_price": 60,
+      "special_price": 66,
+      "tag": "",
+      "description": "Authentic pure vegetarian Garlic Naan prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 270,
+      "name": "Butter Garlic Naan",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 70,
+      "base_price": 70,
+      "special_price": 77,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butter Garlic Naan prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 271,
+      "name": "Garlic Cheese Naan",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 90,
+      "base_price": 90,
+      "special_price": 99,
+      "tag": "",
+      "description": "Authentic pure vegetarian Garlic Cheese Naan prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 272,
+      "name": "Butter Cheese Garlic Naan",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 100,
+      "base_price": 100,
+      "special_price": 110,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butter Cheese Garlic Naan prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 273,
+      "name": "Plain Kulcha",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 30,
+      "base_price": 30,
+      "special_price": 33,
+      "tag": "",
+      "description": "Authentic pure vegetarian Plain Kulcha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 274,
+      "name": "Butter Kulcha",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 40,
+      "base_price": 40,
+      "special_price": 44,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butter Kulcha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 275,
+      "name": "Laccha Paratha",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 40,
+      "base_price": 40,
+      "special_price": 44,
+      "tag": "",
+      "description": "Authentic pure vegetarian Laccha Paratha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 276,
+      "name": "Butter Laccha Paratha",
+      "category": "Tandoori Roti & Naan",
+      "category_id": "tandoori-roti---naan",
+      "price": 50,
+      "base_price": 50,
+      "special_price": 55,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butter Laccha Paratha prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 277,
+      "name": "Vanilla Ice Cream",
+      "category": "Ice Cream & Cold Drinks",
+      "category_id": "ice-cream---cold-drinks",
+      "price": 40,
+      "base_price": 40,
+      "special_price": 44,
+      "tag": "",
+      "description": "Authentic pure vegetarian Vanilla Ice Cream prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 278,
+      "name": "Butterscotch Ice Cream",
+      "category": "Ice Cream & Cold Drinks",
+      "category_id": "ice-cream---cold-drinks",
+      "price": 40,
+      "base_price": 40,
+      "special_price": 44,
+      "tag": "",
+      "description": "Authentic pure vegetarian Butterscotch Ice Cream prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 279,
+      "name": "Chocolate Ice Cream",
+      "category": "Ice Cream & Cold Drinks",
+      "category_id": "ice-cream---cold-drinks",
+      "price": 40,
+      "base_price": 40,
+      "special_price": 44,
+      "tag": "",
+      "description": "Authentic pure vegetarian Chocolate Ice Cream prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    },
+    {
+      "id": 280,
+      "name": "Cold Drinks (250 ml)",
+      "category": "Ice Cream & Cold Drinks",
+      "category_id": "ice-cream---cold-drinks",
+      "price": 25,
+      "base_price": 25,
+      "special_price": 28,
+      "tag": "",
+      "description": "Authentic pure vegetarian Cold Drinks (250 ml) prepared fresh with traditional spices.",
+      "images": [
+        "/images/dish-placeholder.svg"
+      ],
+      "video": null
+    }
+  ]
+}

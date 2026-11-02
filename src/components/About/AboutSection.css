@@ -1,0 +1,135 @@
+.about-section {
+  padding: 88px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 72px;
+}
+
+/* Left Column */
+.about-col-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.about-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.14em;
+  color: var(--color-orange-text);
+  margin-bottom: 12px;
+}
+
+.about-heading {
+  font-family: var(--font-serif);
+  font-size: 58px;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-dark);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.about-orange-rule {
+  width: 52px;
+  height: 2px;
+  background-color: var(--color-accent-orange);
+  margin-bottom: 24px;
+}
+
+.about-paragraph {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin-bottom: 36px;
+  max-width: 500px;
+}
+
+.about-outline-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 34px;
+  border: 1px solid var(--color-text-dark);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-dark);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.about-outline-btn:hover {
+  background-color: var(--color-text-dark);
+  color: var(--color-cream-bg);
+}
+
+/* Right Column: Layered Peach Card & Main Image */
+.about-col-media {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.about-media-stack {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+}
+
+.about-peach-card {
+  position: absolute;
+  top: 20px;
+  left: -20px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-peach-card);
+  border-radius: var(--radius-xl);
+  transform: rotate(-5deg);
+  z-index: 1;
+}
+
+.about-image-card {
+  position: relative;
+  width: 100%;
+  z-index: 2;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.about-front-placeholder {
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.03);
+}
+
+/* Responsive adjustments */
+@media (max-width: 960px) {
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .about-col-text {
+    align-items: center;
+    text-align: center;
+  }
+  .about-heading {
+    font-size: 42px;
+  }
+  .about-paragraph {
+    max-width: 100%;
+  }
+  .about-peach-card {
+    left: -10px;
+  }
+}
+

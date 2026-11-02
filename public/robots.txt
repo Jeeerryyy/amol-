@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /admin
+Disallow: /admin/
+Disallow: /special-menu
+Disallow: /special-menu/
+Disallow: /review
+Disallow: /api/
+Allow: /
+Allow: /menu
+Allow: /menu/
+Sitemap: /sitemap.xml
+
