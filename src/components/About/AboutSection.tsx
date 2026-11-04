@@ -28,11 +28,12 @@ export const AboutSection: React.FC = () => {
           <div className="about-media-stack">
             {/* Background rotated peach card */}
             <div className="about-peach-card" aria-hidden="true" />
-            {/* Front main image placeholder */}
+            {/* Front main image placeholder with fixed dimensions */}
             <div className="about-image-card">
               <PlaceholderImage
                 label={about.image.label}
-                height="440px"
+                width="100%"
+                height="100%"
                 borderRadius="var(--radius-xl)"
                 className="about-front-placeholder"
               />
@@ -43,4 +44,3 @@ export const AboutSection: React.FC = () => {
     </section>
   );
 };
-

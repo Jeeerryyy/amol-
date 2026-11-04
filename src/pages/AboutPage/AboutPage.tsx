@@ -121,7 +121,8 @@ export const AboutPage: React.FC = () => {
               <div className="about-arch-card">
                 <PlaceholderImage
                   label={aboutPage.owner.image.label}
-                  height="360px"
+                  width="100%"
+                  height="100%"
                   borderRadius="140px 140px 24px 24px"
                   className="about-owner-placeholder"
                 />
@@ -178,7 +179,8 @@ export const AboutPage: React.FC = () => {
               <div className="space-primary-card">
                 <PlaceholderImage
                   label={aboutPage.space.mainImage.label}
-                  height="300px"
+                  width="100%"
+                  height="100%"
                   borderRadius="24px"
                   className="space-primary-placeholder"
                 />
@@ -188,7 +190,8 @@ export const AboutPage: React.FC = () => {
               <div className="space-secondary-card">
                 <PlaceholderImage
                   label={aboutPage.space.secondaryImage.label}
-                  height="160px"
+                  width="100%"
+                  height="100%"
                   borderRadius="20px"
                   className="space-secondary-placeholder"
                 />

@@ -214,7 +214,7 @@
   .hero-mobile-image-wrap {
     position: relative;
     width: 100%;
-    height: clamp(220px, 60vw, 300px);
+    height: clamp(270px, 75vw, 350px);
     overflow: hidden;
     background-color: var(--color-placeholder-bg, #D9CFC4);
   }
@@ -232,7 +232,7 @@
     bottom: -1px;
     left: 0;
     width: 100%;
-    height: 52px;
+    height: 56px;
     pointer-events: none;
     z-index: 2;
   }
@@ -247,12 +247,34 @@
   .hero-mobile-body {
     position: relative;
     background-color: #FAF4EC;
-    padding: 26px 20px 44px 20px;
+    padding: 26px 20px 52px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     z-index: 3;
+    overflow: hidden;
+  }
+
+  /* Decorative Leaf Silhouettes */
+  .hero-mobile-leaf-bg {
+    position: absolute;
+    width: 88px;
+    height: 88px;
+    pointer-events: none;
+    z-index: 1;
+    color: #6B5545;
+    opacity: 0.16;
+  }
+
+  .hero-mobile-leaf-left {
+    left: 6px;
+    bottom: 4px;
+  }
+
+  .hero-mobile-leaf-right {
+    right: 6px;
+    bottom: 4px;
   }
 
   /* Eyebrow flanked by rules */
@@ -267,17 +289,17 @@
   }
 
   .eyebrow-line {
-    width: 30px;
-    height: 2px;
-    background-color: var(--color-accent-orange, #C85A17);
+    width: 28px;
+    height: 1.5px;
+    background-color: #BA3D0C;
     border-radius: 2px;
   }
 
   .eyebrow-text {
     font-family: var(--font-sans);
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 700;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.18em;
     color: var(--color-text-dark, #2B170B);
     text-transform: uppercase;
   }
@@ -289,24 +311,37 @@
     font-family: var(--font-serif, 'Playfair Display', serif);
     font-size: clamp(30px, 8.4vw, 38px);
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.16;
     color: var(--color-text-dark, #2B170B);
     margin: 0 0 14px 0;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .hero-mobile-title-row {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
 
   .hero-mobile-highlight {
-    color: var(--color-accent-orange, #C85A17);
-    font-style: normal;
+    color: #C44714;
+    font-style: italic;
+    font-weight: 800;
   }
 
   .hero-mobile-leaf-icon {
     display: inline-block;
     width: 22px;
     height: 22px;
-    margin-left: 6px;
+    margin-left: 2px;
     vertical-align: middle;
-    stroke: var(--color-accent-orange, #C85A17);
+    stroke: #C44714;
+    flex-shrink: 0;
   }
 
   /* Subtag */
@@ -334,7 +369,7 @@
     max-width: 320px;
     height: 52px;
     border-radius: var(--radius-pill, 9999px);
-    background-color: var(--color-accent-orange, #C85A17);
+    background-color: #BA3D0C;
     color: #FFFFFF !important;
     font-family: var(--font-sans);
     font-size: 13.5px;
@@ -342,13 +377,13 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none;
-    box-shadow: 0 4px 16px rgba(200, 90, 23, 0.35);
+    box-shadow: 0 5px 20px rgba(186, 61, 12, 0.38);
     transition: transform 0.15s ease, background-color 0.15s ease;
     -webkit-tap-highlight-color: transparent;
   }
 
   .hero-mobile-cta-btn:hover {
-    background-color: var(--color-accent-orange-hover, #B8440E);
+    background-color: #A33307;
   }
 
   .hero-mobile-cta-btn:active {

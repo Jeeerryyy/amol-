@@ -61,7 +61,7 @@ export const Hero: React.FC = () => {
 
       {/* MOBILE & TABLET VIEW (<=900px) - PLACEHOLDER AS DESKTOP VIEW */}
       <div className="hero-mobile-content">
-        {/* Top Placeholder Container with Scalloped Wave Cut */}
+        {/* Top Placeholder Container with Organic Scalloped Wave Cut */}
         <div className="hero-mobile-image-wrap">
           <PlaceholderImage
             label={hero.heroImage.label}
@@ -72,20 +72,38 @@ export const Hero: React.FC = () => {
           />
           <div className="hero-mobile-wave-wrap" aria-hidden="true">
             <svg
-              viewBox="0 0 621 95"
+              viewBox="0 0 600 75"
               preserveAspectRatio="none"
               className="hero-mobile-wave-svg"
             >
               <path
-                d="M 0,28 C 120,70 210,83 270,83 C 350,83 450,50 621,0 L 621,95 L 0,95 Z"
+                d="M 0,16 C 140,55 240,70 340,68 C 450,65 520,38 600,24 L 600,75 L 0,75 Z"
                 fill="#FAF4EC"
               />
             </svg>
           </div>
         </div>
 
-        {/* Content Body */}
+        {/* Content Body with Botanical Silhouette Accents */}
         <div className="hero-mobile-body">
+          {/* Decorative Corner Leaf Watermarks */}
+          <div className="hero-mobile-leaf-bg hero-mobile-leaf-left" aria-hidden="true">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <path d="M5,95 C25,75 45,50 65,15 C55,35 45,48 30,58 C15,68 5,78 5,95 Z" opacity="0.85" />
+              <path d="M35,68 C50,62 65,65 76,58 C66,54 52,56 40,63 Z" opacity="0.75" />
+              <path d="M50,45 C65,37 78,38 90,30 C78,28 66,31 55,40 Z" opacity="0.75" />
+              <path d="M65,18 C72,9 84,5 95,2 C88,11 82,16 70,21 Z" opacity="0.75" />
+            </svg>
+          </div>
+          <div className="hero-mobile-leaf-bg hero-mobile-leaf-right" aria-hidden="true">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <path d="M95,95 C75,75 55,50 35,15 C45,35 55,48 70,58 C85,68 95,78 95,95 Z" opacity="0.85" />
+              <path d="M65,68 C50,62 35,65 24,58 C34,54 48,56 60,63 Z" opacity="0.75" />
+              <path d="M50,45 C35,37 22,38 10,30 C22,28 34,31 45,40 Z" opacity="0.75" />
+              <path d="M35,18 C28,9 16,5 5,2 C12,11 18,16 30,21 Z" opacity="0.75" />
+            </svg>
+          </div>
+
           {/* Eyebrow flanked by rules */}
           <div className="hero-mobile-eyebrow">
             <span className="eyebrow-line" aria-hidden="true" />
@@ -95,23 +113,26 @@ export const Hero: React.FC = () => {
 
           {/* Main Title */}
           <h1 className="hero-mobile-title">
-            <span>{hero.heading.line1} </span>
-            <span className="hero-mobile-highlight">{hero.heading.line2}</span>
-            <br />
-            <span>{hero.heading.line3}</span>
-            <svg
-              className="hero-mobile-leaf-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#C85A17"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
-              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-            </svg>
+            <span className="hero-mobile-title-row">
+              {hero.heading.line1}{' '}
+              <span className="hero-mobile-highlight">{hero.heading.line2}</span>
+            </span>
+            <span className="hero-mobile-title-row">
+              <span>{hero.heading.line3}</span>
+              <svg
+                className="hero-mobile-leaf-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#C4511E"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M6 18 C6 18, 5 11, 11 6 C17 1, 21 3, 21 3 C21 3, 23 7, 18 13 C13 19, 6 18, 6 18 Z" />
+                <path d="M6 18 L14 10" />
+              </svg>
+            </span>
           </h1>
 
           {/* Subtag */}
