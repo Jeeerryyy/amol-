@@ -8,6 +8,14 @@
   background-color: var(--color-placeholder-bg);
 }
 
+.hero-desktop-content {
+  display: contents;
+}
+
+.hero-mobile-content {
+  display: none;
+}
+
 .hero-background-layer {
   position: absolute;
   top: 0;
@@ -178,68 +186,201 @@
   color: #ffffff;
 }
 
-/* Responsive Stacking */
-@media (max-width: 992px) {
-  .hero-section {
-    padding: 60px 0;
-    min-height: auto;
+/* ==========================================================================
+   MOBILE & TABLET HERO (<= 900px)
+   Matches custom user mockup: top food image with wave cut + short centered text + single CTA
+   ========================================================================== */
+@media (max-width: 900px) {
+  .hero-desktop-content {
+    display: none !important;
   }
-  .hero-container {
+
+  .hero-section {
+    padding: 0 !important;
+    min-height: auto !important;
+    background-color: #FAF4EC !important;
+    display: block !important;
+  }
+
+  .hero-mobile-content {
+    display: flex !important;
     flex-direction: column;
-    text-align: center;
-    gap: 40px;
-  }
-  .hero-col-left {
-    align-items: center;
-    text-align: center;
-    max-width: 100%;
-  }
-  .hero-title {
-    align-items: center;
-    font-size: 40px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 34px;
-  }
-  .hero-right-heading {
-    font-size: 26px;
-  }
-  .hero-col-right {
-    padding: 0;
     width: 100%;
+    position: relative;
+    overflow: hidden;
   }
-}
 
-
-@media (max-width: 480px) {
-  .hero-section {
-    padding: 44px 0 52px 0;
+  /* Top Dish Image Wrapper */
+  .hero-mobile-image-wrap {
+    position: relative;
+    width: 100%;
+    height: clamp(260px, 68vw, 360px);
+    overflow: hidden;
+    background-color: #2B170B;
   }
-  .hero-title {
-    font-size: clamp(28px, 8.2vw, 32px);
+
+  .hero-mobile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+
+  /* Wave SVG transition */
+  .hero-mobile-wave-wrap {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 52px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .hero-mobile-wave-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Content Body */
+  .hero-mobile-body {
+    position: relative;
+    background-color: #FAF4EC;
+    padding: 26px 20px 44px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 3;
+  }
+
+  /* Corner Decorative Leaves */
+  .hero-mobile-leaf-decor {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.16;
+    width: 76px;
+    height: auto;
+    z-index: 1;
+  }
+
+  .hero-mobile-leaf-decor img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .hero-leaf-left {
+    bottom: 4px;
+    left: -12px;
+    transform: rotate(20deg);
+  }
+
+  .hero-leaf-right {
+    bottom: 24px;
+    right: -10px;
+    transform: scaleX(-1) rotate(15deg);
+  }
+
+  /* Eyebrow flanked by rules */
+  .hero-mobile-eyebrow {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .eyebrow-line {
+    width: 30px;
+    height: 2px;
+    background-color: var(--color-accent-orange, #C85A17);
+    border-radius: 2px;
+  }
+
+  .eyebrow-text {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-text-dark, #2B170B);
+    text-transform: uppercase;
+  }
+
+  /* Main Headline */
+  .hero-mobile-title {
+    position: relative;
+    z-index: 2;
+    font-family: var(--font-serif, 'Playfair Display', serif);
+    font-size: clamp(30px, 8.4vw, 38px);
+    font-weight: 800;
     line-height: 1.15;
-    margin-bottom: 18px;
+    color: var(--color-text-dark, #2B170B);
+    margin: 0 0 14px 0;
+    letter-spacing: -0.01em;
   }
-  .hero-eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    margin-bottom: 12px;
+
+  .hero-mobile-highlight {
+    color: var(--color-accent-orange, #C85A17);
+    font-style: normal;
   }
-  .hero-subtag {
-    font-size: 10px;
-    letter-spacing: 0.12em;
+
+  .hero-mobile-leaf-icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-left: 6px;
+    vertical-align: middle;
+    stroke: var(--color-accent-orange, #C85A17);
   }
-  .hero-right-heading {
-    font-size: 23px;
-    line-height: 1.22;
+
+  /* Subtag */
+  .hero-mobile-subtag {
+    position: relative;
+    z-index: 2;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--color-text-dark, #2B170B);
+    margin: 0 0 24px 0;
+    text-transform: uppercase;
   }
-  .hero-explore-btn {
+
+  /* CTA Button */
+  .hero-mobile-cta-btn {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     width: 100%;
-    max-width: 290px;
-    min-height: 50px;
-    padding: 6px 10px 6px 20px;
+    max-width: 320px;
+    height: 52px;
+    border-radius: var(--radius-pill, 9999px);
+    background-color: var(--color-accent-orange, #C85A17);
+    color: #FFFFFF !important;
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(200, 90, 23, 0.35);
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .hero-mobile-cta-btn:hover {
+    background-color: var(--color-accent-orange-hover, #B8440E);
+  }
+
+  .hero-mobile-cta-btn:active {
+    transform: scale(0.98);
   }
 }
