@@ -392,7 +392,7 @@ export const siteConfig = {
     ] as ReviewItem[],
     googleReviewsLink: {
       text: "Read more reviews on Google",
-      href: "https://maps.app.goo.gl/zp7RDvhrkJNiTKri9",
+      href: "https://maps.app.goo.gl/hMPnkZ2aZg2Pmqn76",
     },
   },
 
@@ -411,7 +411,7 @@ export const siteConfig = {
       hours: "Opens 12 PM",
       phone: "+91 98765 43210",
       tel: "tel:+919876543210",
-      directionsUrl: "https://maps.app.goo.gl/zp7RDvhrkJNiTKri9",
+      directionsUrl: "https://maps.app.goo.gl/hMPnkZ2aZg2Pmqn76",
     },
     socials: [
       { platform: "Instagram", url: "#" },

@@ -9,7 +9,7 @@ export const REVIEW_CONFIG = {
   AREA: "Sakhar Peth",
   CITY: "Solapur",
 
-  // Target Google Review URL (Replace PLACE_ID_TODO with your real Google Place ID)
+  // Target Google Review URL (Replace ChIJs1lJkU3bxTsRjoXzzGxpTGw with your real Google Place ID)
   GOOGLE_REVIEW_URL: "https://search.google.com/local/writereview?placeid=PLACE_ID_TODO",
 
   // API endpoint for AI review polishing

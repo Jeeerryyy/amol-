@@ -241,7 +241,7 @@ export async function seedDatabase() {
   const contactSocialData = {
     phones: ['+91 72496 64983', '+91 98765 43210'],
     address: '123, Station Road, Sakhar Peth, Solapur, Maharashtra - 413001',
-    directions_url: 'https://maps.app.goo.gl/zp7RDvhrkJNiTKri9',
+    directions_url: 'https://maps.app.goo.gl/hMPnkZ2aZg2Pmqn76',
     opening_hours_text: 'Opens 12 PM',
     weekly_hours: 'Monday – Sunday: 11:30 AM – 11:00 PM',
     socials: {
