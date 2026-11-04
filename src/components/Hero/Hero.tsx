@@ -61,15 +61,23 @@ export const Hero: React.FC = () => {
 
       {/* MOBILE & TABLET VIEW (<=900px) - PLACEHOLDER AS DESKTOP VIEW */}
       <div className="hero-mobile-content">
-        {/* Top Placeholder Container with Organic Scalloped Wave Cut */}
+        {/* Top Image / Placeholder Container with Organic Scalloped Wave Cut */}
         <div className="hero-mobile-image-wrap">
-          <PlaceholderImage
-            label={hero.heroImage.label}
-            width="100%"
-            height="100%"
-            borderRadius="0"
-            className="hero-mobile-placeholder"
-          />
+          {hero.heroImage.src ? (
+            <img
+              src={hero.heroImage.src}
+              alt={hero.heroImage.label || 'Amol Veg Resto Featured Dish'}
+              className="hero-mobile-photo"
+            />
+          ) : (
+            <PlaceholderImage
+              label={hero.heroImage.label}
+              width="100%"
+              height="100%"
+              borderRadius="0"
+              className="hero-mobile-placeholder"
+            />
+          )}
           <div className="hero-mobile-wave-wrap" aria-hidden="true">
             <svg
               viewBox="0 0 600 75"

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=1240, initial-scale=0.32, minimum-scale=0.25, maximum-scale=3.0, user-scalable=yes">
   <title>Amol Veg Resto | View-Only Digital Menu</title>
   <meta name="description"
     content="Official view-only digital menu for Amol Veg Resto. 100% pure vegetarian culinary delights in Solapur.">
@@ -38,6 +38,10 @@
       scroll-behavior: smooth;
     }
 
+    html, body {
+      min-width: 1240px;
+    }
+
     body {
       background-color: var(--color-cream-bg);
       background-image: radial-gradient(rgba(107, 85, 69, 0.045) 1px, transparent 1px);
@@ -61,7 +65,8 @@
     }
 
     .menu-container {
-      width: 100%;
+      width: 1200px;
+      min-width: 1200px;
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
@@ -785,88 +790,29 @@
       display: block;
     }
 
-    /* RESPONSIVE LAYOUT */
-    @media (max-width: 1100px) {
-      .dishes-cards-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .dish-modal-content-grid {
-        grid-template-columns: 1fr;
-        padding: 24px;
-        gap: 20px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .hero-video-wrapper {
-        height: 44vh;
-        min-height: 240px;
-      }
-
-      .dishes-cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-      }
-
-      .category-tab-btn {
-        min-width: 86px;
-        height: 68px;
-        padding: 8px 10px;
-        border-radius: 14px;
-      }
-
-      .category-icon-box {
-        width: 28px;
-        height: 28px;
-      }
-
-      .tab-label {
-        font-size: 12px;
-      }
-
-      .tab-active-indicator {
-        width: 28px;
-      }
-    }
-
-    @media (max-width: 540px) {
-      .dishes-cards-grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-
-      .menu-sticky-control-bar {
-        padding: 8px 0 12px 0;
-        margin: 0 0 16px 0;
-      }
-
-      .menu-search-section {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-      }
-
-      .search-input-wrap {
-        max-width: 100%;
-      }
-
-      .menu-results-count {
-        text-align: right;
-      }
-
-      .modal-actions-row {
-        flex-direction: column;
-      }
-
-      .modal-action-btn {
-        width: 100%;
-      }
+        /* UNIFORM 4-GRID DESKTOP VIEW ACROSS ALL DEVICES & PHONES */
+    .dishes-cards-grid {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 20px !important;
     }
   </style>
+  <script>
+    (function() {
+      function adjustMenuViewport() {
+        var targetWidth = 1240;
+        var screenW = window.screen.width || window.innerWidth;
+        var meta = document.querySelector('meta[name="viewport"]');
+        if (meta && screenW && screenW < targetWidth) {
+          var scale = (screenW / targetWidth).toFixed(4);
+          meta.setAttribute('content', 'width=' + targetWidth + ', initial-scale=' + scale + ', minimum-scale=' + scale + ', maximum-scale=3.0, user-scalable=yes');
+        }
+      }
+      adjustMenuViewport();
+      window.addEventListener('resize', adjustMenuViewport);
+      window.addEventListener('orientationchange', adjustMenuViewport);
+    })();
+  </script>
 </head>
 
 <body>

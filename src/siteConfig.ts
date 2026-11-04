@@ -85,8 +85,7 @@ export const siteConfig = {
     },
     heroImage: {
       label: "Hero Table Spread Placeholder (Thali with copper cloches)",
-      // TODO: Replace with frame sequence or final hero photo
-      src: "",
+      src: "/images/hero-dish-card.jpg",
     },
   },
 
