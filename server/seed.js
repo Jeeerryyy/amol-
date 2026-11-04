@@ -15,11 +15,11 @@ export async function seedDatabase() {
   console.log('[Seed] Checking and seeding database...');
   const now = new Date().toISOString();
 
-  // 1. SEED OWNER
-  const existingOwners = await query('SELECT id FROM owner LIMIT 1');
+  // 1. SEED / UPDATE OWNER
+  const adminEmail = (process.env.ADMIN_EMAIL || 'owner@amolvegresto.in').trim().toLowerCase();
+  const adminPassword = process.env.ADMIN_INITIAL_PASSWORD || 'Admin@nirvanaa26';
+  const existingOwners = await query('SELECT id, email FROM owner LIMIT 1');
   if (existingOwners.length === 0) {
-    const adminEmail = (process.env.ADMIN_EMAIL || 'owner@amolvegresto.com').trim().toLowerCase();
-    const adminPassword = process.env.ADMIN_INITIAL_PASSWORD || 'Admin@12345';
     const passwordHash = await bcrypt.hash(adminPassword, 12);
     const ownerId = 'owner_1';
 
@@ -29,7 +29,13 @@ export async function seedDatabase() {
     );
     console.log(`[Seed] Seeded owner account: ${adminEmail}`);
   } else {
-    console.log('[Seed] Owner account already exists. Skipping owner seeding.');
+    const currentOwner = existingOwners[0];
+    const passwordHash = await bcrypt.hash(adminPassword, 12);
+    await query(
+      'UPDATE owner SET email = $1, password_hash = $2, updated_at = $3 WHERE id = $4',
+      [adminEmail, passwordHash, now, currentOwner.id]
+    );
+    console.log(`[Seed] Synchronized owner account credentials: ${adminEmail}`);
   }
 
   // 2. SEED SETTINGS (Pricing)

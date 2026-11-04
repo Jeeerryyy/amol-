@@ -5,8 +5,8 @@ async function testAdmin() {
   const page = await browser.newPage();
   await page.goto('http://localhost:5173/admin');
   await page.waitForTimeout(400);
-  await page.fill('input[type="email"]', 'owner@amolvegresto.com');
-  await page.fill('input[type="password"]', 'Admin@12345');
+  await page.fill('input[type="email"]', 'owner@amolvegresto.in');
+  await page.fill('input[type="password"]', 'Admin@nirvanaa26');
   await page.click('button[type="submit"]');
   await page.waitForTimeout(800);
 

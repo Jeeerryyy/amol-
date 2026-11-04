@@ -82,8 +82,8 @@ async function runSmokeTests() {
     // 8. Admin login access
     await page.goto(`${BASE_URL}/admin`, { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(400);
-    await page.fill('input[type="email"]', 'owner@amolvegresto.com');
-    await page.fill('input[type="password"]', 'Admin@12345');
+    await page.fill('input[type="email"]', 'owner@amolvegresto.in');
+    await page.fill('input[type="password"]', 'Admin@nirvanaa26');
     await page.click('button[type="submit"]');
     await page.waitForTimeout(800);
     const adminTitle = await page.locator('.admin-header-title').textContent().catch(() => '');

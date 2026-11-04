@@ -98,7 +98,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="owner@amolvegresto.com"
+                placeholder="owner@amolvegresto.in"
                 className="admin-input"
                 style={{ paddingLeft: '40px' }}
                 autoComplete="email"

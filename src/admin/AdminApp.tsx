@@ -12,7 +12,7 @@ import './Admin.css';
 
 export const AdminApp: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [userEmail, setUserEmail] = useState<string>('owner@amolvegresto.com');
+  const [userEmail, setUserEmail] = useState<string>('owner@amolvegresto.in');
   const [activeSection, setActiveSection] = useState<AdminSection>('dashboard');
 
   // Enforce mobile-responsive viewport for admin panel

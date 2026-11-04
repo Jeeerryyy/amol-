@@ -28,7 +28,7 @@ async function runTests() {
   const loginRes = await fetch(`${BASE_URL}/api/admin/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: 'owner@amolvegresto.com', password: 'Admin@12345' }),
+    body: JSON.stringify({ email: 'owner@amolvegresto.in', password: 'Admin@nirvanaa26' }),
   });
   const loginData = await loginRes.json();
   const cookies = loginRes.headers.get('set-cookie') || '';
