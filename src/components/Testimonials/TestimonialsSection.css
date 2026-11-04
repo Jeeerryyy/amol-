@@ -196,3 +196,34 @@
   }
 }
 
+
+
+@media (max-width: 640px) {
+  .testimonials-section {
+    padding: 48px 0;
+  }
+  .testimonials-title {
+    font-size: clamp(28px, 8.2vw, 36px);
+  }
+  .review-card {
+    padding: 24px 20px;
+  }
+  .review-quote-glyph {
+    font-size: 42px;
+    margin-bottom: 8px;
+  }
+  .review-text {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .btn-review-us-main {
+    width: 100%;
+    max-width: 290px;
+    min-height: 48px;
+  }
+  .testimonials-pager {
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+}

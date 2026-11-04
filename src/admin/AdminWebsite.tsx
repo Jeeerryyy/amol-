@@ -1245,7 +1245,7 @@ export const AdminWebsite: React.FC = () => {
             Control browser tab titles, Google meta descriptions, social OpenGraph sharing images, and indexing per page.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '16px' }}>
             {seoPages.map((page) => (
               <div key={page.id} className="admin-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

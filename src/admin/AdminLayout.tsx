@@ -72,7 +72,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               minHeight: '38px',
             }}
           >
-            <span>View Public Site</span>
+            <span className='admin-header-btn-text'>View Public Site</span>
             <span>↗</span>
           </a>
 

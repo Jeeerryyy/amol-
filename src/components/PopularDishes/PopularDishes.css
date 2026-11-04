@@ -158,3 +158,29 @@
     font-size: 34px;
   }
 }
+
+
+@media (max-width: 480px) {
+  .popular-dishes-section {
+    padding: 48px 0;
+  }
+  .section-main-heading {
+    font-size: clamp(28px, 8.2vw, 34px);
+    line-height: 1.18;
+  }
+  .section-header-center {
+    margin-bottom: 32px;
+  }
+  .dishes-grid {
+    gap: 18px;
+    margin-bottom: 36px;
+  }
+  .dish-card-content {
+    padding: 18px 16px;
+  }
+  .btn-explore-digital-menu {
+    width: 100%;
+    max-width: 290px;
+    min-height: 50px;
+  }
+}

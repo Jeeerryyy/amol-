@@ -145,3 +145,33 @@
     font-size: 38px;
   }
 }
+
+
+@media (max-width: 640px) {
+  .gallery-section {
+    padding: 48px 0;
+  }
+  .gallery-left-wrap,
+  .gallery-text-block {
+    align-items: center;
+    text-align: center;
+  }
+  .gallery-heading {
+    font-size: clamp(28px, 8.2vw, 34px);
+  }
+  .gallery-description {
+    max-width: 100%;
+    font-size: 14.5px;
+    margin-bottom: 24px;
+  }
+  .gallery-outline-btn {
+    width: 100%;
+    max-width: 280px;
+    min-height: 48px;
+  }
+  .gallery-controls {
+    justify-content: center;
+    padding-right: 0;
+    margin-bottom: 16px;
+  }
+}

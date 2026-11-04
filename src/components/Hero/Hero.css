@@ -212,3 +212,34 @@
     width: 100%;
   }
 }
+
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 44px 0 52px 0;
+  }
+  .hero-title {
+    font-size: clamp(28px, 8.2vw, 32px);
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+  }
+  .hero-subtag {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+  .hero-right-heading {
+    font-size: 23px;
+    line-height: 1.22;
+  }
+  .hero-explore-btn {
+    width: 100%;
+    max-width: 290px;
+    min-height: 50px;
+    padding: 6px 10px 6px 20px;
+  }
+}

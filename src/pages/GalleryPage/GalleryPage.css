@@ -586,3 +586,22 @@
   }
 }
 
+
+
+@media (max-width: 480px) {
+  .gallery-page-container {
+    padding: 0 16px;
+  }
+  .gallery-page-heading {
+    font-size: clamp(28px, 8.2vw, 32px);
+  }
+  .gallery-filter-pill {
+    min-height: 44px;
+    padding: 8px 16px;
+  }
+  .cta-explore-menu-btn {
+    width: 100%;
+    max-width: 280px;
+    min-height: 48px;
+  }
+}

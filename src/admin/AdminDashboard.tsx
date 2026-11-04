@@ -209,7 +209,7 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       </div>
 
       {/* PEAK HOURS & DAYS OF WEEK CHARTS (0-23 in IST) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '20px', marginBottom: '24px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '20px', marginBottom: '24px' }}>
         {/* Hourly Distribution */}
         <div className="admin-card" style={{ marginBottom: 0 }}>
           <div className="admin-card-header">

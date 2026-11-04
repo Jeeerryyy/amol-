@@ -435,3 +435,32 @@
   }
 }
 
+
+
+@media (max-width: 480px) {
+  .contact-subpage {
+    padding: 44px 0 64px 0;
+  }
+  .contact-container {
+    padding: 0 16px;
+  }
+  .contact-main-card {
+    padding: 24px 18px;
+    border-radius: 20px;
+  }
+  .contact-page-title {
+    font-size: clamp(28px, 8.2vw, 32px);
+  }
+  .contact-form-heading {
+    font-size: 24px;
+  }
+  .contact-input,
+  .contact-textarea {
+    font-size: 16px !important;
+    min-height: 48px;
+  }
+  .contact-submit-btn {
+    min-height: 50px;
+    font-size: 15px;
+  }
+}
