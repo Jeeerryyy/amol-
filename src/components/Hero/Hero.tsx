@@ -59,14 +59,16 @@ export const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* MOBILE & TABLET VIEW (<=900px) - MATCHES USER SPECIFICATION */}
+      {/* MOBILE & TABLET VIEW (<=900px) - PLACEHOLDER AS DESKTOP VIEW */}
       <div className="hero-mobile-content">
-        {/* Top Dish Image with Curved Wave Divider */}
+        {/* Top Placeholder Container with Scalloped Wave Cut */}
         <div className="hero-mobile-image-wrap">
-          <img
-            src="/images/hero-mobile-dish.jpg"
-            alt="Amol Veg Resto Specialty Cuisine"
-            className="hero-mobile-img"
+          <PlaceholderImage
+            label={hero.heroImage.label}
+            width="100%"
+            height="100%"
+            borderRadius="0"
+            className="hero-mobile-placeholder"
           />
           <div className="hero-mobile-wave-wrap" aria-hidden="true">
             <svg
@@ -84,14 +86,6 @@ export const Hero: React.FC = () => {
 
         {/* Content Body */}
         <div className="hero-mobile-body">
-          {/* Subtle Corner Leaves */}
-          <div className="hero-mobile-leaf-decor hero-leaf-left" aria-hidden="true">
-            <img src="/images/botanical-leaf.png" alt="" />
-          </div>
-          <div className="hero-mobile-leaf-decor hero-leaf-right" aria-hidden="true">
-            <img src="/images/botanical-leaf.png" alt="" />
-          </div>
-
           {/* Eyebrow flanked by rules */}
           <div className="hero-mobile-eyebrow">
             <span className="eyebrow-line" aria-hidden="true" />
