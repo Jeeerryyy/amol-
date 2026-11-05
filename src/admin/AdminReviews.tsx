@@ -386,7 +386,7 @@ export const AdminReviews: React.FC = () => {
                       type="text"
                       maxLength={30}
                       className="admin-form-input"
-                      placeholder="e.g. Authentic Taste, Fast Service"
+                      placeholder="Enter option label"
                       value={isEditingOption.label}
                       onChange={(e) => setIsEditingOption({ ...isEditingOption, label: e.target.value })}
                       required
@@ -411,7 +411,7 @@ export const AdminReviews: React.FC = () => {
                       type="text"
                       maxLength={80}
                       className="admin-form-input"
-                      placeholder="e.g. emphasize cleanliness of dining area"
+                      placeholder="Enter prompt hint"
                       value={isEditingOption.ai_hint || ''}
                       onChange={(e) => setIsEditingOption({ ...isEditingOption, ai_hint: e.target.value })}
                     />
@@ -452,7 +452,7 @@ export const AdminReviews: React.FC = () => {
               <input
                 type="url"
                 className="admin-form-input"
-                placeholder="https://g.page/r/.../review or https://search.google.com/local/writereview?placeid=..."
+                placeholder="Enter your website URL"
                 value={googleUrl}
                 onChange={(e) => setGoogleUrl(e.target.value)}
                 required

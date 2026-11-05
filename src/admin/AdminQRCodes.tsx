@@ -188,6 +188,7 @@ export const AdminQRCodes: React.FC = () => {
                       className="admin-input"
                       value={editForm.label}
                       onChange={(e) => setEditForm({ ...editForm, label: e.target.value })}
+                      placeholder="Enter label"
                     />
                   </div>
 
@@ -198,7 +199,7 @@ export const AdminQRCodes: React.FC = () => {
                       className="admin-input"
                       value={editForm.destination}
                       onChange={(e) => setEditForm({ ...editForm, destination: e.target.value })}
-                      placeholder="/menu or /special-menu"
+                      placeholder="Enter destination URL"
                     />
                     <div className="admin-hint">Changing this updates where customers land immediately without reprint.</div>
                   </div>

@@ -581,7 +581,7 @@ export const AdminMenus: React.FC = () => {
             <div style={{ position: 'relative', flex: 1, minWidth: '220px' }}>
               <input
                 type="text"
-                placeholder="Search dish by name or description..."
+                placeholder="Search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="admin-input"
@@ -1024,7 +1024,7 @@ export const AdminMenus: React.FC = () => {
                 className="admin-input"
                 value={videoTitle}
                 onChange={(e) => setVideoTitle(e.target.value)}
-                placeholder="e.g. Menu or Special Menu"
+                placeholder="Enter menu title"
               />
             </div>
 
@@ -1035,7 +1035,7 @@ export const AdminMenus: React.FC = () => {
                 className="admin-input"
                 value={videoSubtitle}
                 onChange={(e) => setVideoSubtitle(e.target.value)}
-                placeholder="e.g. Pure Vegetarian Delights"
+                placeholder="Enter menu subtitle"
               />
             </div>
 
@@ -1046,7 +1046,7 @@ export const AdminMenus: React.FC = () => {
                 className="admin-input"
                 value={videoUrl}
                 onChange={(e) => setVideoUrl(e.target.value)}
-                placeholder="/menu/hero-video.mp4 or Cloudinary URL"
+                placeholder="Enter video URL"
               />
             </div>
 
@@ -1113,7 +1113,7 @@ export const AdminMenus: React.FC = () => {
                   className="admin-input"
                   value={dishForm.name}
                   onChange={(e) => setDishForm({ ...dishForm, name: e.target.value })}
-                  placeholder="e.g. Paneer Butter Masala"
+                  placeholder="Enter dish name"
                 />
               </div>
 
@@ -1154,7 +1154,7 @@ export const AdminMenus: React.FC = () => {
                   className="admin-textarea"
                   value={dishForm.description}
                   onChange={(e) => setDishForm({ ...dishForm, description: e.target.value })}
-                  placeholder="Detailed culinary ingredients and flavor profile..."
+                  placeholder="Enter description"
                 />
               </div>
 
@@ -1167,7 +1167,7 @@ export const AdminMenus: React.FC = () => {
                     className="admin-input"
                     value={dishForm.serving_note || ''}
                     onChange={(e) => setDishForm({ ...dishForm, serving_note: e.target.value })}
-                    placeholder="e.g. Serves 2"
+                    placeholder="Enter serving note"
                   />
                 </div>
 
@@ -1207,7 +1207,7 @@ export const AdminMenus: React.FC = () => {
                       checked={dishForm.price_type === 'variants'}
                       onChange={() => setDishForm({ ...dishForm, price_type: 'variants' })}
                     />
-                    <span>Variants (e.g. Half / Full)</span>
+                    <span>Variants (multiple sizes/portions)</span>
                   </label>
                 </div>
               </div>
@@ -1225,6 +1225,7 @@ export const AdminMenus: React.FC = () => {
                         className="admin-input"
                         value={dishForm.base_price}
                         onChange={(e) => setDishForm({ ...dishForm, base_price: Number(e.target.value) })}
+                        placeholder="Enter the amount"
                       />
                     </div>
 
@@ -1256,7 +1257,7 @@ export const AdminMenus: React.FC = () => {
                               special_price_override: e.target.value === '' ? null : Number(e.target.value),
                             })
                           }
-                          placeholder={`Auto: ₹${previewSpecialPrice}`}
+                          placeholder="Enter the amount"
                         />
                       </div>
                     )}
@@ -1278,7 +1279,7 @@ export const AdminMenus: React.FC = () => {
                       onClick={() =>
                         setDishForm({
                           ...dishForm,
-                          variants: [...dishForm.variants, { label: 'Regular', base_price: 100, special_price_override: null }],
+                          variants: [...dishForm.variants, { label: '', base_price: '' as any, special_price_override: null }],
                         })
                       }
                     >
@@ -1291,7 +1292,7 @@ export const AdminMenus: React.FC = () => {
                       <input
                         type="text"
                         className="admin-input"
-                        placeholder="Label (e.g. Half)"
+                        placeholder="Enter variant label"
                         value={v.label}
                         onChange={(e) => {
                           const updated = [...dishForm.variants];
@@ -1303,7 +1304,7 @@ export const AdminMenus: React.FC = () => {
                       <input
                         type="number"
                         className="admin-input"
-                        placeholder="Price"
+                        placeholder="Enter the amount"
                         value={v.base_price}
                         onChange={(e) => {
                           const updated = [...dishForm.variants];
@@ -1515,7 +1516,7 @@ export const AdminMenus: React.FC = () => {
                 className="admin-input"
                 value={catForm.name}
                 onChange={(e) => setCatForm({ ...catForm, name: e.target.value })}
-                placeholder="e.g. Starters, Tandoor..."
+                placeholder="Enter category name"
               />
             </div>
 
@@ -1526,7 +1527,7 @@ export const AdminMenus: React.FC = () => {
                 className="admin-input"
                 value={catForm.description}
                 onChange={(e) => setCatForm({ ...catForm, description: e.target.value })}
-                placeholder="e.g. Sizzling and crispy appetizers"
+                placeholder="Enter description"
               />
             </div>
 

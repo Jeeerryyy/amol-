@@ -45,7 +45,7 @@ export const REVIEW_CONFIG = {
     positiveAspectsHeading: "What did you like?",
     improveAspectsHeading: "What could we improve?",
     reviewBoxLabel: "Your review (you can edit it)",
-    reviewPlaceholder: "Tap stars and aspects above to generate your review...",
+    reviewPlaceholder: "Enter your review",
     regenerateButtonText: "Regenerate",
     polishingIndicator: "Polishing with AI...",
     submitButtonText: "Submit to Google Review",

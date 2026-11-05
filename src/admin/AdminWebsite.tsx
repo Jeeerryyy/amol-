@@ -685,6 +685,7 @@ export const AdminWebsite: React.FC = () => {
                       className="admin-form-input"
                       value={isEditingPop.title}
                       onChange={(e) => setIsEditingPop({ ...isEditingPop, title: e.target.value })}
+                      placeholder="Enter dish title"
                       required
                     />
                   </div>
@@ -696,6 +697,7 @@ export const AdminWebsite: React.FC = () => {
                       rows={2}
                       value={isEditingPop.description}
                       onChange={(e) => setIsEditingPop({ ...isEditingPop, description: e.target.value })}
+                      placeholder="Enter description"
                     />
                   </div>
 
@@ -705,7 +707,7 @@ export const AdminWebsite: React.FC = () => {
                       <input
                         type="text"
                         className="admin-form-input"
-                        placeholder="e.g. ₹150 or From ₹120"
+                        placeholder="Enter the amount"
                         value={isEditingPop.price}
                         onChange={(e) => setIsEditingPop({ ...isEditingPop, price: e.target.value })}
                         required
@@ -915,7 +917,7 @@ export const AdminWebsite: React.FC = () => {
                     <input
                       type="text"
                       className="admin-form-input"
-                      placeholder="e.g. Traditional Paneer Tikka sizzling platter at Amol Veg Restaurant"
+                      placeholder="Enter alt text"
                       value={isEditingGal.alt_text}
                       onChange={(e) => setIsEditingGal({ ...isEditingGal, alt_text: e.target.value })}
                       required
@@ -927,7 +929,7 @@ export const AdminWebsite: React.FC = () => {
                     <input
                       type="text"
                       className="admin-form-input"
-                      placeholder="Display caption under image"
+                      placeholder="Enter caption"
                       value={isEditingGal.caption}
                       onChange={(e) => setIsEditingGal({ ...isEditingGal, caption: e.target.value })}
                     />
@@ -1000,22 +1002,24 @@ export const AdminWebsite: React.FC = () => {
               <div>
                 <label className="admin-form-label">Primary Phone *</label>
                 <input
-                  type="text"
+                  type="tel"
                   className="admin-form-input"
                   value={contactData.phone}
                   onChange={(e) => setContactData({ ...contactData, phone: e.target.value })}
-                  placeholder="+91 98765 43210"
+                  placeholder="Enter your phone number"
+                  autoComplete="tel"
                   required
                 />
               </div>
               <div>
                 <label className="admin-form-label">Alternate Phone</label>
                 <input
-                  type="text"
+                  type="tel"
                   className="admin-form-input"
                   value={contactData.alternate_phone}
                   onChange={(e) => setContactData({ ...contactData, alternate_phone: e.target.value })}
-                  placeholder="+91 98765 43211"
+                  placeholder="Enter your phone number"
+                  autoComplete="tel"
                 />
               </div>
             </div>
@@ -1028,18 +1032,20 @@ export const AdminWebsite: React.FC = () => {
                   className="admin-form-input"
                   value={contactData.email}
                   onChange={(e) => setContactData({ ...contactData, email: e.target.value })}
-                  placeholder="info@amolvegresto.com"
+                  placeholder="Enter your email address"
+                  autoComplete="email"
                   required
                 />
               </div>
               <div>
                 <label className="admin-form-label">WhatsApp Number</label>
                 <input
-                  type="text"
+                  type="tel"
                   className="admin-form-input"
                   value={contactData.whatsapp}
                   onChange={(e) => setContactData({ ...contactData, whatsapp: e.target.value })}
-                  placeholder="919876543210 (digits only for direct chat)"
+                  placeholder="Enter your phone number"
+                  autoComplete="tel"
                 />
               </div>
             </div>
@@ -1051,7 +1057,7 @@ export const AdminWebsite: React.FC = () => {
                 rows={2}
                 value={contactData.address}
                 onChange={(e) => setContactData({ ...contactData, address: e.target.value })}
-                placeholder="Amol Pure Veg Restaurant, Near Old Bus Stand, Ring Road, Solapur - 413001"
+                placeholder="Enter your address"
               />
             </div>
 
@@ -1062,7 +1068,7 @@ export const AdminWebsite: React.FC = () => {
                 className="admin-form-input"
                 value={contactData.maps_url}
                 onChange={(e) => setContactData({ ...contactData, maps_url: e.target.value })}
-                placeholder="https://www.google.com/maps/embed?pb=..."
+                placeholder="Enter your website URL"
               />
             </div>
 
@@ -1076,7 +1082,7 @@ export const AdminWebsite: React.FC = () => {
                   className="admin-form-input"
                   value={contactData.instagram}
                   onChange={(e) => setContactData({ ...contactData, instagram: e.target.value })}
-                  placeholder="https://instagram.com/amolvegresto"
+                  placeholder="Enter your website URL"
                 />
               </div>
               <div>
@@ -1086,7 +1092,7 @@ export const AdminWebsite: React.FC = () => {
                   className="admin-form-input"
                   value={contactData.facebook}
                   onChange={(e) => setContactData({ ...contactData, facebook: e.target.value })}
-                  placeholder="https://facebook.com/amolvegresto"
+                  placeholder="Enter your website URL"
                 />
               </div>
             </div>
@@ -1115,7 +1121,7 @@ export const AdminWebsite: React.FC = () => {
                 className="admin-form-input"
                 value={footerData.fssai_license}
                 onChange={(e) => setFooterData({ ...footerData, fssai_license: e.target.value })}
-                placeholder="11521034000329"
+                placeholder="Enter license number"
               />
               <span style={{ fontSize: '12px', color: '#888', marginTop: '4px', display: 'block' }}>
                 Displayed prominently in the footer alongside FSSAI certification badge.
@@ -1129,7 +1135,7 @@ export const AdminWebsite: React.FC = () => {
                 className="admin-form-input"
                 value={footerData.opening_hours}
                 onChange={(e) => setFooterData({ ...footerData, opening_hours: e.target.value })}
-                placeholder="11:00 AM - 11:30 PM (All Days)"
+                placeholder="Enter opening hours"
               />
             </div>
 
@@ -1140,7 +1146,7 @@ export const AdminWebsite: React.FC = () => {
                 className="admin-form-input"
                 value={footerData.copyright_text}
                 onChange={(e) => setFooterData({ ...footerData, copyright_text: e.target.value })}
-                placeholder="© 2026 Amol Pure Veg Restaurant. All Rights Reserved."
+                placeholder="Enter copyright notice"
               />
             </div>
 
@@ -1151,7 +1157,7 @@ export const AdminWebsite: React.FC = () => {
                 rows={2}
                 value={footerData.note}
                 onChange={(e) => setFooterData({ ...footerData, note: e.target.value })}
-                placeholder="100% Pure Vegetarian cuisine prepared with love, traditional recipes, and fresh ingredients."
+                placeholder="Enter dietary statement"
               />
             </div>
 
@@ -1197,6 +1203,7 @@ export const AdminWebsite: React.FC = () => {
                   className="admin-form-input"
                   value={selectedLegalPage.title}
                   onChange={(e) => setSelectedLegalPage({ ...selectedLegalPage, title: e.target.value })}
+                  placeholder="Enter page title"
                   required
                 />
               </div>
@@ -1214,6 +1221,7 @@ export const AdminWebsite: React.FC = () => {
                   style={{ fontFamily: 'monospace', fontSize: '13px' }}
                   value={selectedLegalPage.content_html}
                   onChange={(e) => setSelectedLegalPage({ ...selectedLegalPage, content_html: e.target.value })}
+                  placeholder="Enter content"
                   required
                 />
               </div>
@@ -1265,6 +1273,7 @@ export const AdminWebsite: React.FC = () => {
                       const updated = seoPages.map((p) => (p.id === page.id ? { ...p, title: e.target.value } : p));
                       setSeoPages(updated);
                     }}
+                    placeholder="Enter title"
                   />
                 </div>
 
@@ -1278,15 +1287,16 @@ export const AdminWebsite: React.FC = () => {
                       const updated = seoPages.map((p) => (p.id === page.id ? { ...p, meta_description: e.target.value } : p));
                       setSeoPages(updated);
                     }}
+                    placeholder="Enter description"
                   />
                 </div>
 
                 <div>
                   <label className="admin-form-label">Social Share (OG) Image URL</label>
                   <input
-                    type="text"
+                    type="url"
                     className="admin-form-input"
-                    placeholder="https://..."
+                    placeholder="Enter your website URL"
                     value={page.og_image_url || ''}
                     onChange={(e) => {
                       const updated = seoPages.map((p) => (p.id === page.id ? { ...p, og_image_url: e.target.value } : p));

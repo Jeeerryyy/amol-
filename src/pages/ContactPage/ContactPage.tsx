@@ -53,7 +53,7 @@ export const ContactPage: React.FC = () => {
     name: '',
     phone: '',
     email: '',
-    type: 'Reservation',
+    type: '',
     message: '',
   });
 
@@ -211,7 +211,9 @@ export const ContactPage: React.FC = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Your Name"
+                        placeholder="Enter your full name"
+                        autoComplete="name"
+                        aria-label="Enter your full name"
                         required
                         className="form-input"
                       />
@@ -226,7 +228,9 @@ export const ContactPage: React.FC = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="Your Phone"
+                        placeholder="Enter your phone number"
+                        autoComplete="tel"
+                        aria-label="Enter your phone number"
                         required
                         className="form-input"
                       />
@@ -244,7 +248,9 @@ export const ContactPage: React.FC = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Your Email"
+                        placeholder="Enter your email address"
+                        autoComplete="email"
+                        aria-label="Enter your email address"
                         required
                         className="form-input"
                       />
@@ -262,7 +268,10 @@ export const ContactPage: React.FC = () => {
                         value={formData.type}
                         onChange={handleChange}
                         className="form-input form-select"
+                        aria-label="Select an option"
+                        required
                       >
+                        <option value="" disabled hidden>Select an option</option>
                         <option value="Reservation">Reservation / Table Booking</option>
                         <option value="Inquiry">General Inquiry</option>
                         <option value="Feedback">Feedback / Review</option>
@@ -284,7 +293,8 @@ export const ContactPage: React.FC = () => {
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
-                        placeholder="Your Message / Review"
+                        placeholder="Enter your message"
+                        aria-label="Enter your message"
                         rows={4}
                         required
                         className="form-input form-textarea"

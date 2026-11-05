@@ -164,6 +164,8 @@ export const AdminSettings: React.FC = () => {
                 className="admin-form-input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email address"
+                autoComplete="email"
                 required
               />
             </div>
@@ -175,7 +177,8 @@ export const AdminSettings: React.FC = () => {
                 className="admin-form-input"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                placeholder="Enter your existing password"
+                placeholder="Enter your password"
+                autoComplete="current-password"
                 required
               />
             </div>
@@ -189,7 +192,8 @@ export const AdminSettings: React.FC = () => {
                 className="admin-form-input"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="At least 8 characters"
+                placeholder="Enter a new password"
+                autoComplete="new-password"
                 minLength={8}
               />
             </div>
@@ -201,7 +205,8 @@ export const AdminSettings: React.FC = () => {
                 className="admin-form-input"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Retype new password"
+                placeholder="Re-enter your password"
+                autoComplete="new-password"
               />
             </div>
 
@@ -248,12 +253,13 @@ export const AdminSettings: React.FC = () => {
                     className="admin-form-input"
                     value={pricing.special_markup_percent}
                     onChange={(e) => setPricing({ ...pricing, special_markup_percent: Number(e.target.value) })}
+                    placeholder="Enter the amount"
                     required
                   />
                   <span style={{ fontWeight: 'bold', color: '#C85A17' }}>%</span>
                 </div>
                 <span style={{ fontSize: '12px', color: '#888', marginTop: '4px', display: 'block' }}>
-                  Default is 10% (e.g. ₹100 becomes ₹110).
+                  Default is 10% markup applied to base pricing.
                 </span>
               </div>
 
@@ -264,9 +270,9 @@ export const AdminSettings: React.FC = () => {
                   value={pricing.rounding_step}
                   onChange={(e) => setPricing({ ...pricing, rounding_step: Number(e.target.value) })}
                 >
-                  <option value={1}>₹1 (Exact rupee, e.g. ₹120 → ₹132)</option>
-                  <option value={5}>₹5 (Nearest ₹5, e.g. ₹132 → ₹135)</option>
-                  <option value={10}>₹10 (Nearest ₹10, e.g. ₹132 → ₹130)</option>
+                  <option value={1}>₹1 (Exact rupee)</option>
+                  <option value={5}>₹5 (Nearest ₹5)</option>
+                  <option value={10}>₹10 (Nearest ₹10)</option>
                 </select>
                 <span style={{ fontSize: '12px', color: '#888', marginTop: '4px', display: 'block' }}>
                   Applied after calculating the percentage markup.
@@ -340,6 +346,7 @@ export const AdminSettings: React.FC = () => {
                   className="admin-form-input"
                   value={scanFromDate}
                   onChange={(e) => setScanFromDate(e.target.value)}
+                  aria-label="Select a date"
                 />
               </div>
               <div>
@@ -349,6 +356,7 @@ export const AdminSettings: React.FC = () => {
                   className="admin-form-input"
                   value={scanToDate}
                   onChange={(e) => setScanToDate(e.target.value)}
+                  aria-label="Select a date"
                 />
               </div>
               <div style={{ alignSelf: 'flex-end' }}>
@@ -381,6 +389,7 @@ export const AdminSettings: React.FC = () => {
                   className="admin-form-input"
                   value={reviewFromDate}
                   onChange={(e) => setReviewFromDate(e.target.value)}
+                  aria-label="Select a date"
                 />
               </div>
               <div>
@@ -390,6 +399,7 @@ export const AdminSettings: React.FC = () => {
                   className="admin-form-input"
                   value={reviewToDate}
                   onChange={(e) => setReviewToDate(e.target.value)}
+                  aria-label="Select a date"
                 />
               </div>
               <div style={{ alignSelf: 'flex-end' }}>
