@@ -19,12 +19,6 @@ const loginSchema = z.object({
   password: z.string().min(1, 'Password is required'),
 });
 
-const changeAccountSchema = z.object({
-  currentPassword: z.string().min(1, 'Current password is required'),
-  newEmail: z.string().email().optional(),
-  newPassword: z.string().min(6, 'New password must be at least 6 characters').optional(),
-});
-
 /**
  * POST /api/admin/login
  */
@@ -101,15 +95,21 @@ router.get('/me', requireAuth, (req, res) => {
 });
 
 /**
- * POST /api/admin/change-account
+ * Shared handler for credential updates
+ * Supports PUT /credentials, PUT /auth/credentials, POST /change-account
  */
-router.post('/change-account', requireAuth, async (req, res) => {
-  const parseResult = changeAccountSchema.safeParse(req.body);
-  if (!parseResult.success) {
-    return res.status(400).json({ error: parseResult.error.errors[0]?.message || 'Invalid input' });
+async function handleCredentialsUpdate(req, res) {
+  const currentPassword = req.body.currentPassword || req.body.current_password;
+  const newEmail = req.body.newEmail || req.body.email;
+  const newPassword = req.body.newPassword || req.body.new_password;
+
+  if (!currentPassword) {
+    return res.status(400).json({ error: 'Current password is required.' });
   }
 
-  const { currentPassword, newEmail, newPassword } = parseResult.data;
+  if (newPassword && newPassword.length < 6) {
+    return res.status(400).json({ error: 'New password must be at least 6 characters.' });
+  }
 
   const owners = await query('SELECT id, email, password_hash FROM owner WHERE id = $1', [req.owner.id]);
   if (owners.length === 0) {
@@ -144,7 +144,10 @@ router.post('/change-account', requireAuth, async (req, res) => {
     email: updatedEmail,
     message: 'Account credentials updated successfully.',
   });
-});
+}
+
+router.put('/credentials', requireAuth, handleCredentialsUpdate);
+router.put('/auth/credentials', requireAuth, handleCredentialsUpdate);
+router.post('/change-account', requireAuth, handleCredentialsUpdate);
 
 export default router;
-

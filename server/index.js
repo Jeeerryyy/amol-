@@ -132,6 +132,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/admin', (req, res, next) => {
   if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) {
     invalidatePublicCache();
+    res.on('finish', () => {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        invalidatePublicCache();
+      }
+    });
   }
   next();
 });

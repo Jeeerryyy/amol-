@@ -351,6 +351,7 @@ router.get('/api/public/review-config', async (req, res) => {
 
     const payload = {
       googleReviewUrl: googleLinkRow?.value || REVIEW_CONFIG.GOOGLE_REVIEW_URL,
+      google_review_url: googleLinkRow?.value || REVIEW_CONFIG.GOOGLE_REVIEW_URL,
       options: options.map((opt) => ({
         id: opt.id,
         label: opt.label,

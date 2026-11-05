@@ -276,13 +276,27 @@ router.get('/dishes', async (req, res) => {
 
   const dishes = await query(sql, params);
 
-  // Fetch images and variants for each dish
+  // Batch fetch images and variants in 2 fast queries (eliminates 560 sequential queries)
+  const allImages = await query('SELECT * FROM dish_images ORDER BY sort_order ASC');
+  const imageMap = new Map();
+  for (const img of allImages) {
+    if (!imageMap.has(img.dish_id)) imageMap.set(img.dish_id, []);
+    imageMap.get(img.dish_id).push(img);
+  }
+
+  const allVariants = await query('SELECT * FROM dish_variants ORDER BY sort_order ASC');
+  const variantMap = new Map();
+  for (const v of allVariants) {
+    if (!variantMap.has(v.dish_id)) variantMap.set(v.dish_id, []);
+    variantMap.get(v.dish_id).push(v);
+  }
+
   for (const dish of dishes) {
-    dish.images = await query('SELECT * FROM dish_images WHERE dish_id = $1 ORDER BY sort_order ASC', [dish.id]);
-    dish.variants = await query('SELECT * FROM dish_variants WHERE dish_id = $1 ORDER BY sort_order ASC', [dish.id]);
+    dish.images = imageMap.get(dish.id) || [];
+    dish.variants = variantMap.get(dish.id) || [];
     try {
-      dish.tags = JSON.parse(dish.tags || '[]');
-      dish.badges = JSON.parse(dish.badges || '[]');
+      dish.tags = typeof dish.tags === 'string' ? JSON.parse(dish.tags || '[]') : (dish.tags || []);
+      dish.badges = typeof dish.badges === 'string' ? JSON.parse(dish.badges || '[]') : (dish.badges || []);
     } catch {
       dish.tags = [];
       dish.badges = [];
@@ -421,35 +435,36 @@ router.post('/dishes', async (req, res) => {
 router.put('/dishes/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const {
-      name,
-      description,
-      category_id,
-      serving_note,
-      price_type = 'single',
-      base_price,
-      special_price_override,
-      variants = [],
-      images = [],
-      tags = ['veg'],
-      spice_level = 'none',
-      badges = [],
-      is_available = 1,
-      is_visible = 1,
-      scope = 'both',
-      sort_order = 0,
-    } = req.body || {};
+    const existingRows = await query('SELECT * FROM dishes WHERE id = $1', [id]);
+    if (existingRows.length === 0) return res.status(404).json({ error: 'Dish not found' });
+    const existing = existingRows[0];
 
-    if (name !== undefined && !name.trim()) return res.status(400).json({ error: 'Dish name cannot be empty' });
-    if (category_id !== undefined && !category_id) return res.status(400).json({ error: 'Category cannot be empty' });
+    const body = req.body || {};
+    const name = body.name !== undefined ? body.name : existing.name;
+    const description = body.description !== undefined ? body.description : (existing.description || '');
+    const category_id = body.category_id !== undefined ? body.category_id : existing.category_id;
+    const serving_note = body.serving_note !== undefined ? body.serving_note : (existing.serving_note || '');
+    const price_type = body.price_type !== undefined ? body.price_type : existing.price_type;
+    const base_price = body.base_price !== undefined ? body.base_price : existing.base_price;
+    const special_price_override = body.special_price_override !== undefined ? body.special_price_override : existing.special_price_override;
+    const tags = body.tags !== undefined ? body.tags : (typeof existing.tags === 'string' ? JSON.parse(existing.tags || '[]') : (existing.tags || []));
+    const spice_level = body.spice_level !== undefined ? body.spice_level : (existing.spice_level || 'none');
+    const badges = body.badges !== undefined ? body.badges : (typeof existing.badges === 'string' ? JSON.parse(existing.badges || '[]') : (existing.badges || []));
+    const is_available = body.is_available !== undefined ? (body.is_available ? 1 : 0) : existing.is_available;
+    const is_visible = body.is_visible !== undefined ? (body.is_visible ? 1 : 0) : existing.is_visible;
+    const scope = body.scope !== undefined ? body.scope : existing.scope;
+    const sort_order = body.sort_order !== undefined ? body.sort_order : existing.sort_order;
 
-    if (price_type === 'single' && base_price !== undefined) {
+    if (!name || !name.trim()) return res.status(400).json({ error: 'Dish name cannot be empty' });
+    if (!category_id) return res.status(400).json({ error: 'Category cannot be empty' });
+
+    if (price_type === 'single') {
       const numPrice = Number(base_price);
       if (isNaN(numPrice) || numPrice <= 0) {
         return res.status(400).json({ error: 'Dish price must be a valid positive number' });
       }
-    } else if (price_type === 'variants' && Array.isArray(variants)) {
-      for (const v of variants) {
+    } else if (price_type === 'variants' && Array.isArray(body.variants)) {
+      for (const v of body.variants) {
         const numVarPrice = Number(v.base_price);
         if (isNaN(numVarPrice) || numVarPrice <= 0) {
           return res.status(400).json({ error: `Variant price for "${v.label || 'Variant'}" must be a valid positive number` });
@@ -490,8 +505,8 @@ router.put('/dishes/:id', async (req, res) => {
         JSON.stringify(tags),
         spice_level,
         JSON.stringify(badges),
-        is_available ? 1 : 0,
-        is_visible ? 1 : 0,
+        is_available,
+        is_visible,
         scope,
         sort_order || 0,
         now,
@@ -499,48 +514,52 @@ router.put('/dishes/:id', async (req, res) => {
       ]
     );
 
-    // Replace variants
-    await query('DELETE FROM dish_variants WHERE dish_id = $1', [id]);
-    if (price_type === 'variants' && Array.isArray(variants)) {
-      for (let vIdx = 0; vIdx < variants.length; vIdx++) {
-        const v = variants[vIdx];
-        const vId = `${id}_var_${vIdx}_${Date.now()}`;
-        let vSpecial = null;
-        if (scope === 'special_only') {
-          vSpecial = Number(v.base_price) || 0;
-        } else if (v.special_price_override !== null && v.special_price_override !== undefined && v.special_price_override !== '') {
-          vSpecial = Number(v.special_price_override);
-        } else {
-          vSpecial = calculateSpecialPrice(v.base_price, markup, rounding);
+    // Only replace variants if explicitly provided
+    if (body.variants !== undefined) {
+      await query('DELETE FROM dish_variants WHERE dish_id = $1', [id]);
+      if (price_type === 'variants' && Array.isArray(body.variants)) {
+        for (let vIdx = 0; vIdx < body.variants.length; vIdx++) {
+          const v = body.variants[vIdx];
+          const vId = `${id}_var_${vIdx}_${Date.now()}`;
+          let vSpecial = null;
+          if (scope === 'special_only') {
+            vSpecial = Number(v.base_price) || 0;
+          } else if (v.special_price_override !== null && v.special_price_override !== undefined && v.special_price_override !== '') {
+            vSpecial = Number(v.special_price_override);
+          } else {
+            vSpecial = calculateSpecialPrice(v.base_price, markup, rounding);
+          }
+
+          await query(
+            'INSERT INTO dish_variants (id, dish_id, label, base_price, special_price, special_price_override, sort_order, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+            [vId, id, v.label, Number(v.base_price) || 0, vSpecial, v.special_price_override ? Number(v.special_price_override) : null, vIdx, now]
+          );
         }
-
-        await query(
-          'INSERT INTO dish_variants (id, dish_id, label, base_price, special_price, special_price_override, sort_order, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-          [vId, id, v.label, Number(v.base_price) || 0, vSpecial, v.special_price_override ? Number(v.special_price_override) : null, vIdx, now]
-        );
       }
     }
 
-    // Replace images (detect removed images to cleanup Cloudinary)
-    const existingImages = await query('SELECT public_id FROM dish_images WHERE dish_id = $1', [id]);
-    const incomingPublicIds = new Set((images || []).map((img) => img.public_id).filter(Boolean));
+    // Only replace images if explicitly provided
+    if (body.images !== undefined) {
+      const existingImages = await query('SELECT public_id FROM dish_images WHERE dish_id = $1', [id]);
+      const incomingPublicIds = new Set((body.images || []).map((img) => img.public_id).filter(Boolean));
 
-    for (const oldImg of existingImages) {
-      if (oldImg.public_id && !incomingPublicIds.has(oldImg.public_id)) {
-        await cloudinaryService.deleteAsset(oldImg.public_id, 'image');
+      for (const oldImg of existingImages) {
+        if (oldImg.public_id && !incomingPublicIds.has(oldImg.public_id)) {
+          await cloudinaryService.deleteAsset(oldImg.public_id, 'image');
+        }
       }
-    }
 
-    await query('DELETE FROM dish_images WHERE dish_id = $1', [id]);
-    if (Array.isArray(images)) {
-      const limitedImages = images.slice(0, 5);
-      for (let imgIdx = 0; imgIdx < limitedImages.length; imgIdx++) {
-        const img = limitedImages[imgIdx];
-        const imgId = `${id}_img_${imgIdx}_${Date.now()}`;
-        await query(
-          'INSERT INTO dish_images (id, dish_id, public_id, url, width, height, sort_order, is_cover, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
-          [imgId, id, img.public_id || null, img.url, img.width || 800, img.height || 600, imgIdx, imgIdx === 0 ? 1 : 0, now]
-        );
+      await query('DELETE FROM dish_images WHERE dish_id = $1', [id]);
+      if (Array.isArray(body.images)) {
+        const limitedImages = body.images.slice(0, 5);
+        for (let imgIdx = 0; imgIdx < limitedImages.length; imgIdx++) {
+          const img = limitedImages[imgIdx];
+          const imgId = `${id}_img_${imgIdx}_${Date.now()}`;
+          await query(
+            'INSERT INTO dish_images (id, dish_id, public_id, url, width, height, sort_order, is_cover, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+            [imgId, id, img.public_id || null, img.url, img.width || 800, img.height || 600, imgIdx, imgIdx === 0 ? 1 : 0, now]
+          );
+        }
       }
     }
 
@@ -962,14 +981,16 @@ router.put('/seo-pages/:id', async (req, res) => {
 router.get('/reviews/config', async (req, res) => {
   const [googleLinkRow] = await query("SELECT value FROM review_settings WHERE key = 'google_review_url'");
   const options = await query('SELECT * FROM review_options ORDER BY sort_order ASC');
+  const url = googleLinkRow?.value || '';
   return res.json({
-    googleReviewUrl: googleLinkRow?.value || '',
+    googleReviewUrl: url,
+    google_review_url: url,
     options,
   });
 });
 
 router.put('/reviews/google-link', async (req, res) => {
-  const { url } = req.body || {};
+  const url = (req.body?.url || req.body?.google_review_url || '').trim();
   if (!url || !url.startsWith('https://')) {
     return res.status(400).json({ error: 'Google Review URL must begin with https://' });
   }

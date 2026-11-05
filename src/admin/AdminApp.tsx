@@ -63,10 +63,19 @@ export const AdminApp: React.FC = () => {
   // Check auth status on load
   const checkAuth = async () => {
     try {
-      const res = await adminApi.get<{ authenticated: boolean; user?: { email: string } }>('/auth/me');
+      const res = await adminApi.get<{
+        authenticated: boolean;
+        email?: string;
+        user?: { email: string };
+        csrfToken?: string;
+      }>('/auth/me');
       if (res && res.authenticated) {
         setIsAuthenticated(true);
-        if (res.user?.email) setUserEmail(res.user.email);
+        if (res.email) setUserEmail(res.email);
+        else if (res.user?.email) setUserEmail(res.user.email);
+        if (res.csrfToken) {
+          adminApi.setToken(res.csrfToken);
+        }
       } else {
         setIsAuthenticated(false);
       }

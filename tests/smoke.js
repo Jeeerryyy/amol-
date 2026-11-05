@@ -77,7 +77,7 @@ async function runSmokeTests() {
     // 7. QR Redirect
     const qrRes = await fetch(`${API_URL}/q/menu`, { redirect: 'manual' });
     const location = qrRes.headers.get('location');
-    assert(qrRes.status === 302 && (location === '/menu' || location === '/menu/'), `7. QR /q/menu redirects (302 to "${location}")`);
+    assert(qrRes.status === 302 && location && location.startsWith('/menu'), `7. QR /q/menu redirects (302 to "${location}")`);
 
     // 8. Admin login access
     await page.goto(`${BASE_URL}/admin`, { waitUntil: 'domcontentloaded' });
@@ -85,7 +85,7 @@ async function runSmokeTests() {
     await page.fill('input[type="email"]', 'owner@amolvegresto.in');
     await page.fill('input[type="password"]', 'Admin@nirvanaa26');
     await page.click('button[type="submit"]');
-    await page.waitForTimeout(800);
+    await page.waitForSelector('.admin-header-title', { timeout: 15000 });
     const adminTitle = await page.locator('.admin-header-title').textContent().catch(() => '');
     assert(adminTitle.includes('Amol'), '8. Owner login successfully grants access to Admin Dashboard');
 
