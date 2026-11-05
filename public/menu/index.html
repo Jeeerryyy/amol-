@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=1240, initial-scale=0.32, minimum-scale=0.25, maximum-scale=3.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>Amol Veg Resto | View-Only Digital Menu</title>
   <meta name="description"
     content="Official view-only digital menu for Amol Veg Resto. 100% pure vegetarian culinary delights in Solapur.">
@@ -38,10 +38,6 @@
       scroll-behavior: smooth;
     }
 
-    html, body {
-      min-width: 1240px;
-    }
-
     body {
       background-color: var(--color-cream-bg);
       background-image: radial-gradient(rgba(107, 85, 69, 0.045) 1px, transparent 1px);
@@ -65,8 +61,7 @@
     }
 
     .menu-container {
-      width: 1200px;
-      min-width: 1200px;
+      width: 100%;
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
@@ -790,29 +785,313 @@
       display: block;
     }
 
-        /* UNIFORM 4-GRID DESKTOP VIEW ACROSS ALL DEVICES & PHONES */
-    .dishes-cards-grid {
-      display: grid !important;
-      grid-template-columns: repeat(4, 1fr) !important;
-      gap: 20px !important;
+        /* ==========================================================================
+       DEDICATED 4-GRID MOBILE VIEW (<= 900px)
+       Maintains 4-column dish grid on all phones while ensuring big, readable fonts & UI
+       ========================================================================== */
+    @media (max-width: 900px) {
+      body {
+        padding: 8px 0 60px 0;
+      }
+
+      .menu-container {
+        padding: 0 6px !important;
+      }
+
+      /* Top Bar */
+      .menu-top-bar {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 8px !important;
+        margin-bottom: 10px !important;
+      }
+
+      .menu-top-btn {
+        height: 36px !important;
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        border-radius: var(--radius-pill) !important;
+        gap: 6px !important;
+      }
+
+      .menu-top-btn svg {
+        width: 15px !important;
+        height: 15px !important;
+      }
+
+      /* Hero Video - 16:9 cinematic widescreen, properly proportioned */
+      .menu-hero-video-section {
+        margin-bottom: 12px !important;
+      }
+
+      .hero-video-wrapper {
+        border-radius: 12px !important;
+        aspect-ratio: 16 / 9 !important;
+        max-height: 210px !important;
+        min-height: auto !important;
+        height: auto !important;
+      }
+
+      /* Sticky Control Bar */
+      .menu-sticky-control-bar {
+        padding: 6px 0 10px 0 !important;
+        margin-bottom: 10px !important;
+      }
+
+      .menu-category-nav {
+        margin-bottom: 8px !important;
+      }
+
+      .category-tabs-track {
+        display: flex !important;
+        gap: 6px !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        padding-bottom: 3px !important;
+      }
+
+      .category-tabs-track::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .category-tab-btn {
+        min-width: 70px !important;
+        height: 62px !important;
+        padding: 6px !important;
+        border-radius: 12px !important;
+        gap: 3px !important;
+      }
+
+      .category-icon-box {
+        width: 28px !important;
+        height: 28px !important;
+      }
+
+      .category-icon-box svg {
+        width: 24px !important;
+        height: 24px !important;
+      }
+
+      .tab-label {
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.01em !important;
+      }
+
+      .tab-active-indicator {
+        width: 22px !important;
+        height: 2.5px !important;
+      }
+
+      /* Search Section */
+      .menu-search-section {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 8px !important;
+      }
+
+      .search-input-wrap {
+        flex: 1 !important;
+        max-width: none !important;
+      }
+
+      .search-input {
+        height: 38px !important;
+        font-size: 13px !important;
+        padding: 0 10px 0 34px !important;
+        border-radius: 10px !important;
+      }
+
+      .search-icon {
+        left: 10px !important;
+        width: 15px !important;
+        height: 15px !important;
+      }
+
+      .menu-results-count {
+        font-size: 11px !important;
+        white-space: nowrap !important;
+        font-weight: 600 !important;
+      }
+
+      /* Category Group Header */
+      .category-group-header {
+        margin: 14px 0 8px 0 !important;
+        padding-bottom: 6px !important;
+      }
+
+      .category-group-title {
+        font-size: 16px !important;
+      }
+
+      .category-group-badge {
+        font-size: 10.5px !important;
+        padding: 2px 7px !important;
+      }
+
+      /* 4-GRID DISHES LAYOUT - 4 COLUMNS ON ALL PHONES */
+      .dishes-cards-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 5px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+
+      .menu-dish-card {
+        padding: 5px 4px !important;
+        border-radius: 10px !important;
+        border: 1px solid var(--color-border) !important;
+        background: #FFFFFF !important;
+        box-shadow: 0 1px 4px rgba(43, 23, 11, 0.05) !important;
+        cursor: pointer !important;
+        display: flex !important;
+        flex-direction: column !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+      }
+
+      .menu-dish-card:active {
+        transform: scale(0.97) !important;
+      }
+
+      .dish-card-image-box {
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important;
+        border-radius: 7px !important;
+        overflow: hidden !important;
+        margin-bottom: 5px !important;
+        background-color: #F1E3D3 !important;
+        border: 1px solid rgba(232, 218, 203, 0.6) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative !important;
+      }
+
+      .dish-card-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        display: block !important;
+      }
+
+      .dish-badge-pill,
+      .dish-tag-badge {
+        position: absolute !important;
+        top: 3px !important;
+        left: 3px !important;
+        font-size: 7.5px !important;
+        font-weight: 700 !important;
+        padding: 1.5px 4px !important;
+        border-radius: 4px !important;
+        z-index: 2 !important;
+      }
+
+      .dish-card-body {
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 1px 2px !important;
+        min-width: 0 !important;
+        width: 100% !important;
+      }
+
+      .dish-card-title {
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+        color: var(--color-text-dark) !important;
+        margin: 0 0 3px 0 !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        min-height: 26px !important;
+        word-break: break-word !important;
+        min-width: 0 !important;
+        width: 100% !important;
+      }
+
+      .dish-veg-symbol {
+        display: inline-block !important;
+        width: 9.5px !important;
+        height: 9.5px !important;
+        border: 1.2px solid #2E7D32 !important;
+        border-radius: 2px !important;
+        position: relative !important;
+        margin-right: 2px !important;
+        vertical-align: -1px !important;
+        padding: 1px !important;
+      }
+
+      .dish-veg-symbol-dot {
+        display: block !important;
+        width: 4px !important;
+        height: 4px !important;
+        background-color: #2E7D32 !important;
+        border-radius: 50% !important;
+        margin: 0 auto !important;
+      }
+
+      .dish-orange-bar {
+        width: 14px !important;
+        height: 2px !important;
+        background-color: var(--color-accent-orange) !important;
+        border-radius: 1px !important;
+        margin-bottom: 3px !important;
+      }
+
+      .dish-card-price {
+        font-size: 12.5px !important;
+        font-weight: 800 !important;
+        color: var(--color-accent-orange) !important;
+        line-height: 1.1 !important;
+        white-space: nowrap !important;
+      }
+
+      /* Modal Mobile Responsiveness */
+      .dish-modal-container {
+        width: 100% !important;
+        max-height: 92vh !important;
+        border-radius: 18px !important;
+        margin: 8px !important;
+      }
+
+      .dish-modal-content-grid {
+        grid-template-columns: 1fr !important;
+        padding: 20px 16px !important;
+        gap: 16px !important;
+      }
+
+      .modal-dish-img {
+        max-height: 220px !important;
+      }
+
+      .modal-dish-title {
+        font-size: 20px !important;
+      }
+
+      .modal-dish-price {
+        font-size: 20px !important;
+      }
+
+      .modal-actions-row {
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+
+      .modal-action-btn {
+        width: 100% !important;
+        height: 42px !important;
+      }
     }
   </style>
-  <script>
-    (function() {
-      function adjustMenuViewport() {
-        var targetWidth = 1240;
-        var screenW = window.screen.width || window.innerWidth;
-        var meta = document.querySelector('meta[name="viewport"]');
-        if (meta && screenW && screenW < targetWidth) {
-          var scale = (screenW / targetWidth).toFixed(4);
-          meta.setAttribute('content', 'width=' + targetWidth + ', initial-scale=' + scale + ', minimum-scale=' + scale + ', maximum-scale=3.0, user-scalable=yes');
-        }
-      }
-      adjustMenuViewport();
-      window.addEventListener('resize', adjustMenuViewport);
-      window.addEventListener('orientationchange', adjustMenuViewport);
-    })();
-  </script>
 </head>
 
 <body>
