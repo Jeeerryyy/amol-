@@ -5,6 +5,7 @@ import { PopularDishes } from './components/PopularDishes/PopularDishes';
 import { AboutSection } from './components/About/AboutSection';
 import { GallerySection } from './components/Gallery/GallerySection';
 import { TestimonialsSection } from './components/Testimonials/TestimonialsSection';
+import { FAQ } from './components/FAQ/FAQ';
 import { Footer } from './components/Footer/Footer';
 import { AboutPage } from './pages/AboutPage/AboutPage';
 import { ContactPage } from './pages/ContactPage/ContactPage';
@@ -89,9 +90,9 @@ export const App: React.FC = () => {
   }
 
   // 4. Public Navigation & Main Pages
-  const isAboutPage = currentHash === '#/about' || currentHash === '#about-page';
-  const isContactPage = currentHash === '#/contact' || currentHash === '#contact-page';
-  const isGalleryPage = currentHash === '#/gallery' || currentHash === '#gallery' || currentHash === '#gallery-page';
+  const isAboutPage = currentHash === '#/about' || currentHash === '#about-page' || currentPath === '/about' || currentPath === '/about/';
+  const isContactPage = currentHash === '#/contact' || currentHash === '#contact-page' || currentPath === '/contact' || currentPath === '/contact/';
+  const isGalleryPage = currentHash === '#/gallery' || currentHash === '#gallery' || currentHash === '#gallery-page' || currentPath === '/gallery' || currentPath === '/gallery/';
 
   let activePage: 'home' | 'about' | 'contact' | 'gallery' = 'home';
   if (isAboutPage) activePage = 'about';
@@ -129,6 +130,9 @@ export const App: React.FC = () => {
 
             {/* 6. What Our Guests Say Section */}
             <TestimonialsSection />
+
+            {/* 7. Frequently Asked Questions (GEO/AEO Accordion) */}
+            <FAQ />
           </>
         )}
       </main>

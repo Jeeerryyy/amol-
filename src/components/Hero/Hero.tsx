@@ -9,6 +9,8 @@ export const Hero: React.FC = () => {
 
   return (
     <section className="hero-section" id="hero">
+      {/* Canonical accessible H1 for FAANG-standard SEO & accessibility */}
+      <h1 className="sr-only">Amol Veg Resto — Best Pure Veg Restaurant in Solapur</h1>
       {/* DESKTOP VIEW (>900px) - COMPLETELY UNTOUCHED */}
       <div className="hero-desktop-content">
         {/* Full Hero Background Layer */}
@@ -27,11 +29,11 @@ export const Hero: React.FC = () => {
           {/* Left Content: Authentic Flavours Feel Like Home */}
           <div className="hero-col hero-col-left">
             <span className="hero-eyebrow">{hero.leftEyebrow}</span>
-            <h1 className="hero-title">
+            <div className="hero-title" aria-hidden="true">
               <span className="hero-title-line">{hero.heading.line1}</span>
               <span className="hero-title-line text-orange">{hero.heading.line2}</span>
               <span className="hero-title-line">{hero.heading.line3}</span>
-            </h1>
+            </div>
             <span className="hero-subtag">{hero.subtag}</span>
           </div>
 
@@ -120,7 +122,7 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Main Title */}
-          <h1 className="hero-mobile-title">
+          <div className="hero-mobile-title" aria-hidden="true">
             <span className="hero-mobile-title-row">
               {hero.heading.line1}{' '}
               <span className="hero-mobile-highlight">{hero.heading.line2}</span>
@@ -141,7 +143,7 @@ export const Hero: React.FC = () => {
                 <path d="M6 18 L14 10" />
               </svg>
             </span>
-          </h1>
+          </div>
 
           {/* Subtag */}
           <p className="hero-mobile-subtag">{hero.subtag || "ALWAYS AMOL."}</p>

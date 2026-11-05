@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "server": "node server/index.js",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/prerender-menu.mjs && node scripts/generate-sitemap.mjs && node scripts/update-index-html.mjs && tsc -b && vite build",
+    "seo:prerender": "node scripts/prerender-menu.mjs && node scripts/generate-sitemap.mjs && node scripts/update-index-html.mjs",
+    "seo:validate": "node scripts/validate-schema.mjs",
     "preview": "vite preview",
     "test": "node tests/smoke.js",
     "lint": "tsc -b",
@@ -40,6 +42,7 @@
     "@types/react-dom": "^18.3.5",
     "@types/sanitize-html": "^2.16.2",
     "@vitejs/plugin-react": "^4.3.4",
+    "lighthouse": "^13.6.0",
     "playwright": "^1.64.1",
     "typescript": "~5.7.2",
     "vite": "^6.1.0"

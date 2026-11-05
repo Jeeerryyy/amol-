@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://amolvegresto.in/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://amolvegresto.in/logo.png</image:loc>
+      <image:title>Amol Veg Resto Logo</image:title>
+      <image:caption>Amol Veg Resto Solapur Official Brand Logo</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://amolvegresto.in/images/hero-dish-card.jpg</image:loc>
+      <image:title>Pure Vegetarian Culinary Spread at Amol Veg Resto</image:title>
+      <image:caption>Authentic Maharashtrian, South Indian and North Indian Dishes in Solapur</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://amolvegresto.in/images/footer-illustration.jpg</image:loc>
+      <image:title>Solapur Landmarks and Food Heritage Illustration</image:title>
+      <image:caption>Amol Veg Resto celebrating the cultural and culinary spirit of Solapur</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://amolvegresto.in/menu/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://amolvegresto.in/images/hero-dish-card.jpg</image:loc>
+      <image:title>Amol Veg Resto 280+ Dish Menu</image:title>
+      <image:caption>Explore our complete selection of dosas, thalis, paneer curries, sandwiches and desserts</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://amolvegresto.in/about</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://amolvegresto.in/images/amol-sketch.jpg</image:loc>
+      <image:title>Amol Veg Resto Storefront Sketch</image:title>
+      <image:caption>Our culinary journey in Sakhar Peth Solapur since 1990</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://amolvegresto.in/gallery</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://amolvegresto.in/contact</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://amolvegresto.in/privacy-policy</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://amolvegresto.in/terms-and-conditions</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>

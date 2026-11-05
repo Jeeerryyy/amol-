@@ -406,10 +406,10 @@ export const siteConfig = {
       { label: "Contact", href: "#/contact" },
     ],
     visitUs: {
-      address: "123, Station Road, Sakhar Peth, Solapur, Maharashtra - 413001",
-      hours: "Opens 12 PM",
-      phone: "+91 98765 43210",
-      tel: "tel:+919876543210",
+      address: "Gala No 2, Plot 16/1, Karnik Nagar Road, Near Ashok Chowk, Sakhar Peth, Solapur, Maharashtra - 413006",
+      hours: "11:00 AM – 11:30 PM",
+      phone: "+91 72496 64983",
+      tel: "tel:+917249664983",
       directionsUrl: "https://maps.app.goo.gl/hMPnkZ2aZg2Pmqn76",
     },
     socials: [
@@ -439,16 +439,16 @@ export const siteConfig = {
     info: {
       location: {
         title: "Location",
-        detail: "Sakhar Peth,\nSolapur – 413001",
+        detail: "Gala No 2, Plot 16/1, Karnik Nagar Rd,\nSakhar Peth, Solapur – 413006",
       },
       call: {
         title: "Call Us",
-        detail: "+91 98765 43210",
-        tel: "tel:+919876543210",
+        detail: "+91 72496 64983 / +91 81491 73027",
+        tel: "tel:+917249664983",
       },
       hours: {
         title: "Open Hours",
-        detail: "12:00 PM – 11:00 PM",
+        detail: "11:00 AM – 11:30 PM (All Days)",
       },
     },
     form: {
@@ -460,5 +460,41 @@ export const siteConfig = {
       buttonText: "Submit",
     },
   },
+  seo: {
+    canonicalBase: "https://amolvegresto.in",
+    siteName: "Amol Veg Resto",
+    homeTitle: "Amol Veg Resto | Best Pure Veg Restaurant in Solapur",
+    homeDescription: "Looking for authentic pure veg food in Solapur? Amol Veg Resto in Sakhar Peth serves fresh South Indian, Punjabi, Chinese & Thalis. Call +91 72496 64983.",
+    menuTitle: "Digital Menu & Prices | Amol Veg Resto Solapur",
+    menuDescription: "Explore 280+ pure vegetarian delicacies at Amol Veg Resto Solapur. Crisp dosas, rich thalis, paneer curries, sandwiches & Chinese. View latest rates.",
+    coordinates: {
+      latitude: 17.6681849,
+      longitude: 75.9245468,
+    },
+    geoRegion: "IN-MH",
+    geoPlacename: "Solapur",
+    postalCode: "413006",
+    streetAddress: "Gala No 2, Plot 16/1, Markandeya Yantramag Sahakari Sanstha, Karnik Nagar Road, Near Uphar Bakery / Ashok Chowk, Sakhar Peth",
+    locality: "Sakhar Peth",
+    city: "Solapur",
+    state: "Maharashtra",
+    country: "India",
+    googleMapsUrl: "https://maps.app.goo.gl/hMPnkZ2aZg2Pmqn76",
+    googleMapsCid: "11262657754378175886",
+    openingHours: "Mo-Su 11:00-23:30",
+    openingHoursDisplay: "11:00 AM – 11:30 PM",
+    priceRange: "₹₹ (₹100–₹300)",
+    cuisines: [
+      "Pure Vegetarian",
+      "South Indian",
+      "North Indian",
+      "Punjabi",
+      "Chinese",
+      "Tandoori",
+      "Maharashtrian",
+      "Thali"
+    ],
+    primaryPhone: "+91 72496 64983",
+    secondaryPhone: "+91 81491 73027",
+  },
 };
-
