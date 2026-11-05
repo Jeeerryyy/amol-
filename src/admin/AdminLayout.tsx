@@ -31,22 +31,16 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
       {/* Top Header */}
       <header className="admin-header">
         <div className="admin-header-brand">
-          <div
+          <img
+            src="/logo.png"
+            alt="Amol Veg Resto"
             style={{
               width: '36px',
               height: '36px',
               borderRadius: '8px',
-              backgroundColor: '#C85A17',
-              color: '#FFFFFF',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 'bold',
-              fontSize: '18px',
+              objectFit: 'cover',
             }}
-          >
-            A
-          </div>
+          />
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span className="admin-header-title">Amol Veg Restaurant</span>
