@@ -514,7 +514,7 @@ export const AdminWebsite: React.FC = () => {
                     id: `new_${Date.now()}`,
                     title: '',
                     description: '',
-                    price: '₹120',
+                    price: '',
                     image_url: '',
                     is_visible: 1,
                     sort_order: popularDishes.length + 1,
@@ -943,6 +943,7 @@ export const AdminWebsite: React.FC = () => {
                         value={isEditingGal.category}
                         onChange={(e) => setIsEditingGal({ ...isEditingGal, category: e.target.value })}
                       >
+                        <option value="" disabled hidden>Select category</option>
                         <option value="food">Food</option>
                         <option value="ambiance">Ambiance</option>
                         <option value="events">Events & Catering</option>
@@ -955,6 +956,7 @@ export const AdminWebsite: React.FC = () => {
                         value={isEditingGal.aspect}
                         onChange={(e) => setIsEditingGal({ ...isEditingGal, aspect: e.target.value })}
                       >
+                        <option value="" disabled hidden>Select aspect ratio</option>
                         <option value="standard">Standard (4:3)</option>
                         <option value="wide">Wide (16:9)</option>
                         <option value="tall">Tall (3:4)</option>

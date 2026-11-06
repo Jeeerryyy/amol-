@@ -46,7 +46,7 @@ export const ContactPage: React.FC = () => {
     ? `tel:${contactInfo.phone.replace(/\s+/g, '')}`
     : contactPage.info.call.tel;
   const displayHours = footerInfo.opening_hours || contactPage.info.hours.detail;
-  const displayAddress = contactInfo.address || 'Sakhar Peth, Solapur – 413001';
+  const displayAddress = contactInfo.address || 'Gala No 2, Plot 16/1, Karnik Nagar Rd, Sakhar Peth, Solapur – 413006';
 
   // Form state
   const [formData, setFormData] = useState({
@@ -189,7 +189,7 @@ export const ContactPage: React.FC = () => {
                         name: '',
                         phone: '',
                         email: '',
-                        type: 'Reservation',
+                        type: '',
                         message: '',
                       });
                       setRating(0);

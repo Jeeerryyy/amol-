@@ -47,7 +47,7 @@ export const AdminMenus: React.FC = () => {
     category_id: '',
     serving_note: '',
     price_type: 'single',
-    base_price: 100,
+    base_price: '' as any,
     special_price_override: null,
     variants: [],
     images: [],
@@ -131,15 +131,12 @@ export const AdminMenus: React.FC = () => {
     setDishForm({
       name: '',
       description: '',
-      category_id: categories[0]?.id || '',
+      category_id: '',
       serving_note: '',
       price_type: 'single',
-      base_price: 120,
+      base_price: '' as any,
       special_price_override: null,
-      variants: [
-        { label: 'Half', base_price: 70, special_price_override: null },
-        { label: 'Full', base_price: 120, special_price_override: null },
-      ],
+      variants: [],
       images: [],
       tags: ['veg'],
       spice_level: 'none',
@@ -156,10 +153,7 @@ export const AdminMenus: React.FC = () => {
     setEditingDish(dish);
     setDishForm({
       ...dish,
-      variants: dish.variants?.length ? dish.variants : [
-        { label: 'Half', base_price: Math.round(dish.base_price * 0.6), special_price_override: null },
-        { label: 'Full', base_price: dish.base_price, special_price_override: null },
-      ],
+      variants: dish.variants?.length ? dish.variants : [],
       images: dish.images || [],
     });
     setIsDishDrawerOpen(true);
@@ -1126,6 +1120,7 @@ export const AdminMenus: React.FC = () => {
                     value={dishForm.category_id}
                     onChange={(e) => setDishForm({ ...dishForm, category_id: e.target.value })}
                   >
+                    <option value="" disabled hidden>Select category</option>
                     {categories.map((c) => (
                       <option key={c.id} value={c.id}>
                         {c.name}
@@ -1223,8 +1218,8 @@ export const AdminMenus: React.FC = () => {
                       <input
                         type="number"
                         className="admin-input"
-                        value={dishForm.base_price}
-                        onChange={(e) => setDishForm({ ...dishForm, base_price: Number(e.target.value) })}
+                        value={dishForm.base_price ?? ''}
+                        onChange={(e) => setDishForm({ ...dishForm, base_price: e.target.value === '' ? '' : Number(e.target.value) })}
                         placeholder="Enter the amount"
                       />
                     </div>
@@ -1305,10 +1300,10 @@ export const AdminMenus: React.FC = () => {
                         type="number"
                         className="admin-input"
                         placeholder="Enter the amount"
-                        value={v.base_price}
+                        value={v.base_price ?? ''}
                         onChange={(e) => {
                           const updated = [...dishForm.variants];
-                          updated[vIdx].base_price = Number(e.target.value);
+                          updated[vIdx].base_price = e.target.value === '' ? '' : Number(e.target.value);
                           setDishForm({ ...dishForm, variants: updated });
                         }}
                         style={{ width: '100px' }}
@@ -1570,6 +1565,7 @@ export const AdminMenus: React.FC = () => {
                 value={reassignTargetCat}
                 onChange={(e) => setReassignTargetCat(e.target.value)}
               >
+                <option value="" disabled hidden>Select category</option>
                 {categories
                   .filter((c) => c.id !== deleteCatChoice.catId)
                   .map((c) => (

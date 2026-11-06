@@ -10,7 +10,7 @@ export const REVIEW_CONFIG = {
   CITY: "Solapur",
 
   // Target Google Review URL (Replace ChIJs1lJkU3bxTsRjoXzzGxpTGw with your real Google Place ID)
-  GOOGLE_REVIEW_URL: "https://search.google.com/local/writereview?placeid=PLACE_ID_TODO",
+  GOOGLE_REVIEW_URL: "https://maps.app.goo.gl/hMPnkZ2aZg2Pmqn76",
 
   // API endpoint for AI review polishing
   API_ENDPOINT: "/api/generate-review",
