@@ -1,11 +1,11 @@
 import express from 'express';
 import crypto from 'crypto';
-import { query } from '../db.js';
+import { query } from '../db/connection.js';
+import { env } from '../config/env.js';
+import { checkQrRateLimit } from '../middleware/rateLimiter.js';
 import { REVIEW_CONFIG } from '../../review.config.js';
 
 const router = express.Router();
-
-const IP_HASH_SALT = process.env.IP_HASH_SALT || 'amol_qr_salt_secure_2026';
 
 // In-memory cache for public endpoints (~60s TTL)
 const cache = new Map();
@@ -24,18 +24,6 @@ export function invalidatePublicCache() {
 
 // In-memory QR scan dedupe map: key is `hash:qrId` -> timestamp
 const scanDedupeMap = new Map();
-
-// In-memory rate limiter for /q/:code (30/min per IP)
-const qrIpLimiter = new Map();
-function checkQrRateLimit(ip) {
-  const now = Date.now();
-  let hits = qrIpLimiter.get(ip) || [];
-  hits = hits.filter((t) => now - t < 60000);
-  if (hits.length >= 30) return false;
-  hits.push(now);
-  qrIpLimiter.set(ip, hits);
-  return true;
-}
 
 // Device, OS, Browser detection helper
 function parseUserAgent(ua = '') {
@@ -80,7 +68,7 @@ function isBot(ua = '') {
 // ============================================================================
 router.get('/q/:code', async (req, res) => {
   const { code } = req.params;
-  const clientIp = req.ip || req.connection.remoteAddress || '127.0.0.1';
+  const clientIp = req.ip || req.connection?.remoteAddress || '127.0.0.1';
   const ua = req.get('user-agent') || '';
 
   // Fail-safe default destinations
@@ -135,7 +123,7 @@ router.get('/q/:code', async (req, res) => {
 
     // 2. Asynchronous Scan Logging (Non-blocking)
     if (!isBot(ua) && req.method !== 'HEAD') {
-      const ipHash = crypto.createHash('sha256').update(`${clientIp}:${ua}:${IP_HASH_SALT}`).digest('hex');
+      const ipHash = crypto.createHash('sha256').update(`${clientIp}:${ua}:${env.ipHashSalt}`).digest('hex');
       const dedupeKey = `${ipHash}:${code}`;
       const lastScan = scanDedupeMap.get(dedupeKey);
       const now = Date.now();
@@ -161,7 +149,6 @@ router.get('/q/:code', async (req, res) => {
     return res.redirect(302, destination);
   } catch (err) {
     console.error('[QR Redirect Error]', err);
-    // If DB is down, still redirect gracefully!
     res.setHeader('Cache-Control', 'no-store');
     return res.redirect(302, fallbackDestinations[code] || '/menu/');
   }
@@ -170,7 +157,7 @@ router.get('/q/:code', async (req, res) => {
 // ============================================================================
 // 2. PUBLIC SITE METADATA & CONTENT (/api/public/site)
 // ============================================================================
-router.get('/api/public/site', async (req, res) => {
+router.get('/api/public/site', async (req, res, next) => {
   const cached = getCached('site_content');
   if (cached) return res.json(cached);
 
@@ -199,15 +186,14 @@ router.get('/api/public/site', async (req, res) => {
     setCached('site_content', payload, 60);
     return res.json(payload);
   } catch (err) {
-    console.error('[Public API] Error loading site data:', err);
-    return res.status(500).json({ error: 'Failed to load site data' });
+    next(err);
   }
 });
 
 // ============================================================================
 // 3. PUBLIC POPULAR DISHES (/api/public/popular-dishes)
 // ============================================================================
-router.get('/api/public/popular-dishes', async (req, res) => {
+router.get('/api/public/popular-dishes', async (req, res, next) => {
   const cached = getCached('popular_dishes');
   if (cached) return res.json(cached);
 
@@ -216,14 +202,14 @@ router.get('/api/public/popular-dishes', async (req, res) => {
     setCached('popular_dishes', dishes, 60);
     return res.json(dishes);
   } catch (err) {
-    return res.status(500).json({ error: 'Failed to load popular dishes' });
+    next(err);
   }
 });
 
 // ============================================================================
 // 4. PUBLIC GALLERY (/api/public/gallery)
 // ============================================================================
-router.get('/api/public/gallery', async (req, res) => {
+router.get('/api/public/gallery', async (req, res, next) => {
   const cached = getCached('gallery');
   if (cached) return res.json(cached);
 
@@ -232,14 +218,14 @@ router.get('/api/public/gallery', async (req, res) => {
     setCached('gallery', items, 60);
     return res.json(items);
   } catch (err) {
-    return res.status(500).json({ error: 'Failed to load gallery' });
+    next(err);
   }
 });
 
 // ============================================================================
 // 5. PUBLIC MENU (/api/public/menu/:menuId) - 'main' | 'special'
 // ============================================================================
-router.get('/api/public/menu/:menuId', async (req, res) => {
+router.get('/api/public/menu/:menuId', async (req, res, next) => {
   const menuId = req.params.menuId === 'special' ? 'special' : 'main';
   const cacheKey = `menu_${menuId}`;
 
@@ -247,12 +233,8 @@ router.get('/api/public/menu/:menuId', async (req, res) => {
   if (cached) return res.json(cached);
 
   try {
-    // 1. Get menu details (title, subtitle, video, poster)
     const [menuDetails] = await query('SELECT * FROM menus WHERE id = $1', [menuId]);
 
-    // 2. Query dishes based on scope
-    // Main menu: scope = 'both'
-    // Special menu: scope IN ('both', 'special_only')
     let dishSql = `
       SELECT id, name, description, category_id, serving_note, price_type,
              ${menuId === 'special' ? 'special_price AS price' : 'base_price AS price'},
@@ -271,7 +253,7 @@ router.get('/api/public/menu/:menuId', async (req, res) => {
 
     const dishes = await query(dishSql);
 
-    // 3. Batch fetch all images & variants in 2 single queries (prevents N+1 latency over remote DB)
+    // Batch fetch images & variants
     const allImages = await query('SELECT dish_id, url FROM dish_images ORDER BY sort_order ASC');
     const imageMap = new Map();
     for (const img of allImages) {
@@ -306,11 +288,9 @@ router.get('/api/public/menu/:menuId', async (req, res) => {
       }
     }
 
-    // 4. Categories: Auto-hide categories with 0 visible dishes in this menu!
     const allCategories = await query('SELECT * FROM categories WHERE visible = 1 ORDER BY sort_order ASC');
     const categories = allCategories.filter((cat) => categoryIdsWithDishes.has(cat.id));
 
-    // 5. SEO Page meta
     const [seo] = await query('SELECT * FROM seo_pages WHERE id = $1', [menuId === 'special' ? 'special-menu' : 'menu']);
 
     const payload = {
@@ -333,15 +313,14 @@ router.get('/api/public/menu/:menuId', async (req, res) => {
     setCached(cacheKey, payload, 60);
     return res.json(payload);
   } catch (err) {
-    console.error('[Public API] Error loading menu:', err);
-    return res.status(500).json({ error: 'Failed to load menu' });
+    next(err);
   }
 });
 
 // ============================================================================
 // 6. PUBLIC REVIEW CONFIG (/api/public/review-config)
 // ============================================================================
-router.get('/api/public/review-config', async (req, res) => {
+router.get('/api/public/review-config', async (req, res, next) => {
   const cached = getCached('review_config');
   if (cached) return res.json(cached);
 
@@ -364,7 +343,6 @@ router.get('/api/public/review-config', async (req, res) => {
     return res.json(payload);
   } catch (err) {
     console.error('[Public API] Review config fallback to defaults:', err);
-    // Graceful fallback to bundled defaults so customer review flow NEVER breaks!
     return res.json({
       googleReviewUrl: REVIEW_CONFIG.GOOGLE_REVIEW_URL,
       options: REVIEW_CONFIG.OPTIONS,
@@ -375,7 +353,6 @@ router.get('/api/public/review-config', async (req, res) => {
 // ============================================================================
 // 7. PUBLIC REVIEW EVENTS (POST /api/public/review-events)
 // ============================================================================
-// Rate limiter for review events (30/min per IP)
 const reviewEventsLimiter = new Map();
 function checkReviewEventsRateLimit(ip) {
   const now = Date.now();
@@ -387,51 +364,48 @@ function checkReviewEventsRateLimit(ip) {
   return true;
 }
 
-router.post('/api/public/review-events', async (req, res) => {
-  const clientIp = req.ip || req.connection.remoteAddress || '127.0.0.1';
-  if (!checkReviewEventsRateLimit(clientIp)) {
-    return res.status(429).json({ error: 'Rate limit reached' });
-  }
-
-  const { type, stars, optionIds } = req.body || {};
-  if (!type || !['started', 'submitted'].includes(type)) {
-    return res.status(400).json({ error: "Invalid event type: must be 'started' or 'submitted'" });
-  }
-
-  const ua = req.get('user-agent') || '';
-  const { device_type } = parseUserAgent(ua);
-  const eventId = `rev_ev_${Date.now()}_${crypto.randomBytes(3).toString('hex')}`;
-  const now = new Date().toISOString();
-
-  // Validate stars if submitted
-  const starNum = stars !== undefined && stars !== null ? Number(stars) : null;
-  const safeOptionIds = Array.isArray(optionIds) ? JSON.stringify(optionIds.slice(0, 15)) : null;
-
+router.post('/api/public/review-events', async (req, res, next) => {
   try {
+    const clientIp = req.ip || req.connection?.remoteAddress || '127.0.0.1';
+    if (!checkReviewEventsRateLimit(clientIp)) {
+      return res.status(429).json({ error: 'Rate limit reached' });
+    }
+
+    const { type, stars, optionIds } = req.body || {};
+    if (!type || !['started', 'submitted'].includes(type)) {
+      return res.status(400).json({ error: "Invalid event type: must be 'started' or 'submitted'" });
+    }
+
+    const ua = req.get('user-agent') || '';
+    const { device_type } = parseUserAgent(ua);
+    const eventId = `rev_ev_${Date.now()}_${crypto.randomBytes(3).toString('hex')}`;
+    const now = new Date().toISOString();
+
+    const starNum = stars !== undefined && stars !== null ? Number(stars) : null;
+    const safeOptionIds = Array.isArray(optionIds) ? JSON.stringify(optionIds.slice(0, 15)) : null;
+
     await query(
       'INSERT INTO review_events (id, event_type, stars, option_ids, device_type, created_at) VALUES ($1, $2, $3, $4, $5, $6)',
       [eventId, type, starNum, safeOptionIds, device_type, now]
     );
     return res.json({ success: true });
   } catch (err) {
-    console.error('[Public API] Failed to log review event:', err);
-    return res.status(500).json({ error: 'Failed to record event' });
+    next(err);
   }
 });
 
 // ============================================================================
 // 8. PUBLIC LEGAL PAGES (/api/public/legal/:id)
 // ============================================================================
-router.get('/api/public/legal/:id', async (req, res) => {
+router.get('/api/public/legal/:id', async (req, res, next) => {
   const { id } = req.params;
   try {
     const pages = await query('SELECT * FROM legal_pages WHERE id = $1', [id]);
     if (pages.length === 0) return res.status(404).json({ error: 'Page not found' });
     return res.json(pages[0]);
   } catch (err) {
-    return res.status(500).json({ error: 'Failed to load legal page' });
+    next(err);
   }
 });
 
 export default router;
-

@@ -2,15 +2,16 @@ import express from 'express';
 import crypto from 'crypto';
 import sanitizeHtml from 'sanitize-html';
 import { z } from 'zod';
-import { query } from '../db.js';
-import { requireAuth } from '../auth.js';
-import { cloudinaryService } from '../cloudinary.js';
-import { generateQRCode, generateTableTentPDF } from '../qrGenerator.js';
+import { query } from '../db/connection.js';
+import { requireAuth } from '../middleware/auth.js';
+import { cloudinaryService } from '../services/cloudinaryService.js';
+import { generateQRCode, generateTableTentPDF } from '../services/qrService.js';
 import {
   calculateSpecialPrice,
   getPricingSettings,
   recalculateAllNonOverriddenPrices,
-} from '../pricing.js';
+} from '../services/pricingService.js';
+import { exportContentBackup, exportScansCsv, exportReviewsCsv } from '../services/exportService.js';
 
 const router = express.Router();
 router.use(requireAuth);
@@ -1204,91 +1205,39 @@ router.put('/settings', async (req, res) => {
 // ============================================================================
 // 10. DATA EXPORT (JSON content, CSV scans & review events)
 // ============================================================================
-router.get('/export/content', async (req, res) => {
-  const categories = await query('SELECT * FROM categories');
-  const dishes = await query('SELECT * FROM dishes WHERE deleted_at IS NULL');
-  const dishVariants = await query('SELECT * FROM dish_variants');
-  const dishImages = await query('SELECT * FROM dish_images');
-  const popularDishes = await query('SELECT * FROM popular_dishes');
-  const galleryItems = await query('SELECT * FROM gallery_items');
-  const siteContent = await query('SELECT * FROM site_content');
-  const legalPages = await query('SELECT * FROM legal_pages');
-  const seoPages = await query('SELECT * FROM seo_pages');
-  const reviewOptions = await query('SELECT * FROM review_options');
-
-  const exportData = {
-    exportedAt: new Date().toISOString(),
-    categories,
-    dishes,
-    dishVariants,
-    dishImages,
-    popularDishes,
-    galleryItems,
-    siteContent,
-    legalPages,
-    seoPages,
-    reviewOptions,
-  };
-
-  res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Content-Disposition', `attachment; filename="amol-content-export-${Date.now()}.json"`);
-  return res.send(JSON.stringify(exportData, null, 2));
+router.get('/export/content', async (req, res, next) => {
+  try {
+    const exportData = await exportContentBackup();
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', `attachment; filename="amol-content-export-${Date.now()}.json"`);
+    return res.send(JSON.stringify(exportData, null, 2));
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.get('/export/scans', async (req, res) => {
-  const { from, to } = req.query;
-  let sql = 'SELECT * FROM scans WHERE 1=1';
-  const params = [];
-
-  if (from) {
-    params.push(new Date(from).toISOString());
-    sql += ` AND created_at >= $${params.length}`;
+router.get('/export/scans', async (req, res, next) => {
+  try {
+    const { from, to } = req.query;
+    const csv = await exportScansCsv({ from, to });
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', `attachment; filename="scan-analytics-${Date.now()}.csv"`);
+    return res.send(csv);
+  } catch (err) {
+    next(err);
   }
-  if (to) {
-    params.push(new Date(to).toISOString());
-    sql += ` AND created_at <= $${params.length}`;
-  }
-  sql += ' ORDER BY created_at DESC';
-
-  const rows = await query(sql, params);
-
-  let csv = 'id,qr_id,device_type,os,browser,created_at_ist\n';
-  for (const r of rows) {
-    const istTime = new Date(new Date(r.created_at).getTime() + 5.5 * 3600000).toISOString().replace('Z', '+05:30');
-    csv += `"${r.id}","${r.qr_id}","${r.device_type}","${r.os}","${r.browser}","${istTime}"\n`;
-  }
-
-  res.setHeader('Content-Type', 'text/csv');
-  res.setHeader('Content-Disposition', `attachment; filename="scan-analytics-${Date.now()}.csv"`);
-  return res.send(csv);
 });
 
-router.get('/export/reviews', async (req, res) => {
-  const { from, to } = req.query;
-  let sql = 'SELECT * FROM review_events WHERE 1=1';
-  const params = [];
-
-  if (from) {
-    params.push(new Date(from).toISOString());
-    sql += ` AND created_at >= $${params.length}`;
+router.get('/export/reviews', async (req, res, next) => {
+  try {
+    const { from, to } = req.query;
+    const csv = await exportReviewsCsv({ from, to });
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', `attachment; filename="review-events-${Date.now()}.csv"`);
+    return res.send(csv);
+  } catch (err) {
+    next(err);
   }
-  if (to) {
-    params.push(new Date(to).toISOString());
-    sql += ` AND created_at <= $${params.length}`;
-  }
-  sql += ' ORDER BY created_at DESC';
-
-  const rows = await query(sql, params);
-
-  let csv = 'id,event_type,stars,option_ids,device_type,created_at_ist\n';
-  for (const r of rows) {
-    const istTime = new Date(new Date(r.created_at).getTime() + 5.5 * 3600000).toISOString().replace('Z', '+05:30');
-    csv += `"${r.id}","${r.event_type}","${r.stars || ''}","${(r.option_ids || '').replace(/"/g, '""')}","${r.device_type || ''}","${istTime}"\n`;
-  }
-
-  res.setHeader('Content-Type', 'text/csv');
-  res.setHeader('Content-Disposition', `attachment; filename="review-events-${Date.now()}.csv"`);
-  return res.send(csv);
 });
 
 export default router;

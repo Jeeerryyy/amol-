@@ -40,7 +40,9 @@ export async function adminFetch(endpoint: string, options: RequestInit = {}): P
     ? `/api/admin${endpoint}`
     : `/api/admin/${endpoint}`;
 
-  const res = await fetch(normalizedEndpoint, {
+  const API_BASE = ((import.meta as any).env?.VITE_API_URL || '').replace(/\/$/, '');
+  const targetUrl = API_BASE ? `${API_BASE}${normalizedEndpoint}` : normalizedEndpoint;
+  const res = await fetch(targetUrl, {
     ...options,
     headers,
     credentials: 'include', // sends httpOnly session cookie

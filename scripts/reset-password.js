@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import bcrypt from 'bcryptjs';
-import { query } from '../server/db.js';
+import { query } from '../server/db/connection.js';
 
 async function resetPassword() {
   const newPassword = process.argv[2];

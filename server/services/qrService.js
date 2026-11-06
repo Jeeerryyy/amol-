@@ -143,4 +143,3 @@ export async function generateTableTentPDF({ qrUrl, label, restaurantName = 'Amo
     doc.end();
   });
 }
-

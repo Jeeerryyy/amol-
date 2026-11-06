@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: amol-veg-resto-api
+    runtime: node
+    plan: starter
+    region: oregon
+    buildCommand: npm install
+    startCommand: node server/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_SSL
+        value: "true"
+      - key: ALLOWED_ORIGIN
+        value: https://amolvegresto.in,https://amol-veg-resto.vercel.app
+      - key: AI_API_KEY
+        sync: false
+      - key: AI_MODEL
+        value: gemini-2.5-flash
+      - key: ADMIN_EMAIL
+        value: owner@amolvegresto.in
+      - key: ADMIN_INITIAL_PASSWORD
+        sync: false
+      - key: IP_HASH_SALT
+        generateValue: true
+      - key: RATE_LIMIT_PER_MIN
+        value: "12"
+      - key: RATE_LIMIT_PER_DAY
+        value: "100"
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: SITE_URL
+        value: https://amolvegresto.in

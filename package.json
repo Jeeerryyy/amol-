@@ -12,9 +12,10 @@
     "preview": "vite preview",
     "test": "node tests/smoke.js",
     "lint": "tsc -b",
-    "migrate": "node server/migrations.js",
-    "seed": "node server/seed.js",
-    "reset-password": "node scripts/reset-password.js"
+    "migrate": "node scripts/migrate.js",
+    "seed": "node scripts/seed.js",
+    "reset-password": "node scripts/reset-password.js",
+    "test:admin": "node tests/total-admin-test.mjs"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

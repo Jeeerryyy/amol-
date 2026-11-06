@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Navbar } from './components/Navbar/Navbar';
 import { Hero } from './components/Hero/Hero';
 import { PopularDishes } from './components/PopularDishes/PopularDishes';
@@ -7,13 +7,39 @@ import { GallerySection } from './components/Gallery/GallerySection';
 import { TestimonialsSection } from './components/Testimonials/TestimonialsSection';
 import { FAQ } from './components/FAQ/FAQ';
 import { Footer } from './components/Footer/Footer';
-import { AboutPage } from './pages/AboutPage/AboutPage';
-import { ContactPage } from './pages/ContactPage/ContactPage';
-import { GalleryPage } from './pages/GalleryPage/GalleryPage';
-import { ReviewPage } from './pages/ReviewPage/ReviewPage';
-import { LegalPage } from './pages/LegalPage/LegalPage';
-import { AdminApp } from './admin/AdminApp';
 import './styles/tokens.css';
+
+// Code-split subpages and admin app with React.lazy for optimized bundle size & faster LCP
+const AdminApp = React.lazy(() => import('./admin/AdminApp').then((m) => ({ default: m.AdminApp })));
+const ReviewPage = React.lazy(() => import('./pages/ReviewPage/ReviewPage').then((m) => ({ default: m.ReviewPage })));
+const LegalPage = React.lazy(() => import('./pages/LegalPage/LegalPage').then((m) => ({ default: m.LegalPage })));
+const AboutPage = React.lazy(() => import('./pages/AboutPage/AboutPage').then((m) => ({ default: m.AboutPage })));
+const ContactPage = React.lazy(() => import('./pages/ContactPage/ContactPage').then((m) => ({ default: m.ContactPage })));
+const GalleryPage = React.lazy(() => import('./pages/GalleryPage/GalleryPage').then((m) => ({ default: m.GalleryPage })));
+
+const FallbackLoader: React.FC<{ fullScreen?: boolean }> = ({ fullScreen = false }) => (
+  <div
+    style={{
+      minHeight: fullScreen ? '100vh' : '60vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: '#FAF4EC',
+    }}
+  >
+    <div
+      style={{
+        width: 36,
+        height: 36,
+        border: '3px solid #E8DACB',
+        borderTopColor: '#C85A17',
+        borderRadius: '50%',
+        animation: 'spin 0.8s linear infinite',
+      }}
+    />
+    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+  </div>
+);
 
 export const App: React.FC = () => {
   const [currentHash, setCurrentHash] = useState<string>(() => {
@@ -54,7 +80,11 @@ export const App: React.FC = () => {
     currentHash.startsWith('#admin');
 
   if (isAdminRoute) {
-    return <AdminApp />;
+    return (
+      <Suspense fallback={<FallbackLoader fullScreen />}>
+        <AdminApp />
+      </Suspense>
+    );
   }
 
   // 2. Review Page Routing (/review or #/review)
@@ -65,7 +95,11 @@ export const App: React.FC = () => {
     currentPath.startsWith('/review/');
 
   if (isReviewPage) {
-    return <ReviewPage />;
+    return (
+      <Suspense fallback={<FallbackLoader fullScreen />}>
+        <ReviewPage />
+      </Suspense>
+    );
   }
 
   // 3. Legal Documentation Pages (Privacy Policy & Terms)
@@ -76,7 +110,11 @@ export const App: React.FC = () => {
     currentPath === '/privacy-policy';
 
   if (isPrivacyPolicy) {
-    return <LegalPage slug="privacy-policy" />;
+    return (
+      <Suspense fallback={<FallbackLoader fullScreen />}>
+        <LegalPage slug="privacy-policy" />
+      </Suspense>
+    );
   }
 
   const isTermsAndConditions =
@@ -86,13 +124,20 @@ export const App: React.FC = () => {
     currentPath === '/terms-and-conditions';
 
   if (isTermsAndConditions) {
-    return <LegalPage slug="terms-and-conditions" />;
+    return (
+      <Suspense fallback={<FallbackLoader fullScreen />}>
+        <LegalPage slug="terms-and-conditions" />
+      </Suspense>
+    );
   }
 
   // 4. Public Navigation & Main Pages
-  const isAboutPage = currentHash === '#/about' || currentHash === '#about-page' || currentPath === '/about' || currentPath === '/about/';
-  const isContactPage = currentHash === '#/contact' || currentHash === '#contact-page' || currentPath === '/contact' || currentPath === '/contact/';
-  const isGalleryPage = currentHash === '#/gallery' || currentHash === '#gallery' || currentHash === '#gallery-page' || currentPath === '/gallery' || currentPath === '/gallery/';
+  const isAboutPage =
+    currentHash === '#/about' || currentHash === '#about-page' || currentPath === '/about' || currentPath === '/about/';
+  const isContactPage =
+    currentHash === '#/contact' || currentHash === '#contact-page' || currentPath === '/contact' || currentPath === '/contact/';
+  const isGalleryPage =
+    currentHash === '#/gallery' || currentHash === '#gallery' || currentHash === '#gallery-page' || currentPath === '/gallery' || currentPath === '/gallery/';
 
   let activePage: 'home' | 'about' | 'contact' | 'gallery' = 'home';
   if (isAboutPage) activePage = 'about';
@@ -106,14 +151,17 @@ export const App: React.FC = () => {
 
       <main>
         {isAboutPage ? (
-          /* About Sub-page */
-          <AboutPage />
+          <Suspense fallback={<FallbackLoader />}>
+            <AboutPage />
+          </Suspense>
         ) : isContactPage ? (
-          /* Contact Sub-page */
-          <ContactPage />
+          <Suspense fallback={<FallbackLoader />}>
+            <ContactPage />
+          </Suspense>
         ) : isGalleryPage ? (
-          /* Gallery Sub-page */
-          <GalleryPage />
+          <Suspense fallback={<FallbackLoader />}>
+            <GalleryPage />
+          </Suspense>
         ) : (
           <>
             {/* 2. Hero Section */}

@@ -1,47 +1,32 @@
 import { v2 as cloudinary } from 'cloudinary';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const {
-  CLOUDINARY_CLOUD_NAME,
-  CLOUDINARY_API_KEY,
-  CLOUDINARY_API_SECRET,
-} = process.env;
+import { env } from '../config/env.js';
+import { CLOUDINARY_ALLOWED_FOLDERS } from '../config/constants.js';
 
 const isConfigured = Boolean(
-  CLOUDINARY_CLOUD_NAME &&
-  CLOUDINARY_API_KEY &&
-  CLOUDINARY_API_SECRET &&
-  !CLOUDINARY_CLOUD_NAME.includes('placeholder')
+  env.cloudinaryCloudName &&
+  env.cloudinaryApiKey &&
+  env.cloudinaryApiSecret &&
+  !env.cloudinaryCloudName.includes('placeholder')
 );
 
 if (isConfigured) {
   cloudinary.config({
-    cloud_name: CLOUDINARY_CLOUD_NAME,
-    api_key: CLOUDINARY_API_KEY,
-    api_secret: CLOUDINARY_API_SECRET,
+    cloud_name: env.cloudinaryCloudName,
+    api_key: env.cloudinaryApiKey,
+    api_secret: env.cloudinaryApiSecret,
     secure: true,
   });
-  console.log(`[Cloudinary] Configured for cloud: ${CLOUDINARY_CLOUD_NAME}`);
+  console.log(`[Cloudinary] Configured for cloud: ${env.cloudinaryCloudName}`);
 } else {
   console.log('[Cloudinary] Running in local simulation / unconfigured mode (set CLOUDINARY_* in .env for production)');
 }
-
-const ALLOWED_FOLDERS = [
-  'restaurant/menu',
-  'restaurant/dishes',
-  'restaurant/gallery',
-  'restaurant/popular',
-  'restaurant/seo',
-];
 
 /**
  * Generate a signed upload signature for direct browser upload
  */
 export function generateUploadSignature({ folder, resourceType = 'image' }) {
-  if (!ALLOWED_FOLDERS.includes(folder)) {
-    throw new Error(`Invalid upload folder. Must be one of: ${ALLOWED_FOLDERS.join(', ')}`);
+  if (!CLOUDINARY_ALLOWED_FOLDERS.includes(folder)) {
+    throw new Error(`Invalid upload folder. Must be one of: ${CLOUDINARY_ALLOWED_FOLDERS.join(', ')}`);
   }
 
   const validResourceTypes = ['image', 'video'];
@@ -68,12 +53,12 @@ export function generateUploadSignature({ folder, resourceType = 'image' }) {
     timestamp,
   };
 
-  const signature = cloudinary.utils.api_sign_request(paramsToSign, CLOUDINARY_API_SECRET);
+  const signature = cloudinary.utils.api_sign_request(paramsToSign, env.cloudinaryApiSecret);
 
   return {
     isMock: false,
-    cloudName: CLOUDINARY_CLOUD_NAME,
-    apiKey: CLOUDINARY_API_KEY,
+    cloudName: env.cloudinaryCloudName,
+    apiKey: env.cloudinaryApiKey,
     timestamp,
     signature,
     folder,
@@ -98,24 +83,24 @@ export async function deleteAsset(publicId, resourceType = 'image') {
 }
 
 /**
- * Format image URL with f_auto, q_auto and width transform
+ * Helper to generate responsive optimized URLs
  */
-export function getOptimizedImageUrl(url, width = 800) {
-  if (!url) return '';
-  if (url.includes('res.cloudinary.com')) {
-    // Inject f_auto,q_auto,w_{width},c_limit into URL
-    return url.replace('/upload/', `/upload/f_auto,q_auto,w_${width},c_limit/`);
-  }
-  return url;
+export function getOptimizedUrl(publicId, { width = 800, quality = 'auto', format = 'auto' } = {}) {
+  if (!isConfigured || !publicId) return publicId;
+  return cloudinary.url(publicId, {
+    fetch_format: format,
+    quality: quality,
+    width: width,
+    crop: 'limit',
+    secure: true,
+  });
 }
 
 export const cloudinaryService = {
   isConfigured: () => isConfigured,
   generateUploadSignature,
   deleteAsset,
-  getOptimizedImageUrl,
-  ALLOWED_FOLDERS,
+  getOptimizedUrl,
 };
 
 export default cloudinaryService;
-

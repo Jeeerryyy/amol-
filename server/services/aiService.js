@@ -1,34 +1,28 @@
-/**
- * AI Provider Client
- * Supports Google Gemini (default) and Anthropic Messages API.
- * Streams review tokens with post-processing (emoji removal, quote stripping, 80-word cap).
- */
+import { REVIEW_CONFIG } from '../../review.config.js';
+import { env } from '../config/env.js';
 
-import { REVIEW_CONFIG } from '../review.config.js';
-
-// VOICES and AVOID_START lists as defined in spec
 const VOICES = [
-  "casual and short",
-  "warm and slightly longer",
-  "matter-of-fact",
-  "simple conversational",
-  "enthusiastic but plain",
-  "starts with the main point",
-  "starts with the overall feeling",
-  "two short sentences",
+  'casual and short',
+  'warm and slightly longer',
+  'matter-of-fact',
+  'simple conversational',
+  'enthusiastic but plain',
+  'starts with the main point',
+  'starts with the overall feeling',
+  'two short sentences',
 ];
 
 const AVOID_START_POOL = [
-  "Great",
-  "Had",
-  "The",
-  "Very",
-  "Amazing",
-  "Nice",
-  "Good",
-  "We",
-  "Visited",
-  "Food",
+  'Great',
+  'Had',
+  'The',
+  'Very',
+  'Amazing',
+  'Nice',
+  'Good',
+  'We',
+  'Visited',
+  'Food',
 ];
 
 function pseudoRandom(seed) {
@@ -64,16 +58,13 @@ export function buildUserPrompt({ stars, optionLabels, seed, previousReview }) {
   const mode = stars >= 4 ? 'praise' : 'improve';
   const aspects = optionLabels && optionLabels.length > 0 ? optionLabels.join('; ') : 'none';
 
-  // Seeded selection of voice
   const voiceIdx = Math.floor(pseudoRandom(seed + 11) * VOICES.length);
   const voice = VOICES[voiceIdx % VOICES.length];
 
-  // Length target
   let length = '25-55';
   if (stars === 3) length = '25-50';
   else if (stars <= 2) length = '20-45';
 
-  // Seeded selection of 3 avoid_start words
   const shuffledAvoid = [...AVOID_START_POOL].sort((a, b) => {
     return pseudoRandom(seed + a.charCodeAt(0)) - pseudoRandom(seed + b.charCodeAt(0));
   });
@@ -104,7 +95,10 @@ export function postProcessReviewText(raw) {
   }
 
   // Remove emojis using standard regex
-  text = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
+  text = text.replace(
+    /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu,
+    ''
+  );
 
   // Collapse whitespaces
   text = text.replace(/\s+/g, ' ').trim();
@@ -130,7 +124,7 @@ async function streamGemini({ systemPrompt, userPrompt, apiKey, model, onToken, 
     },
     contents: [
       {
-        role: "user",
+        role: 'user',
         parts: [{ text: userPrompt }],
       },
     ],
@@ -254,16 +248,15 @@ async function streamAnthropic({ systemPrompt, userPrompt, apiKey, model, onToke
  * Universal Stream Review Caller
  */
 export async function streamReview({ stars, optionLabels, seed, previousReview, onToken, signal }) {
-  const apiKey = process.env.AI_API_KEY;
+  const apiKey = env.aiApiKey;
   if (!apiKey) {
-    throw new Error("Missing AI_API_KEY environment variable");
+    throw new Error('Missing AI_API_KEY environment variable');
   }
 
-  const model = process.env.AI_MODEL || REVIEW_CONFIG.SERVER.DEFAULT_MODEL;
+  const model = env.aiModel || REVIEW_CONFIG.SERVER.DEFAULT_MODEL;
   const systemPrompt = buildSystemPrompt();
   const userPrompt = buildUserPrompt({ stars, optionLabels, seed, previousReview });
 
-  // Route to Anthropic if model or key indicates Anthropic, otherwise default to Gemini
   if (apiKey.startsWith('sk-ant-') || model.toLowerCase().includes('claude') || model.toLowerCase().includes('haiku')) {
     await streamAnthropic({ systemPrompt, userPrompt, apiKey, model, onToken, signal });
   } else {

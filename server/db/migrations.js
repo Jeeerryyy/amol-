@@ -1,4 +1,4 @@
-import { exec } from './db.js';
+import { exec } from './connection.js';
 
 export async function runMigrations() {
   console.log('[Migrations] Running database table setup & indexes...');
@@ -18,6 +18,13 @@ export async function runMigrations() {
       token TEXT UNIQUE NOT NULL,
       expires_at TEXT NOT NULL,
       created_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS login_attempts (
+      key TEXT PRIMARY KEY,
+      count INTEGER NOT NULL DEFAULT 1,
+      first_attempt BIGINT NOT NULL,
+      locked_until BIGINT
     );
 
     CREATE TABLE IF NOT EXISTS settings (
@@ -192,19 +199,11 @@ export async function runMigrations() {
     CREATE INDEX IF NOT EXISTS idx_dishes_scope_visible ON dishes(scope, is_visible);
     CREATE INDEX IF NOT EXISTS idx_categories_order ON categories(sort_order);
     CREATE INDEX IF NOT EXISTS idx_sessions_token ON sessions(token);
+    CREATE INDEX IF NOT EXISTS idx_sessions_expires ON sessions(expires_at);
   `;
 
   await exec(ddl);
   console.log('[Migrations] Tables and indexes created successfully.');
 }
 
-if (process.argv[1]?.endsWith('migrations.js')) {
-  runMigrations().then(() => {
-    console.log('[Migrations] Done.');
-    process.exit(0);
-  }).catch((err) => {
-    console.error('[Migrations] Error:', err);
-    process.exit(1);
-  });
-}
-
+export default runMigrations;

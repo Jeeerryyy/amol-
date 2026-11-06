@@ -3,44 +3,54 @@ node_modules
 .pnp
 .pnp.js
 
-# Environment Variables
+# Environment Variables & Secrets
 .env
 .env.*
 !.env.example
 
-# Production build
+# Production builds & temporary caches
 dist
 dist-ssr
 *.local
+.vite/
+.turbo/
+.cache/
 
-# Editor directories and files
+# Local databases & persistent data
+data/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Logs & test artifacts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+scratch/
+audit-artifacts/
+baseline-screenshots/
+playwright-report/
+test-results/
+
+# Editor & OS files
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-# Video and large zip files in assets
+# Video and large binary zip files
 assets/*.zip
 assets/*.mp4
-
-# Scratch and database
-scratch/
 frame_*.jpg
-data/
-*.db
-*.db-journal
-baseline-screenshots/
-audit-artifacts/
-
-# Temporary screenshots
 current_menu_*.png
 *.png.tmp
-
-
-# Vite cache
-.vite/
