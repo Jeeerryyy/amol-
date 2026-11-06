@@ -488,32 +488,34 @@ export const AdminMenus: React.FC = () => {
     <div>
       {/* Page Header */}
       <div className="admin-page-header">
-        <div>
+        <div className="admin-page-header-text">
           <h1 className="admin-page-title">Menus Management</h1>
           <p className="admin-page-subtitle">
             Manage Dishes, Shared Categories & Hero Video for Main & Special Menus
           </p>
         </div>
 
-        {activeMenuTab === 'dishes' && (
-          <button type="button" className="admin-btn admin-btn-primary" onClick={handleOpenCreateDish}>
-            <Plus size={16} />
-            <span>Create Dish</span>
-          </button>
-        )}
-        {activeMenuTab === 'categories' && (
-          <button
-            type="button"
-            className="admin-btn admin-btn-primary"
-            onClick={() => {
-              setCatForm({ name: '', description: '', visible: true });
-              setIsCatModalOpen(true);
-            }}
-          >
-            <Plus size={16} />
-            <span>Add Category</span>
-          </button>
-        )}
+        <div className="admin-page-header-actions">
+          {activeMenuTab === 'dishes' && (
+            <button type="button" className="admin-btn admin-btn-primary" onClick={handleOpenCreateDish}>
+              <Plus size={16} />
+              <span>Create Dish</span>
+            </button>
+          )}
+          {activeMenuTab === 'categories' && (
+            <button
+              type="button"
+              className="admin-btn admin-btn-primary"
+              onClick={() => {
+                setCatForm({ name: '', description: '', visible: true });
+                setIsCatModalOpen(true);
+              }}
+            >
+              <Plus size={16} />
+              <span>Add Category</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {toastMsg && (
@@ -569,7 +571,7 @@ export const AdminMenus: React.FC = () => {
           {/* Filters & Search Toolbar */}
           <div
             className="admin-card"
-            style={{ padding: '16px', display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}
+            style={{ padding: '14px 16px', display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center', width: '100%', boxSizing: 'border-box' }}
           >
             {/* Search */}
             <div style={{ position: 'relative', flex: 1, minWidth: '220px' }}>
@@ -598,7 +600,7 @@ export const AdminMenus: React.FC = () => {
               value={menuScopeFilter}
               onChange={(e: any) => setMenuScopeFilter(e.target.value)}
               className="admin-select"
-              style={{ width: 'auto', minHeight: '38px', fontSize: '13px' }}
+              style={{ flex: '0 1 130px', minWidth: '115px', minHeight: '38px', fontSize: '13px' }}
             >
               <option value="all">All Menus</option>
               <option value="main">Main Menu Only</option>
@@ -610,7 +612,7 @@ export const AdminMenus: React.FC = () => {
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
               className="admin-select"
-              style={{ width: 'auto', minHeight: '38px', fontSize: '13px' }}
+              style={{ flex: '0 1 150px', minWidth: '125px', minHeight: '38px', fontSize: '13px' }}
             >
               <option value="">All Categories</option>
               {categories.map((c) => (
@@ -625,7 +627,7 @@ export const AdminMenus: React.FC = () => {
               value={availFilter}
               onChange={(e) => setAvailFilter(e.target.value)}
               className="admin-select"
-              style={{ width: 'auto', minHeight: '38px', fontSize: '13px' }}
+              style={{ flex: '0 1 130px', minWidth: '115px', minHeight: '38px', fontSize: '13px' }}
             >
               <option value="">All Availability</option>
               <option value="1">Available</option>
@@ -637,7 +639,7 @@ export const AdminMenus: React.FC = () => {
               value={visFilter}
               onChange={(e) => setVisFilter(e.target.value)}
               className="admin-select"
-              style={{ width: 'auto', minHeight: '38px', fontSize: '13px' }}
+              style={{ flex: '0 1 120px', minWidth: '110px', minHeight: '38px', fontSize: '13px' }}
             >
               <option value="">All Visibility</option>
               <option value="1">Visible</option>
