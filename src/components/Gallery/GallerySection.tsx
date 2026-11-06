@@ -23,12 +23,15 @@ export const GallerySection: React.FC = () => {
       })
       .then((data: any[]) => {
         if (Array.isArray(data) && data.length > 0) {
-          const mapped: GallerySectionItem[] = data.map((item) => ({
-            id: item.id,
-            label: item.caption || item.alt_text || 'Amol Veg Gallery',
-            imageUrl: item.url,
-          }));
-          setItems(mapped);
+          const valid = data.filter((item) => item.url && item.url.trim().length > 0);
+          if (valid.length > 0) {
+            const mapped: GallerySectionItem[] = valid.map((item) => ({
+              id: item.id,
+              label: item.caption || item.alt_text || 'Amol Veg Gallery',
+              imageUrl: item.url,
+            }));
+            setItems(mapped);
+          }
         }
       })
       .catch((err) => {

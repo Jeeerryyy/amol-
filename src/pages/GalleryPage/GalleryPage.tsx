@@ -54,9 +54,10 @@ export const GalleryPage: React.FC = () => {
       ? itemsList
       : itemsList.filter((item) => item.category === activeCategory);
 
-  // Split into Row 1 (3 items) and Row 2 (4 items) when viewing "All"
+  // Split into Row 1 (3 items) and Row 2 (4 items) when viewing "All", plus remaining for dynamic growth
   const row1Items = itemsList.slice(0, 3);
   const row2Items = itemsList.slice(3, 7);
+  const remainingItems = itemsList.slice(7);
 
   // Lightbox keyboard controls
   useEffect(() => {
@@ -268,6 +269,48 @@ export const GalleryPage: React.FC = () => {
                   </article>
                 ))}
               </div>
+
+              {/* Dynamic Additional Photos Grid (Rendered when admin adds more photos) */}
+              {remainingItems.length > 0 && (
+                <div className="gallery-filtered-grid" style={{ marginTop: '24px' }}>
+                  {remainingItems.map((item) => (
+                    <article
+                      key={item.id}
+                      className="gallery-card"
+                      onClick={() => openLightbox(item)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === 'Enter' && openLightbox(item)}
+                      aria-label={`View photo: ${item.title}`}
+                    >
+                      <div className="gallery-card-inner">
+                        <div className="gallery-card-media">
+                          {item.imageSrc ? (
+                            <img
+                              src={item.imageSrc}
+                              alt={item.title}
+                              className="gallery-card-img"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="gallery-wireframe-placeholder">
+                              <div className="placeholder-icon-circle">
+                                <ImageIcon size={38} strokeWidth={1.5} className="placeholder-icon" />
+                              </div>
+                            </div>
+                          )}
+                          <div className="gallery-hover-overlay">
+                            <span className="overlay-zoom-btn">
+                              <Maximize2 size={16} />
+                              <span>Preview</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
             </div>
           ) : (
             /* Filtered Category Responsive Grid */

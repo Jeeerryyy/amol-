@@ -75,7 +75,7 @@ async function runSmokeTests() {
     assert(reviewVal.length > 5, '6. Review system generates instant local draft');
 
     // 7. QR Redirect
-    const qrRes = await fetch(`${API_URL}/q/menu`, { redirect: 'manual' });
+    const qrRes = await fetch(`${API_URL}/q/menu`, { redirect: 'manual', headers: { 'x-test-suite': 'true' } });
     const location = qrRes.headers.get('location');
     assert(qrRes.status === 302 && location && location.startsWith('/menu'), `7. QR /q/menu redirects (302 to "${location}")`);
 

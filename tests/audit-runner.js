@@ -332,7 +332,7 @@ async function runAudit() {
   try {
     // 3.1 QR /q/menu 302 redirect with low latency
     const t0 = Date.now();
-    const qrRes = await fetch(`${API_URL}/q/menu`, { redirect: 'manual' });
+    const qrRes = await fetch(`${API_URL}/q/menu`, { redirect: 'manual', headers: { 'x-test-suite': 'true' } });
     const latency = Date.now() - t0;
     const location = qrRes.headers.get('location');
     const cacheControl = qrRes.headers.get('cache-control');
@@ -350,7 +350,7 @@ async function runAudit() {
     }
 
     // 3.2 Special QR /q/special redirect
-    const qrSpecialRes = await fetch(`${API_URL}/q/special`, { redirect: 'manual' });
+    const qrSpecialRes = await fetch(`${API_URL}/q/special`, { redirect: 'manual', headers: { 'x-test-suite': 'true' } });
     const specialLocation = qrSpecialRes.headers.get('location');
     if (qrSpecialRes.status === 302 && (specialLocation === '/special-menu/' || specialLocation === '/special-menu')) {
       logResult('PASS', 'QR Special Menu 302 Redirect', `Status 302, Location: "${specialLocation}"`);

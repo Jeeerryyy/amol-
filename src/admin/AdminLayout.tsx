@@ -3,6 +3,7 @@ import {
   LayoutDashboard,
   QrCode,
   UtensilsCrossed,
+  Image as ImageIcon,
   Globe,
   Star,
   Settings,
@@ -10,7 +11,7 @@ import {
   LogOut,
 } from 'lucide-react';
 
-export type AdminSection = 'dashboard' | 'qrcodes' | 'menus' | 'website' | 'reviews' | 'settings';
+export type AdminSection = 'dashboard' | 'qrcodes' | 'menus' | 'gallery' | 'website' | 'reviews' | 'settings';
 
 interface AdminLayoutProps {
   activeSection: AdminSection;
@@ -31,6 +32,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
     { id: 'dashboard' as const, label: 'Dashboard', icon: LayoutDashboard },
     { id: 'qrcodes' as const, label: 'QR Codes', icon: QrCode },
     { id: 'menus' as const, label: 'Menus', icon: UtensilsCrossed },
+    { id: 'gallery' as const, label: 'Gallery', icon: ImageIcon },
     { id: 'website' as const, label: 'Website', icon: Globe },
     { id: 'reviews' as const, label: 'Reviews', icon: Star },
     { id: 'settings' as const, label: 'Settings', icon: Settings },

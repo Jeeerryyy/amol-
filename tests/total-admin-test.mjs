@@ -391,7 +391,7 @@ async function runTests() {
     assert.strictEqual(updateRes.status, 200);
 
     // Test redirect at /q/menu
-    const redirectRes = await fetch(`${BASE_URL}/q/menu`, { redirect: 'manual' });
+    const redirectRes = await fetch(`${BASE_URL}/q/menu`, { redirect: 'manual', headers: { 'x-test-suite': 'true' } });
     assert.strictEqual(redirectRes.status, 302);
     assert.strictEqual(redirectRes.headers.get('location'), '/menu?source=qr-table');
 

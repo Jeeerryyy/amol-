@@ -58,9 +58,33 @@ function parseUserAgent(ua = '') {
   return { device_type, os, browser };
 }
 
-function isBot(ua = '') {
-  const botPatterns = /bot|crawl|spider|preview|facebookexternalhit|slackbot|whatsapp|telegrambot|twitterbot|pinterest/i;
-  return botPatterns.test(ua);
+function isBotOrTestRunner(req, ua = '') {
+  // 1. Explicit test headers or params from automated suites
+  if (
+    req.headers['x-test-suite'] ||
+    req.headers['x-test-runner'] ||
+    req.headers['x-playwright-test'] ||
+    req.headers['x-cypress-action'] ||
+    req.query.test === '1' ||
+    req.query._test
+  ) {
+    return true;
+  }
+
+  // 2. Empty user agent
+  if (!ua || !ua.trim()) return true;
+
+  const lower = ua.toLowerCase();
+
+  // 3. Automated testing frameworks, headless tools & HTTP libraries
+  const scriptOrTestPatterns = /node|undici|axios|playwright|puppeteer|cypress|supertest|postman|insomnia|curl|wget|python|go-http|java|httpclient|okhttp|urllib|rest-client|lighthouse|headlesschrome/i;
+  if (scriptOrTestPatterns.test(lower)) return true;
+
+  // 4. Search crawlers, bots, social preview fetchers
+  const botPatterns = /bot|crawl|spider|preview|facebookexternalhit|slackbot|whatsapp|telegrambot|twitterbot|pinterest|discordbot|bingbot|googlebot|yandex|duckduckbot/i;
+  if (botPatterns.test(lower)) return true;
+
+  return false;
 }
 
 // ============================================================================
@@ -121,8 +145,8 @@ router.get('/q/:code', async (req, res) => {
       `);
     }
 
-    // 2. Asynchronous Scan Logging (Non-blocking)
-    if (!isBot(ua) && req.method !== 'HEAD') {
+    // 2. Asynchronous Scan Logging (Non-blocking) - Real live customer scans only
+    if (!isBotOrTestRunner(req, ua) && req.method === 'GET') {
       const ipHash = crypto.createHash('sha256').update(`${clientIp}:${ua}:${env.ipHashSalt}`).digest('hex');
       const dedupeKey = `${ipHash}:${code}`;
       const lastScan = scanDedupeMap.get(dedupeKey);

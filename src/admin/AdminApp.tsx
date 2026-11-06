@@ -5,6 +5,7 @@ import { AdminLayout, AdminSection } from './AdminLayout';
 import { AdminDashboard } from './AdminDashboard';
 import { AdminQRCodes } from './AdminQRCodes';
 import { AdminMenus } from './AdminMenus';
+import { AdminGallery } from './AdminGallery';
 import { AdminWebsite } from './AdminWebsite';
 import { AdminReviews } from './AdminReviews';
 import { AdminSettings } from './AdminSettings';
@@ -49,7 +50,7 @@ export const AdminApp: React.FC = () => {
       const hash = window.location.hash.replace('#/admin', '').replace('#admin', '');
       const parts = hash.split('/').filter(Boolean);
       const section = parts[0] as AdminSection;
-      const validSections: AdminSection[] = ['dashboard', 'qrcodes', 'menus', 'website', 'reviews', 'settings'];
+      const validSections: AdminSection[] = ['dashboard', 'qrcodes', 'menus', 'gallery', 'website', 'reviews', 'settings'];
       if (validSections.includes(section)) {
         setActiveSection(section);
       }
@@ -136,6 +137,7 @@ export const AdminApp: React.FC = () => {
       {activeSection === 'dashboard' && <AdminDashboard onNavigate={(sec) => handleSelectSection(sec as AdminSection)} />}
       {activeSection === 'qrcodes' && <AdminQRCodes />}
       {activeSection === 'menus' && <AdminMenus />}
+      {activeSection === 'gallery' && <AdminGallery />}
       {activeSection === 'website' && <AdminWebsite />}
       {activeSection === 'reviews' && <AdminReviews />}
       {activeSection === 'settings' && <AdminSettings />}

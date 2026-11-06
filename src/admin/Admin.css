@@ -450,6 +450,7 @@
 }
 
 .admin-input,
+.admin-form-input,
 .admin-select,
 .admin-textarea {
   width: 100%;
@@ -657,6 +658,7 @@
   animation: adminFadeIn 0.15s ease-out;
 }
 
+.admin-modal,
 .admin-modal-content {
   background-color: #FFFFFF;
   border-radius: var(--admin-radius-md);

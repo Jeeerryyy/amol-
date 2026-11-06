@@ -107,7 +107,7 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         </button>
         <button
           type="button"
-          onClick={() => onNavigate('website')}
+          onClick={() => onNavigate('gallery')}
           className="admin-btn admin-btn-secondary"
           style={{ justifyContent: 'flex-start', padding: '10px 14px' }}
         >
@@ -125,7 +125,7 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         </button>
         <button
           type="button"
-          onClick={() => onNavigate('qr')}
+          onClick={() => onNavigate('qrcodes')}
           className="admin-btn admin-btn-secondary"
           style={{ justifyContent: 'flex-start', padding: '10px 14px' }}
         >
