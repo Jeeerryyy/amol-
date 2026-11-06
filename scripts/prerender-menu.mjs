@@ -332,6 +332,10 @@ html = html.replace(
 // Ensure video preload is none for rapid mobile page paint
 html = html.replace(/preload="auto"/g, 'preload="none"');
 
+// Pre-populate categories and allDishes for instant 0ms client-side responsiveness
+html = html.replace('let allDishes = [];', () => 'let allDishes = ' + JSON.stringify(dishes) + ';');
+html = html.replace(/let categories = \[\s*\{\s*id:\s*'All'[\s\S]*?\}\s*\];/, () => 'let categories = ' + JSON.stringify(catTabList) + ';');
+
 // Update Showing count in HTML
 html = html.replace(
   /Showing <strong>\d+<\/strong> items/,

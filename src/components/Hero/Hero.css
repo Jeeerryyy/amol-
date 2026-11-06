@@ -1,15 +1,31 @@
+/* Screen reader only utility (FAANG accessible standard: zero visual/flow layout footprint) */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 .hero-section {
   position: relative;
   min-height: 540px;
-  padding: 72px 0 80px 0;
-  display: flex;
-  align-items: center;
   overflow: hidden;
   background-color: var(--color-placeholder-bg);
 }
 
 .hero-desktop-content {
-  display: contents;
+  position: relative;
+  width: 100%;
+  min-height: 540px;
+  padding: 72px 0 80px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-mobile-content {
@@ -50,12 +66,12 @@
   z-index: 2;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 48px;
+  align-items: flex-start;
+  gap: clamp(24px, 4vw, 48px);
   width: 100%;
 }
 
-/* Left Column */
+/* Left Column: PURE VEG. PURE TASTE. / Authentic Flavours Feel Like Home / ALWAYS AMOL. */
 .hero-col-left {
   display: flex;
   flex-direction: column;
@@ -70,12 +86,13 @@
   font-weight: var(--fw-semibold);
   letter-spacing: 0.14em;
   color: var(--color-text-dark);
+  line-height: 1.2;
   margin-bottom: 20px;
 }
 
 .hero-title {
   font-family: var(--font-serif);
-  font-size: 52px;
+  font-size: clamp(38px, 3.6vw, 52px);
   font-weight: var(--fw-bold);
   line-height: 1.15;
   color: var(--color-text-dark);
@@ -96,7 +113,7 @@
   color: var(--color-text-muted);
 }
 
-/* Right Column */
+/* Right Column: GOOD FOOD / Brings People Together / SINCE 1990. / EXPLORE MENU */
 .hero-col-right {
   display: flex;
   flex-direction: column;
@@ -111,12 +128,18 @@
 }
 
 .right-eyebrow {
-  margin-bottom: 12px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.14em;
+  color: var(--color-text-dark);
+  line-height: 1.2;
+  margin-bottom: 20px;
 }
 
 .hero-right-heading {
   font-family: var(--font-serif);
-  font-size: 32px;
+  font-size: clamp(26px, 2.3vw, 32px);
   font-weight: var(--fw-bold);
   line-height: 1.2;
   color: var(--color-text-dark);
