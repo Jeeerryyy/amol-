@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 const menuDataPath = path.resolve('public/menu/restaurant_menu_data.json');
+const menuTemplatePath = path.resolve('public/menu/index.template.html');
 const menuIndexPath = path.resolve('public/menu/index.html');
 
 const menuData = JSON.parse(fs.readFileSync(menuDataPath, 'utf8'));
@@ -250,8 +251,9 @@ const menuJsonLd = {
   ]
 };
 
-// 4. Update public/menu/index.html
-let html = fs.readFileSync(menuIndexPath, 'utf8');
+// 4. Read clean template and generate public/menu/index.html
+const templateSource = fs.existsSync(menuTemplatePath) ? menuTemplatePath : menuIndexPath;
+let html = fs.readFileSync(templateSource, 'utf8');
 
 // Update <html lang="en"> -> <html lang="en-IN">
 html = html.replace(/<html[^>]*>/, '<html lang="en-IN">');
@@ -313,6 +315,10 @@ html = html.replace(
   `<div class="category-tabs-track" id="categoryTrack">${categoryTabsHtml}</div>`
 );
 html = html.replace(
+  '<div class="category-tabs-track" id="categoryTrack"><!-- Rendered by JS --></div>',
+  `<div class="category-tabs-track" id="categoryTrack">${categoryTabsHtml}</div>`
+);
+html = html.replace(
   '<div class="category-tabs-track" id="categoryTrack"></div>',
   `<div class="category-tabs-track" id="categoryTrack">${categoryTabsHtml}</div>`
 );
@@ -323,6 +329,9 @@ html = html.replace(
   `<div class="dishes-container" id="dishesGrid">${dishesGridHtml}</div>`
 );
 
+// Ensure video preload is none for rapid mobile page paint
+html = html.replace(/preload="auto"/g, 'preload="none"');
+
 // Update Showing count in HTML
 html = html.replace(
   /Showing <strong>\d+<\/strong> items/,
@@ -330,4 +339,4 @@ html = html.replace(
 );
 
 fs.writeFileSync(menuIndexPath, html, 'utf8');
-console.log('Successfully prerendered public/menu/index.html with all 280 dishes and JSON-LD schema!');
+console.log('Successfully prerendered public/menu/index.html with all 280 dishes and JSON-LD schema! Size: ' + (fs.statSync(menuIndexPath).size / 1024).toFixed(1) + ' KB');

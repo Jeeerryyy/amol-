@@ -18,6 +18,18 @@ function setCached(key, data, ttlSeconds = 60) {
   cache.set(key, { data, expiresAt: Date.now() + ttlSeconds * 1000 });
 }
 
+function sendCachedJson(res, data, ttlSeconds = 60) {
+  const jsonStr = JSON.stringify(data);
+  const etag = `"${crypto.createHash('md5').update(jsonStr).digest('hex')}"`;
+  res.setHeader('Cache-Control', `public, max-age=${Math.min(30, ttlSeconds)}, stale-while-revalidate=${ttlSeconds * 2}`);
+  res.setHeader('ETag', etag);
+  if (res.req?.headers['if-none-match'] === etag) {
+    return res.status(304).end();
+  }
+  res.type('application/json');
+  return res.send(jsonStr);
+}
+
 export function invalidatePublicCache() {
   cache.clear();
 }
@@ -183,7 +195,7 @@ router.get('/q/:code', async (req, res) => {
 // ============================================================================
 router.get('/api/public/site', async (req, res, next) => {
   const cached = getCached('site_content');
-  if (cached) return res.json(cached);
+  if (cached) return sendCachedJson(res, cached);
 
   try {
     const contentRows = await query('SELECT * FROM site_content');
@@ -208,7 +220,7 @@ router.get('/api/public/site', async (req, res, next) => {
     };
 
     setCached('site_content', payload, 60);
-    return res.json(payload);
+    return sendCachedJson(res, payload);
   } catch (err) {
     next(err);
   }
@@ -219,12 +231,12 @@ router.get('/api/public/site', async (req, res, next) => {
 // ============================================================================
 router.get('/api/public/popular-dishes', async (req, res, next) => {
   const cached = getCached('popular_dishes');
-  if (cached) return res.json(cached);
+  if (cached) return sendCachedJson(res, cached);
 
   try {
     const dishes = await query('SELECT * FROM popular_dishes WHERE is_visible = 1 ORDER BY sort_order ASC');
     setCached('popular_dishes', dishes, 60);
-    return res.json(dishes);
+    return sendCachedJson(res, dishes);
   } catch (err) {
     next(err);
   }
@@ -235,12 +247,12 @@ router.get('/api/public/popular-dishes', async (req, res, next) => {
 // ============================================================================
 router.get('/api/public/gallery', async (req, res, next) => {
   const cached = getCached('gallery');
-  if (cached) return res.json(cached);
+  if (cached) return sendCachedJson(res, cached);
 
   try {
     const items = await query('SELECT * FROM gallery_items WHERE is_visible = 1 ORDER BY sort_order ASC, created_at DESC');
     setCached('gallery', items, 60);
-    return res.json(items);
+    return sendCachedJson(res, items);
   } catch (err) {
     next(err);
   }
@@ -254,7 +266,7 @@ router.get('/api/public/menu/:menuId', async (req, res, next) => {
   const cacheKey = `menu_${menuId}`;
 
   const cached = getCached(cacheKey);
-  if (cached) return res.json(cached);
+  if (cached) return sendCachedJson(res, cached);
 
   try {
     const [menuDetails] = await query('SELECT * FROM menus WHERE id = $1', [menuId]);
@@ -335,7 +347,7 @@ router.get('/api/public/menu/:menuId', async (req, res, next) => {
     };
 
     setCached(cacheKey, payload, 60);
-    return res.json(payload);
+    return sendCachedJson(res, payload);
   } catch (err) {
     next(err);
   }
@@ -346,7 +358,7 @@ router.get('/api/public/menu/:menuId', async (req, res, next) => {
 // ============================================================================
 router.get('/api/public/review-config', async (req, res, next) => {
   const cached = getCached('review_config');
-  if (cached) return res.json(cached);
+  if (cached) return sendCachedJson(res, cached);
 
   try {
     const [googleLinkRow] = await query("SELECT value FROM review_settings WHERE key = 'google_review_url'");
@@ -364,10 +376,10 @@ router.get('/api/public/review-config', async (req, res, next) => {
     };
 
     setCached('review_config', payload, 60);
-    return res.json(payload);
+    return sendCachedJson(res, payload);
   } catch (err) {
     console.error('[Public API] Review config fallback to defaults:', err);
-    return res.json({
+    return sendCachedJson(res, {
       googleReviewUrl: REVIEW_CONFIG.GOOGLE_REVIEW_URL,
       options: REVIEW_CONFIG.OPTIONS,
     });
@@ -426,7 +438,7 @@ router.get('/api/public/legal/:id', async (req, res, next) => {
   try {
     const pages = await query('SELECT * FROM legal_pages WHERE id = $1', [id]);
     if (pages.length === 0) return res.status(404).json({ error: 'Page not found' });
-    return res.json(pages[0]);
+    return sendCachedJson(res, pages[0], 300);
   } catch (err) {
     next(err);
   }

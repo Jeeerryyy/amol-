@@ -1,0 +1,1682 @@
+[
+  {
+    "id": 1,
+    "name": "Veg Grill Sandwich",
+    "cat": "grill-sandwich",
+    "catName": "Grill Sandwich"
+  },
+  {
+    "id": 2,
+    "name": "Veg Cheese Sandwich",
+    "cat": "grill-sandwich",
+    "catName": "Grill Sandwich"
+  },
+  {
+    "id": 3,
+    "name": "Corn Cheese",
+    "cat": "grill-sandwich",
+    "catName": "Grill Sandwich"
+  },
+  {
+    "id": 4,
+    "name": "Veg Mayonnaise",
+    "cat": "grill-sandwich",
+    "catName": "Grill Sandwich"
+  },
+  {
+    "id": 5,
+    "name": "Peri Peri Sandwich",
+    "cat": "grill-sandwich",
+    "catName": "Grill Sandwich"
+  },
+  {
+    "id": 6,
+    "name": "Club Cheese",
+    "cat": "grill-sandwich",
+    "catName": "Grill Sandwich"
+  },
+  {
+    "id": 7,
+    "name": "Paneer Tikka Sandwich",
+    "cat": "grill-sandwich",
+    "catName": "Grill Sandwich"
+  },
+  {
+    "id": 8,
+    "name": "Bombay Sandwich",
+    "cat": "grill-sandwich",
+    "catName": "Grill Sandwich"
+  },
+  {
+    "id": 9,
+    "name": "Margherita Pizza",
+    "cat": "pizza",
+    "catName": "Pizza"
+  },
+  {
+    "id": 10,
+    "name": "Sweetcorn Pizza",
+    "cat": "pizza",
+    "catName": "Pizza"
+  },
+  {
+    "id": 11,
+    "name": "Veg Crunch Pizza",
+    "cat": "pizza",
+    "catName": "Pizza"
+  },
+  {
+    "id": 12,
+    "name": "Spicy Veg Pizza",
+    "cat": "pizza",
+    "catName": "Pizza"
+  },
+  {
+    "id": 13,
+    "name": "Farm House Pizza",
+    "cat": "pizza",
+    "catName": "Pizza"
+  },
+  {
+    "id": 14,
+    "name": "Peri Peri Pizza",
+    "cat": "pizza",
+    "catName": "Pizza"
+  },
+  {
+    "id": 15,
+    "name": "Cheese Loaded Pizza",
+    "cat": "pizza",
+    "catName": "Pizza"
+  },
+  {
+    "id": 16,
+    "name": "Crowded House Pizza",
+    "cat": "pizza",
+    "catName": "Pizza"
+  },
+  {
+    "id": 17,
+    "name": "Salted French Fries",
+    "cat": "french-fries",
+    "catName": "French Fries"
+  },
+  {
+    "id": 18,
+    "name": "Masala French Fries",
+    "cat": "french-fries",
+    "catName": "French Fries"
+  },
+  {
+    "id": 19,
+    "name": "Peri Peri French Fries",
+    "cat": "french-fries",
+    "catName": "French Fries"
+  },
+  {
+    "id": 20,
+    "name": "Veg Burger",
+    "cat": "burger",
+    "catName": "Burger"
+  },
+  {
+    "id": 21,
+    "name": "Double Cheese Burger",
+    "cat": "burger",
+    "catName": "Burger"
+  },
+  {
+    "id": 22,
+    "name": "Garlic Cheese Burger",
+    "cat": "burger",
+    "catName": "Burger"
+  },
+  {
+    "id": 23,
+    "name": "Schezwan Cheese Burger",
+    "cat": "burger",
+    "catName": "Burger"
+  },
+  {
+    "id": 24,
+    "name": "Peri Peri Cheese Burger",
+    "cat": "burger",
+    "catName": "Burger"
+  },
+  {
+    "id": 25,
+    "name": "Tandoor Paneer Burger",
+    "cat": "burger",
+    "catName": "Burger"
+  },
+  {
+    "id": 26,
+    "name": "Crispy Paneer Burger",
+    "cat": "burger",
+    "catName": "Burger"
+  },
+  {
+    "id": 27,
+    "name": "Cold Coffee",
+    "cat": "cold-coffee",
+    "catName": "Cold Coffee"
+  },
+  {
+    "id": 28,
+    "name": "Cold Coffee with Ice Cream",
+    "cat": "cold-coffee",
+    "catName": "Cold Coffee"
+  },
+  {
+    "id": 29,
+    "name": "Chocolate Cold Coffee",
+    "cat": "cold-coffee",
+    "catName": "Cold Coffee"
+  },
+  {
+    "id": 30,
+    "name": "Choco Crunch Cold Coffee",
+    "cat": "cold-coffee",
+    "catName": "Cold Coffee"
+  },
+  {
+    "id": 31,
+    "name": "Oreo Milk Shake",
+    "cat": "milk-shake",
+    "catName": "Milk Shake"
+  },
+  {
+    "id": 32,
+    "name": "Strawberry Milk Shake",
+    "cat": "milk-shake",
+    "catName": "Milk Shake"
+  },
+  {
+    "id": 33,
+    "name": "Butter Scotch Milk Shake",
+    "cat": "milk-shake",
+    "catName": "Milk Shake"
+  },
+  {
+    "id": 34,
+    "name": "Vanilla Milk Shake",
+    "cat": "milk-shake",
+    "catName": "Milk Shake"
+  },
+  {
+    "id": 35,
+    "name": "Chocolate Milk Shake",
+    "cat": "milk-shake",
+    "catName": "Milk Shake"
+  },
+  {
+    "id": 36,
+    "name": "Kit Kat Milk Shake",
+    "cat": "milk-shake",
+    "catName": "Milk Shake"
+  },
+  {
+    "id": 37,
+    "name": "Rose Milk Shake",
+    "cat": "milk-shake",
+    "catName": "Milk Shake"
+  },
+  {
+    "id": 38,
+    "name": "Brownie Milk Shake",
+    "cat": "milk-shake",
+    "catName": "Milk Shake"
+  },
+  {
+    "id": 39,
+    "name": "Brownie with Ice Cream",
+    "cat": "brownie",
+    "catName": "Brownie"
+  },
+  {
+    "id": 40,
+    "name": "Roasted Papad",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 41,
+    "name": "Fry Papad",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 42,
+    "name": "Masala Papad",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 43,
+    "name": "Butter Masala Papad",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 44,
+    "name": "Masala Bhakri",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 45,
+    "name": "Cheese Masala Papad",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 46,
+    "name": "Green Salad",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 47,
+    "name": "Tomato Salad",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 48,
+    "name": "Kakdi Salad",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 49,
+    "name": "Aloo Paratha",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 50,
+    "name": "Methi Paratha",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 51,
+    "name": "Paneer Stuff Paratha",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 52,
+    "name": "Paneer Pakoda",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 53,
+    "name": "Cheese Pakoda",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 54,
+    "name": "Harabhara Kabab",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 55,
+    "name": "Aloo Tikki",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 56,
+    "name": "Methi Aloo Tikki",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 57,
+    "name": "Masala Kulcha",
+    "cat": "starters",
+    "catName": "Starters"
+  },
+  {
+    "id": 58,
+    "name": "Paneer Manchurian",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 59,
+    "name": "Paneer Chilly",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 60,
+    "name": "Paneer Finger",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 61,
+    "name": "Crispy Thread Paneer",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 62,
+    "name": "Paneer Shanghai",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 63,
+    "name": "Paneer Peanut Satay",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 64,
+    "name": "Paneer in Hot Garlic Sauce",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 65,
+    "name": "Paneer Crispy",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 66,
+    "name": "Paneer 65",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 67,
+    "name": "Paneer Hot Pan",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 68,
+    "name": "Paneer Barbeque",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 69,
+    "name": "Paneer Steak Schezwan Sauce",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 70,
+    "name": "Thai Panner",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 71,
+    "name": "Paneer Pepper Fry",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 72,
+    "name": "Cottage Cheese Satay",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 73,
+    "name": "Paneer Sesame Satay",
+    "cat": "paneer-starters",
+    "catName": "Paneer Starters"
+  },
+  {
+    "id": 74,
+    "name": "Veg Manchurian",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 75,
+    "name": "Veg Manchurian Gravy",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 76,
+    "name": "Veg Manchurian Chilly",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 77,
+    "name": "Veg Schezwan Finger",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 78,
+    "name": "Veg Crispy",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 79,
+    "name": "Veg 65",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 80,
+    "name": "Gobi Manchurian",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 81,
+    "name": "Gobi 65",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 82,
+    "name": "Gobi Lolly Pop",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 83,
+    "name": "Veg Lolly Pop",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 84,
+    "name": "Baby Corn Chilly",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 85,
+    "name": "Baby Corn Manchurian",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 86,
+    "name": "Baby Corn 65",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 87,
+    "name": "Mushroom Manchurian",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 88,
+    "name": "Mushroom Chilly",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 89,
+    "name": "Gobi Chilly",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 90,
+    "name": "Chinese Bhel",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 91,
+    "name": "Chinese Sizzler",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 92,
+    "name": "Veg Spring Roll",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 93,
+    "name": "Cheese Ball",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 94,
+    "name": "Honey Chilli Potato",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 95,
+    "name": "Shezwan Potato",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 96,
+    "name": "Corn Cheese Balls",
+    "cat": "chinese",
+    "catName": "Chinese"
+  },
+  {
+    "id": 97,
+    "name": "Paneer Tikka Snacks",
+    "cat": "tandoori-starters",
+    "catName": "Tandoori Starters"
+  },
+  {
+    "id": 98,
+    "name": "Tandoori Aloo Tikha",
+    "cat": "tandoori-starters",
+    "catName": "Tandoori Starters"
+  },
+  {
+    "id": 99,
+    "name": "Hariyali Shikh Kabab",
+    "cat": "tandoori-starters",
+    "catName": "Tandoori Starters"
+  },
+  {
+    "id": 100,
+    "name": "Panner Pahadi Tikka",
+    "cat": "tandoori-starters",
+    "catName": "Tandoori Starters"
+  },
+  {
+    "id": 101,
+    "name": "Tandoori Baby Corn",
+    "cat": "tandoori-starters",
+    "catName": "Tandoori Starters"
+  },
+  {
+    "id": 102,
+    "name": "Tandoori Mushroom",
+    "cat": "tandoori-starters",
+    "catName": "Tandoori Starters"
+  },
+  {
+    "id": 103,
+    "name": "Tandoori Platter",
+    "cat": "tandoori-starters",
+    "catName": "Tandoori Starters"
+  },
+  {
+    "id": 104,
+    "name": "Paneer Garlic Tikka",
+    "cat": "tandoori-starters",
+    "catName": "Tandoori Starters"
+  },
+  {
+    "id": 105,
+    "name": "Veg Manchow Soup",
+    "cat": "soup",
+    "catName": "Soup"
+  },
+  {
+    "id": 106,
+    "name": "Hot & Sour Veg Soup",
+    "cat": "soup",
+    "catName": "Soup"
+  },
+  {
+    "id": 107,
+    "name": "Lemon Coriander Soup",
+    "cat": "soup",
+    "catName": "Soup"
+  },
+  {
+    "id": 108,
+    "name": "Veg Noodle Soup",
+    "cat": "soup",
+    "catName": "Soup"
+  },
+  {
+    "id": 109,
+    "name": "Cream of Spinach Soup",
+    "cat": "soup",
+    "catName": "Soup"
+  },
+  {
+    "id": 110,
+    "name": "Cream of Veg Soup",
+    "cat": "soup",
+    "catName": "Soup"
+  },
+  {
+    "id": 111,
+    "name": "Cream of Tomato Soup",
+    "cat": "soup",
+    "catName": "Soup"
+  },
+  {
+    "id": 112,
+    "name": "Cream of Mushroom Soup",
+    "cat": "soup",
+    "catName": "Soup"
+  },
+  {
+    "id": 113,
+    "name": "Amol Special Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 114,
+    "name": "Veg Fried Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 115,
+    "name": "Veg Triple Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 116,
+    "name": "Shezwan Fried Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 117,
+    "name": "Shezwan Triple Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 118,
+    "name": "Mushroom Fried Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 119,
+    "name": "Babycorn Fried Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 120,
+    "name": "Paneer Fried Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 121,
+    "name": "Hongkong Fried Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 122,
+    "name": "Singapuri Fried Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 123,
+    "name": "Onion Chilly Fried Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 124,
+    "name": "Garlic Fried Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 125,
+    "name": "Combination Fried Rice",
+    "cat": "chinese-rice",
+    "catName": "Chinese Rice"
+  },
+  {
+    "id": 126,
+    "name": "Amol Special Noodles",
+    "cat": "noodles",
+    "catName": "Noodles"
+  },
+  {
+    "id": 127,
+    "name": "Thai Hakka Noodles",
+    "cat": "noodles",
+    "catName": "Noodles"
+  },
+  {
+    "id": 128,
+    "name": "Veg Hakka Noodles",
+    "cat": "noodles",
+    "catName": "Noodles"
+  },
+  {
+    "id": 129,
+    "name": "Veg Hongkong Noodles",
+    "cat": "noodles",
+    "catName": "Noodles"
+  },
+  {
+    "id": 130,
+    "name": "Veg Schezwan Noodles",
+    "cat": "noodles",
+    "catName": "Noodles"
+  },
+  {
+    "id": 131,
+    "name": "Mushroom Noodles",
+    "cat": "noodles",
+    "catName": "Noodles"
+  },
+  {
+    "id": 132,
+    "name": "Paneer Noodles",
+    "cat": "noodles",
+    "catName": "Noodles"
+  },
+  {
+    "id": 133,
+    "name": "Babycorn Noodles",
+    "cat": "noodles",
+    "catName": "Noodles"
+  },
+  {
+    "id": 134,
+    "name": "Garlic Corn Noodles",
+    "cat": "noodles",
+    "catName": "Noodles"
+  },
+  {
+    "id": 135,
+    "name": "Tava Bhaji",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 136,
+    "name": "Veg Bhuna",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 137,
+    "name": "Veg Maratha",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 138,
+    "name": "Veg Hyderabadi",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 139,
+    "name": "Veg Kolhapuri",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 140,
+    "name": "Veg Maharani",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 141,
+    "name": "Veg Kadai",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 142,
+    "name": "Veg Makhanwala",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 143,
+    "name": "Veg Banarasi",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 144,
+    "name": "Veg Shahi Kurma",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 145,
+    "name": "Veg Khema",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 146,
+    "name": "Veg Jaipuri",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 147,
+    "name": "Veg Kofta",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 148,
+    "name": "Malai Kofta",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 149,
+    "name": "Nargisi Kofta",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 150,
+    "name": "Methi Masala",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 151,
+    "name": "Methi Malai",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 152,
+    "name": "Methi Malai Mutter",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 153,
+    "name": "Methi Fry",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 154,
+    "name": "Methi Besan",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 155,
+    "name": "Gobi Masala",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 156,
+    "name": "Mushroom Masala",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 157,
+    "name": "Mushroom Methi",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 158,
+    "name": "Stuff Capsicum",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 159,
+    "name": "Stuff Tomato",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 160,
+    "name": "Cheese Tomato",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 161,
+    "name": "Cheese Anguri",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 162,
+    "name": "Palak Maharani",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 163,
+    "name": "Mix Veg",
+    "cat": "main-course",
+    "catName": "Main Course"
+  },
+  {
+    "id": 164,
+    "name": "Dal Fry",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 165,
+    "name": "Dal Tadaka",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 166,
+    "name": "Dal Makhanwala",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 167,
+    "name": "Dal Butter Fry",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 168,
+    "name": "Dal Fry Methi",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 169,
+    "name": "Dal Kolhapuri",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 170,
+    "name": "Dal Achari",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 171,
+    "name": "Dal Maharani",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 172,
+    "name": "Aloo Masala",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 173,
+    "name": "Aloo Jeera",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 174,
+    "name": "Aloo Fry",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 175,
+    "name": "Dum Aloo",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 176,
+    "name": "Aloo Methi",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 177,
+    "name": "Aloo Gobi",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 178,
+    "name": "Aloo Palak",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 179,
+    "name": "Aloo Matar",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 180,
+    "name": "Aloo Capsicum Masala",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 181,
+    "name": "Capsicum Masala",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 182,
+    "name": "Baingan Masala",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 183,
+    "name": "Baingan Bharta",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 184,
+    "name": "Achari Baingan",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 185,
+    "name": "Baingan Aloo",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 186,
+    "name": "Bhendi Masala",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 187,
+    "name": "Bhendi Fry",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 188,
+    "name": "Green Peas Masala",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 189,
+    "name": "Shenga Bhaji",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 190,
+    "name": "Tomato Bhaji",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 191,
+    "name": "Plain Palak",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 192,
+    "name": "Garlic Palak",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 193,
+    "name": "Shev Masala Bhaji",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 194,
+    "name": "Shev Masala Tadka",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 195,
+    "name": "Onion Bhaji",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 196,
+    "name": "Ghati Gravy",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 197,
+    "name": "Besan Fry",
+    "cat": "punjabi-dishes",
+    "catName": "Punjabi Dishes"
+  },
+  {
+    "id": 198,
+    "name": "Paneer Masala",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 199,
+    "name": "Paneer Butter Masala",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 200,
+    "name": "Paneer Kadai",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 201,
+    "name": "Paneer Tikka Masala",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 202,
+    "name": "Paneer Chilly Milly",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 203,
+    "name": "Shahi Panner",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 204,
+    "name": "Mutter Paneer",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 205,
+    "name": "Palak Paneer",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 206,
+    "name": "Paneer Kolhapuri",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 207,
+    "name": "Paneer Hyderabadi",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 208,
+    "name": "Paneer Makhanwala",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 209,
+    "name": "Paneer Kaju Kurma",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 210,
+    "name": "Paneer Burji",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 211,
+    "name": "Paneer Methi",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 212,
+    "name": "Paneer Kofta",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 213,
+    "name": "Paneer Jalfrezi",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 214,
+    "name": "Paneer Sismi",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 215,
+    "name": "Paneer Rajwadi",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 216,
+    "name": "Achar Paneer",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 217,
+    "name": "Paneer Lababdar",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 218,
+    "name": "Paneer Kurkure",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 219,
+    "name": "Paneer Kaju Masala",
+    "cat": "paneer-main-course",
+    "catName": "Paneer Main Course"
+  },
+  {
+    "id": 220,
+    "name": "Kaju Masala",
+    "cat": "kaju-special",
+    "catName": "Kaju Special"
+  },
+  {
+    "id": 221,
+    "name": "Kaju Curry",
+    "cat": "kaju-special",
+    "catName": "Kaju Special"
+  },
+  {
+    "id": 222,
+    "name": "Kaju Mastana",
+    "cat": "kaju-special",
+    "catName": "Kaju Special"
+  },
+  {
+    "id": 223,
+    "name": "Matar Kaju Kurma",
+    "cat": "kaju-special",
+    "catName": "Kaju Special"
+  },
+  {
+    "id": 224,
+    "name": "Veg Kaju Kurma",
+    "cat": "kaju-special",
+    "catName": "Kaju Special"
+  },
+  {
+    "id": 225,
+    "name": "Kaju Masala Creamy",
+    "cat": "kaju-special",
+    "catName": "Kaju Special"
+  },
+  {
+    "id": 226,
+    "name": "Achar Kaju",
+    "cat": "kaju-special",
+    "catName": "Kaju Special"
+  },
+  {
+    "id": 227,
+    "name": "Kaju Palak",
+    "cat": "kaju-special",
+    "catName": "Kaju Special"
+  },
+  {
+    "id": 228,
+    "name": "Amol Veg Garden",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 229,
+    "name": "Amol Veg Handi",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 230,
+    "name": "Amol Veg Pahadi",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 231,
+    "name": "Amol Veg Jalfrezi",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 232,
+    "name": "Amol Veg Hariyali",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 233,
+    "name": "Amol Veg Patiala",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 234,
+    "name": "Amol Veg Chilly Milly",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 235,
+    "name": "Amol Veg Diwani Handi",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 236,
+    "name": "Amol Veg Sham Savera",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 237,
+    "name": "Amol Veg Dilruba",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 238,
+    "name": "Amol Special Paneer Malvani",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 239,
+    "name": "Special Kaju Malvani",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 240,
+    "name": "Amol Veg Malvani",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 241,
+    "name": "Paneer Kaju Malvani",
+    "cat": "amol-special-dishes",
+    "catName": "Amol Special Dishes"
+  },
+  {
+    "id": 242,
+    "name": "Half Plain Rice",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 243,
+    "name": "Basmati Plain Rice",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 244,
+    "name": "Basmati Jeera Rice",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 245,
+    "name": "Half Basmati Jeera Rice",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 246,
+    "name": "Basmati Masala Rice",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 247,
+    "name": "Curd Rice",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 248,
+    "name": "Basmati Ghee Rice",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 249,
+    "name": "Veg Pulav",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 250,
+    "name": "Veg Biryani",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 251,
+    "name": "Veg Hyderabadi Biryani",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 252,
+    "name": "Green Peas Pulav",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 253,
+    "name": "Dal Chawal Khichadi",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 254,
+    "name": "Dal Khichadi Tadka",
+    "cat": "rice",
+    "catName": "Rice"
+  },
+  {
+    "id": 255,
+    "name": "Kanda Raita",
+    "cat": "raita",
+    "catName": "Raita"
+  },
+  {
+    "id": 256,
+    "name": "Kakdi Raita",
+    "cat": "raita",
+    "catName": "Raita"
+  },
+  {
+    "id": 257,
+    "name": "Boondi Raita",
+    "cat": "raita",
+    "catName": "Raita"
+  },
+  {
+    "id": 258,
+    "name": "Kadak Bhakari",
+    "cat": "bhartiya-roti",
+    "catName": "Bhartiya Roti"
+  },
+  {
+    "id": 259,
+    "name": "Chapati",
+    "cat": "bhartiya-roti",
+    "catName": "Bhartiya Roti"
+  },
+  {
+    "id": 260,
+    "name": "Butter Chapati",
+    "cat": "bhartiya-roti",
+    "catName": "Bhartiya Roti"
+  },
+  {
+    "id": 261,
+    "name": "Tava Paratha",
+    "cat": "bhartiya-roti",
+    "catName": "Bhartiya Roti"
+  },
+  {
+    "id": 262,
+    "name": "Butter Tava Paratha",
+    "cat": "bhartiya-roti",
+    "catName": "Bhartiya Roti"
+  },
+  {
+    "id": 263,
+    "name": "Tandoori Roti",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 264,
+    "name": "Butter Tandoori Roti",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 265,
+    "name": "Plain Naan",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 266,
+    "name": "Butter Naan",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 267,
+    "name": "Cheese Naan",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 268,
+    "name": "Butter Cheese Naan",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 269,
+    "name": "Garlic Naan",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 270,
+    "name": "Butter Garlic Naan",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 271,
+    "name": "Garlic Cheese Naan",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 272,
+    "name": "Butter Cheese Garlic Naan",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 273,
+    "name": "Plain Kulcha",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 274,
+    "name": "Butter Kulcha",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 275,
+    "name": "Laccha Paratha",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 276,
+    "name": "Butter Laccha Paratha",
+    "cat": "tandoori-roti---naan",
+    "catName": "Tandoori Roti & Naan"
+  },
+  {
+    "id": 277,
+    "name": "Vanilla Ice Cream",
+    "cat": "ice-cream---cold-drinks",
+    "catName": "Ice Cream & Cold Drinks"
+  },
+  {
+    "id": 278,
+    "name": "Butterscotch Ice Cream",
+    "cat": "ice-cream---cold-drinks",
+    "catName": "Ice Cream & Cold Drinks"
+  },
+  {
+    "id": 279,
+    "name": "Chocolate Ice Cream",
+    "cat": "ice-cream---cold-drinks",
+    "catName": "Ice Cream & Cold Drinks"
+  },
+  {
+    "id": 280,
+    "name": "Cold Drinks (250 ml)",
+    "cat": "ice-cream---cold-drinks",
+    "catName": "Ice Cream & Cold Drinks"
+  }
+]

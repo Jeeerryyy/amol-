@@ -194,10 +194,17 @@ export async function runMigrations() {
     );
 
     CREATE INDEX IF NOT EXISTS idx_scans_qr_created ON scans(qr_id, created_at);
+    CREATE INDEX IF NOT EXISTS idx_scans_created_at ON scans(created_at);
     CREATE INDEX IF NOT EXISTS idx_review_events_created ON review_events(created_at);
     CREATE INDEX IF NOT EXISTS idx_dishes_category_order ON dishes(category_id, sort_order);
     CREATE INDEX IF NOT EXISTS idx_dishes_scope_visible ON dishes(scope, is_visible);
+    CREATE INDEX IF NOT EXISTS idx_dishes_category_available ON dishes(category_id, is_available, is_visible);
+    CREATE INDEX IF NOT EXISTS idx_dishes_deleted_visible ON dishes(deleted_at, is_visible, sort_order);
     CREATE INDEX IF NOT EXISTS idx_categories_order ON categories(sort_order);
+    CREATE INDEX IF NOT EXISTS idx_gallery_items_visible_sort ON gallery_items(is_visible, sort_order, created_at);
+    CREATE INDEX IF NOT EXISTS idx_popular_dishes_visible ON popular_dishes(is_visible, sort_order);
+    CREATE INDEX IF NOT EXISTS idx_dish_images_dish ON dish_images(dish_id, sort_order);
+    CREATE INDEX IF NOT EXISTS idx_dish_variants_dish ON dish_variants(dish_id, sort_order);
     CREATE INDEX IF NOT EXISTS idx_sessions_token ON sessions(token);
     CREATE INDEX IF NOT EXISTS idx_sessions_expires ON sessions(expires_at);
   `;
