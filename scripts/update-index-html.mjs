@@ -306,9 +306,19 @@ const updatedHtml = `<!DOCTYPE html>
     <script type="application/ld+json">
 ${JSON.stringify(homeJsonLd, null, 2)}
     </script>
+    <style>
+      html, body {
+        background-color: #FAF4EC;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
   </head>
   <body>
-    <div id="root">${prerenderedShell}</div>
+    <div id="root"></div>
+    <noscript>
+${prerenderedShell}
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

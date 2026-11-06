@@ -24,3 +24,4 @@ print(f'Saved {webp_path}: {os.path.getsize(webp_path)/1024:.1f} KB')
 im_quant = im512.quantize(colors=256, method=2)
 im_quant.save(logo_path, optimize=True)
 print(f'Saved {logo_path}: {os.path.getsize(logo_path)/1024:.1f} KB')
+
