@@ -73,7 +73,7 @@ export const AdminQRCodes: React.FC = () => {
     <div>
       <div className="admin-page-header">
         <div>
-          <h1 className="admin-page-title admin-heading-serif">Dynamic QR Codes</h1>
+          <h1 className="admin-page-title">Dynamic QR Codes</h1>
           <p className="admin-page-subtitle">
             Update menu destinations anytime without re-printing table tents. Download print-ready A5 stands.
           </p>
@@ -134,7 +134,7 @@ export const AdminQRCodes: React.FC = () => {
                   style={{
                     width: '140px',
                     height: '140px',
-                    backgroundColor: '#FAF4EC',
+                    backgroundColor: 'var(--admin-surface-subtle)',
                     border: '1.5px solid var(--admin-border)',
                     borderRadius: '12px',
                     padding: '8px',

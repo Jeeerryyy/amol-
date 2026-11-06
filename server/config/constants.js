@@ -21,3 +21,4 @@ export const RATE_LIMITS = {
 export const SECURITY_HEADERS = {
   CSP_ADMIN: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com; connect-src 'self' https://api.cloudinary.com https://generativelanguage.googleapis.com; media-src 'self' blob: https://res.cloudinary.com https://videos.pexels.com;",
 };
+

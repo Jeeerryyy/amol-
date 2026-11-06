@@ -9,3 +9,4 @@ seedDatabase()
     console.error('[Seed Error]', err);
     process.exit(1);
   });
+

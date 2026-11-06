@@ -44,3 +44,4 @@ export function errorHandler(err, req, res, next) {
 
   return res.status(statusCode).json(responsePayload);
 }
+

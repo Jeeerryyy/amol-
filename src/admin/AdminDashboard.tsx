@@ -59,12 +59,12 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       {/* Top Controls & Title */}
       <div className="admin-page-header">
         <div>
-          <h1 className="admin-page-title admin-heading-serif">Dashboard Overview</h1>
+          <h1 className="admin-page-title">Dashboard Overview</h1>
           <p className="admin-page-subtitle">Real-time scan metrics, menu status & guest engagement</p>
         </div>
 
         {/* Date Range Selector */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#FFFFFF', padding: '4px', borderRadius: 'var(--admin-radius-md)', border: '1px solid var(--admin-border)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--admin-surface-card)', padding: '4px', borderRadius: 'var(--admin-radius-sm)', border: '1px solid var(--admin-border)', boxShadow: 'var(--admin-shadow-sm)' }}>
           {['Today', '7D', '30D', '90D', 'All'].map((r) => (
             <button
               key={r}
@@ -72,13 +72,13 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               onClick={() => setRange(r)}
               style={{
                 padding: '6px 12px',
-                fontSize: '13px',
+                fontSize: '12px',
                 fontWeight: 600,
                 border: 'none',
                 borderRadius: '6px',
                 cursor: 'pointer',
-                background: range === r ? 'var(--admin-accent)' : 'transparent',
-                color: range === r ? '#FFFFFF' : 'var(--admin-text-muted)',
+                background: range === r ? 'var(--admin-primary-action)' : 'transparent',
+                color: range === r ? '#FFFFFF' : 'var(--admin-text-secondary)',
               }}
             >
               {r}
@@ -233,8 +233,8 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                     textTransform: 'uppercase',
                     borderRadius: '4px',
                     border: '1px solid var(--admin-border)',
-                    background: peakFilter === f ? 'var(--admin-accent)' : '#FFFFFF',
-                    color: peakFilter === f ? '#FFFFFF' : 'var(--admin-text-muted)',
+                    background: peakFilter === f ? 'var(--admin-primary-action)' : 'var(--admin-surface-card)',
+                    color: peakFilter === f ? '#FFFFFF' : 'var(--admin-text-secondary)',
                     cursor: 'pointer',
                   }}
                 >
@@ -267,7 +267,7 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                     style={{
                       width: '100%',
                       height: `${Math.max(barHeight, count > 0 ? 4 : 1)}px`,
-                      backgroundColor: count > 0 ? 'var(--admin-accent)' : '#E8DACB',
+                      backgroundColor: count > 0 ? 'var(--admin-primary-action)' : 'var(--admin-surface-subtle)',
                       borderRadius: '3px 3px 0 0',
                       transition: 'height 0.2s ease',
                     }}
@@ -317,7 +317,7 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                       width: '100%',
                       maxWidth: '36px',
                       height: `${Math.max(barHeight, count > 0 ? 6 : 2)}px`,
-                      backgroundColor: count > 0 ? 'var(--admin-text-main)' : '#E8DACB',
+                      backgroundColor: count > 0 ? 'var(--admin-brand-black)' : 'var(--admin-surface-subtle)',
                       borderRadius: '4px 4px 0 0',
                     }}
                   />
@@ -346,14 +346,14 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               {(['Android', 'iOS', 'Desktop', 'Other'] as const).map((dev) => {
                 const count = (devices as any)[dev] || 0;
                 const pct = totalDeviceScans > 0 ? Math.round((count / totalDeviceScans) * 100) : 0;
-                const colors: any = { Android: '#2E7D32', iOS: '#C85A17', Desktop: '#2B170B', Other: '#9C8575' };
+                const colors: any = { Android: 'var(--admin-success)', iOS: 'var(--admin-primary-action)', Desktop: 'var(--admin-brand-black)', Other: 'var(--admin-text-secondary)' };
                 return (
                   <div key={dev}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', marginBottom: '3px' }}>
                       <span style={{ fontWeight: 600 }}>{dev}</span>
                       <span style={{ color: 'var(--admin-text-dim)' }}>{count} ({pct}%)</span>
                     </div>
-                    <div style={{ height: '7px', background: '#F1E5D8', borderRadius: '4px', overflow: 'hidden' }}>
+                    <div style={{ height: '7px', background: 'var(--admin-surface-subtle)', borderRadius: '4px', overflow: 'hidden' }}>
                       <div style={{ width: `${pct}%`, height: '100%', backgroundColor: colors[dev] }} />
                     </div>
                   </div>
@@ -394,7 +394,7 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         <div className="admin-card" style={{ marginBottom: 0 }}>
           <div className="admin-card-header">
             <h3 className="admin-card-title">Reviews Analytics</h3>
-            <Star size={18} color="#E65100" />
+            <Star size={18} color="var(--admin-warning)" />
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>

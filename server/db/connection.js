@@ -6,7 +6,7 @@ import { env } from '../config/env.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const isPostgres = Boolean(
+const isPostgres = Boolean(
   env.databaseUrl && (env.databaseUrl.startsWith('postgres://') || env.databaseUrl.startsWith('postgresql://'))
 );
 
@@ -108,3 +108,4 @@ export const db = {
 };
 
 export default db;
+

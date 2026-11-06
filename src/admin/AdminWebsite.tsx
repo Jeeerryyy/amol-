@@ -585,7 +585,7 @@ export const AdminWebsite: React.FC = () => {
                         <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#666' }}>{dish.description}</p>
                       </td>
                       <td>
-                        <span style={{ fontWeight: 'bold', color: '#C85A17' }}>{dish.price}</span>
+                        <span style={{ fontWeight: 'bold', color: 'var(--admin-primary-action)' }}>{dish.price}</span>
                       </td>
                       <td>
                         <span className={`admin-badge ${dish.is_visible ? 'admin-badge-success' : 'admin-badge-neutral'}`}>
@@ -632,7 +632,7 @@ export const AdminWebsite: React.FC = () => {
                           alignItems: 'center',
                           gap: '12px',
                           padding: '10px',
-                          border: '1px solid #e0d8cc',
+                          border: '1px solid var(--admin-border)',
                           borderRadius: '8px',
                           cursor: 'pointer',
                           background: '#fff',
@@ -646,10 +646,10 @@ export const AdminWebsite: React.FC = () => {
                             style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '4px' }}
                           />
                         ) : (
-                          <div style={{ width: '48px', height: '48px', background: '#f0ece1', borderRadius: '4px' }} />
+                          <div style={{ width: '48px', height: '48px', background: 'var(--admin-surface-subtle)', borderRadius: '4px' }} />
                         )}
                         <div style={{ flex: 1 }}>
-                          <strong style={{ fontSize: '14px', color: '#3A1E05' }}>{dish.name}</strong>
+                          <strong style={{ fontSize: '14px', color: 'var(--admin-text-main)' }}>{dish.name}</strong>
                           <div style={{ fontSize: '12px', color: '#888' }}>
                             {dish.price_type === 'single' ? `₹${dish.price}` : 'Variants'}
                           </div>
@@ -754,7 +754,7 @@ export const AdminWebsite: React.FC = () => {
                     {uploadProgress !== null && (
                       <div style={{ marginTop: '6px' }}>
                         <div style={{ height: '6px', background: '#eee', borderRadius: '3px', overflow: 'hidden' }}>
-                          <div style={{ height: '100%', width: `${uploadProgress}%`, background: '#C85A17' }} />
+                          <div style={{ height: '100%', width: `${uploadProgress}%`, background: 'var(--admin-primary-action)' }} />
                         </div>
                         <span style={{ fontSize: '12px', color: '#666' }}>Uploading {uploadProgress}%...</span>
                       </div>
@@ -799,7 +799,7 @@ export const AdminWebsite: React.FC = () => {
           {uploadProgress !== null && (
             <div style={{ marginBottom: '16px', padding: '12px', background: '#fff', borderRadius: '8px', border: '1px solid #ddd' }}>
               <div style={{ height: '6px', background: '#eee', borderRadius: '3px', overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: `${uploadProgress}%`, background: '#C85A17', transition: 'width 0.2s' }} />
+                <div style={{ height: '100%', width: `${uploadProgress}%`, background: 'var(--admin-primary-action)', transition: 'width 0.2s' }} />
               </div>
               <span style={{ fontSize: '12px', color: '#666', marginTop: '4px', display: 'inline-block' }}>
                 Uploading image directly to Cloudinary ({uploadProgress}%)...
@@ -819,7 +819,8 @@ export const AdminWebsite: React.FC = () => {
                   style={{
                     background: '#fff',
                     borderRadius: '8px',
-                    border: '1px solid #e0d8cc',
+                    border: '1px solid var(--admin-border)',
+                    boxShadow: 'var(--admin-shadow-sm)',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
@@ -847,7 +848,7 @@ export const AdminWebsite: React.FC = () => {
                     </div>
                   </div>
                   <div style={{ padding: '12px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    <strong style={{ fontSize: '13px', color: '#3A1E05' }}>{item.caption || item.alt_text}</strong>
+                    <strong style={{ fontSize: '13px', color: 'var(--admin-text-main)' }}>{item.caption || item.alt_text}</strong>
                     <span style={{ fontSize: '12px', color: '#777', marginTop: '4px' }}>
                       Alt: <em>{item.alt_text}</em>
                     </span>
@@ -998,7 +999,7 @@ export const AdminWebsite: React.FC = () => {
       {activeTab === 'contact' && (
         <div style={{ maxWidth: '720px' }}>
           <form onSubmit={handleSaveContact} className="admin-card" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <h3 style={{ margin: '0 0 8px', fontSize: '18px', color: '#3A1E05' }}>Contact Information</h3>
+            <h3 style={{ margin: '0 0 8px', fontSize: '18px', color: 'var(--admin-text-heading)' }}>Contact Information</h3>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
@@ -1074,7 +1075,7 @@ export const AdminWebsite: React.FC = () => {
               />
             </div>
 
-            <h3 style={{ margin: '16px 0 0', fontSize: '18px', color: '#3A1E05' }}>Social Media Profiles</h3>
+            <h3 style={{ margin: '16px 0 0', fontSize: '18px', color: 'var(--admin-text-heading)' }}>Social Media Profiles</h3>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
@@ -1114,7 +1115,7 @@ export const AdminWebsite: React.FC = () => {
       {activeTab === 'footer' && (
         <div style={{ maxWidth: '720px' }}>
           <form onSubmit={handleSaveFooter} className="admin-card" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <h3 style={{ margin: '0 0 8px', fontSize: '18px', color: '#3A1E05' }}>Footer & Compliance Settings</h3>
+            <h3 style={{ margin: '0 0 8px', fontSize: '18px', color: 'var(--admin-text-heading)' }}>Footer & Compliance Settings</h3>
 
             <div>
               <label className="admin-form-label">FSSAI License Number</label>
@@ -1192,7 +1193,7 @@ export const AdminWebsite: React.FC = () => {
           {selectedLegalPage && (
             <form onSubmit={handleSaveLegalPage} className="admin-card" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ margin: 0, fontSize: '18px', color: '#3A1E05' }}>Edit {selectedLegalPage.title}</h3>
+                <h3 style={{ margin: 0, fontSize: '18px', color: 'var(--admin-text-heading)' }}>Edit {selectedLegalPage.title}</h3>
                 <span style={{ fontSize: '12px', color: '#888' }}>
                   Last updated: {new Date(selectedLegalPage.updated_at).toLocaleDateString('en-IN')}
                 </span>
@@ -1228,8 +1229,8 @@ export const AdminWebsite: React.FC = () => {
                 />
               </div>
 
-              <div style={{ padding: '12px', background: '#fdfbf7', border: '1px solid #ebd9c4', borderRadius: '6px' }}>
-                <strong style={{ fontSize: '12px', color: '#8d4c1b' }}>Live Preview:</strong>
+              <div style={{ padding: '12px', background: 'var(--admin-surface-subtle)', border: '1px solid var(--admin-border)', borderRadius: 'var(--admin-radius-sm)' }}>
+                <strong style={{ fontSize: '12px', color: 'var(--admin-text-main)' }}>Live Preview:</strong>
                 <div
                   style={{ marginTop: '8px', fontSize: '13px', lineHeight: 1.6 }}
                   dangerouslySetInnerHTML={{ __html: selectedLegalPage.content_html }}
@@ -1259,7 +1260,7 @@ export const AdminWebsite: React.FC = () => {
             {seoPages.map((page) => (
               <div key={page.id} className="admin-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <strong style={{ fontSize: '16px', color: '#C85A17' }}>{page.page_name}</strong>
+                  <strong style={{ fontSize: '16px', color: 'var(--admin-primary-action)' }}>{page.page_name}</strong>
                   <span className={`admin-badge ${page.noindex ? 'admin-badge-warning' : 'admin-badge-success'}`}>
                     {page.noindex ? 'noindex (hidden from Google)' : 'indexed'}
                   </span>
@@ -1317,7 +1318,7 @@ export const AdminWebsite: React.FC = () => {
                       setSeoPages(updated);
                     }}
                   />
-                  <label htmlFor={`noindex_${page.id}`} style={{ fontSize: '13px', color: '#3A1E05' }}>
+                  <label htmlFor={`noindex_${page.id}`} style={{ fontSize: '13px', color: 'var(--admin-text-main)' }}>
                     Exclude from search engines (noindex)
                   </label>
                 </div>

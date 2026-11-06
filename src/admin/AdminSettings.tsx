@@ -152,7 +152,7 @@ export const AdminSettings: React.FC = () => {
       {activeTab === 'account' && (
         <div style={{ maxWidth: '580px' }}>
           <form onSubmit={handleSaveAccount} className="admin-card" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <h3 style={{ margin: '0 0 4px', fontSize: '18px', color: '#3A1E05' }}>Owner Credentials</h3>
+            <h3 style={{ margin: '0 0 4px', fontSize: '18px', color: 'var(--admin-text-heading)' }}>Owner Credentials</h3>
             <p style={{ margin: 0, fontSize: '13px', color: '#666', lineHeight: 1.5 }}>
               Change your owner email or password. Password changes require confirming your current password.
             </p>
@@ -183,7 +183,7 @@ export const AdminSettings: React.FC = () => {
               />
             </div>
 
-            <hr style={{ border: 'none', borderTop: '1px solid #ebd9c4', margin: '8px 0' }} />
+            <hr style={{ border: 'none', borderTop: '1px solid var(--admin-border-subtle)', margin: '8px 0' }} />
 
             <div>
               <label className="admin-form-label">New Password (leave blank to keep current)</label>
@@ -221,9 +221,9 @@ export const AdminSettings: React.FC = () => {
             </div>
           </form>
 
-          <div style={{ marginTop: '20px', padding: '14px', background: '#fff', border: '1px solid #e0d8cc', borderRadius: '8px', fontSize: '13px', color: '#666' }}>
+          <div style={{ marginTop: '20px', padding: '14px', background: 'var(--admin-surface-card)', border: '1px solid var(--admin-border)', borderRadius: 'var(--admin-radius-sm)', fontSize: '13px', color: 'var(--admin-text-secondary)', boxShadow: 'var(--admin-shadow-sm)' }}>
             <strong>💡 CLI Emergency Reset:</strong> If you are locked out or forget your password, you can run from the server terminal:
-            <pre style={{ margin: '6px 0 0', padding: '8px', background: '#f5efe6', borderRadius: '4px', overflowX: 'auto' }}>
+            <pre style={{ margin: '6px 0 0', padding: '8px', background: 'var(--admin-surface-subtle)', border: '1px solid var(--admin-border-subtle)', borderRadius: '4px', overflowX: 'auto' }}>
               node scripts/reset-password.js newPasswordHere
             </pre>
           </div>
@@ -236,7 +236,7 @@ export const AdminSettings: React.FC = () => {
       {activeTab === 'pricing' && (
         <div style={{ maxWidth: '640px' }}>
           <form onSubmit={handleSavePricing} className="admin-card" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <h3 style={{ margin: '0 0 4px', fontSize: '18px', color: '#3A1E05' }}>Special Menu Auto-Pricing Engine</h3>
+            <h3 style={{ margin: '0 0 4px', fontSize: '18px', color: 'var(--admin-text-heading)' }}>Special Menu Auto-Pricing Engine</h3>
             <p style={{ margin: 0, fontSize: '13px', color: '#666', lineHeight: 1.5 }}>
               Dishes marked for "Both menus" automatically calculate their Special Menu price based on the base price plus this markup percentage, rounded to the selected step. Dishes with a manual override will never be modified.
             </p>
@@ -256,7 +256,7 @@ export const AdminSettings: React.FC = () => {
                     placeholder="Enter the amount"
                     required
                   />
-                  <span style={{ fontWeight: 'bold', color: '#C85A17' }}>%</span>
+                  <span style={{ fontWeight: 'bold', color: 'var(--admin-primary-action)' }}>%</span>
                 </div>
                 <span style={{ fontSize: '12px', color: '#888', marginTop: '4px', display: 'block' }}>
                   Default is 10% markup applied to base pricing.
@@ -281,17 +281,17 @@ export const AdminSettings: React.FC = () => {
             </div>
 
             {/* Live Calculation Preview Box */}
-            <div style={{ padding: '16px', background: '#fdfbf7', border: '1px solid #ebd9c4', borderRadius: '8px' }}>
-              <strong style={{ fontSize: '13px', color: '#8d4c1b' }}>Formula Live Demonstration:</strong>
+            <div style={{ padding: '16px', background: 'var(--admin-surface-subtle)', border: '1px solid var(--admin-border)', borderRadius: 'var(--admin-radius-sm)' }}>
+              <strong style={{ fontSize: '13px', color: 'var(--admin-text-main)' }}>Formula Live Demonstration:</strong>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', marginTop: '10px', textAlign: 'center' }}>
                 {[100, 110, 120, 150].map((base) => {
                   const marked = base * (1 + pricing.special_markup_percent / 100);
                   const step = pricing.rounding_step || 1;
                   const special = Math.round(marked / step) * step;
                   return (
-                    <div key={base} style={{ background: '#fff', padding: '8px', borderRadius: '6px', border: '1px solid #e0d8cc' }}>
+                    <div key={base} style={{ background: 'var(--admin-surface-card)', padding: '10px', borderRadius: 'var(--admin-radius-sm)', border: '1px solid var(--admin-border)', boxShadow: 'var(--admin-shadow-sm)' }}>
                       <div style={{ fontSize: '12px', color: '#888' }}>Base ₹{base}</div>
-                      <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#C85A17', marginTop: '2px' }}>
+                      <div style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--admin-primary-action)', marginTop: '2px' }}>
                         ₹{special}
                       </div>
                     </div>
@@ -320,7 +320,7 @@ export const AdminSettings: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '720px' }}>
           {/* Card 1: Content Backup */}
           <div className="admin-card">
-            <h3 style={{ margin: '0 0 6px', fontSize: '18px', color: '#3A1E05' }}>Full Website & Menu Backup (JSON)</h3>
+            <h3 style={{ margin: '0 0 6px', fontSize: '18px', color: 'var(--admin-text-heading)' }}>Full Website & Menu Backup (JSON)</h3>
             <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#666', lineHeight: 1.5 }}>
               Export all restaurant dishes, categories, gallery items, popular dishes, contact info, review options, and SEO metadata in a single structured JSON file.
             </p>
@@ -334,7 +334,7 @@ export const AdminSettings: React.FC = () => {
 
           {/* Card 2: QR Scan Analytics CSV */}
           <div className="admin-card">
-            <h3 style={{ margin: '0 0 6px', fontSize: '18px', color: '#3A1E05' }}>QR Scan Logs (CSV)</h3>
+            <h3 style={{ margin: '0 0 6px', fontSize: '18px', color: 'var(--admin-text-heading)' }}>QR Scan Logs (CSV)</h3>
             <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#666', lineHeight: 1.5 }}>
               Export raw scan activity logs (QR type, device, operating system, browser, and IST timestamp) formatted for Excel or Google Sheets.
             </p>
@@ -377,7 +377,7 @@ export const AdminSettings: React.FC = () => {
 
           {/* Card 3: Review Events CSV */}
           <div className="admin-card">
-            <h3 style={{ margin: '0 0 6px', fontSize: '18px', color: '#3A1E05' }}>Review Activity Logs (CSV)</h3>
+            <h3 style={{ margin: '0 0 6px', fontSize: '18px', color: 'var(--admin-text-heading)' }}>Review Activity Logs (CSV)</h3>
             <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#666', lineHeight: 1.5 }}>
               Export customer review interactions (started vs submitted, selected star ratings, and chosen highlight tags).
             </p>

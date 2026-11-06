@@ -44,3 +44,4 @@ router.post('/api/generate-review', handleGenerateReview);
 router.use('/', publicRoutes); // Dynamic QR redirect (/q/:code) and /api/public/*
 
 export default router;
+

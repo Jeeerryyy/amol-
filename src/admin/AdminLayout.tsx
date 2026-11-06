@@ -1,4 +1,14 @@
 import React from 'react';
+import {
+  LayoutDashboard,
+  QrCode,
+  UtensilsCrossed,
+  Globe,
+  Star,
+  Settings,
+  ExternalLink,
+  LogOut,
+} from 'lucide-react';
 
 export type AdminSection = 'dashboard' | 'qrcodes' | 'menus' | 'website' | 'reviews' | 'settings';
 
@@ -17,13 +27,13 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   userEmail,
   children,
 }) => {
-  const navItems: Array<{ id: AdminSection; label: string; icon: string }> = [
-    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { id: 'qrcodes', label: 'QR Codes', icon: '📱' },
-    { id: 'menus', label: 'Menus', icon: '🍽️' },
-    { id: 'website', label: 'Website', icon: '🌐' },
-    { id: 'reviews', label: 'Reviews', icon: '⭐' },
-    { id: 'settings', label: 'Settings', icon: '⚙️' },
+  const navItems = [
+    { id: 'dashboard' as const, label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'qrcodes' as const, label: 'QR Codes', icon: QrCode },
+    { id: 'menus' as const, label: 'Menus', icon: UtensilsCrossed },
+    { id: 'website' as const, label: 'Website', icon: Globe },
+    { id: 'reviews' as const, label: 'Reviews', icon: Star },
+    { id: 'settings' as const, label: 'Settings', icon: Settings },
   ];
 
   return (
@@ -34,19 +44,16 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           <img
             src="/logo.png"
             alt="Amol Veg Resto"
-            style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '8px',
-              objectFit: 'cover',
-            }}
+            className="admin-header-logo"
           />
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span className="admin-header-title">Amol Veg Restaurant</span>
               <span className="admin-header-badge">Admin</span>
             </div>
-            <div style={{ fontSize: '11px', color: '#888' }}>{userEmail}</div>
+            <div style={{ fontSize: '12px', color: 'var(--admin-text-secondary)', marginTop: '1px' }}>
+              {userEmail}
+            </div>
           </div>
         </div>
 
@@ -57,31 +64,28 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
             rel="noopener noreferrer"
             className="admin-btn admin-btn-outline"
             style={{
-              padding: '6px 14px',
               fontSize: '13px',
-              display: 'inline-flex',
-              alignItems: 'center',
               gap: '6px',
               textDecoration: 'none',
-              minHeight: '38px',
+              height: '36px',
             }}
           >
-            <span className='admin-header-btn-text'>View Public Site</span>
-            <span>↗</span>
+            <span className="admin-header-btn-text">View Public Site</span>
+            <ExternalLink size={14} />
           </a>
 
           <button
             onClick={onLogout}
             className="admin-btn admin-btn-outline"
             style={{
-              padding: '6px 14px',
               fontSize: '13px',
-              color: '#C62828',
-              borderColor: '#E8DACB',
-              minHeight: '38px',
+              color: 'var(--admin-text-secondary)',
+              gap: '6px',
+              height: '36px',
             }}
           >
-            Logout
+            <LogOut size={14} />
+            <span>Logout</span>
           </button>
         </div>
       </header>
@@ -92,22 +96,35 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         <aside className="admin-sidebar">
           <nav>
             <ul className="admin-nav-list">
-              {navItems.map((item) => (
-                <li key={item.id}>
-                  <button
-                    className={`admin-nav-item ${activeSection === item.id ? 'active' : ''}`}
-                    onClick={() => onSelectSection(item.id)}
-                  >
-                    <span style={{ fontSize: '18px' }}>{item.icon}</span>
-                    <span>{item.label}</span>
-                  </button>
-                </li>
-              ))}
+              {navItems.map((item) => {
+                const IconComponent = item.icon;
+                const isActive = activeSection === item.id;
+                return (
+                  <li key={item.id}>
+                    <button
+                      className={`admin-nav-item ${isActive ? 'active' : ''}`}
+                      onClick={() => onSelectSection(item.id)}
+                    >
+                      <IconComponent size={18} strokeWidth={isActive ? 2.2 : 1.8} />
+                      <span>{item.label}</span>
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
-          <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '1px solid #E8DACB', fontSize: '12px', color: '#9C8575' }}>
-            <div>Amol Pure Veg Admin</div>
+          <div
+            style={{
+              marginTop: 'auto',
+              paddingTop: '20px',
+              borderTop: '1px solid var(--admin-border)',
+              fontSize: '12px',
+              color: 'var(--admin-text-tertiary)',
+              lineHeight: 1.6,
+            }}
+          >
+            <div style={{ fontWeight: 500, color: 'var(--admin-text-secondary)' }}>Amol Veg Resto</div>
             <div>Timezone: Asia/Kolkata (IST)</div>
             <div>Currency: INR (₹)</div>
           </div>
@@ -117,20 +134,25 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         <main className="admin-main-viewport">{children}</main>
       </div>
 
-      {/* Mobile Bottom Navigation Bar (Visible only on < 860px) */}
+      {/* Mobile Bottom Navigation Bar (Visible on < 860px) */}
       <nav className="admin-mobile-nav" aria-label="Mobile Navigation">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            className={`admin-mobile-nav-btn ${activeSection === item.id ? 'active' : ''}`}
-            onClick={() => onSelectSection(item.id)}
-          >
-            <span style={{ fontSize: '18px' }}>{item.icon}</span>
-            <span>{item.label}</span>
-          </button>
-        ))}
+        {navItems.map((item) => {
+          const IconComponent = item.icon;
+          const isActive = activeSection === item.id;
+          return (
+            <button
+              key={item.id}
+              className={`admin-mobile-nav-btn ${isActive ? 'active' : ''}`}
+              onClick={() => onSelectSection(item.id)}
+            >
+              <IconComponent size={20} strokeWidth={isActive ? 2.2 : 1.8} />
+              <span>{item.label}</span>
+            </button>
+          );
+        })}
       </nav>
     </div>
   );
 };
 
+export default AdminLayout;

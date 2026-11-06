@@ -30,5 +30,5 @@ export function securityHeadersMiddleware(req, res, next) {
   next();
 }
 
-export const securityHeaders = securityHeadersMiddleware;
 export default securityHeadersMiddleware;
+

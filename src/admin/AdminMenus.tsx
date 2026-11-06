@@ -489,7 +489,7 @@ export const AdminMenus: React.FC = () => {
       {/* Page Header */}
       <div className="admin-page-header">
         <div>
-          <h1 className="admin-page-title admin-heading-serif">Menus Management</h1>
+          <h1 className="admin-page-title">Menus Management</h1>
           <p className="admin-page-subtitle">
             Manage Dishes, Shared Categories & Hero Video for Main & Special Menus
           </p>
@@ -656,7 +656,7 @@ export const AdminMenus: React.FC = () => {
             <div
               style={{
                 backgroundColor: 'var(--admin-text-main)',
-                color: '#FAF4EC',
+                color: '#FFFFFF',
                 padding: '12px 18px',
                 borderRadius: 'var(--admin-radius-md)',
                 display: 'flex',
@@ -709,7 +709,7 @@ export const AdminMenus: React.FC = () => {
                 <button
                   type="button"
                   className="admin-btn admin-btn-ghost admin-btn-sm"
-                  style={{ color: '#FAF4EC' }}
+                  style={{ color: '#FFFFFF' }}
                   onClick={() => setSelectedDishIds([])}
                 >
                   Clear
@@ -1464,7 +1464,7 @@ export const AdminMenus: React.FC = () => {
                 </span>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '10px' }}>
                   {/* Main Preview */}
-                  <div style={{ background: '#FAF4EC', padding: '10px', borderRadius: '12px', border: '1px solid var(--admin-border)' }}>
+                  <div style={{ background: 'var(--admin-surface-subtle)', padding: '12px', borderRadius: 'var(--admin-radius-sm)', border: '1px solid var(--admin-border)' }}>
                     <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--admin-text-muted)', marginBottom: '4px' }}>MAIN MENU</div>
                     <div style={{ fontWeight: 700, fontSize: '13.5px' }}>{dishForm.name || 'Dish Name'}</div>
                     <div style={{ fontSize: '12.5px', color: 'var(--admin-text-main)', marginTop: '2px' }}>
@@ -1473,7 +1473,7 @@ export const AdminMenus: React.FC = () => {
                   </div>
 
                   {/* Special Preview */}
-                  <div style={{ background: '#FAF4EC', padding: '10px', borderRadius: '12px', border: '1px solid var(--admin-border)' }}>
+                  <div style={{ background: 'var(--admin-surface-subtle)', padding: '12px', borderRadius: 'var(--admin-radius-sm)', border: '1px solid var(--admin-border)' }}>
                     <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--admin-accent)', marginBottom: '4px' }}>SPECIAL MENU</div>
                     <div style={{ fontWeight: 700, fontSize: '13.5px' }}>{dishForm.name || 'Dish Name'}</div>
                     <div style={{ fontSize: '12.5px', color: 'var(--admin-accent)', fontWeight: 700, marginTop: '2px' }}>

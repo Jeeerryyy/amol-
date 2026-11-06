@@ -59,12 +59,12 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
           <img
             src="/logo.png"
             alt="Amol Veg Resto"
-            style={{ width: '64px', height: '64px', borderRadius: '12px', marginBottom: '14px' }}
+            style={{ width: '56px', height: '56px', borderRadius: '10px', marginBottom: '14px', objectFit: 'contain' }}
           />
-          <h1 className="admin-heading-serif" style={{ fontSize: '24px', margin: '0 0 6px 0' }}>
+          <h1 className="admin-heading" style={{ fontSize: '22px', fontWeight: 700, margin: '0 0 6px 0', letterSpacing: '-0.02em', color: 'var(--admin-text-heading)' }}>
             Owner Portal
           </h1>
-          <p style={{ fontSize: '13.5px', color: 'var(--admin-text-muted)', margin: 0 }}>
+          <p style={{ fontSize: '13px', color: 'var(--admin-text-secondary)', margin: 0 }}>
             Sign in to manage menus, content and reviews
           </p>
         </div>

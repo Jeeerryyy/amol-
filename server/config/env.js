@@ -39,3 +39,4 @@ export function getEnvConfig() {
 
 export const env = getEnvConfig();
 export default env;
+

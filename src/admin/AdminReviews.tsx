@@ -328,7 +328,7 @@ export const AdminReviews: React.FC = () => {
                       </div>
                     </td>
                     <td>
-                      <strong style={{ fontSize: '14px', color: '#3A1E05' }}>{opt.label}</strong>
+                      <strong style={{ fontSize: '14px', color: 'var(--admin-text-main)' }}>{opt.label}</strong>
                     </td>
                     <td>
                       <span className={`admin-badge ${opt.positive_only ? 'admin-badge-success' : 'admin-badge-neutral'}`}>
@@ -441,7 +441,7 @@ export const AdminReviews: React.FC = () => {
       {activeTab === 'link' && (
         <div style={{ maxWidth: '640px' }}>
           <form onSubmit={handleSaveGoogleLink} className="admin-card" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <h3 style={{ margin: '0 0 4px', fontSize: '18px', color: '#3A1E05' }}>Google Review Link Configuration</h3>
+            <h3 style={{ margin: '0 0 4px', fontSize: '18px', color: 'var(--admin-text-heading)' }}>Google Review Link Configuration</h3>
             <p style={{ margin: 0, fontSize: '13px', color: '#666', lineHeight: 1.5 }}>
               When customers finish drafting their review, clicking "Post on Google" will open this exact URL.
               Ensure this link is direct to your Google Business Profile review dialog.
@@ -489,7 +489,7 @@ export const AdminReviews: React.FC = () => {
       {activeTab === 'stats' && stats && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {/* Notice alert */}
-          <div style={{ padding: '12px 16px', background: '#fdfbf7', border: '1px solid #ebd9c4', borderRadius: '8px', color: '#8d4c1b', fontSize: '13px' }}>
+          <div style={{ padding: '12px 16px', background: 'var(--admin-surface-subtle)', border: '1px solid var(--admin-border)', borderRadius: 'var(--admin-radius-sm)', color: 'var(--admin-text-secondary)', fontSize: '13px' }}>
             ℹ️ <strong>Privacy Notice:</strong> {stats.notice}
           </div>
 
@@ -503,13 +503,13 @@ export const AdminReviews: React.FC = () => {
 
             <div className="admin-card">
               <span className="admin-kpi-label">Opened Google Review</span>
-              <span className="admin-kpi-value" style={{ color: '#C85A17' }}>{stats.submitted}</span>
+              <span className="admin-kpi-value" style={{ color: 'var(--admin-primary-action)' }}>{stats.submitted}</span>
               <span style={{ fontSize: '12px', color: '#888' }}>Clicked "Post to Google"</span>
             </div>
 
             <div className="admin-card">
               <span className="admin-kpi-label">Completion Rate</span>
-              <span className="admin-kpi-value" style={{ color: '#27ae60' }}>{stats.conversionPercent}%</span>
+              <span className="admin-kpi-value" style={{ color: 'var(--admin-success)' }}>{stats.conversionPercent}%</span>
               <span style={{ fontSize: '12px', color: '#888' }}>Conversion from start</span>
             </div>
 
@@ -524,7 +524,7 @@ export const AdminReviews: React.FC = () => {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
             {/* Star Distribution */}
             <div className="admin-card">
-              <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#3A1E05' }}>Star Rating Distribution</h3>
+              <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: 'var(--admin-text-heading)' }}>Star Rating Distribution</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {[5, 4, 3, 2, 1].map((star) => {
                   const count = stats.starDistribution[star] || 0;
@@ -533,12 +533,12 @@ export const AdminReviews: React.FC = () => {
                   return (
                     <div key={star} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <span style={{ width: '40px', fontSize: '13px', fontWeight: 'bold' }}>{star} ★</span>
-                      <div style={{ flex: 1, height: '14px', background: '#f0ece1', borderRadius: '7px', overflow: 'hidden' }}>
+                      <div style={{ flex: 1, height: '14px', background: 'var(--admin-surface-subtle)', borderRadius: '7px', overflow: 'hidden' }}>
                         <div
                           style={{
                             height: '100%',
                             width: `${pct}%`,
-                            background: star >= 4 ? '#27ae60' : star === 3 ? '#e67e22' : '#d9534f',
+                            background: star >= 4 ? 'var(--admin-success)' : star === 3 ? 'var(--admin-warning)' : 'var(--admin-danger)',
                           }}
                         />
                       </div>
@@ -553,7 +553,7 @@ export const AdminReviews: React.FC = () => {
 
             {/* Most Selected Options */}
             <div className="admin-card">
-              <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#3A1E05' }}>Customer Favorite Highlights</h3>
+              <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: 'var(--admin-text-heading)' }}>Customer Favorite Highlights</h3>
               {Object.keys(stats.optionSelectionCounts).length === 0 ? (
                 <p style={{ color: '#888', fontSize: '13px' }}>No options selected yet.</p>
               ) : (
@@ -565,9 +565,9 @@ export const AdminReviews: React.FC = () => {
                       const optObj = options.find((o) => o.id === optId);
                       const label = optObj?.label || optId;
                       return (
-                        <div key={optId} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid #f0ece1' }}>
-                          <span style={{ fontSize: '13px', color: '#3A1E05' }}>{label}</span>
-                          <span style={{ fontSize: '13px', fontWeight: 'bold', color: '#C85A17' }}>{count} times</span>
+                        <div key={optId} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid var(--admin-border-subtle)' }}>
+                          <span style={{ fontSize: '13px', color: 'var(--admin-text-main)' }}>{label}</span>
+                          <span style={{ fontSize: '13px', fontWeight: 'bold', color: 'var(--admin-primary-action)' }}>{count} times</span>
                         </div>
                       );
                     })}
@@ -578,7 +578,7 @@ export const AdminReviews: React.FC = () => {
 
           {/* Daily Trend (Last 14 Days) */}
           <div className="admin-card">
-            <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#3A1E05' }}>Daily Submissions (Last 14 Days)</h3>
+            <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: 'var(--admin-text-heading)' }}>Daily Submissions (Last 14 Days)</h3>
             {stats.dailyTrend.length === 0 ? (
               <p style={{ color: '#888', fontSize: '13px' }}>No submissions recorded in this period.</p>
             ) : (
@@ -594,7 +594,7 @@ export const AdminReviews: React.FC = () => {
                           width: '100%',
                           maxWidth: '24px',
                           height: `${Math.max(heightPct, 6)}%`,
-                          background: '#C85A17',
+                          background: 'var(--admin-primary-action)',
                           borderRadius: '4px 4px 0 0',
                           marginTop: 'auto',
                         }}
