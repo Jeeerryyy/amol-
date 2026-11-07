@@ -27,6 +27,8 @@ export default defineConfig({
         '**/*.mp4',
         '**/public/**/*.mp4',
         '**/assets/**/*.mp4',
+        '**/public/hero-frames/**',
+        '**/assets/ezgif-6b64a8c72c352624-jpg/**',
         '**/docs/**',
         '**/baseline-screenshots/**',
         '**/audit-artifacts/**',

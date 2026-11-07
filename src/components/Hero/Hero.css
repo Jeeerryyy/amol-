@@ -1,3 +1,8 @@
+/* ==========================================================================
+   AMOL VEG RESTO - CINEMATIC SCROLL-DRIVEN HERO BACKGROUND
+   High-performance HTML5 Canvas with progressive frame loading
+   ========================================================================== */
+
 /* Screen reader only utility (FAANG accessible standard: zero visual/flow layout footprint) */
 .sr-only {
   position: absolute !important;
@@ -11,54 +16,109 @@
   border: 0 !important;
 }
 
-.hero-section {
-  position: relative;
-  min-height: 540px;
-  overflow: hidden;
-  background-color: var(--color-placeholder-bg);
-}
-
-.hero-desktop-content {
+/* 1. Outer Scroll Track: Governs the duration of the scroll animation */
+.hero-scroll-track {
   position: relative;
   width: 100%;
-  min-height: 540px;
-  padding: 72px 0 80px 0;
+  height: 240vh;
+  background-color: var(--color-cream-bg, #FAF4EC);
+}
+
+/* 2. Sticky Frame: Stays pinned in viewport while scrolling through the track */
+.hero-sticky-frame {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 5;
 }
 
-.hero-mobile-content {
-  display: none;
-}
-
-.hero-background-layer {
+/* 3. Canvas Background Layer */
+.hero-canvas-container {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.hero-bg-placeholder {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.hero-bg-overlay {
+/* Static fallback poster for instant LCP before canvas initialization */
+.hero-canvas-poster {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(250, 244, 236, 0.92) 0%,
-    rgba(250, 244, 236, 0.76) 50%,
-    rgba(250, 244, 236, 0.92) 100%
-  );
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  transition: opacity 0.35s ease;
+}
+
+.hero-canvas-poster.fade-out {
+  opacity: 0;
   pointer-events: none;
+}
+
+/* Hardware-accelerated canvas */
+.hero-scroll-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: block;
+}
+
+/* Cinematic luminous overlay for contrast & readability */
+.hero-canvas-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(
+      ellipse at 50% 50%,
+      rgba(250, 244, 236, 0.35) 0%,
+      rgba(250, 244, 236, 0.65) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(250, 244, 236, 0.65) 0%,
+      rgba(250, 244, 236, 0.2) 45%,
+      rgba(250, 244, 236, 0.72) 100%
+    );
+}
+
+/* 4. Content Wrapper: Holds floating hero text with smooth scroll fade */
+.hero-content-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+  will-change: opacity, transform;
+}
+
+/* ==========================================================================
+   DESKTOP HERO CONTENT (> 900px)
+   ========================================================================== */
+.hero-desktop-content {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-container {
@@ -71,13 +131,19 @@
   width: 100%;
 }
 
-/* Left Column: PURE VEG. PURE TASTE. / Authentic Flavours Feel Like Home / ALWAYS AMOL. */
+/* Left Column Card: Frosted luxury glass backing on cream */
 .hero-col-left {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 520px;
-  z-index: 2;
+  max-width: 530px;
+  background: rgba(250, 244, 236, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 28px 36px;
+  border-radius: 24px;
+  border: 1px solid rgba(232, 218, 203, 0.75);
+  box-shadow: 0 10px 32px rgba(43, 23, 11, 0.06);
 }
 
 .hero-eyebrow {
@@ -87,22 +153,26 @@
   letter-spacing: 0.14em;
   color: var(--color-text-dark);
   line-height: 1.2;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .hero-title {
   font-family: var(--font-serif);
-  font-size: clamp(38px, 3.6vw, 52px);
+  font-size: clamp(38px, 3.6vw, 50px);
   font-weight: var(--fw-bold);
   line-height: 1.15;
   color: var(--color-text-dark);
   display: flex;
   flex-direction: column;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
 
 .hero-title-line {
   display: block;
+}
+
+.hero-title-line.text-orange {
+  color: var(--color-accent-orange, #D4561A);
 }
 
 .hero-subtag {
@@ -113,18 +183,20 @@
   color: var(--color-text-muted);
 }
 
-/* Right Column: GOOD FOOD / Brings People Together / SINCE 1990. / EXPLORE MENU */
+/* Right Column Card: Frosted luxury glass backing on cream */
 .hero-col-right {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 360px;
-  padding: 0;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  z-index: 2;
+  max-width: 370px;
+  background: rgba(250, 244, 236, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 28px 34px;
+  border-radius: 24px;
+  border: 1px solid rgba(232, 218, 203, 0.75);
+  box-shadow: 0 10px 32px rgba(43, 23, 11, 0.06);
 }
 
 .right-eyebrow {
@@ -134,7 +206,7 @@
   letter-spacing: 0.14em;
   color: var(--color-text-dark);
   line-height: 1.2;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .hero-right-heading {
@@ -163,7 +235,7 @@
   font-weight: var(--fw-semibold);
   letter-spacing: 0.16em;
   color: var(--color-text-muted);
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .hero-explore-btn {
@@ -178,13 +250,16 @@
   border-radius: var(--radius-pill);
   text-decoration: none;
   gap: 16px;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 4px 14px rgba(212, 86, 26, 0.28);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .hero-explore-btn:hover {
   background-color: var(--color-accent-orange-hover);
   border-color: var(--color-accent-orange-hover);
   color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(212, 86, 26, 0.35);
 }
 
 .explore-text {
@@ -211,141 +286,128 @@
 
 /* ==========================================================================
    MOBILE & TABLET HERO (<= 900px)
-   Matches custom user mockup: top placeholder with wave cut + short centered text + single CTA
+   ========================================================================== */
+.hero-mobile-content {
+  display: none;
+}
+
+/* 5. Scroll Prompt Hint Indicator */
+.hero-scroll-prompt {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.hero-scroll-prompt.faded {
+  opacity: 0;
+  transform: translate(-50%, 12px);
+}
+
+.hero-prompt-text {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--color-text-dark, #2B170B);
+  background: rgba(250, 244, 236, 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 5px 14px;
+  border-radius: 9999px;
+  border: 1px solid rgba(232, 218, 203, 0.85);
+  box-shadow: 0 2px 8px rgba(43, 23, 11, 0.05);
+}
+
+.hero-prompt-icon {
+  color: var(--color-accent-orange, #D4561A);
+  animation: heroPromptBounce 1.8s infinite ease-in-out;
+}
+
+@keyframes heroPromptBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
    ========================================================================== */
 @media (max-width: 900px) {
+  .hero-scroll-track {
+    height: 220vh;
+  }
+
   .hero-desktop-content {
     display: none !important;
   }
 
-  .hero-section {
-    padding: 0 !important;
-    min-height: auto !important;
-    background-color: #FAF4EC !important;
-    display: block !important;
-  }
-
   .hero-mobile-content {
     display: flex !important;
-    flex-direction: column;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Top Placeholder Box Wrapper */
-  .hero-mobile-image-wrap {
-    position: relative;
-    width: 100%;
-    height: clamp(270px, 75vw, 350px);
-    overflow: hidden;
-    background-color: var(--color-placeholder-bg, #D9CFC4);
-  }
-
-  .hero-mobile-placeholder {
-    width: 100% !important;
-    height: 100% !important;
-    background-color: var(--color-placeholder-bg, #D9CFC4) !important;
-    border-radius: 0 !important;
-  }
-
-  .hero-mobile-photo {
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
+    padding: 0 20px;
   }
 
-  /* Wave SVG transition */
-  .hero-mobile-wave-wrap {
-    position: absolute;
-    bottom: -1px;
-    left: 0;
+  .hero-mobile-card {
+    background: rgba(250, 244, 236, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    border: 1.5px solid rgba(232, 218, 203, 0.85);
+    padding: 30px 22px;
     width: 100%;
-    height: 56px;
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  .hero-mobile-wave-svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-
-  /* Content Body */
-  .hero-mobile-body {
-    position: relative;
-    background-color: #FAF4EC;
-    padding: 26px 20px 52px 20px;
+    max-width: 380px;
+    box-shadow: 0 10px 32px rgba(43, 23, 11, 0.08);
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    z-index: 3;
-    overflow: hidden;
   }
 
-  /* Decorative Leaf Silhouettes */
-  .hero-mobile-leaf-bg {
-    position: absolute;
-    width: 88px;
-    height: 88px;
-    pointer-events: none;
-    z-index: 1;
-    color: #6B5545;
-    opacity: 0.16;
-  }
-
-  .hero-mobile-leaf-left {
-    left: 6px;
-    bottom: 4px;
-  }
-
-  .hero-mobile-leaf-right {
-    right: 6px;
-    bottom: 4px;
-  }
-
-  /* Eyebrow flanked by rules */
   .hero-mobile-eyebrow {
-    position: relative;
-    z-index: 2;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 14px;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 14px;
   }
 
-  .eyebrow-line {
-    width: 28px;
+  .hero-mobile-eyebrow .eyebrow-line {
+    width: 24px;
     height: 1.5px;
-    background-color: #BA3D0C;
+    background-color: var(--color-accent-orange, #BA3D0C);
     border-radius: 2px;
   }
 
-  .eyebrow-text {
+  .hero-mobile-eyebrow .eyebrow-text {
     font-family: var(--font-sans);
     font-size: 10.5px;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     color: var(--color-text-dark, #2B170B);
     text-transform: uppercase;
   }
 
-  /* Main Headline */
   .hero-mobile-title {
-    position: relative;
-    z-index: 2;
-    font-family: var(--font-serif, 'Playfair Display', serif);
-    font-size: clamp(30px, 8.4vw, 38px);
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 8vw, 36px);
     font-weight: 800;
-    line-height: 1.16;
+    line-height: 1.18;
     color: var(--color-text-dark, #2B170B);
-    margin: 0 0 14px 0;
-    letter-spacing: -0.015em;
+    margin: 0 0 12px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -360,61 +422,40 @@
   }
 
   .hero-mobile-highlight {
-    color: #C44714;
+    color: var(--color-accent-orange, #C44714);
     font-style: italic;
     font-weight: 800;
   }
 
-  .hero-mobile-leaf-icon {
-    display: inline-block;
-    width: 22px;
-    height: 22px;
-    margin-left: 2px;
-    vertical-align: middle;
-    stroke: #C44714;
-    flex-shrink: 0;
-  }
-
-  /* Subtag */
   .hero-mobile-subtag {
-    position: relative;
-    z-index: 2;
     font-family: var(--font-sans);
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.2em;
     color: var(--color-text-dark, #2B170B);
-    margin: 0 0 24px 0;
+    margin: 0 0 22px 0;
     text-transform: uppercase;
   }
 
-  /* CTA Button */
   .hero-mobile-cta-btn {
-    position: relative;
-    z-index: 2;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     width: 100%;
-    max-width: 320px;
-    height: 52px;
+    max-width: 300px;
+    height: 48px;
     border-radius: var(--radius-pill, 9999px);
-    background-color: #BA3D0C;
+    background-color: var(--color-accent-orange, #BA3D0C);
     color: #FFFFFF !important;
     font-family: var(--font-sans);
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none;
-    box-shadow: 0 5px 20px rgba(186, 61, 12, 0.38);
+    box-shadow: 0 5px 18px rgba(186, 61, 12, 0.35);
     transition: transform 0.15s ease, background-color 0.15s ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .hero-mobile-cta-btn:hover {
-    background-color: #A33307;
   }
 
   .hero-mobile-cta-btn:active {
