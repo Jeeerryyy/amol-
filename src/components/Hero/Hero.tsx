@@ -13,7 +13,8 @@ const getFramePath = (index: number): string => {
 export const Hero: React.FC = () => {
   const { hero } = siteConfig;
   const trackRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const desktopCanvasRef = useRef<HTMLCanvasElement>(null);
+  const mobileCanvasRef = useRef<HTMLCanvasElement>(null);
 
   // Cached HTMLImageElement pool
   const imagesMapRef = useRef<Map<number, HTMLImageElement>>(new Map());
@@ -22,80 +23,104 @@ export const Hero: React.FC = () => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [isFirstFrameLoaded, setIsFirstFrameLoaded] = useState<boolean>(false);
 
-  // Helper to draw an image centered with "cover" aspect ratio onto canvas
-  const drawCover = useCallback((img: HTMLImageElement) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+  // Helper to draw an image centered with "cover" aspect ratio (desktop) or uncropped full width (mobile)
+  const drawToCanvas = useCallback(
+    (canvas: HTMLCanvasElement, img: HTMLImageElement, isMobile: boolean) => {
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
 
-    const width = canvas.width;
-    const height = canvas.height;
-    if (width === 0 || height === 0) return;
+      const width = canvas.width;
+      const height = canvas.height;
+      if (width === 0 || height === 0) return;
 
-    const imgW = img.naturalWidth || 1920;
-    const imgH = img.naturalHeight || 1080;
-    const imgRatio = imgW / imgH;
-    const canvasRatio = width / height;
+      ctx.clearRect(0, 0, width, height);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
 
-    let drawW = width;
-    let drawH = height;
-    let startX = 0;
-    let startY = 0;
+      if (isMobile) {
+        // Mobile requirement: Total background 100% visible, 0px cropped from left and right
+        ctx.drawImage(img, 0, 0, width, height);
+      } else {
+        // Desktop: cover aspect ratio
+        const imgW = img.naturalWidth || 1920;
+        const imgH = img.naturalHeight || 1080;
+        const imgRatio = imgW / imgH;
+        const canvasRatio = width / height;
 
-    if (canvasRatio > imgRatio) {
-      drawH = width / imgRatio;
-      startY = (height - drawH) / 2;
-    } else {
-      drawW = height * imgRatio;
-      startX = (width - drawW) / 2;
-    }
+        let drawW = width;
+        let drawH = height;
+        let startX = 0;
+        let startY = 0;
 
-    ctx.clearRect(0, 0, width, height);
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(img, startX, startY, drawW, drawH);
-  }, []);
+        if (canvasRatio > imgRatio) {
+          drawH = width / imgRatio;
+          startY = (height - drawH) / 2;
+        } else {
+          drawW = height * imgRatio;
+          startX = (width - drawW) / 2;
+        }
+
+        ctx.drawImage(img, startX, startY, drawW, drawH);
+      }
+    },
+    []
+  );
 
   // Find the exact loaded frame or the nearest loaded frame fallback
-  const renderFrame = useCallback((targetIndex: number) => {
-    const images = imagesMapRef.current;
-    let imgToDraw = images.get(targetIndex);
+  const renderFrame = useCallback(
+    (targetIndex: number) => {
+      const images = imagesMapRef.current;
+      let imgToDraw = images.get(targetIndex);
 
-    if (!imgToDraw || !imgToDraw.complete) {
-      // Find nearest loaded frame
-      let closestDiff = Infinity;
-      let closestFrame: HTMLImageElement | null = null;
-      for (const [idx, img] of images.entries()) {
-        if (img.complete && img.naturalWidth > 0) {
-          const diff = Math.abs(idx - targetIndex);
-          if (diff < closestDiff) {
-            closestDiff = diff;
-            closestFrame = img;
+      if (!imgToDraw || !imgToDraw.complete) {
+        // Find nearest loaded frame
+        let closestDiff = Infinity;
+        let closestFrame: HTMLImageElement | null = null;
+        for (const [idx, img] of images.entries()) {
+          if (img.complete && img.naturalWidth > 0) {
+            const diff = Math.abs(idx - targetIndex);
+            if (diff < closestDiff) {
+              closestDiff = diff;
+              closestFrame = img;
+            }
           }
         }
+        imgToDraw = closestFrame || undefined;
       }
-      imgToDraw = closestFrame || undefined;
-    }
 
-    if (imgToDraw) {
-      drawCover(imgToDraw);
-      currentFrameRef.current = targetIndex;
-    }
-  }, [drawCover]);
+      if (imgToDraw) {
+        if (desktopCanvasRef.current && desktopCanvasRef.current.width > 0) {
+          drawToCanvas(desktopCanvasRef.current, imgToDraw, false);
+        }
+        if (mobileCanvasRef.current && mobileCanvasRef.current.width > 0) {
+          drawToCanvas(mobileCanvasRef.current, imgToDraw, true);
+        }
+        currentFrameRef.current = targetIndex;
+      }
+    },
+    [drawToCanvas]
+  );
 
   // Handle canvas sizing on resize
   const resizeCanvas = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    canvas.width = Math.round(rect.width * dpr);
-    canvas.height = Math.round(rect.height * dpr);
+    if (desktopCanvasRef.current) {
+      const rect = desktopCanvasRef.current.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        desktopCanvasRef.current.width = Math.round(rect.width * dpr);
+        desktopCanvasRef.current.height = Math.round(rect.height * dpr);
+      }
+    }
 
-    // Re-render current frame after resize
+    if (mobileCanvasRef.current) {
+      const rect = mobileCanvasRef.current.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        mobileCanvasRef.current.width = Math.round(rect.width * dpr);
+        mobileCanvasRef.current.height = Math.round(rect.height * dpr);
+      }
+    }
+
     renderFrame(currentFrameRef.current);
   }, [renderFrame]);
 
@@ -127,7 +152,12 @@ export const Hero: React.FC = () => {
       .then((firstImg) => {
         if (!isCancelled) {
           setIsFirstFrameLoaded(true);
-          drawCover(firstImg);
+          if (desktopCanvasRef.current && desktopCanvasRef.current.width > 0) {
+            drawToCanvas(desktopCanvasRef.current, firstImg, false);
+          }
+          if (mobileCanvasRef.current && mobileCanvasRef.current.width > 0) {
+            drawToCanvas(mobileCanvasRef.current, firstImg, true);
+          }
         }
       })
       .catch(() => {});
@@ -183,7 +213,7 @@ export const Hero: React.FC = () => {
     return () => {
       isCancelled = true;
     };
-  }, [drawCover]);
+  }, [drawToCanvas]);
 
   // Scroll listener mapped to frame index
   useEffect(() => {
@@ -244,31 +274,30 @@ export const Hero: React.FC = () => {
 
       {/* Sticky Viewport Container */}
       <div className="hero-sticky-frame">
-        {/* Canvas Background Layer */}
-        <div className="hero-canvas-container" aria-hidden="true">
-          {/* Static fallback poster image for instantaneous LCP before JS executes */}
-          <img
-            src="/hero-frames/ezgif-frame-001.jpg"
-            alt=""
-            className={`hero-canvas-poster ${isFirstFrameLoaded ? 'fade-out' : ''}`}
-            fetchPriority="high"
-            loading="eager"
-          />
-          <canvas ref={canvasRef} className="hero-scroll-canvas" />
-          <div className="hero-canvas-overlay" />
-        </div>
+        {/* ==========================================================================
+            DESKTOP VIEW (> 900px):
+            Full-bleed background canvas + Left & Right columns as they were before
+            ========================================================================== */}
+        <div className="hero-desktop-content">
+          <div className="hero-canvas-container" aria-hidden="true">
+            <img
+              src="/hero-frames/ezgif-frame-001.jpg"
+              alt=""
+              className={`hero-canvas-poster ${isFirstFrameLoaded ? 'fade-out' : ''}`}
+              fetchPriority="high"
+              loading="eager"
+            />
+            <canvas ref={desktopCanvasRef} className="hero-scroll-canvas" />
+          </div>
 
-        {/* Content Wrapper with graceful fade on scroll */}
-        <div
-          className="hero-content-wrapper"
-          style={{
-            opacity: contentOpacity,
-            transform: `translate3d(0, ${contentTranslateY}px, 0)`,
-            pointerEvents: contentOpacity < 0.1 ? 'none' : 'auto',
-          }}
-        >
-          {/* DESKTOP VIEW (>900px) */}
-          <div className="hero-desktop-content">
+          <div
+            className="hero-content-wrapper"
+            style={{
+              opacity: contentOpacity,
+              transform: `translate3d(0, ${contentTranslateY}px, 0)`,
+              pointerEvents: contentOpacity < 0.1 ? 'none' : 'auto',
+            }}
+          >
             <div className="container hero-container">
               {/* Left Content: Authentic Flavours Feel Like Home */}
               <div className="hero-col hero-col-left">
@@ -304,37 +333,74 @@ export const Hero: React.FC = () => {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* MOBILE & TABLET VIEW (<=900px) */}
-          <div className="hero-mobile-content">
-            <div className="hero-mobile-card">
-              {/* Eyebrow flanked by rules */}
-              <div className="hero-mobile-eyebrow">
-                <span className="eyebrow-line" aria-hidden="true" />
-                <span className="eyebrow-text">{hero.leftEyebrow || "PURE VEG. PURE TASTE."}</span>
-                <span className="eyebrow-line" aria-hidden="true" />
-              </div>
-
-              {/* Main Title */}
-              <div className="hero-mobile-title" aria-hidden="true">
-                <span className="hero-mobile-title-row">
-                  {hero.heading.line1}{' '}
-                  <span className="hero-mobile-highlight">{hero.heading.line2}</span>
-                </span>
-                <span className="hero-mobile-title-row">
-                  <span>{hero.heading.line3}</span>
-                </span>
-              </div>
-
-              {/* Subtag */}
-              <p className="hero-mobile-subtag">{hero.subtag || "ALWAYS AMOL."}</p>
-
-              {/* Single Focused CTA to Menu */}
-              <a href={hero.exploreMenuButton.href || "/menu/"} className="hero-mobile-cta-btn">
-                <span>EXPLORE FULL MENU</span>
-                <ArrowRight size={17} strokeWidth={2.6} />
-              </a>
+        {/* ==========================================================================
+            MOBILE & TABLET VIEW (<= 900px):
+            Total background 100% visible (0px cropped on left/right, 16:9 aspect ratio)
+            with both text sections displayed clearly as before
+            ========================================================================== */}
+        <div
+          className="hero-mobile-content"
+          style={{
+            opacity: contentOpacity,
+            transform: `translate3d(0, ${contentTranslateY}px, 0)`,
+            pointerEvents: contentOpacity < 0.1 ? 'none' : 'auto',
+          }}
+        >
+          {/* Top Text Block */}
+          <div className="hero-mobile-top">
+            <div className="hero-mobile-eyebrow">
+              <span className="eyebrow-line" aria-hidden="true" />
+              <span className="eyebrow-text">{hero.leftEyebrow || "PURE VEG. PURE TASTE."}</span>
+              <span className="eyebrow-line" aria-hidden="true" />
             </div>
+
+            <div className="hero-mobile-title" aria-hidden="true">
+              <span className="hero-mobile-title-row">
+                {hero.heading.line1}{' '}
+                <span className="hero-mobile-highlight">{hero.heading.line2}</span>
+              </span>
+              <span className="hero-mobile-title-row">
+                <span>{hero.heading.line3}</span>
+              </span>
+            </div>
+
+            <p className="hero-mobile-subtag">{hero.subtag || "ALWAYS AMOL."}</p>
+          </div>
+
+          {/* Full-Width 16:9 Canvas Frame (0px cropped on left/right) */}
+          <div className="hero-mobile-canvas-wrap" aria-hidden="true">
+            <img
+              src="/hero-frames/ezgif-frame-001.jpg"
+              alt=""
+              className={`hero-canvas-poster ${isFirstFrameLoaded ? 'fade-out' : ''}`}
+              fetchPriority="high"
+              loading="eager"
+            />
+            <canvas ref={mobileCanvasRef} className="hero-scroll-canvas" />
+          </div>
+
+          {/* Bottom Text Block */}
+          <div className="hero-mobile-bottom">
+            <span className="hero-eyebrow right-eyebrow">{hero.rightEyebrow || "GOOD FOOD"}</span>
+
+            <h2 className="hero-mobile-right-heading">
+              {hero.rightHeadingLines.map((line, i) => (
+                <span key={i} className="hero-right-line">{line}</span>
+              ))}
+            </h2>
+
+            <div className="hero-orange-rule" aria-hidden="true" />
+
+            <span className="hero-heritage">{hero.rightHeritage || "SINCE 1990."}</span>
+
+            <a href={hero.exploreMenuButton.href || "/menu/"} className="hero-explore-btn hero-mobile-explore-btn">
+              <span className="explore-text">{hero.exploreMenuButton.text || "EXPLORE MENU"}</span>
+              <span className="explore-icon-circle">
+                <ArrowRight size={16} strokeWidth={2.4} className="explore-arrow-icon" />
+              </span>
+            </a>
           </div>
         </div>
 

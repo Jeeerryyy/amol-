@@ -1,6 +1,7 @@
 /* ==========================================================================
    AMOL VEG RESTO - CINEMATIC SCROLL-DRIVEN HERO BACKGROUND
    High-performance HTML5 Canvas with progressive frame loading
+   Clean, authentic photography without blur wash or white overlays
    ========================================================================== */
 
 /* Screen reader only utility (FAANG accessible standard: zero visual/flow layout footprint) */
@@ -37,10 +38,23 @@
   align-items: center;
   justify-content: center;
   z-index: 5;
+  background-color: var(--color-cream-bg, #FAF4EC);
 }
 
-/* 3. Canvas Background Layer */
-.hero-canvas-container {
+/* ==========================================================================
+   DESKTOP HERO CONTENT (> 900px)
+   ========================================================================== */
+.hero-desktop-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Desktop Canvas Background Layer */
+.hero-desktop-content .hero-canvas-container {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -50,7 +64,7 @@
   overflow: hidden;
 }
 
-/* Static fallback poster for instant LCP before canvas initialization */
+/* Static fallback poster for instant LCP */
 .hero-canvas-poster {
   position: absolute;
   inset: 0;
@@ -77,48 +91,19 @@
   display: block;
 }
 
-/* Cinematic luminous overlay for contrast & readability */
-.hero-canvas-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background: radial-gradient(
-      ellipse at 50% 50%,
-      rgba(250, 244, 236, 0.35) 0%,
-      rgba(250, 244, 236, 0.65) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(250, 244, 236, 0.65) 0%,
-      rgba(250, 244, 236, 0.2) 45%,
-      rgba(250, 244, 236, 0.72) 100%
-    );
-}
-
-/* 4. Content Wrapper: Holds floating hero text with smooth scroll fade */
+/* Content Wrapper: Holds floating hero text with smooth scroll fade */
 .hero-content-wrapper {
   position: relative;
   z-index: 10;
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: clamp(80px, 11vh, 110px);
+  box-sizing: border-box;
   transition: opacity 0.15s ease-out, transform 0.15s ease-out;
   will-change: opacity, transform;
-}
-
-/* ==========================================================================
-   DESKTOP HERO CONTENT (> 900px)
-   ========================================================================== */
-.hero-desktop-content {
-  position: relative;
-  width: 100%;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .hero-container {
@@ -129,21 +114,25 @@
   align-items: flex-start;
   gap: clamp(24px, 4vw, 48px);
   width: 100%;
+  max-width: 1440px;
+  padding: 0 clamp(24px, 5vw, 64px);
+  box-sizing: border-box;
 }
 
-/* Left Column Card: Frosted luxury glass backing on cream */
+/* Left Column: PURE VEG. PURE TASTE. / Authentic Flavours Feel Like Home / ALWAYS AMOL. */
 .hero-col-left {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 530px;
-  background: rgba(250, 244, 236, 0.78);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 28px 36px;
-  border-radius: 24px;
-  border: 1px solid rgba(232, 218, 203, 0.75);
-  box-shadow: 0 10px 32px rgba(43, 23, 11, 0.06);
+  max-width: 460px;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  z-index: 2;
 }
 
 .hero-eyebrow {
@@ -151,20 +140,20 @@
   font-size: 11px;
   font-weight: var(--fw-semibold);
   letter-spacing: 0.14em;
-  color: var(--color-text-dark);
+  color: var(--color-text-dark, #2B170B);
   line-height: 1.2;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .hero-title {
   font-family: var(--font-serif);
-  font-size: clamp(38px, 3.6vw, 50px);
+  font-size: clamp(34px, 3.2vw, 46px);
   font-weight: var(--fw-bold);
-  line-height: 1.15;
-  color: var(--color-text-dark);
+  line-height: 1.12;
+  color: var(--color-text-dark, #2B170B);
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .hero-title-line {
@@ -180,23 +169,24 @@
   font-size: 11px;
   font-weight: var(--fw-semibold);
   letter-spacing: 0.16em;
-  color: var(--color-text-muted);
+  color: var(--color-text-muted, #7A695D);
 }
 
-/* Right Column Card: Frosted luxury glass backing on cream */
+/* Right Column: GOOD FOOD / Brings People Together / SINCE 1990. / EXPLORE MENU */
 .hero-col-right {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 370px;
-  background: rgba(250, 244, 236, 0.78);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 28px 34px;
-  border-radius: 24px;
-  border: 1px solid rgba(232, 218, 203, 0.75);
-  box-shadow: 0 10px 32px rgba(43, 23, 11, 0.06);
+  max-width: 320px;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  z-index: 2;
 }
 
 .right-eyebrow {
@@ -204,18 +194,18 @@
   font-size: 11px;
   font-weight: var(--fw-semibold);
   letter-spacing: 0.14em;
-  color: var(--color-text-dark);
+  color: var(--color-text-dark, #2B170B);
   line-height: 1.2;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .hero-right-heading {
   font-family: var(--font-serif);
-  font-size: clamp(26px, 2.3vw, 32px);
+  font-size: clamp(24px, 2vw, 28px);
   font-weight: var(--fw-bold);
-  line-height: 1.2;
-  color: var(--color-text-dark);
-  margin-bottom: 16px;
+  line-height: 1.18;
+  color: var(--color-text-dark, #2B170B);
+  margin-bottom: 12px;
 }
 
 .hero-right-line {
@@ -225,8 +215,8 @@
 .hero-orange-rule {
   width: 44px;
   height: 2px;
-  background-color: var(--color-accent-orange);
-  margin-bottom: 14px;
+  background-color: var(--color-accent-orange, #D4561A);
+  margin-bottom: 10px;
 }
 
 .hero-heritage {
@@ -234,32 +224,30 @@
   font-size: 11px;
   font-weight: var(--fw-semibold);
   letter-spacing: 0.16em;
-  color: var(--color-text-muted);
-  margin-bottom: 22px;
+  color: var(--color-text-muted, #7A695D);
+  margin-bottom: 18px;
 }
 
 .hero-explore-btn {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--color-accent-orange);
-  border: 2px solid var(--color-accent-orange);
+  background-color: var(--color-accent-orange, #D4561A);
+  border: 2px solid var(--color-accent-orange, #D4561A);
   color: #ffffff;
   padding: 6px 6px 6px 24px;
   min-height: 48px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-pill, 9999px);
   text-decoration: none;
   gap: 16px;
-  box-shadow: 0 4px 14px rgba(212, 86, 26, 0.28);
   transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .hero-explore-btn:hover {
-  background-color: var(--color-accent-orange-hover);
-  border-color: var(--color-accent-orange-hover);
+  background-color: var(--color-accent-orange-hover, #BA3D0C);
+  border-color: var(--color-accent-orange-hover, #BA3D0C);
   color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(212, 86, 26, 0.35);
 }
 
 .explore-text {
@@ -285,23 +273,23 @@
 }
 
 /* ==========================================================================
-   MOBILE & TABLET HERO (<= 900px)
+   MOBILE HERO (<= 900px)
    ========================================================================== */
 .hero-mobile-content {
   display: none;
 }
 
-/* 5. Scroll Prompt Hint Indicator */
+/* Scroll Prompt Hint Indicator */
 .hero-scroll-prompt {
   position: absolute;
-  bottom: 24px;
+  bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 15;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
   pointer-events: none;
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
@@ -313,17 +301,15 @@
 
 .hero-prompt-text {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   color: var(--color-text-dark, #2B170B);
-  background: rgba(250, 244, 236, 0.88);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  padding: 5px 14px;
+  background: rgba(250, 244, 236, 0.94);
+  padding: 4px 12px;
   border-radius: 9999px;
-  border: 1px solid rgba(232, 218, 203, 0.85);
-  box-shadow: 0 2px 8px rgba(43, 23, 11, 0.05);
+  border: 1px solid rgba(232, 218, 203, 0.9);
+  box-shadow: 0 2px 6px rgba(43, 23, 11, 0.05);
 }
 
 .hero-prompt-icon {
@@ -332,16 +318,12 @@
 }
 
 @keyframes heroPromptBounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(5px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
 }
 
 /* ==========================================================================
-   RESPONSIVE BREAKPOINTS
+   RESPONSIVE BREAKPOINT (<= 900px)
    ========================================================================== */
 @media (max-width: 900px) {
   .hero-scroll-track {
@@ -354,39 +336,36 @@
 
   .hero-mobile-content {
     display: flex !important;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     width: 100%;
     height: 100%;
-    padding: 0 20px;
+    padding: 10px 16px 36px 16px;
+    box-sizing: border-box;
+    z-index: 10;
   }
 
-  .hero-mobile-card {
-    background: rgba(250, 244, 236, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 24px;
-    border: 1.5px solid rgba(232, 218, 203, 0.85);
-    padding: 30px 22px;
-    width: 100%;
-    max-width: 380px;
-    box-shadow: 0 10px 32px rgba(43, 23, 11, 0.08);
-    text-align: center;
+  /* Top Text Block: PURE VEG. PURE TASTE. Authentic Flavours Feel Like Home ALWAYS AMOL. */
+  .hero-mobile-top {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    width: 100%;
+    flex-shrink: 0;
   }
 
   .hero-mobile-eyebrow {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    margin-bottom: 14px;
+    gap: 10px;
+    margin-bottom: 6px;
   }
 
   .hero-mobile-eyebrow .eyebrow-line {
-    width: 24px;
+    width: 20px;
     height: 1.5px;
     background-color: var(--color-accent-orange, #BA3D0C);
     border-radius: 2px;
@@ -394,7 +373,7 @@
 
   .hero-mobile-eyebrow .eyebrow-text {
     font-family: var(--font-sans);
-    font-size: 10.5px;
+    font-size: 9.5px;
     font-weight: 700;
     letter-spacing: 0.16em;
     color: var(--color-text-dark, #2B170B);
@@ -403,11 +382,11 @@
 
   .hero-mobile-title {
     font-family: var(--font-serif);
-    font-size: clamp(28px, 8vw, 36px);
+    font-size: clamp(22px, 6.2vw, 28px);
     font-weight: 800;
-    line-height: 1.18;
+    line-height: 1.15;
     color: var(--color-text-dark, #2B170B);
-    margin: 0 0 12px 0;
+    margin: 0 0 4px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -418,7 +397,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
   }
 
   .hero-mobile-highlight {
@@ -429,36 +408,96 @@
 
   .hero-mobile-subtag {
     font-family: var(--font-sans);
-    font-size: 11px;
+    font-size: 9.5px;
     font-weight: 700;
-    letter-spacing: 0.2em;
-    color: var(--color-text-dark, #2B170B);
-    margin: 0 0 22px 0;
+    letter-spacing: 0.18em;
+    color: var(--color-text-muted, #7A695D);
+    margin: 0;
     text-transform: uppercase;
   }
 
-  .hero-mobile-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+  /* Full-width 16:9 Canvas Container:
+     TOTAL background visible! ZERO pixels cropped from left and right! */
+  .hero-mobile-canvas-wrap {
+    position: relative;
+    width: 100vw;
+    margin-left: -16px;
+    margin-right: -16px;
+    aspect-ratio: 16 / 9;
+    max-height: 40vh;
+    overflow: hidden;
+    background-color: #FAF4EC;
+    flex-shrink: 0;
+  }
+
+  .hero-mobile-canvas-wrap .hero-scroll-canvas,
+  .hero-mobile-canvas-wrap .hero-canvas-poster {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    max-width: 300px;
-    height: 48px;
-    border-radius: var(--radius-pill, 9999px);
-    background-color: var(--color-accent-orange, #BA3D0C);
-    color: #FFFFFF !important;
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    box-shadow: 0 5px 18px rgba(186, 61, 12, 0.35);
-    transition: transform 0.15s ease, background-color 0.15s ease;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
   }
 
-  .hero-mobile-cta-btn:active {
-    transform: scale(0.98);
+  /* Bottom Text Block: GOOD FOOD Brings People Together SINCE 1990. EXPLORE MENU */
+  .hero-mobile-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .hero-mobile-bottom .right-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-text-dark, #2B170B);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .hero-mobile-right-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 5vw, 22px);
+    font-weight: 700;
+    line-height: 1.18;
+    color: var(--color-text-dark, #2B170B);
+    margin: 0 0 6px 0;
+  }
+
+  .hero-mobile-bottom .hero-orange-rule {
+    width: 32px;
+    height: 2px;
+    background-color: var(--color-accent-orange, #D4561A);
+    margin-bottom: 6px;
+  }
+
+  .hero-mobile-bottom .hero-heritage {
+    font-family: var(--font-sans);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: var(--color-text-muted, #7A695D);
+    margin-bottom: 12px;
+  }
+
+  .hero-mobile-explore-btn {
+    min-height: 42px;
+    padding: 3px 5px 3px 18px;
+    gap: 10px;
+  }
+
+  .hero-mobile-explore-btn .explore-text {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-mobile-explore-btn .explore-icon-circle {
+    width: 28px;
+    height: 28px;
   }
 }
