@@ -1,6 +1,8 @@
 .popular-dishes-section {
   padding: 64px 0;
   position: relative;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
 }
 
 .section-header-center {

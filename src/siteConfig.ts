@@ -50,7 +50,7 @@ export const siteConfig = {
     taglineNavbar: "PURE VEG FOOD, FRESH AND SERVED FAST.",
     taglineFooter: "Pure veg food, fresh and served fast.",
     heritage: "SINCE 1990.",
-    logoPath: "/logo.png",
+    logoPath: "/logo-96.webp",
   },
 
   navbar: {

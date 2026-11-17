@@ -2,6 +2,8 @@
   padding: 80px 0;
   position: relative;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
 }
 
 .testimonials-header {

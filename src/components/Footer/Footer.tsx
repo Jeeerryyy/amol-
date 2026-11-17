@@ -23,19 +23,29 @@ export const Footer: React.FC = () => {
   const [siteData, setSiteData] = useState<any>(null);
 
   useEffect(() => {
-    fetch('/api/public/site')
-      .then((res) => {
-        if (!res.ok) throw new Error('API unavailable');
-        return res.json();
-      })
-      .then((data) => {
-        if (data && data.content) {
-          setSiteData(data.content);
-        }
-      })
-      .catch((err) => {
-        console.warn('[Footer] Using default footer settings:', err);
-      });
+    const fetchSite = () => {
+      fetch('/api/public/site')
+        .then((res) => {
+          if (!res.ok) throw new Error('API unavailable');
+          return res.json();
+        })
+        .then((data) => {
+          if (data && data.content) {
+            setSiteData(data.content);
+          }
+        })
+        .catch((err) => {
+          console.warn('[Footer] Using default footer settings:', err);
+        });
+    };
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      const handle = (window as any).requestIdleCallback(fetchSite, { timeout: 4500 });
+      return () => (window as any).cancelIdleCallback(handle);
+    } else {
+      const timer = setTimeout(fetchSite, 2500);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   const contact = siteData?.contact || {};

@@ -101,27 +101,42 @@ export const Hero: React.FC = () => {
     [drawToCanvas]
   );
 
-  // Handle canvas sizing on resize
+  // Handle canvas sizing on resize with batched layout reads to prevent forced reflows
   const resizeCanvas = useCallback(() => {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    if (desktopCanvasRef.current) {
-      const rect = desktopCanvasRef.current.getBoundingClientRect();
-      if (rect.width > 0 && rect.height > 0) {
-        desktopCanvasRef.current.width = Math.round(rect.width * dpr);
-        desktopCanvasRef.current.height = Math.round(rect.height * dpr);
+    // 1. Batch all layout reads first
+    const dW = desktopCanvasRef.current ? desktopCanvasRef.current.clientWidth : 0;
+    const dH = desktopCanvasRef.current ? desktopCanvasRef.current.clientHeight : 0;
+    const mW = mobileCanvasRef.current ? mobileCanvasRef.current.clientWidth : 0;
+    const mH = mobileCanvasRef.current ? mobileCanvasRef.current.clientHeight : 0;
+
+    let didResize = false;
+
+    // 2. Batch all layout writes
+    if (desktopCanvasRef.current && dW > 0 && dH > 0) {
+      const targetW = Math.round(dW * dpr);
+      const targetH = Math.round(dH * dpr);
+      if (desktopCanvasRef.current.width !== targetW || desktopCanvasRef.current.height !== targetH) {
+        desktopCanvasRef.current.width = targetW;
+        desktopCanvasRef.current.height = targetH;
+        didResize = true;
       }
     }
 
-    if (mobileCanvasRef.current) {
-      const rect = mobileCanvasRef.current.getBoundingClientRect();
-      if (rect.width > 0 && rect.height > 0) {
-        mobileCanvasRef.current.width = Math.round(rect.width * dpr);
-        mobileCanvasRef.current.height = Math.round(rect.height * dpr);
+    if (mobileCanvasRef.current && mW > 0 && mH > 0) {
+      const targetW = Math.round(mW * dpr);
+      const targetH = Math.round(mH * dpr);
+      if (mobileCanvasRef.current.width !== targetW || mobileCanvasRef.current.height !== targetH) {
+        mobileCanvasRef.current.width = targetW;
+        mobileCanvasRef.current.height = targetH;
+        didResize = true;
       }
     }
 
-    renderFrame(currentFrameRef.current);
+    if (didResize) {
+      renderFrame(currentFrameRef.current);
+    }
   }, [renderFrame]);
 
   // Progressive image preloading pipeline
@@ -147,71 +162,93 @@ export const Hero: React.FC = () => {
       });
     };
 
-    // Priority 1: First frame (immediate initial paint)
-    loadImage(0)
-      .then((firstImg) => {
-        if (!isCancelled) {
-          setIsFirstFrameLoaded(true);
-          if (desktopCanvasRef.current && desktopCanvasRef.current.width > 0) {
-            drawToCanvas(desktopCanvasRef.current, firstImg, false);
+    // Priority 1: First frame (immediate initial paint on desktop; mobile displays preloaded arch webp)
+    const isDesktop = typeof window !== 'undefined' && window.innerWidth > 900;
+    if (isDesktop) {
+      loadImage(0)
+        .then((firstImg) => {
+          if (!isCancelled) {
+            setIsFirstFrameLoaded(true);
+            if (desktopCanvasRef.current && desktopCanvasRef.current.width > 0) {
+              drawToCanvas(desktopCanvasRef.current, firstImg, false);
+            }
           }
-          if (mobileCanvasRef.current && mobileCanvasRef.current.width > 0) {
-            drawToCanvas(mobileCanvasRef.current, firstImg, true);
-          }
-        }
-      })
-      .catch(() => { });
+        })
+        .catch(() => { });
+    }
 
-    // Priority 2: Initial scroll buffer (first 20 frames)
-    const initialBuffer = Array.from({ length: 20 }, (_, i) => i + 1);
-    Promise.allSettled(initialBuffer.map((i) => loadImage(i))).then(() => {
-      if (isCancelled) return;
+    let preloadStarted = false;
+    const startPreload = () => {
+      if (preloadStarted || isCancelled) return;
+      preloadStarted = true;
 
-      // Priority 3: Strategic keyframes throughout sequence (every 8th frame)
-      const keyframes: number[] = [];
-      for (let i = 24; i < TOTAL_FRAMES; i += 8) {
-        keyframes.push(i);
-      }
-      Promise.allSettled(keyframes.map((i) => loadImage(i))).then(() => {
+      // Priority 2: Initial scroll buffer (first 15 frames)
+      const initialBuffer = Array.from({ length: 15 }, (_, i) => i + 1);
+      Promise.allSettled(initialBuffer.map((i) => loadImage(i))).then(() => {
         if (isCancelled) return;
 
-        // Priority 4: Background fill remaining frames in small idle batches
-        const remaining: number[] = [];
-        for (let i = 0; i < TOTAL_FRAMES; i++) {
-          if (!imagesMapRef.current.has(i)) {
-            remaining.push(i);
-          }
+        // Priority 3: Strategic keyframes throughout sequence (every 8th frame)
+        const keyframes: number[] = [];
+        for (let i = 16; i < TOTAL_FRAMES; i += 8) {
+          keyframes.push(i);
         }
+        Promise.allSettled(keyframes.map((i) => loadImage(i))).then(() => {
+          if (isCancelled) return;
 
-        const batchSize = 6;
-        let batchIdx = 0;
-
-        const loadNextBatch = () => {
-          if (isCancelled || batchIdx >= remaining.length) return;
-          const slice = remaining.slice(batchIdx, batchIdx + batchSize);
-          batchIdx += batchSize;
-
-          Promise.allSettled(slice.map((idx) => loadImage(idx))).then(() => {
-            if (!isCancelled && batchIdx < remaining.length) {
-              if ('requestIdleCallback' in window) {
-                (window as Window).requestIdleCallback(loadNextBatch);
-              } else {
-                setTimeout(loadNextBatch, 30);
-              }
+          // Priority 4: Background fill remaining frames in small idle batches
+          const remaining: number[] = [];
+          for (let i = 0; i < TOTAL_FRAMES; i++) {
+            if (!imagesMapRef.current.has(i)) {
+              remaining.push(i);
             }
-          });
-        };
+          }
 
-        if ('requestIdleCallback' in window) {
-          (window as Window).requestIdleCallback(loadNextBatch);
-        } else {
-          setTimeout(loadNextBatch, 50);
-        }
+          const batchSize = 6;
+          let batchIdx = 0;
+
+          const loadNextBatch = () => {
+            if (isCancelled || batchIdx >= remaining.length) return;
+            const slice = remaining.slice(batchIdx, batchIdx + batchSize);
+            batchIdx += batchSize;
+
+            Promise.allSettled(slice.map((idx) => loadImage(idx))).then(() => {
+              if (!isCancelled && batchIdx < remaining.length) {
+                if ('requestIdleCallback' in window) {
+                  (window as Window).requestIdleCallback(loadNextBatch);
+                } else {
+                  setTimeout(loadNextBatch, 40);
+                }
+              }
+            });
+          };
+
+          if ('requestIdleCallback' in window) {
+            (window as Window).requestIdleCallback(loadNextBatch);
+          } else {
+            setTimeout(loadNextBatch, 80);
+          }
+        });
       });
-    });
+    };
+
+    // Defer sequence preloading until first user interaction or idle timer
+    // This frees 100% of network bandwidth and main thread during initial paint & LCP
+    const interactionEvents = ['scroll', 'touchstart', 'pointerdown', 'wheel'];
+    const onUserInteract = () => {
+      startPreload();
+      interactionEvents.forEach((evt) => window.removeEventListener(evt, onUserInteract));
+    };
+    interactionEvents.forEach((evt) => window.addEventListener(evt, onUserInteract, { passive: true, once: true }));
+
+    // Fallback: Start background preload after 15 seconds of idle time if no interaction
+    const idleTimer = setTimeout(() => {
+      startPreload();
+    }, 15000);
 
     return () => {
       isCancelled = true;
+      clearTimeout(idleTimer);
+      interactionEvents.forEach((evt) => window.removeEventListener(evt, onUserInteract));
     };
   }, [drawToCanvas]);
 
@@ -247,14 +284,24 @@ export const Hero: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', resizeCanvas, { passive: true });
 
-    // Initial resize & frame check
-    resizeCanvas();
+    let ro: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined' && trackRef.current) {
+      ro = new ResizeObserver(() => {
+        resizeCanvas();
+      });
+      ro.observe(trackRef.current);
+    } else {
+      window.addEventListener('resize', resizeCanvas, { passive: true });
+    }
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', resizeCanvas);
+      if (ro) {
+        ro.disconnect();
+      } else {
+        window.removeEventListener('resize', resizeCanvas);
+      }
       if (rafIdRef.current) {
         cancelAnimationFrame(rafIdRef.current);
       }
@@ -434,7 +481,7 @@ export const Hero: React.FC = () => {
           <div className="hero-mobile-arch-wrap">
             <canvas ref={mobileCanvasRef} className="hero-mobile-arch-canvas" />
             <img
-              src="/images/hero-mobile-arch-frame.png"
+              src="/images/hero-mobile-arch-frame.webp"
               alt="Authentic Vegetarian Dining Atmosphere at Amol Veg Resto Solapur"
               className="hero-mobile-arch-overlay"
               width="576"

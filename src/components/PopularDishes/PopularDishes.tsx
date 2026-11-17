@@ -10,28 +10,38 @@ export const PopularDishes: React.FC = () => {
   const [dishes, setDishes] = useState<DishItem[]>(popularDishes.dishes);
 
   useEffect(() => {
-    fetch('/api/public/popular-dishes')
-      .then((res) => {
-        if (!res.ok) throw new Error('API unavailable');
-        return res.json();
-      })
-      .then((data: any[]) => {
-        if (Array.isArray(data) && data.length > 0) {
-          const mapped: DishItem[] = data.map((d, idx) => ({
-            id: String(d.id || idx),
-            title: d.title || d.name || `Special Dish ${idx + 1}`,
-            description: d.description || '',
-            price: typeof d.price === 'number' ? `₹${d.price}` : (d.price || ''),
-            imageSrc: d.image_url || d.imageSrc || undefined,
-            placeholderText: d.title || d.name || `Special Dish ${idx + 1}`,
-          }));
-          setDishes(mapped);
-        }
-      })
-      .catch((err) => {
-        // Fall back gracefully to bundled siteConfig dishes
-        console.warn('[PopularDishes] Using bundled fallback dishes:', err);
-      });
+    const fetchDishes = () => {
+      fetch('/api/public/popular-dishes')
+        .then((res) => {
+          if (!res.ok) throw new Error('API unavailable');
+          return res.json();
+        })
+        .then((data: any[]) => {
+          if (Array.isArray(data) && data.length > 0) {
+            const mapped: DishItem[] = data.map((d, idx) => ({
+              id: String(d.id || idx),
+              title: d.title || d.name || `Special Dish ${idx + 1}`,
+              description: d.description || '',
+              price: typeof d.price === 'number' ? `₹${d.price}` : (d.price || ''),
+              imageSrc: d.image_url || d.imageSrc || undefined,
+              placeholderText: d.title || d.name || `Special Dish ${idx + 1}`,
+            }));
+            setDishes(mapped);
+          }
+        })
+        .catch((err) => {
+          // Fall back gracefully to bundled siteConfig dishes
+          console.warn('[PopularDishes] Using bundled fallback dishes:', err);
+        });
+    };
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      const handle = (window as any).requestIdleCallback(fetchDishes, { timeout: 3500 });
+      return () => (window as any).cancelIdleCallback(handle);
+    } else {
+      const timer = setTimeout(fetchDishes, 1500);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   return (

@@ -173,79 +173,13 @@ const homeJsonLd = {
 };
 
 const prerenderedShell = `
-  <div class="prerender-shell" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-    <header style="padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; background-color: #FAF4EC; border-bottom: 1px solid #E8DACB;">
-      <a href="/" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #2B170B; font-weight: 700;">
-        <img src="/logo.png" alt="Amol Veg Resto Logo" width="38" height="38" style="border-radius: 8px;">
-        <span>Amol Veg Resto</span>
-      </a>
-      <nav style="display: flex; gap: 16px; font-size: 14px; font-weight: 600;">
-        <a href="/" style="color: #C4511E; text-decoration: none;">Home</a>
-        <a href="/menu/" style="color: #2B170B; text-decoration: none;">Menu</a>
-        <a href="/about" style="color: #2B170B; text-decoration: none;">About</a>
-        <a href="/gallery" style="color: #2B170B; text-decoration: none;">Gallery</a>
-        <a href="/contact" style="color: #2B170B; text-decoration: none;">Contact</a>
-      </nav>
-    </header>
-
-    <main>
-      <section style="padding: 48px 24px; text-align: center; background-color: #FAF4EC;">
-        <span style="font-size: 12px; font-weight: 700; color: #C4511E; letter-spacing: 0.1em; text-transform: uppercase;">Pure Veg. Pure Taste.</span>
-        <h1 style="font-size: 38px; font-weight: 800; color: #2B170B; margin: 12px 0; line-height: 1.2;">
-          Amol Veg Resto — Best Pure Veg Restaurant in Solapur
-        </h1>
-        <p style="font-size: 16px; color: #6B5545; max-width: 600px; margin: 0 auto 24px auto; line-height: 1.6;">
-          A dedicated pure vegetarian restaurant in Sakhar Peth, Solapur serving freshly prepared South Indian, Punjabi, Chinese and authentic Maharashtrian thalis since 1990.
-        </p>
-        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-          <a href="/menu/" style="background-color: #C4511E; color: #FFFFFF; padding: 12px 28px; border-radius: 9999px; text-decoration: none; font-weight: 700; font-size: 14px;">
-            Explore Digital Menu (280+ Dishes)
-          </a>
-          <a href="tel:+917249664983" style="background-color: #FFFFFF; color: #2B170B; border: 1.5px solid #2B170B; padding: 12px 28px; border-radius: 9999px; text-decoration: none; font-weight: 700; font-size: 14px;">
-            Call: +91 72496 64983
-          </a>
-        </div>
-      </section>
-
-      <section style="padding: 48px 24px; max-width: 1100px; margin: 0 auto;">
-        <h2 style="font-size: 26px; font-weight: 700; color: #2B170B; text-align: center; margin-bottom: 24px;">Our Popular Dishes</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
-          <div style="background: #FFFFFF; border: 1px solid #E8DACB; border-radius: 12px; padding: 16px;">
-            <h3 style="font-size: 16px; font-weight: 700; color: #2B170B;">Crisp Masala Dosa</h3>
-            <p style="font-size: 13px; color: #6B5545;">Golden crispy rice crepe served with coconut chutney and hot sambar.</p>
-            <div style="color: #C4511E; font-weight: 800; margin-top: 8px;">₹120</div>
-          </div>
-          <div style="background: #FFFFFF; border: 1px solid #E8DACB; border-radius: 12px; padding: 16px;">
-            <h3 style="font-size: 16px; font-weight: 700; color: #2B170B;">Soft Steaming Idli</h3>
-            <p style="font-size: 13px; color: #6B5545;">Fluffy, steamed idlis on banana leaf with freshly ground chutneys.</p>
-            <div style="color: #C4511E; font-weight: 800; margin-top: 8px;">₹100</div>
-          </div>
-          <div style="background: #FFFFFF; border: 1px solid #E8DACB; border-radius: 12px; padding: 16px;">
-            <h3 style="font-size: 16px; font-weight: 700; color: #2B170B;">Veg Fried Rice</h3>
-            <p style="font-size: 13px; color: #6B5545;">Wok-tossed basmati rice with garden-fresh crunchy vegetables.</p>
-            <div style="color: #C4511E; font-weight: 800; margin-top: 8px;">₹110</div>
-          </div>
-          <div style="background: #FFFFFF; border: 1px solid #E8DACB; border-radius: 12px; padding: 16px;">
-            <h3 style="font-size: 16px; font-weight: 700; color: #2B170B;">Special Solapuri Thali</h3>
-            <p style="font-size: 13px; color: #6B5545;">Complete wholesome meal with rotis, seasonal curries, dal and rice.</p>
-            <div style="color: #C4511E; font-weight: 800; margin-top: 8px;">₹150</div>
-          </div>
-        </div>
-      </section>
-
-      <section style="padding: 40px 24px; background-color: #FAF4EC; border-top: 1px solid #E8DACB; text-align: center;">
-        <h2 style="font-size: 26px; font-weight: 700; color: #2B170B;">Our Story — Pure Vegetarian Heritage</h2>
-        <p style="max-width: 700px; margin: 12px auto; font-size: 15px; color: #6B5545; line-height: 1.6;">
-          Amol Veg Resto is a pure vegetarian restaurant in Sakhar Peth, Solapur. We serve fresh, tasty food in a clean, comfortable, air-conditioned dining space, whether you dine in or take it home.
-        </p>
-      </section>
-    </main>
-
-    <footer style="padding: 32px 24px; background-color: #351C12; color: #FAF4EC; text-align: center; font-size: 13px;">
-      <p style="margin-bottom: 8px; font-weight: 600;">Amol Veg Resto — Gala No 2, Plot 16/1, Karnik Nagar Road, Near Ashok Chowk, Sakhar Peth, Solapur, Maharashtra 413006</p>
-      <p style="margin-bottom: 8px;">Open All 7 Days: 11:00 AM – 11:30 PM | Phone: +91 72496 64983</p>
-      <p>© 2026 Amol Veg Resto. 100% Pure Vegetarian Kitchen.</p>
-    </footer>
+  <div style="padding: 24px; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #FAF4EC; color: #2B170B;">
+    <h1 style="font-size: 24px; margin-bottom: 12px;">Amol Veg Resto — Pure Vegetarian Restaurant in Solapur</h1>
+    <p style="margin-bottom: 16px; color: #6B5545;">Authentic South Indian, Punjabi, Chinese & Maharashtrian Thalis in Sakhar Peth since 1990.</p>
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <a href="/menu/" style="background: #C4511E; color: #fff; padding: 10px 20px; border-radius: 9999px; text-decoration: none; font-weight: 600;">Explore Menu</a>
+      <a href="tel:+917249664983" style="background: #fff; color: #2B170B; border: 1px solid #2B170B; padding: 10px 20px; border-radius: 9999px; text-decoration: none; font-weight: 600;">Call: +91 72496 64983</a>
+    </div>
   </div>
 `;
 
@@ -297,15 +231,18 @@ const updatedHtml = `<!DOCTYPE html>
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="icon" type="image/png" href="/logo.png" />
 
-    <!-- Fonts -->
+    <!-- Fonts: Preconnect & Async Load to eliminate render-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Playfair+Display:wght@600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Playfair+Display:wght@600;700&display=swap" />
+    </noscript>
 
-    <!-- Schema.org JSON-LD Graph -->
-    <script type="application/ld+json">
-${JSON.stringify(homeJsonLd, null, 2)}
-    </script>
+    <!-- Preload Hero LCP Assets with High Priority Responsive Media Queries -->
+    <link rel="preload" as="image" href="/hero-frames/ezgif-frame-001.jpg" media="(min-width: 901px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/images/hero-mobile-arch-frame.webp" media="(max-width: 900px)" type="image/webp" fetchpriority="high" />
+
     <style>
       html, body {
         background-color: #FAF4EC;
@@ -320,6 +257,10 @@ ${JSON.stringify(homeJsonLd, null, 2)}
 ${prerenderedShell}
     </noscript>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- Schema.org JSON-LD Graph at end of body for non-blocking parser discovery -->
+    <script type="application/ld+json">
+${JSON.stringify(homeJsonLd, null, 2)}
+    </script>
   </body>
 </html>
 `;

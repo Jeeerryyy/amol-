@@ -16,27 +16,37 @@ export const GallerySection: React.FC = () => {
   const [items, setItems] = useState<GallerySectionItem[]>(gallery.items);
 
   useEffect(() => {
-    fetch('/api/public/gallery')
-      .then((res) => {
-        if (!res.ok) throw new Error('API unavailable');
-        return res.json();
-      })
-      .then((data: any[]) => {
-        if (Array.isArray(data) && data.length > 0) {
-          const valid = data.filter((item) => item.url && item.url.trim().length > 0);
-          if (valid.length > 0) {
-            const mapped: GallerySectionItem[] = valid.map((item) => ({
-              id: item.id,
-              label: item.caption || item.alt_text || 'Amol Veg Gallery',
-              imageUrl: item.url,
-            }));
-            setItems(mapped);
+    const fetchGallery = () => {
+      fetch('/api/public/gallery')
+        .then((res) => {
+          if (!res.ok) throw new Error('API unavailable');
+          return res.json();
+        })
+        .then((data: any[]) => {
+          if (Array.isArray(data) && data.length > 0) {
+            const valid = data.filter((item) => item.url && item.url.trim().length > 0);
+            if (valid.length > 0) {
+              const mapped: GallerySectionItem[] = valid.map((item) => ({
+                id: item.id,
+                label: item.caption || item.alt_text || 'Amol Veg Gallery',
+                imageUrl: item.url,
+              }));
+              setItems(mapped);
+            }
           }
-        }
-      })
-      .catch((err) => {
-        console.warn('[GallerySection] Using bundled gallery fallback:', err);
-      });
+        })
+        .catch((err) => {
+          console.warn('[GallerySection] Using bundled gallery fallback:', err);
+        });
+    };
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      const handle = (window as any).requestIdleCallback(fetchGallery, { timeout: 4000 });
+      return () => (window as any).cancelIdleCallback(handle);
+    } else {
+      const timer = setTimeout(fetchGallery, 2000);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   const scrollByAmount = (direction: 'left' | 'right') => {

@@ -4,6 +4,8 @@
   border-top: none;
   padding-top: 60px;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 400px;
 }
 
 /* Full Footer Scenery Illustration Background Layer */

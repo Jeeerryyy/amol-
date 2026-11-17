@@ -185,7 +185,7 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {/* 7. Footer & Bottom Bar */}
+      {/* 8. Footer & Bottom Bar */}
       <Footer />
     </div>
   );

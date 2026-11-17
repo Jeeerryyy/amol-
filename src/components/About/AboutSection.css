@@ -2,6 +2,8 @@
   padding: 88px 0;
   position: relative;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
 }
 
 .about-container {

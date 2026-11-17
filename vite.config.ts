@@ -61,9 +61,6 @@ export default defineConfig({
           if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
             return 'vendor-react';
           }
-          if (id.includes('node_modules/lucide-react/')) {
-            return 'vendor-icons';
-          }
         },
       },
     },
