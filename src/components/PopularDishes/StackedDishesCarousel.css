@@ -1,0 +1,197 @@
+/* ==========================================================================
+   AMOL VEG RESTO - STACKED DISHES CAROUSEL (Mobile Screen View)
+   Physical gesture-driven card stack with spring momentum & depth
+   ========================================================================== */
+
+.stacked-carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto 36px auto;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+}
+
+/* Staged bounds for stacked cards */
+.stacked-stage {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  touch-action: pan-y;
+  cursor: grab;
+  perspective: 1000px;
+}
+
+.stacked-stage:active {
+  cursor: grabbing;
+}
+
+/* Individual Card in Stack */
+.stacked-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid rgba(43, 23, 11, 0.1);
+  box-shadow: 0 12px 32px rgba(43, 23, 11, 0.1), 0 2px 6px rgba(43, 23, 11, 0.04);
+  overflow: hidden;
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+  display: flex;
+  flex-direction: column;
+}
+
+.stacked-card.active-card {
+  box-shadow: 0 18px 42px rgba(43, 23, 11, 0.14), 0 4px 10px rgba(43, 23, 11, 0.06);
+}
+
+/* Dish Image Media Box */
+.stacked-card-media {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: #F8EFE4;
+}
+
+.stacked-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.stacked-card-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #E8F5E9;
+  color: #2E7D32;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(46, 125, 50, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  letter-spacing: 0.02em;
+}
+
+/* Card Content Area */
+.stacked-card-body {
+  padding: 18px 18px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+}
+
+.stacked-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.stacked-dish-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-dark, #2B170B);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.stacked-dish-price {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 750;
+  color: var(--color-accent-orange, #D4561A);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.stacked-dish-desc {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted, #6B5545);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Swipe Hint */
+.stacked-swipe-hint {
+  margin-top: 18px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted, #7A695D);
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* Controls & Pagination */
+.stacked-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 14px;
+  width: 100%;
+}
+
+.stacked-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: var(--color-cream-bg, #FAF4EC);
+  color: var(--color-text-dark, #2B170B);
+  border: 1.5px solid rgba(43, 23, 11, 0.16);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(43, 23, 11, 0.06);
+  transition: all 0.15s ease;
+}
+
+.stacked-nav-btn:hover {
+  background-color: #FFFFFF;
+  border-color: var(--color-accent-orange, #D4561A);
+  color: var(--color-accent-orange, #D4561A);
+}
+
+.stacked-nav-btn:active {
+  transform: scale(0.92);
+}
+
+.stacked-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stacked-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(43, 23, 11, 0.2);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stacked-dot.active {
+  width: 22px;
+  border-radius: 9999px;
+  background-color: var(--color-accent-orange, #D4561A);
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { siteConfig, DishItem } from '../../siteConfig';
 import { DishCard } from './DishCard';
+import { StackedDishesCarousel } from './StackedDishesCarousel';
 import { ArrowRight } from 'lucide-react';
 import './PopularDishes.css';
 
@@ -45,11 +46,16 @@ export const PopularDishes: React.FC = () => {
           <p className="section-subtitle">{popularDishes.subtitle}</p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="dishes-grid">
+        {/* Desktop Cards Grid (> 640px) */}
+        <div className="dishes-grid desktop-dishes-grid">
           {dishes.map((dish) => (
             <DishCard key={dish.id} dish={dish} />
           ))}
+        </div>
+
+        {/* Mobile Stacked Swipeable Carousel (<= 640px) */}
+        <div className="mobile-dishes-carousel-wrap">
+          <StackedDishesCarousel dishes={dishes} />
         </div>
 
         {/* Full Menu CTA Button */}

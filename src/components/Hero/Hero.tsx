@@ -160,7 +160,7 @@ export const Hero: React.FC = () => {
           }
         }
       })
-      .catch(() => {});
+      .catch(() => { });
 
     // Priority 2: Initial scroll buffer (first 20 frames)
     const initialBuffer = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -364,8 +364,8 @@ export const Hero: React.FC = () => {
             <div className="hero-feature-item">
               <div className="feature-icon-wrap" aria-hidden="true">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M11 20A7 7 0 0 1 4 13C4 7 11 3 20 3c0 9-4 16-9 17Z"/>
-                  <path d="M7 13c1.5.5 3.5.5 5 0"/>
+                  <path d="M11 20A7 7 0 0 1 4 13C4 7 11 3 20 3c0 9-4 16-9 17Z" />
+                  <path d="M7 13c1.5.5 3.5.5 5 0" />
                 </svg>
               </div>
               <span className="feature-title">100%</span>
@@ -377,8 +377,8 @@ export const Hero: React.FC = () => {
             <div className="hero-feature-item">
               <div className="feature-icon-wrap" aria-hidden="true">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/>
-                  <line x1="6" y1="17" x2="18" y2="17"/>
+                  <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z" />
+                  <line x1="6" y1="17" x2="18" y2="17" />
                 </svg>
               </div>
               <span className="feature-title">Freshly</span>
@@ -390,7 +390,7 @@ export const Hero: React.FC = () => {
             <div className="hero-feature-item">
               <div className="feature-icon-wrap" aria-hidden="true">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                 </svg>
               </div>
               <span className="feature-title">Served</span>
@@ -402,10 +402,10 @@ export const Hero: React.FC = () => {
             <div className="hero-feature-item">
               <div className="feature-icon-wrap" aria-hidden="true">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                  <circle cx="9" cy="7" r="4"/>
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
               <span className="feature-title">Family</span>
@@ -422,21 +422,22 @@ export const Hero: React.FC = () => {
 
             <a href="tel:+917249664983" className="hero-btn-reserve">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8" y1="2" x2="8" y2="6"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
               <span>Reserve a Table</span>
             </a>
           </div>
 
-          {/* Bottom Arch Image Graphic (Luxury table setting with copper handis & botanical branch) */}
+          {/* Bottom Arch Graphic: Active Scroll Animation Canvas Framed by Scalloped Arch & Leaves */}
           <div className="hero-mobile-arch-wrap">
+            <canvas ref={mobileCanvasRef} className="hero-mobile-arch-canvas" />
             <img
-              src="/images/hero-mobile-arch.png"
+              src="/images/hero-mobile-arch-frame.png"
               alt="Authentic Vegetarian Dining Atmosphere at Amol Veg Resto Solapur"
-              className="hero-mobile-arch-img"
+              className="hero-mobile-arch-overlay"
               width="576"
               height="422"
               loading="eager"

@@ -101,6 +101,7 @@ export const siteConfig = {
         title: "Dish 1",
         description: "A delicious and wholesome dish made with fresh ingredients.",
         price: "₹120",
+        imageSrc: "/images/dishes/popular/dish-1.jpg",
         placeholderText: "Dosa with chutney & sambar bowls",
       },
       {
@@ -108,6 +109,7 @@ export const siteConfig = {
         title: "Dish 2",
         description: "Soft, fluffy and served with our special chutney & sambar.",
         price: "₹100",
+        imageSrc: "/images/dishes/popular/dish-2.jpg",
         placeholderText: "Idli plate on banana leaf",
       },
       {
@@ -115,6 +117,7 @@ export const siteConfig = {
         title: "Dish 3",
         description: "A flavourful and light option perfect for any time of the day.",
         price: "₹110",
+        imageSrc: "/images/dishes/popular/dish-3.jpg",
         placeholderText: "Fried-rice bowl",
       },
       {
@@ -122,6 +125,7 @@ export const siteConfig = {
         title: "Dish 4",
         description: "A complete and satisfying meal made with fresh, pure veg ingredients.",
         price: "₹150",
+        imageSrc: "/images/dishes/popular/dish-4.jpg",
         placeholderText: "Thali (rice, curry, papad)",
       },
     ] as DishItem[],

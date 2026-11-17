@@ -147,6 +147,19 @@
 }
 
 /* Responsive adjustments */
+.mobile-dishes-carousel-wrap {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .desktop-dishes-grid {
+    display: none !important;
+  }
+  .mobile-dishes-carousel-wrap {
+    display: block !important;
+  }
+}
+
 @media (max-width: 1024px) {
   .dishes-grid {
     grid-template-columns: repeat(2, 1fr);
