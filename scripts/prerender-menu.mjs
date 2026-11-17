@@ -127,7 +127,6 @@ function renderDishCardHtml(d) {
         </h3>
         <p class="sr-only" itemprop="description">${d.description || `${d.name} prepared fresh with authentic spices at Amol Veg Resto.`}</p>
         <link itemprop="suitableForDiet" href="https://schema.org/VegetarianDiet" />
-        <div class="dish-orange-bar"></div>
         <div class="dish-card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
           <meta itemprop="price" content="${d.price}" />
           <meta itemprop="priceCurrency" content="INR" />
