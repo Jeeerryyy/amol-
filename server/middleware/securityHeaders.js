@@ -14,8 +14,17 @@ export function securityHeadersMiddleware(req, res, next) {
   // Referrer Policy
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
 
+  // Cross-Origin-Opener-Policy (COOP)
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+
   // Permissions Policy
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+
+  // CSP Report-Only for safety (non-breaking, reports violations while auditing)
+  res.setHeader(
+    'Content-Security-Policy-Report-Only',
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; media-src 'self' https: blob:; frame-src 'self' https://www.google.com https://maps.google.com; require-trusted-types-for 'script';"
+  );
 
   // HSTS in production
   if (env.isProd) {
@@ -32,4 +41,3 @@ export function securityHeadersMiddleware(req, res, next) {
 
 export { securityHeadersMiddleware as securityHeaders };
 export default securityHeadersMiddleware;
-

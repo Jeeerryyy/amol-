@@ -20,6 +20,12 @@ export default defineConfig({
     },
   ],
   server: {
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Content-Security-Policy-Report-Only': "default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https: ws:; media-src 'self' https: blob:; frame-src 'self' https://www.google.com https://maps.google.com; require-trusted-types-for 'script';",
+    },
     watch: {
       ignored: [
         '**/backup menu design/**',

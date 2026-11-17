@@ -222,7 +222,19 @@ router.get('/api/public/site', async (req, res, next) => {
     setCached('site_content', payload, 60);
     return sendCachedJson(res, payload);
   } catch (err) {
-    next(err);
+    console.warn('[Public API] Database unavailable for /api/public/site, serving static fallback');
+    return res.json({
+      content: {
+        contact: {
+          phone: "+91 72496 64983",
+          address: "Gala No 2, Markandeya Yentramag Society, near Uphar Bakery, Sakhar Peth, Solapur, Maharashtra 413006",
+          hours: "Opens 12 PM",
+          whatsapp: "+91 72496 64983",
+          mapsUrl: "https://maps.app.goo.gl/zp7RDvhrkJNiTKri9"
+        }
+      },
+      seo: {}
+    });
   }
 });
 
@@ -238,7 +250,13 @@ router.get('/api/public/popular-dishes', async (req, res, next) => {
     setCached('popular_dishes', dishes, 60);
     return sendCachedJson(res, dishes);
   } catch (err) {
-    next(err);
+    console.warn('[Public API] Database unavailable for /api/public/popular-dishes, serving fallback dishes');
+    return res.json([
+      { id: 1, name: "Dish 1", price: 120, description: "A delicious and wholesome dish made with fresh ingredients.", imageSrc: "/images/dishes/popular/dish-1.jpg" },
+      { id: 2, name: "Dish 2", price: 100, description: "Soft, fluffy and served with our special chutney & sambar.", imageSrc: "/images/dishes/popular/dish-2.jpg" },
+      { id: 3, name: "Dish 3", price: 110, description: "A flavourful and light option perfect for any time of the day.", imageSrc: "/images/dishes/popular/dish-3.jpg" },
+      { id: 4, name: "Dish 4", price: 150, description: "A complete and satisfying meal made with fresh, pure veg ingredients.", imageSrc: "/images/dishes/popular/dish-4.jpg" }
+    ]);
   }
 });
 
@@ -254,7 +272,8 @@ router.get('/api/public/gallery', async (req, res, next) => {
     setCached('gallery', items, 60);
     return sendCachedJson(res, items);
   } catch (err) {
-    next(err);
+    console.warn('[Public API] Database unavailable for /api/public/gallery, serving fallback gallery');
+    return res.json([]);
   }
 });
 
@@ -349,7 +368,12 @@ router.get('/api/public/menu/:menuId', async (req, res, next) => {
     setCached(cacheKey, payload, 60);
     return sendCachedJson(res, payload);
   } catch (err) {
-    next(err);
+    console.warn(`[Public API] Database unavailable for /api/public/legal/${id}, serving fallback`);
+    return sendCachedJson(res, {
+      id,
+      title: id === 'privacy-policy' ? 'Privacy Policy' : 'Terms & Conditions',
+      content: `<p>Welcome to Amol Veg Resto. For questions, please contact +91 72496 64983.</p>`
+    }, 300);
   }
 });
 
@@ -426,7 +450,12 @@ router.post('/api/public/review-events', async (req, res, next) => {
     );
     return res.json({ success: true });
   } catch (err) {
-    next(err);
+    console.warn(`[Public API] Database unavailable for /api/public/legal/${id}, serving fallback`);
+    return sendCachedJson(res, {
+      id,
+      title: id === 'privacy-policy' ? 'Privacy Policy' : 'Terms & Conditions',
+      content: `<p>Welcome to Amol Veg Resto. For questions, please contact +91 72496 64983.</p>`
+    }, 300);
   }
 });
 
@@ -440,7 +469,12 @@ router.get('/api/public/legal/:id', async (req, res, next) => {
     if (pages.length === 0) return res.status(404).json({ error: 'Page not found' });
     return sendCachedJson(res, pages[0], 300);
   } catch (err) {
-    next(err);
+    console.warn(`[Public API] Database unavailable for /api/public/legal/${id}, serving fallback`);
+    return sendCachedJson(res, {
+      id,
+      title: id === 'privacy-policy' ? 'Privacy Policy' : 'Terms & Conditions',
+      content: `<p>Welcome to Amol Veg Resto. For questions, please contact +91 72496 64983.</p>`
+    }, 300);
   }
 });
 
