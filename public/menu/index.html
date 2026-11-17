@@ -678,8 +678,8 @@
     .modal-actions-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-top: 4px;
+      gap: 10px;
+      margin-top: 10px;
     }
 
     .modal-action-btn {
@@ -691,33 +691,72 @@
       gap: 8px;
       padding: 0 16px;
       border-radius: var(--radius-pill);
-      font-size: 14px;
-      font-weight: 700;
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.2s ease;
+      white-space: nowrap;
+      user-select: none;
+      box-sizing: border-box;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    .modal-action-btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-action-icon {
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .btn-modal-whatsapp,
     .btn-primary-brown {
-      background-color: var(--color-accent-orange);
-      color: #ffffff;
-      border: 1px solid var(--color-accent-orange);
-      box-shadow: 0 2px 8px rgba(212, 86, 26, 0.25);
+      background-color: #1E7B46;
+      color: #FFFFFF;
+      border: 1px solid #1A6B3D;
+      box-shadow: 0 2px 6px rgba(30, 123, 70, 0.18);
+      flex: 1.15;
     }
 
+    .btn-modal-whatsapp:hover,
     .btn-primary-brown:hover {
-      background-color: var(--color-accent-orange-hover);
-      border-color: var(--color-accent-orange-hover);
+      background-color: #176538;
+      border-color: #145831;
+      box-shadow: 0 4px 12px rgba(30, 123, 70, 0.26);
+      transform: translateY(-1px);
+      color: #FFFFFF;
     }
 
+    .btn-modal-whatsapp:active,
+    .btn-primary-brown:active {
+      transform: scale(0.97);
+      box-shadow: 0 1px 3px rgba(30, 123, 70, 0.18);
+    }
+
+    .btn-modal-waiter,
     .btn-secondary-outline {
-      background-color: transparent;
+      background-color: #FAF4EC;
       color: var(--color-text-dark);
-      border: 1.5px solid var(--color-text-dark);
+      border: 1px solid #E2D4C3;
+      box-shadow: 0 1px 3px rgba(43, 23, 11, 0.04);
+      flex: 0.85;
     }
 
+    .btn-modal-waiter:hover,
     .btn-secondary-outline:hover {
-      background-color: rgba(43, 23, 11, 0.06);
+      background-color: #F3E8DB;
+      border-color: #D6C2AC;
+      color: #1E0F06;
+      box-shadow: 0 2px 6px rgba(43, 23, 11, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-modal-waiter:active,
+    .btn-secondary-outline:active {
+      transform: scale(0.97);
     }
 
     /* SOLD OUT & BADGES STYLING */
@@ -1123,7 +1162,8 @@
 
       .modal-action-btn {
         width: 100% !important;
-        height: 42px !important;
+        height: 44px !important;
+        font-size: 14px !important;
       }
     }
   </style>
@@ -4575,406 +4615,8 @@
       <!-- CATEGORY TABS -->
       <nav class="menu-category-nav" aria-label="Menu categories">
         <div class="category-tabs-track" id="categoryTrack">
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn active"
-        onclick="selectCategory('All')"
-        aria-label="All category"
-        aria-pressed="true"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M8 32 C8 19 16 14 24 14 C32 14 40 19 40 32 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 14 C21 11.5 22.3 9.5 24 9.5 C25.7 9.5 27 11.5 27 14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="24" cy="8.5" r="1.5" fill="currentColor"/><path d="M4 36 L44 36" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M10 36 C10 38.5 14 40 24 40 C34 40 38 38.5 38 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <!-- Rendered by JS -->
         </div>
-        <span class="tab-label">All</span>
-      </button>
-      <div class="tab-active-indicator"></div>
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Grill Sandwich')"
-        aria-label="Grill Sandwich category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 32 L38 32 L36 38 H12 Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M8 24 L24 10 L40 24 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><line x1="10" y1="28" x2="38" y2="28" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Grill Sandwich</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Pizza')"
-        aria-label="Pizza category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 14 C18 10 30 10 38 14 L24 42 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><circle cx="24" cy="22" r="2" fill="currentColor"/><circle cx="19" cy="28" r="1.8" fill="currentColor"/><circle cx="28" cy="30" r="1.8" fill="currentColor"/></svg>
-        </div>
-        <span class="tab-label">Pizza</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('French Fries')"
-        aria-label="French Fries category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M14 22 L17 42 H31 L34 22 Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><line x1="18" y1="20" x2="18" y2="10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><line x1="24" y1="20" x2="24" y2="7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><line x1="30" y1="20" x2="30" y2="11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">French Fries</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Burger')"
-        aria-label="Burger category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M12 20 C12 13 17 9 24 9 C31 9 36 13 36 20 Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><rect x="10" y="24" width="28" height="4" rx="2" stroke="currentColor" stroke-width="2"/><path d="M12 32 C12 37 17 40 24 40 C31 40 36 37 36 32 Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>
-        </div>
-        <span class="tab-label">Burger</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Cold Coffee')"
-        aria-label="Cold Coffee category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M12 18 L15 38 H29 L32 18 Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M32 22 H37 C39 22 40 24 39 27 C38 30 36 31 31 31" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><line x1="18" y1="12" x2="18" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="26" y1="12" x2="26" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Cold Coffee</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Milk Shake')"
-        aria-label="Milk Shake category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M14 16 L17.5 41 C17.8 42.5 19 43.5 20.5 43.5 H27.5 C29 43.5 30.2 42.5 30.5 41 L34 16 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M12 16 H36" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><line x1="28" y1="6" x2="22" y2="24" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Milk Shake</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Brownie')"
-        aria-label="Brownie category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M14 22 C14 17 18 13 24 13 C30 13 34 17 34 22 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="24" cy="9.5" r="3" fill="currentColor"/><path d="M10 22 C10 32 17 35 24 35 C31 35 38 32 38 22 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 22 H40" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M24 35 V42" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M15 42 H33" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Brownie</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Starters')"
-        aria-label="Starters category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M7 23 C7 35 15 39 24 39 C33 39 41 35 41 23 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 23 L43 23" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M16 39 L14 42 H34 L32 39" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M18 14 C18 10 20 8 20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M24 14 C24 10 26 8 26 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M30 14 C30 10 32 8 32 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Starters</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Paneer Starters')"
-        aria-label="Paneer Starters category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M7 23 C7 35 15 39 24 39 C33 39 41 35 41 23 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 23 L43 23" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M16 39 L14 42 H34 L32 39" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M18 14 C18 10 20 8 20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M24 14 C24 10 26 8 26 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M30 14 C30 10 32 8 32 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Paneer Starters</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Chinese')"
-        aria-label="Chinese category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 24 C10 35 15 40 24 40 C33 40 38 35 38 24 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><line x1="7" y1="24" x2="41" y2="24" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><line x1="16" y1="7" x2="28" y2="23" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><line x1="20" y1="5" x2="32" y2="21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Chinese</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Tandoori Starters')"
-        aria-label="Tandoori Starters category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M7 23 C7 35 15 39 24 39 C33 39 41 35 41 23 Z" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 23 L43 23" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M16 39 L14 42 H34 L32 39" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M18 14 C18 10 20 8 20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M24 14 C24 10 26 8 26 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M30 14 C30 10 32 8 32 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Tandoori Starters</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Soup')"
-        aria-label="Soup category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M9 22 C9 34 16 38 24 38 C32 38 39 34 39 22 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><line x1="6" y1="22" x2="42" y2="22" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M17 14 C17 10 19 8 19 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M24 15 C24 11 26 9 26 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M31 14 C31 10 33 8 33 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Soup</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Chinese Rice')"
-        aria-label="Chinese Rice category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 24 C10 35 15 40 24 40 C33 40 38 35 38 24 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><line x1="7" y1="24" x2="41" y2="24" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><line x1="16" y1="7" x2="28" y2="23" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><line x1="20" y1="5" x2="32" y2="21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Chinese Rice</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Noodles')"
-        aria-label="Noodles category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 24 C10 34 16 38 24 38 C32 34 38 24 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><ellipse cx="24" cy="24" rx="14" ry="4" stroke="currentColor" stroke-width="2.4"/><line x1="16" y1="8" x2="30" y2="24" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><line x1="20" y1="6" x2="34" y2="22" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Noodles</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Main Course')"
-        aria-label="Main Course category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 21 C10 35 15 41 24 41 C33 41 38 35 38 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="24" cy="21" rx="14" ry="4" stroke="currentColor" stroke-width="2.6"/><path d="M10 24 C5 24 5 30 10 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M38 24 C43 24 43 30 38 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M32 9 L23 23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M20 22 C19 25 24 27 26 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Main Course</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Punjabi Dishes')"
-        aria-label="Punjabi Dishes category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 21 C10 35 15 41 24 41 C33 41 38 35 38 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="24" cy="21" rx="14" ry="4" stroke="currentColor" stroke-width="2.6"/><path d="M10 24 C5 24 5 30 10 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M38 24 C43 24 43 30 38 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M32 9 L23 23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M20 22 C19 25 24 27 26 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Punjabi Dishes</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Paneer Main Course')"
-        aria-label="Paneer Main Course category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 21 C10 35 15 41 24 41 C33 41 38 35 38 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="24" cy="21" rx="14" ry="4" stroke="currentColor" stroke-width="2.6"/><path d="M10 24 C5 24 5 30 10 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M38 24 C43 24 43 30 38 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M32 9 L23 23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M20 22 C19 25 24 27 26 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Paneer Main Course</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Kaju Special')"
-        aria-label="Kaju Special category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 21 C10 35 15 41 24 41 C33 41 38 35 38 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="24" cy="21" rx="14" ry="4" stroke="currentColor" stroke-width="2.6"/><path d="M10 24 C5 24 5 30 10 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M38 24 C43 24 43 30 38 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M32 9 L23 23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M20 22 C19 25 24 27 26 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Kaju Special</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Amol Special Dishes')"
-        aria-label="Amol Special Dishes category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 21 C10 35 15 41 24 41 C33 41 38 35 38 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="24" cy="21" rx="14" ry="4" stroke="currentColor" stroke-width="2.6"/><path d="M10 24 C5 24 5 30 10 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M38 24 C43 24 43 30 38 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M32 9 L23 23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M20 22 C19 25 24 27 26 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Amol Special Dishes</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Rice')"
-        aria-label="Rice category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 24 C10 35 15 40 24 40 C33 40 38 35 38 24 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><ellipse cx="24" cy="24" rx="14" ry="5" stroke="currentColor" stroke-width="2.4"/><path d="M15 22 C18 16 30 16 33 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Rice</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Raita')"
-        aria-label="Raita category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M12 25 C12 34 17 38 24 38 C31 38 36 34 36 25 Z" stroke="currentColor" stroke-width="2.6"/><ellipse cx="24" cy="25" rx="12" ry="4" stroke="currentColor" stroke-width="2.4"/><circle cx="21" cy="25" r="1.2" fill="currentColor"/><circle cx="27" cy="24" r="1.2" fill="currentColor"/></svg>
-        </div>
-        <span class="tab-label">Raita</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Bhartiya Roti')"
-        aria-label="Bhartiya Roti category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><ellipse cx="24" cy="27" rx="17" ry="11" stroke="currentColor" stroke-width="2.6"/><path d="M11 26 C13 32 35 34 37 26" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="19" cy="24" r="1.5" fill="currentColor"/><circle cx="27" cy="22" r="1.5" fill="currentColor"/><circle cx="23" cy="28" r="1.5" fill="currentColor"/><circle cx="31" cy="26" r="1.2" fill="currentColor"/><circle cx="15" cy="27" r="1.2" fill="currentColor"/></svg>
-        </div>
-        <span class="tab-label">Bhartiya Roti</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Tandoori Roti & Naan')"
-        aria-label="Tandoori Roti & Naan category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><ellipse cx="24" cy="27" rx="17" ry="11" stroke="currentColor" stroke-width="2.6"/><path d="M11 26 C13 32 35 34 37 26" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="19" cy="24" r="1.5" fill="currentColor"/><circle cx="27" cy="22" r="1.5" fill="currentColor"/><circle cx="23" cy="28" r="1.5" fill="currentColor"/><circle cx="31" cy="26" r="1.2" fill="currentColor"/><circle cx="15" cy="27" r="1.2" fill="currentColor"/></svg>
-        </div>
-        <span class="tab-label">Tandoori Roti & Naan</span>
-      </button>
-      
-    </div>
-  
-    <div class="category-tab-wrapper">
-      <button
-        type="button"
-        class="category-tab-btn "
-        onclick="selectCategory('Ice Cream & Cold Drinks')"
-        aria-label="Ice Cream & Cold Drinks category"
-        aria-pressed="false"
-      >
-        <div class="category-icon-box">
-          <svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M14 16 L17.5 41 C17.8 42.5 19 43.5 20.5 43.5 H27.5 C29 43.5 30.2 42.5 30.5 41 L34 16 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M12 16 H36" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><line x1="28" y1="6" x2="22" y2="24" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        </div>
-        <span class="tab-label">Ice Cream & Cold Drinks</span>
-      </button>
-      
-    </div>
-  </div>
       </nav>
 
       <!-- SEARCH BAR & COUNT -->
@@ -11691,10 +11333,23 @@
           </div>
           <div class="modal-divider"></div>
           <div class="modal-actions-row">
-            <a href="#" id="modalWhatsAppBtn" target="_blank" class="modal-action-btn btn-primary-brown">Order via
-              WhatsApp</a>
-            <button type="button" class="modal-action-btn btn-secondary-outline"
-              onclick="showToast('🛎️ Waiter notified! A server will visit your table shortly.')">Call Waiter</button>
+            <a href="#" id="modalWhatsAppBtn" target="_blank" class="modal-action-btn btn-modal-whatsapp">
+              <svg class="btn-action-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              <span id="modalWhatsAppText">Order via WhatsApp</span>
+            </a>
+            <button type="button" class="modal-action-btn btn-modal-waiter"
+              onclick="showToast('🛎️ Waiter notified! A server will visit your table shortly.')">
+              <svg class="btn-action-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 18h16"/>
+                <path d="M12 4v3"/>
+                <path d="M10 4h4"/>
+                <path d="M6 18c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+                <circle cx="12" cy="3" r="1" fill="currentColor"/>
+              </svg>
+              <span>Call Waiter</span>
+            </button>
           </div>
         </div>
       </div>
@@ -11997,12 +11652,21 @@
 
     function updateWhatsAppLink(dish, price, isSoldOut) {
       const btn = document.getElementById('modalWhatsAppBtn');
+      const textSpan = document.getElementById('modalWhatsAppText');
       if (isSoldOut) {
-        btn.innerText = 'Currently Sold Out';
+        if (textSpan) {
+          textSpan.textContent = 'Currently Sold Out';
+        } else {
+          btn.innerText = 'Currently Sold Out';
+        }
         btn.style.opacity = '0.5';
         btn.style.pointerEvents = 'none';
       } else {
-        btn.innerText = 'Order via WhatsApp';
+        if (textSpan) {
+          textSpan.textContent = 'Order via WhatsApp';
+        } else {
+          btn.innerText = 'Order via WhatsApp';
+        }
         btn.style.opacity = '1';
         btn.style.pointerEvents = 'auto';
         const label = activeDishSelectedVariant ? ` (${activeDishSelectedVariant.label})` : '';
