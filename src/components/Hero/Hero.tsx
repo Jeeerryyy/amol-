@@ -337,70 +337,110 @@ export const Hero: React.FC = () => {
 
         {/* ==========================================================================
             MOBILE & TABLET VIEW (<= 900px):
-            Total background 100% visible (0px cropped on left/right, 16:9 aspect ratio)
-            with both text sections displayed clearly as before
+            Exact 1:1 match to mobile reference design and layout
             ========================================================================== */}
-        <div
-          className="hero-mobile-content"
-          style={{
-            opacity: contentOpacity,
-            transform: `translate3d(0, ${contentTranslateY}px, 0)`,
-            pointerEvents: contentOpacity < 0.1 ? 'none' : 'auto',
-          }}
-        >
-          {/* Top Text Block */}
-          <div className="hero-mobile-top">
-            <div className="hero-mobile-eyebrow">
-              <span className="eyebrow-line" aria-hidden="true" />
-              <span className="eyebrow-text">{hero.leftEyebrow || "PURE VEG. PURE TASTE."}</span>
-              <span className="eyebrow-line" aria-hidden="true" />
-            </div>
-
-            <div className="hero-mobile-title" aria-hidden="true">
-              <span className="hero-mobile-title-row">
-                {hero.heading.line1}{' '}
-                <span className="hero-mobile-highlight">{hero.heading.line2}</span>
-              </span>
-              <span className="hero-mobile-title-row">
-                <span>{hero.heading.line3}</span>
-              </span>
-            </div>
-
-            <p className="hero-mobile-subtag">{hero.subtag || "ALWAYS AMOL."}</p>
+        <div className="hero-mobile-content">
+          {/* Eyebrow: — PURE VEG. PURE TASTE. — */}
+          <div className="hero-mobile-eyebrow">
+            <span className="eyebrow-line" aria-hidden="true" />
+            <span className="eyebrow-text">PURE VEG. PURE TASTE.</span>
+            <span className="eyebrow-line" aria-hidden="true" />
           </div>
 
-          {/* Full-Width 16:9 Canvas Frame (0px cropped on left/right) */}
-          <div className="hero-mobile-canvas-wrap" aria-hidden="true">
+          {/* Headline: Authentic / Flavours, / Feel Like Home */}
+          <h1 className="hero-mobile-headline">
+            <span className="hero-mobile-line-1">Authentic</span>
+            <span className="hero-mobile-line-2">Flavours,</span>
+            <span className="hero-mobile-line-3">Feel Like Home</span>
+          </h1>
+
+          {/* Description Paragraph */}
+          <p className="hero-mobile-desc">
+            Savor a wide range of pure vegetarian dishes, made with fresh ingredients and a touch of home.
+          </p>
+
+          {/* 4 Feature Badges with hairline dividers */}
+          <div className="hero-mobile-features" aria-label="Restaurant Highlights">
+            <div className="hero-feature-item">
+              <div className="feature-icon-wrap" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M11 20A7 7 0 0 1 4 13C4 7 11 3 20 3c0 9-4 16-9 17Z"/>
+                  <path d="M7 13c1.5.5 3.5.5 5 0"/>
+                </svg>
+              </div>
+              <span className="feature-title">100%</span>
+              <span className="feature-subtitle">Pure Veg</span>
+            </div>
+
+            <div className="feature-divider" aria-hidden="true" />
+
+            <div className="hero-feature-item">
+              <div className="feature-icon-wrap" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/>
+                  <line x1="6" y1="17" x2="18" y2="17"/>
+                </svg>
+              </div>
+              <span className="feature-title">Freshly</span>
+              <span className="feature-subtitle">Prepared</span>
+            </div>
+
+            <div className="feature-divider" aria-hidden="true" />
+
+            <div className="hero-feature-item">
+              <div className="feature-icon-wrap" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+              </div>
+              <span className="feature-title">Served</span>
+              <span className="feature-subtitle">Fast</span>
+            </div>
+
+            <div className="feature-divider" aria-hidden="true" />
+
+            <div className="hero-feature-item">
+              <div className="feature-icon-wrap" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <span className="feature-title">Family</span>
+              <span className="feature-subtitle">Friendly</span>
+            </div>
+          </div>
+
+          {/* Action Buttons Row */}
+          <div className="hero-mobile-actions">
+            <a href="/menu/" className="hero-btn-explore">
+              <span>Explore Menu</span>
+              <ArrowRight size={17} strokeWidth={2.4} />
+            </a>
+
+            <a href="tel:+917249664983" className="hero-btn-reserve">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <span>Reserve a Table</span>
+            </a>
+          </div>
+
+          {/* Bottom Arch Image Graphic (Luxury table setting with copper handis & botanical branch) */}
+          <div className="hero-mobile-arch-wrap">
             <img
-              src="/hero-frames/ezgif-frame-001.jpg"
-              alt=""
-              className={`hero-canvas-poster ${isFirstFrameLoaded ? 'fade-out' : ''}`}
-              fetchPriority="high"
+              src="/images/hero-mobile-arch.png"
+              alt="Authentic Vegetarian Dining Atmosphere at Amol Veg Resto Solapur"
+              className="hero-mobile-arch-img"
+              width="576"
+              height="422"
               loading="eager"
             />
-            <canvas ref={mobileCanvasRef} className="hero-scroll-canvas" />
-          </div>
-
-          {/* Bottom Text Block */}
-          <div className="hero-mobile-bottom">
-            <span className="hero-eyebrow right-eyebrow">{hero.rightEyebrow || "GOOD FOOD"}</span>
-
-            <h2 className="hero-mobile-right-heading">
-              {hero.rightHeadingLines.map((line, i) => (
-                <span key={i} className="hero-right-line">{line}</span>
-              ))}
-            </h2>
-
-            <div className="hero-orange-rule" aria-hidden="true" />
-
-            <span className="hero-heritage">{hero.rightHeritage || "SINCE 1990."}</span>
-
-            <a href={hero.exploreMenuButton.href || "/menu/"} className="hero-explore-btn hero-mobile-explore-btn">
-              <span className="explore-text">{hero.exploreMenuButton.text || "EXPLORE MENU"}</span>
-              <span className="explore-icon-circle">
-                <ArrowRight size={16} strokeWidth={2.4} className="explore-arrow-icon" />
-              </span>
-            </a>
           </div>
         </div>
 

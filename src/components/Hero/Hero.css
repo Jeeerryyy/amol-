@@ -324,13 +324,31 @@
 
 /* ==========================================================================
    RESPONSIVE BREAKPOINT (<= 900px)
+   Matches mobile design and layout reference exactly (1:1 visual match)
    ========================================================================== */
 @media (max-width: 900px) {
   .hero-scroll-track {
-    height: 220vh;
+    height: auto !important;
+    min-height: 100vh;
+    position: relative;
+    background-color: var(--color-cream-bg, #FAF4EC);
+  }
+
+  .hero-sticky-frame {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: 100vh;
+    display: block !important;
+    overflow: visible !important;
+    background-color: var(--color-cream-bg, #FAF4EC);
   }
 
   .hero-desktop-content {
+    display: none !important;
+  }
+
+  .hero-scroll-prompt {
     display: none !important;
   }
 
@@ -338,166 +356,219 @@
     display: flex !important;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 100%;
-    padding: 10px 16px 36px 16px;
-    box-sizing: border-box;
-    z-index: 10;
-  }
-
-  /* Top Text Block: PURE VEG. PURE TASTE. Authentic Flavours Feel Like Home ALWAYS AMOL. */
-  .hero-mobile-top {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
     width: 100%;
-    flex-shrink: 0;
+    padding: 24px 16px 0 16px;
+    box-sizing: border-box;
+    z-index: 10;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-cream-bg, #FAF4EC);
   }
 
+  /* 1. Eyebrow: — PURE VEG. PURE TASTE. — */
   .hero-mobile-eyebrow {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 6px;
+    gap: 14px;
+    margin-bottom: 12px;
   }
 
   .hero-mobile-eyebrow .eyebrow-line {
-    width: 20px;
+    width: 32px;
     height: 1.5px;
-    background-color: var(--color-accent-orange, #BA3D0C);
+    background-color: #BA3D0C;
     border-radius: 2px;
   }
 
   .hero-mobile-eyebrow .eyebrow-text {
     font-family: var(--font-sans);
-    font-size: 9.5px;
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 750;
     letter-spacing: 0.16em;
     color: var(--color-text-dark, #2B170B);
     text-transform: uppercase;
   }
 
-  .hero-mobile-title {
+  /* 2. Headline: Authentic / Flavours, / Feel Like Home */
+  .hero-mobile-headline {
     font-family: var(--font-serif);
-    font-size: clamp(22px, 6.2vw, 28px);
+    font-size: clamp(34px, 8.8vw, 42px);
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.14;
     color: var(--color-text-dark, #2B170B);
-    margin: 0 0 4px 0;
+    margin: 0 0 14px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
+    letter-spacing: -0.01em;
   }
 
-  .hero-mobile-title-row {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+  .hero-mobile-line-1 {
+    display: block;
+    color: var(--color-text-dark, #2B170B);
   }
 
-  .hero-mobile-highlight {
-    color: var(--color-accent-orange, #C44714);
+  .hero-mobile-line-2 {
+    display: block;
+    color: #C85A17;
     font-style: italic;
     font-weight: 800;
   }
 
-  .hero-mobile-subtag {
+  .hero-mobile-line-3 {
+    display: block;
+    color: var(--color-text-dark, #2B170B);
+  }
+
+  /* 3. Description Paragraph */
+  .hero-mobile-desc {
     font-family: var(--font-sans);
-    font-size: 9.5px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    color: var(--color-text-muted, #7A695D);
-    margin: 0;
-    text-transform: uppercase;
+    font-size: 13.5px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #4D3126;
+    max-width: 330px;
+    margin: 0 auto 22px auto;
+    padding: 0 4px;
   }
 
-  /* Full-width 16:9 Canvas Container:
-     TOTAL background visible! ZERO pixels cropped from left and right! */
-  .hero-mobile-canvas-wrap {
-    position: relative;
-    width: 100vw;
-    margin-left: -16px;
-    margin-right: -16px;
-    aspect-ratio: 16 / 9;
-    max-height: 40vh;
-    overflow: hidden;
-    background-color: #FAF4EC;
-    flex-shrink: 0;
-  }
-
-  .hero-mobile-canvas-wrap .hero-scroll-canvas,
-  .hero-mobile-canvas-wrap .hero-canvas-poster {
-    position: absolute;
-    inset: 0;
+  /* 4. 4 Feature Badges */
+  .hero-mobile-features {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
+    max-width: 370px;
+    margin: 0 auto 24px auto;
+    padding: 0 2px;
+    box-sizing: border-box;
   }
 
-  /* Bottom Text Block: GOOD FOOD Brings People Together SINCE 1990. EXPLORE MENU */
-  .hero-mobile-bottom {
+  .hero-feature-item {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 100%;
-    flex-shrink: 0;
+    padding: 0 2px;
   }
 
-  .hero-mobile-bottom .right-eyebrow {
-    font-family: var(--font-sans);
-    font-size: 9.5px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    color: var(--color-text-dark, #2B170B);
-    line-height: 1.2;
-    margin-bottom: 4px;
-  }
-
-  .hero-mobile-right-heading {
-    font-family: var(--font-serif);
-    font-size: clamp(18px, 5vw, 22px);
-    font-weight: 700;
-    line-height: 1.18;
-    color: var(--color-text-dark, #2B170B);
-    margin: 0 0 6px 0;
-  }
-
-  .hero-mobile-bottom .hero-orange-rule {
-    width: 32px;
-    height: 2px;
-    background-color: var(--color-accent-orange, #D4561A);
+  .feature-icon-wrap {
+    color: #C85A17;
     margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
   }
 
-  .hero-mobile-bottom .hero-heritage {
+  .feature-title {
     font-family: var(--font-sans);
-    font-size: 9.5px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    color: var(--color-text-muted, #7A695D);
-    margin-bottom: 12px;
-  }
-
-  .hero-mobile-explore-btn {
-    min-height: 42px;
-    padding: 3px 5px 3px 18px;
-    gap: 10px;
-  }
-
-  .hero-mobile-explore-btn .explore-text {
     font-size: 11px;
-    letter-spacing: 0.08em;
+    font-weight: 750;
+    color: var(--color-text-dark, #2B170B);
+    line-height: 1.25;
+    display: block;
   }
 
-  .hero-mobile-explore-btn .explore-icon-circle {
-    width: 28px;
-    height: 28px;
+  .feature-subtitle {
+    font-family: var(--font-sans);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--color-text-dark, #2B170B);
+    line-height: 1.25;
+    display: block;
+  }
+
+  .feature-divider {
+    width: 1px;
+    height: 32px;
+    background-color: rgba(43, 23, 11, 0.16);
+    align-self: center;
+    flex-shrink: 0;
+    margin: 0 2px;
+  }
+
+  /* 5. Action Buttons */
+  .hero-mobile-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto 22px auto;
+    padding: 0 2px;
+    box-sizing: border-box;
+  }
+
+  .hero-btn-explore {
+    flex: 1;
+    height: 46px;
+    border-radius: 9999px;
+    background-color: var(--color-accent-orange, #D4561A);
+    color: #FFFFFF;
+    font-family: var(--font-serif);
+    font-size: 14.5px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(212, 86, 26, 0.28);
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    border: none;
+  }
+
+  .hero-btn-explore:active {
+    transform: scale(0.96);
+    background-color: #BA3D0C;
+  }
+
+  .hero-btn-reserve {
+    flex: 1;
+    height: 46px;
+    border-radius: 9999px;
+    background-color: transparent;
+    color: var(--color-text-dark, #2B170B);
+    border: 1.5px solid var(--color-text-dark, #2B170B);
+    font-family: var(--font-serif);
+    font-size: 14.5px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+  }
+
+  .hero-btn-reserve:active {
+    transform: scale(0.96);
+    background-color: rgba(43, 23, 11, 0.05);
+  }
+
+  /* 6. Arched Visual Graphic */
+  .hero-mobile-arch-wrap {
+    position: relative;
+    width: 100vw;
+    max-width: 460px;
+    margin-left: -16px;
+    margin-right: -16px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
+  }
+
+  .hero-mobile-arch-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
   }
 }
