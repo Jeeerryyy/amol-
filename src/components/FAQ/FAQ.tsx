@@ -555,13 +555,14 @@ export const FAQ: React.FC = () => {
                 <Icon name="chevron-left" size={16} />
               </button>
 
-              <div className="faq-pagination-dots" role="tablist">
+              <div className="faq-pagination-dots" role="tablist" aria-label="FAQ categories">
                 {FAQ_CATEGORIES.map((cat, idx) => {
                   const isCurrent = cat.id === activeCategoryId;
                   return (
                     <button
                       key={cat.id}
                       type="button"
+                      role="tab"
                       className={`faq-page-dot ${isCurrent ? 'active' : ''}`}
                       onClick={() => handleCategoryChange(cat.id)}
                       aria-label={`Switch to ${cat.label} (${idx + 1} of ${totalCategories})`}

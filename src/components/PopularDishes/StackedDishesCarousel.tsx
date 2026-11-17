@@ -150,7 +150,7 @@ export const StackedDishesCarousel: React.FC<StackedDishesCarouselProps> = ({ di
               <div className="stacked-card-media">
                 <img
                   src={dish.imageSrc || `/images/dishes/popular/dish-${(index % 4) + 1}.jpg`}
-                  alt={dish.title}
+                  alt={dish.title || dish.placeholderText || `Special Vegetarian Dish ${index + 1}`}
                   className="stacked-card-img"
                   loading={isTop ? 'eager' : 'lazy'}
                   onError={(e) => {
@@ -199,7 +199,7 @@ export const StackedDishesCarousel: React.FC<StackedDishesCarouselProps> = ({ di
                 setActiveIndex(i);
                 setDragX(0);
               }}
-              aria-label={`Go to ${d.title}`}
+              aria-label={`Go to ${d.title || d.placeholderText || `Dish ${i + 1}`}`}
               aria-selected={i === activeIndex}
               role="tab"
             />

@@ -17,13 +17,13 @@ export const PopularDishes: React.FC = () => {
       })
       .then((data: any[]) => {
         if (Array.isArray(data) && data.length > 0) {
-          const mapped: DishItem[] = data.map((d) => ({
-            id: d.id,
-            title: d.title,
+          const mapped: DishItem[] = data.map((d, idx) => ({
+            id: String(d.id || idx),
+            title: d.title || d.name || `Special Dish ${idx + 1}`,
             description: d.description || '',
-            price: d.price || '',
-            imageSrc: d.image_url || undefined,
-            placeholderText: d.title,
+            price: typeof d.price === 'number' ? `₹${d.price}` : (d.price || ''),
+            imageSrc: d.image_url || d.imageSrc || undefined,
+            placeholderText: d.title || d.name || `Special Dish ${idx + 1}`,
           }));
           setDishes(mapped);
         }

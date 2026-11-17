@@ -180,18 +180,28 @@
 }
 
 .stacked-dot {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.stacked-dot::before {
+  content: '';
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background-color: rgba(43, 23, 11, 0.2);
-  border: none;
-  padding: 0;
-  cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.stacked-dot.active {
+.stacked-dot.active::before {
   width: 22px;
   border-radius: 9999px;
-  background-color: var(--color-accent-orange, #D4561A);
+  background-color: var(--color-accent-orange, #C04A0C);
 }

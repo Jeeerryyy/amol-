@@ -67,7 +67,9 @@ export const PlaceholderImage: React.FC<PlaceholderImageProps> = ({
             fontSize: '11px',
             fontFamily: 'var(--font-sans)',
             letterSpacing: '0.05em',
-            opacity: 0.65,
+            color: '#4A3B2C',
+            fontWeight: 600,
+            opacity: 0.95,
             textAlign: 'center',
             padding: '0 8px',
           }}

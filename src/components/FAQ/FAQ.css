@@ -294,25 +294,35 @@
 }
 
 .faq-page-dot {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.faq-page-dot::before {
+  content: '';
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background-color: #DFCFC1;
-  border: none;
-  cursor: pointer;
   transition: all 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
-  padding: 0;
 }
 
-.faq-page-dot:hover {
+.faq-page-dot:hover::before {
   background-color: #C4A590;
   transform: scale(1.2);
 }
 
-.faq-page-dot.active {
-  background-color: var(--color-accent-orange, #C05621);
+.faq-page-dot.active::before {
+  background-color: var(--color-accent-orange, #C04A0C);
   transform: scale(1.25);
-  box-shadow: 0 1px 4px rgba(192, 86, 33, 0.35);
+  box-shadow: 0 1px 4px rgba(192, 74, 12, 0.35);
 }
 
 /* 3. Bottom Support CTA Bar matching Reference Image */

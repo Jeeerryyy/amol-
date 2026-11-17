@@ -284,7 +284,6 @@ export const Hero: React.FC = () => {
               src="/hero-frames/ezgif-frame-001.jpg"
               alt=""
               className={`hero-canvas-poster ${isFirstFrameLoaded ? 'fade-out' : ''}`}
-              fetchPriority="high"
               loading="eager"
             />
             <canvas ref={desktopCanvasRef} className="hero-scroll-canvas" />

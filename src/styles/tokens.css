@@ -7,15 +7,15 @@
   /* Colors */
   --color-cream-bg: #FAF4EC;          /* Unified warm ivory parchment background matching all artwork */
   --color-cream-card: #FAF4EC;        /* Matching card surface */
-  --color-accent-orange: #D4561A;     /* Signature burnt orange */
-  --color-accent-orange-hover: #B8440E;
+  --color-accent-orange: #C04A0C;     /* Signature burnt orange */
+  --color-accent-orange-hover: #A33C08;
   --color-orange-text: #A94B00;       /* Accessible deep orange for small text & links on cream (WCAG AA > 5.5:1) */
   --color-text-dark: #2B170B;         /* Deep espresso brown for headings & text */
   --color-text-muted: #6B5545;        /* Muted cocoa brown for descriptions */
   --color-border: #E8DACB;            /* Hairline borders & section dividers */
   --color-peach-card: #F1D3B0;        /* Rotated accent card behind About image */
   --color-placeholder-bg: #D9CFC4;    /* Image placeholder box fill */
-  --color-placeholder-icon: #A89B8C;  /* Placeholder icon color */
+  --color-placeholder-icon: #5A4838;  /* Placeholder icon color */
   --color-footer-bar: #351C12;         /* Dark brown bottom footer bar */
   --color-quote-mark: #F1B98A;        /* Large testimonial quote mark */
   --color-olive-leaf: #6B7A3A;        /* Olive green for botanical accents */

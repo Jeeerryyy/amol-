@@ -252,10 +252,10 @@ router.get('/api/public/popular-dishes', async (req, res, next) => {
   } catch (err) {
     console.warn('[Public API] Database unavailable for /api/public/popular-dishes, serving fallback dishes');
     return res.json([
-      { id: 1, name: "Dish 1", price: 120, description: "A delicious and wholesome dish made with fresh ingredients.", imageSrc: "/images/dishes/popular/dish-1.jpg" },
-      { id: 2, name: "Dish 2", price: 100, description: "Soft, fluffy and served with our special chutney & sambar.", imageSrc: "/images/dishes/popular/dish-2.jpg" },
-      { id: 3, name: "Dish 3", price: 110, description: "A flavourful and light option perfect for any time of the day.", imageSrc: "/images/dishes/popular/dish-3.jpg" },
-      { id: 4, name: "Dish 4", price: 150, description: "A complete and satisfying meal made with fresh, pure veg ingredients.", imageSrc: "/images/dishes/popular/dish-4.jpg" }
+      { id: 1, title: "Special Thali", name: "Special Thali", price: 120, description: "A delicious and wholesome dish made with fresh ingredients.", imageSrc: "/images/dishes/popular/dish-1.jpg" },
+      { id: 2, title: "South Indian Idli Sambar", name: "South Indian Idli Sambar", price: 100, description: "Soft, fluffy and served with our special chutney & sambar.", imageSrc: "/images/dishes/popular/dish-2.jpg" },
+      { id: 3, title: "Crispy Masala Dosa", name: "Crispy Masala Dosa", price: 110, description: "A flavourful and light option perfect for any time of the day.", imageSrc: "/images/dishes/popular/dish-3.jpg" },
+      { id: 4, title: "Amol Veg Platter", name: "Amol Veg Platter", price: 150, description: "A complete and satisfying meal made with fresh, pure veg ingredients.", imageSrc: "/images/dishes/popular/dish-4.jpg" }
     ]);
   }
 });

@@ -82,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage = 'home', isAboutPage
       <header className="site-navbar" id="site-navbar">
         <div className="container navbar-container">
           {/* Brand Group */}
-          <a href="#/" className="navbar-brand" aria-label={brand.name} onClick={() => setMobileMenuOpen(false)}>
+          <a href="#/" className="navbar-brand" onClick={() => setMobileMenuOpen(false)}>
             <img
               src={brand.logoPath}
               alt={brand.name}
