@@ -21,9 +21,11 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const [peakFilter, setPeakFilter] = useState<'all' | 'main' | 'special'>('all');
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchDashboard = () => {
     setLoading(true);
+    setError(null);
     adminFetch(`/api/admin/dashboard?range=${range}`)
       .then((res) => {
         setData(res);
@@ -31,14 +33,35 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       })
       .catch((err) => {
         console.error('[Dashboard] Error:', err);
+        setError(err.message || 'Failed to load dashboard metrics');
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchDashboard();
   }, [range]);
 
   if (loading && !data) {
     return (
       <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--admin-text-muted)' }}>
         Loading dashboard analytics...
+      </div>
+    );
+  }
+
+  if (error && !data) {
+    return (
+      <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+        <p style={{ color: 'var(--admin-danger)', marginBottom: '16px', fontSize: '15px' }}>{error}</p>
+        <button
+          type="button"
+          onClick={fetchDashboard}
+          className="admin-btn admin-btn-primary"
+          style={{ display: 'inline-flex', padding: '10px 24px' }}
+        >
+          Retry
+        </button>
       </div>
     );
   }

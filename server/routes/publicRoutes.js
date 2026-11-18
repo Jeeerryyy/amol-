@@ -1,5 +1,7 @@
 import express from 'express';
 import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
 import { query } from '../db/connection.js';
 import { env } from '../config/env.js';
 import { checkQrRateLimit } from '../middleware/rateLimiter.js';
@@ -16,6 +18,16 @@ function getCached(key) {
 }
 function setCached(key, data, ttlSeconds = 60) {
   cache.set(key, { data, expiresAt: Date.now() + ttlSeconds * 1000 });
+}
+
+export function clearPublicCache(key) {
+  if (key) {
+    for (const k of cache.keys()) {
+      if (k.includes(key)) cache.delete(k);
+    }
+  } else {
+    cache.clear();
+  }
 }
 
 function sendCachedJson(res, data, ttlSeconds = 60) {
@@ -368,12 +380,32 @@ router.get('/api/public/menu/:menuId', async (req, res, next) => {
     setCached(cacheKey, payload, 60);
     return sendCachedJson(res, payload);
   } catch (err) {
-    console.warn(`[Public API] Database unavailable for /api/public/legal/${id}, serving fallback`);
-    return sendCachedJson(res, {
-      id,
-      title: id === 'privacy-policy' ? 'Privacy Policy' : 'Terms & Conditions',
-      content: `<p>Welcome to Amol Veg Resto. For questions, please contact +91 72496 64983.</p>`
-    }, 300);
+    console.warn(`[Public API] Database unavailable for /api/public/menu/${menuId}, serving local menu data:`, err.message);
+    try {
+      const fallbackPath = path.resolve('public/menu/restaurant_menu_data.json');
+      if (fs.existsSync(fallbackPath)) {
+        const raw = JSON.parse(fs.readFileSync(fallbackPath, 'utf8'));
+        return res.json({
+          menu: {
+            id: menuId,
+            title: menuId === 'special' ? 'Special Menu' : 'Menu',
+            subtitle: menuId === 'special' ? 'Exclusive Dining Delights' : 'Pure Vegetarian Delights',
+            video_url: '/menu/hero-video.mp4',
+            poster_url: '',
+          },
+          categories: raw.categories || [],
+          dishes: raw.dishes || [],
+          seo: {
+            title: menuId === 'special' ? 'Special Menu | Amol Veg Resto' : 'Menu | Amol Veg Resto',
+            meta_description: 'Pure vegetarian dining at Amol Veg Resto.',
+            noindex: menuId === 'special' ? 1 : 0,
+          },
+        });
+      }
+    } catch (e) {
+      console.error('[Public API] Fallback menu load error:', e);
+    }
+    return res.status(503).json({ error: 'Menu temporarily unavailable' });
   }
 });
 
@@ -450,12 +482,8 @@ router.post('/api/public/review-events', async (req, res, next) => {
     );
     return res.json({ success: true });
   } catch (err) {
-    console.warn(`[Public API] Database unavailable for /api/public/legal/${id}, serving fallback`);
-    return sendCachedJson(res, {
-      id,
-      title: id === 'privacy-policy' ? 'Privacy Policy' : 'Terms & Conditions',
-      content: `<p>Welcome to Amol Veg Resto. For questions, please contact +91 72496 64983.</p>`
-    }, 300);
+    console.error('[Public API] Error recording review event:', err);
+    return res.status(500).json({ error: 'Failed to record review event' });
   }
 });
 
