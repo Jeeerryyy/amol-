@@ -18,15 +18,15 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   color: var(--color-text-dark);
   text-decoration: none;
   padding: 8px 16px;
   border-radius: var(--radius-pill);
-  background: #FFFFFF;
+  background-color: var(--color-cream-card);
   border: 1px solid var(--color-border);
   box-shadow: 0 1px 3px rgba(43, 23, 11, 0.04);
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .legal-back-btn:hover {
@@ -35,11 +35,11 @@
 }
 
 .legal-card {
-  background: #FFFFFF;
+  background-color: var(--color-cream-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 48px;
-  box-shadow: 0 4px 20px rgba(43, 23, 11, 0.05);
+  box-shadow: var(--shadow-card);
 }
 
 .legal-header {
@@ -50,7 +50,7 @@
 .legal-icon-wrap {
   width: 56px;
   height: 56px;
-  background-color: #F8EFE4;
+  background-color: var(--color-warm-badge-bg);
   color: var(--color-accent-orange);
   border-radius: 50%;
   display: inline-flex;

@@ -35,7 +35,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #FFFFFF;
+  background-color: var(--color-cream-card);
   border-radius: 20px;
   border: 1px solid rgba(43, 23, 11, 0.1);
   box-shadow: 0 12px 32px rgba(43, 23, 11, 0.1), 0 2px 6px rgba(43, 23, 11, 0.04);
@@ -79,7 +79,7 @@
   padding: 3px 8px;
   border-radius: 6px;
   border: 1px solid rgba(46, 125, 50, 0.25);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-sm);
   letter-spacing: 0.02em;
 }
 
@@ -88,7 +88,7 @@
   padding: 18px 18px 22px 18px;
   display: flex;
   flex-direction: column;
-  background: #FFFFFF;
+  background: var(--color-cream-card);
 }
 
 .stacked-card-header {
@@ -111,8 +111,8 @@
 .stacked-dish-price {
   font-family: var(--font-serif);
   font-size: 22px;
-  font-weight: 750;
-  color: var(--color-accent-orange, #D4561A);
+  font-weight: var(--fw-bold);
+  color: var(--color-accent-orange);
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
@@ -120,7 +120,7 @@
 .stacked-dish-desc {
   font-family: var(--font-sans);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   color: var(--color-text-muted, #6B5545);
   line-height: 1.5;
   margin: 0;
@@ -131,7 +131,7 @@
   margin-top: 18px;
   font-family: var(--font-sans);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   letter-spacing: 0.08em;
   color: var(--color-text-muted, #7A695D);
   text-transform: uppercase;
@@ -160,17 +160,17 @@
   border: 1.5px solid rgba(43, 23, 11, 0.16);
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(43, 23, 11, 0.06);
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .stacked-nav-btn:hover {
-  background-color: #FFFFFF;
+  background-color: var(--color-cream-card);
   border-color: var(--color-accent-orange, #D4561A);
   color: var(--color-accent-orange, #D4561A);
 }
 
 .stacked-nav-btn:active {
-  transform: scale(0.92);
+  background-color: var(--color-warm-badge-bg);
 }
 
 .stacked-dots {
@@ -197,7 +197,7 @@
   height: 8px;
   border-radius: 50%;
   background-color: rgba(43, 23, 11, 0.2);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.25s ease, background-color 0.25s ease, border-radius 0.25s ease;
 }
 
 .stacked-dot.active::before {

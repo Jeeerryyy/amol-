@@ -1,6 +1,6 @@
 /* ==========================================================================
    Review Page Styles - Mobile-First & Solapuri Heritage Theme
-   Tokens: Cream BG (#FAF4EC), Dark Brown (#2B170B), Burnt Orange (#D4561A)
+   Tokens: Cream BG (#FAF4EC), Dark Brown (#2B170B), Burnt Orange (var(--color-accent-orange))
    ========================================================================== */
 
 .review-page-root {
@@ -61,14 +61,14 @@
 .review-brand-title {
   font-family: var(--font-serif, 'Playfair Display', serif);
   font-size: 17px;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   color: var(--color-text-dark, #2B170B);
   line-height: 1.2;
 }
 
 .review-brand-sub {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   color: var(--color-text-muted, #6B5545);
   letter-spacing: 0.02em;
 }
@@ -80,19 +80,19 @@
   padding: 8px 14px;
   border-radius: 9999px;
   font-size: 12.5px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   color: var(--color-text-dark, #2B170B);
   background-color: #FAF4EC;
   border: 1px solid var(--color-border, #E8DACB);
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   white-space: nowrap;
 }
 
 .review-back-btn:hover {
   background-color: #F1E3D3;
-  border-color: var(--color-accent-orange, #D4561A);
-  color: var(--color-accent-orange, #D4561A);
+  border-color: var(--color-accent-orange);
+  color: var(--color-accent-orange);
 }
 
 /* MAIN CONTENT */
@@ -106,7 +106,7 @@
 .review-card-container {
   width: 100%;
   max-width: 620px;
-  background-color: #FFFFFF;
+  background-color: var(--color-cream-card);
   border-radius: 20px;
   border: 1px solid var(--color-border, #E8DACB);
   box-shadow: 0 8px 30px rgba(43, 23, 11, 0.06);
@@ -125,7 +125,7 @@
 .step-heading {
   font-family: var(--font-serif, 'Playfair Display', serif);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   color: var(--color-text-dark, #2B170B);
   text-align: center;
   margin: 0 0 16px 0;
@@ -134,7 +134,7 @@
 .step-subheading {
   font-family: var(--font-serif, 'Playfair Display', serif);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   color: var(--color-text-dark, #2B170B);
   margin: 0 0 12px 0;
 }
@@ -164,11 +164,11 @@
 
 .star-btn:hover,
 .star-btn:focus-visible {
-  background-color: rgba(212, 86, 26, 0.08);
+  background-color: rgba(192, 74, 12, 0.08);
 }
 
 .star-icon {
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .star-feedback-label {
@@ -183,10 +183,10 @@
   display: inline-block;
   padding: 3px 14px;
   border-radius: 9999px;
-  background-color: rgba(212, 86, 26, 0.12);
-  color: var(--color-accent-orange, #D4561A);
+  background-color: rgba(192, 74, 12, 0.12);
+  color: var(--color-accent-orange);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   letter-spacing: 0.02em;
   text-transform: uppercase;
 }
@@ -214,24 +214,24 @@
   border: 1px solid var(--color-border, #E8DACB);
   color: var(--color-text-dark, #2B170B);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   cursor: pointer;
-  transition: all 0.18s ease;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
   user-select: none;
 }
 
 .option-chip:hover {
   background-color: #F1E3D3;
-  border-color: rgba(212, 86, 26, 0.4);
+  border-color: rgba(192, 74, 12, 0.4);
 }
 
 .option-chip.chip-selected {
-  background-color: var(--color-accent-orange, #D4561A);
-  border-color: var(--color-accent-orange, #D4561A);
+  background-color: var(--color-accent-orange);
+  border-color: var(--color-accent-orange);
   color: #FFFFFF;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(212, 86, 26, 0.25);
-  transform: translateY(-1px);
+  font-weight: var(--fw-semibold);
+  box-shadow: 0 2px 8px rgba(192, 74, 12, 0.25);
+  
 }
 
 .chip-indicator {
@@ -255,7 +255,7 @@
   align-items: center;
   gap: 6px;
   font-size: 13.5px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   color: var(--color-text-dark, #2B170B);
   cursor: pointer;
 }
@@ -271,9 +271,9 @@
   align-items: center;
   gap: 5px;
   font-size: 12px;
-  font-weight: 600;
-  color: var(--color-accent-orange, #D4561A);
-  background-color: rgba(212, 86, 26, 0.08);
+  font-weight: var(--fw-semibold);
+  color: var(--color-accent-orange);
+  background-color: rgba(192, 74, 12, 0.08);
   padding: 3px 9px;
   border-radius: 9999px;
 }
@@ -283,9 +283,8 @@
 }
 
 @keyframes pulseRotate {
-  0% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
-  50% { transform: scale(1.15) rotate(180deg); opacity: 1; }
-  100% { transform: scale(0.9) rotate(360deg); opacity: 0.7; }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .btn-regenerate {
@@ -295,17 +294,17 @@
   background: none;
   border: none;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   color: var(--color-text-muted, #6B5545);
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 6px;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-regenerate:hover {
-  color: var(--color-accent-orange, #D4561A);
-  background-color: rgba(212, 86, 26, 0.08);
+  color: var(--color-accent-orange);
+  background-color: rgba(192, 74, 12, 0.08);
 }
 
 .icon-spin {
@@ -340,9 +339,9 @@
 }
 
 .review-textarea:focus {
-  border-color: var(--color-accent-orange, #D4561A);
-  box-shadow: 0 0 0 3px rgba(212, 86, 26, 0.12);
-  background-color: #FFFFFF;
+  border-color: var(--color-accent-orange);
+  box-shadow: 0 0 0 3px rgba(192, 74, 12, 0.12);
+  background-color: var(--color-cream-card);
 }
 
 .user-edited-hint {
@@ -370,14 +369,14 @@
   height: 50px;
   padding: 0 24px;
   border-radius: 9999px;
-  background-color: var(--color-accent-orange, #D4561A);
+  background-color: var(--color-accent-orange);
   border: none;
   color: #FFFFFF;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   letter-spacing: 0.02em;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(212, 86, 26, 0.25);
+  box-shadow: 0 2px 8px rgba(192, 74, 12, 0.25);
   transition: background-color 0.2s ease;
 }
 
@@ -419,7 +418,7 @@
 .success-heading {
   font-family: var(--font-serif, 'Playfair Display', serif);
   font-size: 26px;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   color: var(--color-text-dark, #2B170B);
   margin: 0 0 8px 0;
 }
@@ -455,14 +454,14 @@
 .preview-label {
   font-size: 11px;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   letter-spacing: 0.05em;
   color: var(--color-text-muted, #6B5545);
 }
 
 .preview-stars {
   font-size: 14px;
-  color: var(--color-accent-orange, #D4561A);
+  color: var(--color-accent-orange);
   letter-spacing: 2px;
 }
 
@@ -489,14 +488,14 @@
   gap: 8px;
   height: 48px;
   border-radius: 9999px;
-  background-color: var(--color-accent-orange, #D4561A);
+  background-color: var(--color-accent-orange);
   color: #FFFFFF;
   border: none;
   font-size: 14.5px;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   cursor: pointer;
   transition: background-color 0.2s ease;
-  box-shadow: 0 2px 8px rgba(212, 86, 26, 0.25);
+  box-shadow: 0 2px 8px rgba(192, 74, 12, 0.25);
 }
 
 .btn-action-primary:hover {
@@ -514,14 +513,14 @@
   border: 1.5px solid var(--color-border, #E8DACB);
   color: var(--color-text-dark, #2B170B);
   font-size: 13.5px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-action-secondary:hover {
   background-color: #F1E3D3;
-  border-color: var(--color-accent-orange, #D4561A);
+  border-color: var(--color-accent-orange);
 }
 
 .success-footer-links {
@@ -539,7 +538,7 @@
 }
 
 .link-plain-btn:hover {
-  color: var(--color-accent-orange, #D4561A);
+  color: var(--color-accent-orange);
 }
 
 /* ANIMATIONS */
