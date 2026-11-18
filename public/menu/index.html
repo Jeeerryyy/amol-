@@ -15,20 +15,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Playfair+Display:wght@600;700&display=swap"
     rel="stylesheet">
   <style>
     :root {
       --color-cream-bg: #FAF4EC;
       --color-cream-card: #FAF4EC;
-      --color-accent-orange: #D4561A;
-      --color-accent-orange-hover: #B8440E;
+      --color-accent-orange: #C04A0C;
+      --color-accent-orange-hover: #A33C08;
       --color-text-dark: #2B170B;
       --color-text-muted: #6B5545;
       --color-border: #E8DACB;
       --color-footer-bar: #351C12;
       --font-serif: 'Playfair Display', Georgia, serif;
-      --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --radius-pill: 9999px;
       --radius-lg: 20px;
     }
@@ -163,7 +163,7 @@
       display: block;
     }
 
-    /* STICKY CONTROL BAR (Seamless Screen Color Match, Pinned at top) */
+    /* Sticky Category & Search Navigation Bar */
     .menu-sticky-control-bar {
       position: -webkit-sticky;
       position: sticky;
@@ -295,7 +295,7 @@
     .search-input:focus {
       outline: none;
       border-color: var(--color-accent-orange);
-      box-shadow: 0 0 0 3px rgba(212, 86, 26, 0.12);
+      box-shadow: 0 0 0 3px rgba(192, 74, 12, 0.12);
     }
 
     .search-clear-btn {
@@ -393,7 +393,7 @@
     }
 
     .menu-dish-card:hover {
-      border-color: rgba(212, 86, 26, 0.35);
+      border-color: rgba(192, 74, 12, 0.35);
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(43, 23, 11, 0.06), 0 12px 24px rgba(43, 23, 11, 0.04);
     }
@@ -442,7 +442,7 @@
       border-radius: 6px;
       border: 1px solid rgba(46, 125, 50, 0.2);
       z-index: 2;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 1px 4px rgba(43, 23, 11, 0.08);
     }
 
     .dish-card-body {
@@ -591,7 +591,7 @@
 
     .modal-thumb-btn.active {
       border-color: var(--color-accent-orange);
-      box-shadow: 0 0 0 2px rgba(212, 86, 26, 0.25);
+      box-shadow: 0 0 0 2px rgba(192, 74, 12, 0.25);
     }
 
     .modal-thumb-img {

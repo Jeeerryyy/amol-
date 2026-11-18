@@ -161,7 +161,7 @@
 }
 
 .hero-title-line.text-orange {
-  color: var(--color-accent-orange, var(--color-accent-orange));
+  color: var(--color-accent-orange);
 }
 
 .hero-subtag {
@@ -215,7 +215,7 @@
 .hero-orange-rule {
   width: 44px;
   height: 2px;
-  background-color: var(--color-accent-orange, var(--color-accent-orange));
+  background-color: var(--color-accent-orange);
   margin-bottom: 10px;
 }
 
@@ -232,8 +232,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--color-accent-orange, var(--color-accent-orange));
-  border: 2px solid var(--color-accent-orange, var(--color-accent-orange));
+  background-color: var(--color-accent-orange);
+  border: 2px solid var(--color-accent-orange);
   color: #ffffff;
   padding: 6px 6px 6px 24px;
   min-height: 48px;
@@ -313,7 +313,7 @@
 }
 
 .hero-prompt-icon {
-  color: var(--color-accent-orange, var(--color-accent-orange));
+  color: var(--color-accent-orange);
   animation: heroPromptBounce 1.8s infinite ease-in-out;
 }
 
@@ -326,8 +326,6 @@
   .hero-prompt-icon {
     animation: none !important;
   }
-}
-  50% { transform: translateY(4px); }
 }
 
 /* ==========================================================================
@@ -523,7 +521,7 @@
     flex: 1;
     height: 46px;
     border-radius: 9999px;
-    background-color: var(--color-accent-orange, var(--color-accent-orange));
+    background-color: var(--color-accent-orange);
     color: #FFFFFF;
     font-family: var(--font-serif);
     font-size: 14.5px;
