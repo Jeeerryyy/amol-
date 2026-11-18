@@ -35,6 +35,22 @@
   --fw-semibold: 600;
   --fw-bold: 700;
 
+  /* Reusable Typography Hierarchy Tokens */
+  --type-display-size: clamp(38px, 4.5vw, 56px);
+  --type-display-lh: 1.14;
+  --type-h1-size: clamp(32px, 3.5vw, 44px);
+  --type-h1-lh: 1.18;
+  --type-h2-size: clamp(24px, 2.5vw, 32px);
+  --type-h2-lh: 1.22;
+  --type-h3-size: clamp(18px, 2vw, 22px);
+  --type-h3-lh: 1.28;
+  --type-body-size: 15.5px;
+  --type-body-lh: 1.68;
+  --type-body-sm-size: 13.5px;
+  --type-body-sm-lh: 1.55;
+  --type-eyebrow-size: 11.5px;
+  --type-eyebrow-spacing: 0.14em;
+
   /* Spacing */
   --space-xs: 4px;
   --space-sm: 8px;
@@ -104,7 +120,7 @@ button {
   cursor: pointer;
   border: none;
   background: none;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
 /* Utility Layout Classes */

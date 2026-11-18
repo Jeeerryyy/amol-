@@ -44,7 +44,7 @@
 .faq-eyebrow {
   font-family: var(--font-sans);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-accent-orange);
@@ -53,7 +53,7 @@
 .faq-heading {
   font-family: var(--font-serif);
   font-size: clamp(32px, 3.4vw, 44px);
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   color: var(--color-text-dark, #2B170B);
   line-height: 1.22;
   margin-bottom: 12px;
@@ -98,10 +98,10 @@
   color: #553E31;
   font-family: var(--font-sans);
   font-size: 14.5px;
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   text-align: left;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   outline: none;
 }
 
@@ -130,9 +130,9 @@
 
 /* Active Category Tab: Warm Tint + Left Orange Accent Bar */
 .faq-cat-tab.active {
-  background-color: #FCEEE6;
+  background-color: var(--color-warm-badge-bg);
   color: #2B170B;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
 }
 
 .faq-cat-tab.active .faq-cat-icon {
@@ -168,11 +168,11 @@
 
 /* Accordion Item Card */
 .faq-item-card {
-  background-color: #FFFFFF;
+  background-color: var(--color-cream-card);
   border: 1.5px solid var(--color-border, #E8DACB);
   border-radius: 14px;
   overflow: hidden;
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 1px 4px rgba(43, 23, 11, 0.03);
 }
 
@@ -183,7 +183,7 @@
 
 /* Expanded / Open Card: Peach/Cream Tint Matching Wireframe */
 .faq-item-card.open {
-  background-color: #FDF5EE;
+  background-color: var(--color-peach-card);
   border-color: #F3DFC9;
   box-shadow: 0 4px 16px rgba(196, 81, 30, 0.07);
 }
@@ -206,7 +206,7 @@
 .faq-item-question {
   font-family: var(--font-serif);
   font-size: 16.5px;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   color: var(--color-text-dark, #2B170B);
   line-height: 1.4;
   margin: 0;
@@ -267,14 +267,14 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-color: #FFFFFF;
+  background-color: var(--color-cream-card);
   border: 1.5px solid var(--color-border, #E8DACB);
   color: var(--color-text-dark, #2B170B);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 2px 6px rgba(43, 23, 11, 0.04);
 }
 
@@ -282,11 +282,11 @@
   background-color: var(--color-cream-bg);
   color: var(--color-accent-orange);
   border-color: var(--color-accent-orange);
-  transform: translateY(-1px);
+  
 }
 
 .faq-nav-circle-btn:active {
-  transform: scale(0.96);
+  background-color: var(--color-warm-badge-bg);
 }
 
 .faq-pagination-dots {
@@ -313,7 +313,7 @@
   height: 8px;
   border-radius: 50%;
   background-color: #DFCFC1;
-  transition: all 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: width 0.24s ease, background-color 0.24s ease;
 }
 
 .faq-page-dot:hover::before {
@@ -325,12 +325,12 @@
   background-color: var(--color-accent-orange, #C04A0C);
   width: 18px;
   border-radius: var(--radius-pill);
-  box-shadow: 0 1px 4px rgba(192, 74, 12, 0.35);
+  box-shadow: var(--shadow-sm);
 }
 
 /* 3. Bottom Support CTA Bar matching Reference Image */
 .faq-bottom-cta-card {
-  background-color: #FFFFFF;
+  background-color: var(--color-cream-card);
   border: 1.5px solid var(--color-border, #E8DACB);
   border-radius: 18px;
   padding: 16px 28px;
@@ -351,7 +351,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #FDF1EA;
+  background-color: var(--color-warm-badge-bg);
   color: var(--color-accent-orange);
   display: flex;
   align-items: center;
@@ -369,7 +369,7 @@
 .faq-cta-message {
   font-family: var(--font-sans);
   font-size: 15px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   color: var(--color-text-dark, #2B170B);
   margin: 0;
 }
@@ -389,9 +389,9 @@
   border-radius: 9999px;
   font-family: var(--font-sans);
   font-size: 13.5px;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .faq-cta-call-btn {
@@ -399,14 +399,14 @@
   background-color: var(--color-accent-orange);
   color: #FFFFFF;
   border: 1px solid var(--color-accent-orange);
-  box-shadow: 0 3px 10px rgba(192, 86, 33, 0.22);
+  box-shadow: var(--shadow-card);
 }
 
 .faq-cta-call-btn:hover {
   background-color: var(--color-accent-orange-hover, #B8440E);
   border-color: var(--color-accent-orange-hover, #B8440E);
-  transform: translateY(-1px);
-  box-shadow: 0 5px 14px rgba(192, 86, 33, 0.32);
+  
+  box-shadow: var(--shadow-hover);
 }
 
 .faq-cta-directions-btn {
@@ -419,7 +419,7 @@
 .faq-cta-directions-btn:hover {
   background-color: var(--color-text-dark, #2B170B);
   color: var(--color-cream-bg);
-  transform: translateY(-1px);
+  
 }
 
 /* ==========================================================================
@@ -452,13 +452,13 @@
     padding: 10px 16px;
     border-radius: 9999px;
     border: 1.5px solid var(--color-border, #E8DACB);
-    background-color: #FFFFFF;
+    background-color: var(--color-cream-card);
     font-size: 13px;
   }
 
   .faq-cat-tab.active {
     border-color: var(--color-accent-orange);
-    background-color: #FCEEE6;
+    background-color: var(--color-warm-badge-bg);
   }
 
   .faq-active-bar {

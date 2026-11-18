@@ -18,7 +18,7 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   color: var(--color-text-dark);
   text-decoration: none;
   padding: 8px 16px;
@@ -26,7 +26,7 @@
   background-color: var(--color-cream-card);
   border: 1px solid var(--color-border);
   box-shadow: 0 1px 3px rgba(43, 23, 11, 0.04);
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .legal-back-btn:hover {

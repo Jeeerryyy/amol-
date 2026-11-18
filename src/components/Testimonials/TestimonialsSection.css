@@ -98,7 +98,6 @@
 /* Pager Buttons */
 .testimonials-pager {
   display: none !important;
-  display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
@@ -113,7 +112,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .pager-prev {
@@ -128,7 +127,7 @@
 .pager-next {
   border: none;
   background-color: var(--color-accent-orange);
-  box-shadow: 0 4px 12px rgba(192, 74, 12, 0.2);
+  box-shadow: var(--shadow-sm);
 }
 
 .pager-next:hover {
@@ -157,7 +156,7 @@
   font-size: 14.5px;
   font-weight: var(--fw-semibold);
   text-decoration: none;
-  box-shadow: 0 2px 8px rgba(192, 74, 12, 0.2);
+  box-shadow: var(--shadow-sm);
   transition: background-color 0.2s ease;
 }
 
@@ -177,7 +176,7 @@
   border-bottom: 1px solid var(--color-border);
   padding-bottom: 3px;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .google-reviews-link:hover {
