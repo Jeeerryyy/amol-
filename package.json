@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "server": "node server/index.js",
-    "build": "node scripts/convert-to-webp.mjs && node scripts/prerender-menu.mjs && node scripts/generate-sitemap.mjs && node scripts/update-index-html.mjs && tsc -b && vite build",
+    "build": "node scripts/prerender-menu.mjs && node scripts/generate-sitemap.mjs && node scripts/update-index-html.mjs && tsc -b && vite build",
+    "assets:webp": "node scripts/convert-to-webp.mjs",
     "seo:prerender": "node scripts/prerender-menu.mjs && node scripts/generate-sitemap.mjs && node scripts/update-index-html.mjs",
     "seo:validate": "node scripts/validate-schema.mjs",
     "preview": "vite preview",
