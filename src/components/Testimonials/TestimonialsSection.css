@@ -97,6 +97,7 @@
 
 /* Pager Buttons */
 .testimonials-pager {
+  display: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,7 +128,7 @@
 .pager-next {
   border: none;
   background-color: var(--color-accent-orange);
-  box-shadow: 0 4px 12px rgba(212, 86, 26, 0.2);
+  box-shadow: 0 4px 12px rgba(192, 74, 12, 0.2);
 }
 
 .pager-next:hover {
@@ -156,7 +157,7 @@
   font-size: 14.5px;
   font-weight: var(--fw-semibold);
   text-decoration: none;
-  box-shadow: 0 2px 8px rgba(212, 86, 26, 0.2);
+  box-shadow: 0 2px 8px rgba(192, 74, 12, 0.2);
   transition: background-color 0.2s ease;
 }
 
