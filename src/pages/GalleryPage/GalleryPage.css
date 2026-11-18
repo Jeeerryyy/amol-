@@ -128,15 +128,15 @@
 }
 
 .gallery-filter-pill .pill-icon {
-  color: #8B6A50;
+  color: var(--color-text-muted);
   transition: color 0.22s ease;
 }
 
 .gallery-filter-pill .pill-badge {
   font-size: 11px;
   font-weight: 700;
-  background-color: rgba(200, 90, 23, 0.12);
-  color: #9C3D06;
+  background-color: rgba(192, 74, 12, 0.12);
+  color: var(--color-orange-text);
   padding: 2px 8px;
   border-radius: 10px;
   transition: background-color 0.22s ease, color 0.22s ease;
@@ -144,20 +144,20 @@
 
 /* Hover effect: simple smooth color fill per site rule */
 .gallery-filter-pill:hover {
-  background-color: #F3E7D8;
-  border-color: rgba(212, 86, 26, 0.4);
+  background-color: var(--color-warm-surface-hover);
+  border-color: rgba(192, 74, 12, 0.4);
 }
 
 /* Active Pill State: solid dark brown */
 .gallery-filter-pill.active {
-  background-color: #351C12;
-  border-color: #351C12;
+  background-color: var(--color-footer-bar);
+  border-color: var(--color-footer-bar);
   color: #ffffff;
   box-shadow: 0 4px 14px rgba(53, 28, 18, 0.2);
 }
 
 .gallery-filter-pill.active .pill-icon {
-  color: #FDE8D4;
+  color: var(--color-peach-card);
 }
 
 .gallery-filter-pill.active .pill-badge {
@@ -218,7 +218,7 @@
 }
 
 .gallery-card:focus-visible {
-  box-shadow: 0 0 0 3px rgba(212, 86, 26, 0.3);
+  box-shadow: 0 0 0 3px rgba(192, 74, 12, 0.3);
 }
 
 .gallery-card-inner {
@@ -284,7 +284,7 @@
 }
 
 .placeholder-icon {
-  color: #8B6A50;
+  color: var(--color-text-muted);
   opacity: 0.85;
 }
 
@@ -310,7 +310,7 @@
   align-items: center;
   gap: 8px;
   background-color: var(--color-cream-card);
-  color: #351C12;
+  color: var(--color-footer-bar);
   padding: 9px 20px;
   border-radius: var(--radius-pill);
   font-family: var(--font-sans);
@@ -389,7 +389,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: #351C12;
+  background-color: var(--color-footer-bar);
   color: #ffffff;
   padding: 11px 24px;
   border-radius: var(--radius-sm);
@@ -469,8 +469,8 @@
   height: 44px;
   border-radius: 50%;
   background-color: rgba(250, 244, 236, 0.9);
-  color: #351C12;
-  border: 1px solid rgba(212, 86, 26, 0.2);
+  color: var(--color-footer-bar);
+  border: 1px solid rgba(192, 74, 12, 0.2);
   cursor: pointer;
   display: flex;
   align-items: center;
