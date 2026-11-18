@@ -572,13 +572,28 @@
     flex-shrink: 0;
   }
 
+  .hero-mobile-arch-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .hero-mobile-arch-poster.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .hero-mobile-arch-canvas {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     display: block;
-    z-index: 1;
+    z-index: 2;
   }
 
   .hero-mobile-arch-overlay {
@@ -588,6 +603,6 @@
     height: 100%;
     object-fit: cover;
     pointer-events: none;
-    z-index: 2;
+    z-index: 3;
   }
 }

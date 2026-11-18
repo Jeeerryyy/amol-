@@ -23,9 +23,9 @@ export const Hero: React.FC = () => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [isFirstFrameLoaded, setIsFirstFrameLoaded] = useState<boolean>(false);
 
-  // Helper to draw an image centered with "cover" aspect ratio (desktop) or uncropped full width (mobile)
+  // Helper to draw an image centered with "cover" aspect ratio (both desktop and mobile)
   const drawToCanvas = useCallback(
-    (canvas: HTMLCanvasElement, img: HTMLImageElement, isMobile: boolean) => {
+    (canvas: HTMLCanvasElement, img: HTMLImageElement, _isMobile: boolean) => {
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
@@ -37,31 +37,26 @@ export const Hero: React.FC = () => {
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
 
-      if (isMobile) {
-        // Mobile requirement: Total background 100% visible, 0px cropped from left and right
-        ctx.drawImage(img, 0, 0, width, height);
+      // Both desktop and mobile: cover aspect ratio centered
+      const imgW = img.naturalWidth || 1920;
+      const imgH = img.naturalHeight || 1080;
+      const imgRatio = imgW / imgH;
+      const canvasRatio = width / height;
+
+      let drawW = width;
+      let drawH = height;
+      let startX = 0;
+      let startY = 0;
+
+      if (canvasRatio > imgRatio) {
+        drawH = width / imgRatio;
+        startY = (height - drawH) / 2;
       } else {
-        // Desktop: cover aspect ratio
-        const imgW = img.naturalWidth || 1920;
-        const imgH = img.naturalHeight || 1080;
-        const imgRatio = imgW / imgH;
-        const canvasRatio = width / height;
-
-        let drawW = width;
-        let drawH = height;
-        let startX = 0;
-        let startY = 0;
-
-        if (canvasRatio > imgRatio) {
-          drawH = width / imgRatio;
-          startY = (height - drawH) / 2;
-        } else {
-          drawW = height * imgRatio;
-          startX = (width - drawW) / 2;
-        }
-
-        ctx.drawImage(img, startX, startY, drawW, drawH);
+        drawW = height * imgRatio;
+        startX = (width - drawW) / 2;
       }
+
+      ctx.drawImage(img, startX, startY, drawW, drawH);
     },
     []
   );
@@ -162,20 +157,20 @@ export const Hero: React.FC = () => {
       });
     };
 
-    // Priority 1: First frame (immediate initial paint on desktop; mobile displays preloaded arch webp)
-    const isDesktop = typeof window !== 'undefined' && window.innerWidth > 900;
-    if (isDesktop) {
-      loadImage(0)
-        .then((firstImg) => {
-          if (!isCancelled) {
-            setIsFirstFrameLoaded(true);
-            if (desktopCanvasRef.current && desktopCanvasRef.current.width > 0) {
-              drawToCanvas(desktopCanvasRef.current, firstImg, false);
-            }
+    // Priority 1: First frame (immediate initial paint on both desktop and mobile)
+    loadImage(0)
+      .then((firstImg) => {
+        if (!isCancelled) {
+          setIsFirstFrameLoaded(true);
+          if (desktopCanvasRef.current && desktopCanvasRef.current.width > 0) {
+            drawToCanvas(desktopCanvasRef.current, firstImg, false);
           }
-        })
-        .catch(() => { });
-    }
+          if (mobileCanvasRef.current && mobileCanvasRef.current.width > 0) {
+            drawToCanvas(mobileCanvasRef.current, firstImg, true);
+          }
+        }
+      })
+      .catch(() => { });
 
     let preloadStarted = false;
     const startPreload = () => {
@@ -479,6 +474,15 @@ export const Hero: React.FC = () => {
 
           {/* Bottom Arch Graphic: Active Scroll Animation Canvas Framed by Scalloped Arch & Leaves */}
           <div className="hero-mobile-arch-wrap">
+            <img
+              src="/hero-frames/ezgif-frame-001.jpg"
+              alt=""
+              className={`hero-mobile-arch-poster ${isFirstFrameLoaded ? 'fade-out' : ''}`}
+              loading="eager"
+              width="576"
+              height="422"
+              aria-hidden="true"
+            />
             <canvas ref={mobileCanvasRef} className="hero-mobile-arch-canvas" />
             <img
               src="/images/hero-mobile-arch-frame.webp"
