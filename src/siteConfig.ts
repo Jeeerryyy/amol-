@@ -145,7 +145,7 @@ export const siteConfig = {
       href: "#/about",
     },
     image: {
-      label: "Restaurant Atmosphere Placeholder",
+      label: "TODO(owner): Restaurant Atmosphere Photo",
       // TODO: Replace with interior photograph
       src: "",
     },
@@ -428,7 +428,7 @@ export const siteConfig = {
     ],
     bottomBar: {
       copyright: "© 2026 Amol Veg Resto. All rights reserved.",
-      fssai: "FSSAI Lic. No: [TO BE ADDED]",
+      fssai: "FSSAI Lic. No: TODO(owner)",
       agencyName: "Website by Nirvanaa Studios",
       agencyUrl: "#",
     },
