@@ -455,7 +455,7 @@ export const FAQ: React.FC = () => {
   return (
     <section className="faq-section" id="faq" aria-labelledby="faq-heading">
       <div className="container faq-container">
-        
+
         {/* 1. Centered Header matching Reference: — FAQ — */}
         <div className="faq-header">
           <div className="faq-eyebrow-wrapper">
@@ -473,7 +473,7 @@ export const FAQ: React.FC = () => {
 
         {/* 2. Main Two-Column Layout (Sidebar + Accordion) */}
         <div className="faq-main-layout">
-          
+
           {/* Left Column: Category Sidebar */}
           <aside className="faq-sidebar" role="tablist" aria-label="FAQ Categories">
             {FAQ_CATEGORIES.map((cat) => {
