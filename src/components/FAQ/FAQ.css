@@ -6,7 +6,7 @@
 .faq-section {
   position: relative;
   padding: 84px 0 92px 0;
-  background-color: var(--color-cream-bg, #FAF4EC);
+  background-color: var(--color-cream-bg);
   border-top: 1px solid var(--color-border, #E8DACB);
   scroll-margin-top: 80px;
   content-visibility: auto;
@@ -37,7 +37,7 @@
   display: inline-block;
   width: 34px;
   height: 1.5px;
-  background-color: var(--color-accent-orange, #C05621);
+  background-color: var(--color-accent-orange);
   opacity: 0.65;
 }
 
@@ -47,7 +47,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-accent-orange, #C05621);
+  color: var(--color-accent-orange);
 }
 
 .faq-heading {
@@ -125,7 +125,7 @@
 }
 
 .faq-cat-tab:hover .faq-cat-icon {
-  color: var(--color-accent-orange, #C05621);
+  color: var(--color-accent-orange);
 }
 
 /* Active Category Tab: Warm Tint + Left Orange Accent Bar */
@@ -136,8 +136,8 @@
 }
 
 .faq-cat-tab.active .faq-cat-icon {
-  color: var(--color-accent-orange, #C05621);
-  transform: scale(1.05);
+  color: var(--color-accent-orange);
+  
 }
 
 .faq-active-bar {
@@ -146,7 +146,7 @@
   top: 0;
   bottom: 0;
   width: 4.5px;
-  background-color: var(--color-accent-orange, #C05621);
+  background-color: var(--color-accent-orange);
   border-radius: 4px 0 0 4px;
 }
 
@@ -225,7 +225,7 @@
 }
 
 .faq-item-card.open .faq-item-chevron {
-  color: var(--color-accent-orange, #C05621);
+  color: var(--color-accent-orange);
 }
 
 /* Collapse Animation */
@@ -279,10 +279,10 @@
 }
 
 .faq-nav-circle-btn:hover {
-  background-color: #FAF4EC;
-  color: var(--color-accent-orange, #C05621);
-  border-color: var(--color-accent-orange, #C05621);
-  transform: scale(1.08);
+  background-color: var(--color-cream-bg);
+  color: var(--color-accent-orange);
+  border-color: var(--color-accent-orange);
+  transform: translateY(-1px);
 }
 
 .faq-nav-circle-btn:active {
@@ -318,12 +318,13 @@
 
 .faq-page-dot:hover::before {
   background-color: #C4A590;
-  transform: scale(1.2);
+  
 }
 
 .faq-page-dot.active::before {
   background-color: var(--color-accent-orange, #C04A0C);
-  transform: scale(1.25);
+  width: 18px;
+  border-radius: var(--radius-pill);
   box-shadow: 0 1px 4px rgba(192, 74, 12, 0.35);
 }
 
@@ -351,7 +352,7 @@
   height: 40px;
   border-radius: 50%;
   background-color: #FDF1EA;
-  color: var(--color-accent-orange, #C05621);
+  color: var(--color-accent-orange);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -395,9 +396,9 @@
 
 .faq-cta-call-btn {
   padding: 11px 24px;
-  background-color: var(--color-accent-orange, #C05621);
+  background-color: var(--color-accent-orange);
   color: #FFFFFF;
-  border: 1px solid var(--color-accent-orange, #C05621);
+  border: 1px solid var(--color-accent-orange);
   box-shadow: 0 3px 10px rgba(192, 86, 33, 0.22);
 }
 
@@ -410,14 +411,14 @@
 
 .faq-cta-directions-btn {
   padding: 10px 22px;
-  background-color: #FAF4EC;
+  background-color: var(--color-cream-bg);
   color: var(--color-text-dark, #2B170B);
   border: 1.5px solid var(--color-text-dark, #2B170B);
 }
 
 .faq-cta-directions-btn:hover {
   background-color: var(--color-text-dark, #2B170B);
-  color: #FAF4EC;
+  color: var(--color-cream-bg);
   transform: translateY(-1px);
 }
 
@@ -456,7 +457,7 @@
   }
 
   .faq-cat-tab.active {
-    border-color: var(--color-accent-orange, #C05621);
+    border-color: var(--color-accent-orange);
     background-color: #FCEEE6;
   }
 
