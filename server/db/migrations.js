@@ -193,6 +193,22 @@ export async function runMigrations() {
       created_at TEXT NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS menu_buttons (
+      id TEXT PRIMARY KEY,
+      type TEXT NOT NULL DEFAULT 'custom',
+      label TEXT NOT NULL,
+      url TEXT,
+      phone TEXT,
+      bg_color TEXT NOT NULL DEFAULT '#1E7B46',
+      hover_color TEXT NOT NULL DEFAULT '#ea580c',
+      is_enabled INTEGER NOT NULL DEFAULT 1,
+      sort_order INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_menu_buttons_sort ON menu_buttons(is_enabled, sort_order);
+
     CREATE INDEX IF NOT EXISTS idx_scans_qr_created ON scans(qr_id, created_at);
     CREATE INDEX IF NOT EXISTS idx_scans_created_at ON scans(created_at);
     CREATE INDEX IF NOT EXISTS idx_review_events_created ON review_events(created_at);

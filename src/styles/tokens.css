@@ -3,6 +3,9 @@
    Sampled directly from 'lanmding page.png' source of truth
    ========================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Questrial:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 :root {
   /* Colors */
   --color-cream-bg: #FAF4EC;          /* Unified warm ivory parchment background matching all artwork */
@@ -26,7 +29,9 @@
   --color-warm-surface-hover: #F3E7D8;
 
   /* Typography */
-  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Questrial', sans-serif;
+  --font-serif: 'Questrial', sans-serif;
+  --font-display: 'Questrial', sans-serif;
   --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Font Weights */
@@ -152,11 +157,43 @@ button {
   color: var(--color-accent-orange) !important;
 }
 
-.text-serif {
-  font-family: var(--font-serif);
+/* All Headings & Big Text */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-text-dark);
 }
 
-.text-sans {
+.text-heading,
+.heading-text,
+.display-text,
+.text-serif {
+  font-family: var(--font-heading);
+}
+
+/* All Paragraphs, Sentences, Body Copy & Small Texts */
+p,
+span:not([class*="heading"]):not([class*="title"]):not([class*="serif"]),
+li,
+label,
+input,
+textarea,
+select,
+small,
+strong,
+em,
+b,
+i,
+blockquote,
+dd,
+dt,
+figcaption,
+.text-sans,
+.text-body,
+.body-text,
+.small-text,
+.description,
+.subtitle,
+.eyebrow {
   font-family: var(--font-sans);
 }
 

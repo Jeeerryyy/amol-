@@ -359,6 +359,7 @@ router.get('/api/public/menu/:menuId', async (req, res, next) => {
     const categories = allCategories.filter((cat) => categoryIdsWithDishes.has(cat.id));
 
     const [seo] = await query('SELECT * FROM seo_pages WHERE id = $1', [menuId === 'special' ? 'special-menu' : 'menu']);
+    const buttons = await query('SELECT * FROM menu_buttons WHERE is_enabled = 1 ORDER BY sort_order ASC');
 
     const payload = {
       menu: menuDetails || {
@@ -370,6 +371,7 @@ router.get('/api/public/menu/:menuId', async (req, res, next) => {
       },
       categories,
       dishes,
+      buttons: buttons || [],
       seo: seo || {
         title: menuId === 'special' ? 'Special Menu | Amol Veg Resto' : 'Menu | Amol Veg Resto',
         meta_description: 'Pure vegetarian dining at Amol Veg Resto.',
@@ -406,6 +408,26 @@ router.get('/api/public/menu/:menuId', async (req, res, next) => {
       console.error('[Public API] Fallback menu load error:', e);
     }
     return res.status(503).json({ error: 'Menu temporarily unavailable' });
+  }
+});
+
+// ============================================================================
+// 5B. PUBLIC MENU ACTION BUTTONS (/api/public/menu-buttons)
+// ============================================================================
+router.get('/api/public/menu-buttons', async (req, res) => {
+  const cached = getCached('menu_buttons');
+  if (cached) return sendCachedJson(res, cached);
+
+  try {
+    const buttons = await query('SELECT * FROM menu_buttons WHERE is_enabled = 1 ORDER BY sort_order ASC');
+    setCached('menu_buttons', buttons, 60);
+    return sendCachedJson(res, buttons);
+  } catch (err) {
+    console.warn('[Public API] Database error for menu buttons, fallback:', err.message);
+    return res.json([
+      { id: 'btn_whatsapp', type: 'whatsapp', label: 'Order via WhatsApp', phone: '+91 72496 64983', bg_color: '#1E7B46', hover_color: '#ea580c', is_enabled: 1 },
+      { id: 'btn_waiter', type: 'call_waiter', label: 'Call Waiter', bg_color: '#2B170B', hover_color: '#C04A0C', is_enabled: 1 }
+    ]);
   }
 });
 

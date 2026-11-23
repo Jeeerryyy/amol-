@@ -86,11 +86,14 @@ export const Footer: React.FC = () => {
         <div className="footer-col footer-col-brand">
           <a href="#" className="footer-logo-link" aria-label={brand.name}>
             <img
-              src={brand.logoPath}
+              src={brand.logoPath || '/logo.webp'}
+              srcSet="/logo.webp 1x, /logo.png 2x"
               alt={brand.name}
               className="footer-logo"
               width="110"
               height="110"
+              loading="lazy"
+              decoding="async"
             />
           </a>
           <h3 className="footer-brand-title">{brand.name}</h3>

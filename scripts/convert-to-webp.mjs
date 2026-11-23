@@ -2,8 +2,10 @@ import fs from 'fs';
 
 const imagesToConvert = [
   { src: 'public/images/hero-mobile-arch-frame.png', dest: 'public/images/hero-mobile-arch-frame.webp' },
-  { src: 'public/logo.png', dest: 'public/logo-96.webp', width: 72, height: 72 },
-  { src: 'public/logo.png', dest: 'public/logo-96.png', width: 72, height: 72, format: 'image/png' }
+  { src: 'public/logo.png', dest: 'public/logo.webp', width: 1024, height: 1024 },
+  { src: 'public/logo.png', dest: 'public/logo-512.webp', width: 512, height: 512 },
+  { src: 'public/logo.png', dest: 'public/logo-96.webp', width: 256, height: 256 },
+  { src: 'public/logo.png', dest: 'public/logo-96.png', width: 256, height: 256, format: 'image/png' }
 ];
 
 async function convertImages() {

@@ -3,7 +3,6 @@ import { REVIEW_CONFIG, ReviewOption } from '../../../review.config.js';
 import { buildLocalDraft } from '../../../reviewTemplates.js';
 import { siteConfig } from '../../siteConfig';
 import {
-  Star,
   Sparkles,
   RotateCw,
   Copy,
@@ -16,7 +15,6 @@ import './ReviewPage.css';
 
 export const ReviewPage: React.FC = () => {
   const [stars, setStars] = useState<number>(0);
-  const [hoveredStar, setHoveredStar] = useState<number>(0);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [reviewText, setReviewText] = useState<string>('');
   const [userEdited, setUserEdited] = useState<boolean>(false);
@@ -495,39 +493,74 @@ export const ReviewPage: React.FC = () => {
           <section className="review-step step-rating">
             <h1 className="step-heading">{REVIEW_CONFIG.UI.ratingHeading}</h1>
 
-            <div
-              className="star-rating-group"
-              role="radiogroup"
-              aria-label="Star rating out of 5"
-            >
-              {[1, 2, 3, 4, 5].map((starVal) => {
-                const isActive = (hoveredStar || stars) >= starVal;
-                const isSelected = stars === starVal;
-                return (
-                  <button
-                    key={starVal}
-                    type="button"
-                    role="radio"
-                    aria-checked={isSelected}
-                    aria-label={`${starVal} star${starVal > 1 ? 's' : ''} - ${
-                      REVIEW_CONFIG.STAR_LABELS[starVal - 1]
-                    }`}
-                    className={`star-btn ${isActive ? 'active' : ''}`}
-                    onClick={() => handleStarSelect(starVal)}
-                    onMouseEnter={() => setHoveredStar(starVal)}
-                    onMouseLeave={() => setHoveredStar(0)}
-                    onFocus={() => setHoveredStar(starVal)}
-                    onBlur={() => setHoveredStar(0)}
+            <div className="rating" role="radiogroup" aria-label="Star rating out of 5">
+              {[5, 4, 3, 2, 1].map((val) => (
+                <React.Fragment key={val}>
+                  <input
+                    value={val}
+                    name="rating"
+                    id={`star${val}`}
+                    type="radio"
+                    checked={stars === val}
+                    onChange={() => handleStarSelect(val)}
+                  />
+                  <label
+                    title={`${val} star${val > 1 ? 's' : ''}`}
+                    htmlFor={`star${val}`}
                   >
-                    <Star
-                      size={36}
-                      className="star-icon"
-                      fill={isActive ? 'var(--color-accent-orange)' : 'none'}
-                      stroke={isActive ? 'var(--color-accent-orange)' : 'var(--color-border)'}
+                    <button
+                      type="button"
+                      className="star-btn"
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        opacity: 0,
+                        zIndex: 10,
+                        width: '100%',
+                        height: '100%',
+                        cursor: 'pointer',
+                        border: 'none',
+                        background: 'transparent',
+                        padding: 0,
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleStarSelect(val);
+                      }}
+                      aria-label={`${val} star${val > 1 ? 's' : ''}`}
                     />
-                  </button>
-                );
-              })}
+                    <svg
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      stroke="#000000"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      height="35"
+                      width="35"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="svgOne"
+                    >
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                    <svg
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      stroke="#000000"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      height="35"
+                      width="35"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="svgTwo"
+                    >
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                    <div className="ombre" />
+                  </label>
+                </React.Fragment>
+              ))}
             </div>
 
             <div className="star-feedback-label" aria-live="polite">

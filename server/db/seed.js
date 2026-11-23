@@ -360,6 +360,65 @@ export async function seedDatabase() {
     console.log('[Seed] Successfully seeded 7 gallery photographs.');
   }
 
+  // 8. SEED MENU ACTION BUTTONS (Customizable buttons: WhatsApp, Call Waiter, Zomato, Swiggy, Custom)
+  const existingButtons = await query('SELECT id FROM menu_buttons LIMIT 1');
+  if (existingButtons.length === 0) {
+    const defaultButtons = [
+      {
+        id: 'btn_whatsapp',
+        type: 'whatsapp',
+        label: 'Order via WhatsApp',
+        phone: '+91 72496 64983',
+        url: 'https://wa.me/917249664983',
+        bg_color: '#1E7B46',
+        hover_color: '#ea580c',
+        is_enabled: 1,
+        sort_order: 1,
+      },
+      {
+        id: 'btn_waiter',
+        type: 'call_waiter',
+        label: 'Call Waiter',
+        phone: '',
+        url: '',
+        bg_color: '#2B170B',
+        hover_color: '#C04A0C',
+        is_enabled: 1,
+        sort_order: 2,
+      },
+      {
+        id: 'btn_zomato',
+        type: 'zomato',
+        label: 'Order on Zomato',
+        phone: '',
+        url: 'https://www.zomato.com/solapur',
+        bg_color: '#E23744',
+        hover_color: '#B81D29',
+        is_enabled: 1,
+        sort_order: 3,
+      },
+      {
+        id: 'btn_swiggy',
+        type: 'swiggy',
+        label: 'Order on Swiggy',
+        phone: '',
+        url: 'https://www.swiggy.com/restaurants',
+        bg_color: '#FC8019',
+        hover_color: '#D8660C',
+        is_enabled: 1,
+        sort_order: 4,
+      },
+    ];
+
+    for (const b of defaultButtons) {
+      await query(
+        'INSERT INTO menu_buttons (id, type, label, url, phone, bg_color, hover_color, is_enabled, sort_order, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
+        [b.id, b.type, b.label, b.url, b.phone, b.bg_color, b.hover_color, b.is_enabled, b.sort_order, now, now]
+      );
+    }
+    console.log('[Seed] Seeded default customizable menu action buttons.');
+  }
+
   console.log('[Seed] Database initialization complete.');
 }
 

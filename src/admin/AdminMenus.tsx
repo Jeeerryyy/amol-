@@ -16,10 +16,11 @@ import {
   ArrowUp,
   ArrowDown,
   Layers,
+  Sliders,
 } from 'lucide-react';
 
 export const AdminMenus: React.FC = () => {
-  const [activeMenuTab, setActiveMenuTab] = useState<'dishes' | 'categories' | 'video'>('dishes');
+  const [activeMenuTab, setActiveMenuTab] = useState<'dishes' | 'categories' | 'video' | 'buttons'>('dishes');
   const [menuScopeFilter, setMenuScopeFilter] = useState<'all' | 'main' | 'special'>('all');
 
   // Categories & Dishes state
@@ -28,6 +29,31 @@ export const AdminMenus: React.FC = () => {
   const [pricingSettings, setPricingSettings] = useState<{ markup: number; rounding: number }>({ markup: 10, rounding: 1 });
   const [loading, setLoading] = useState<boolean>(true);
   const [toastMsg, setToastMsg] = useState<string>('');
+
+  // Menu Buttons state
+  const [buttons, setButtons] = useState<any[]>([]);
+  const [isButtonModalOpen, setIsButtonModalOpen] = useState<boolean>(false);
+  const [editingButton, setEditingButton] = useState<any | null>(null);
+  const [buttonForm, setButtonForm] = useState<{
+    id?: string;
+    type: string;
+    label: string;
+    url: string;
+    phone: string;
+    bg_color: string;
+    hover_color: string;
+    is_enabled: number;
+    sort_order: number;
+  }>({
+    type: 'whatsapp',
+    label: 'Order via WhatsApp',
+    url: '',
+    phone: '+91 72496 64983',
+    bg_color: '#1E7B46',
+    hover_color: '#EA580C',
+    is_enabled: 1,
+    sort_order: 1,
+  });
 
   // Filters & Search
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -85,11 +111,12 @@ export const AdminMenus: React.FC = () => {
   const loadAll = async () => {
     setLoading(true);
     try {
-      const [cats, dishList, pSettings, menus] = await Promise.all([
+      const [cats, dishList, pSettings, menus, btnList] = await Promise.all([
         adminFetch('/api/admin/categories'),
         adminFetch('/api/admin/dishes'),
         adminFetch('/api/admin/settings'),
         adminFetch('/api/admin/menus'),
+        adminFetch('/api/admin/menu-buttons'),
       ]);
       setCategories(cats);
       setDishes(dishList);
@@ -98,10 +125,143 @@ export const AdminMenus: React.FC = () => {
         rounding: pSettings.rounding_step,
       });
       setMenuData(menus);
+      setButtons(btnList || []);
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleButtonTypeChange = (newType: string) => {
+    const presets: Record<string, { label: string; bg_color: string; hover_color: string; url?: string; phone?: string }> = {
+      whatsapp: { label: 'Order via WhatsApp', bg_color: '#1E7B46', hover_color: '#EA580C', phone: '+91 72496 64983' },
+      call_waiter: { label: 'Call Waiter', bg_color: '#2B170B', hover_color: '#C04A0C' },
+      zomato: { label: 'Order on Zomato', bg_color: '#E23744', hover_color: '#B81D29', url: 'https://www.zomato.com' },
+      swiggy: { label: 'Order on Swiggy', bg_color: '#FC8019', hover_color: '#D8660C', url: 'https://www.swiggy.com' },
+      custom: { label: 'Explore More', bg_color: '#1F2937', hover_color: '#EA580C', url: 'https://amolresto.com' },
+    };
+
+    const preset = presets[newType] || presets.custom;
+    setButtonForm((prev) => ({
+      ...prev,
+      type: newType,
+      label: preset.label,
+      bg_color: preset.bg_color,
+      hover_color: preset.hover_color,
+      url: preset.url || '',
+      phone: preset.phone || '',
+    }));
+  };
+
+  const handleOpenCreateButton = () => {
+    setEditingButton(null);
+    setButtonForm({
+      type: 'zomato',
+      label: 'Order on Zomato',
+      url: 'https://www.zomato.com',
+      phone: '',
+      bg_color: '#E23744',
+      hover_color: '#B81D29',
+      is_enabled: 1,
+      sort_order: buttons.length + 1,
+    });
+    setIsButtonModalOpen(true);
+  };
+
+  const handleOpenEditButton = (btn: any) => {
+    setEditingButton(btn);
+    setButtonForm({
+      id: btn.id,
+      type: btn.type,
+      label: btn.label,
+      url: btn.url || '',
+      phone: btn.phone || '',
+      bg_color: btn.bg_color || '#1F2937',
+      hover_color: btn.hover_color || '#EA580C',
+      is_enabled: btn.is_enabled ? 1 : 0,
+      sort_order: btn.sort_order || 0,
+    });
+    setIsButtonModalOpen(true);
+  };
+
+  const handleSaveButton = async () => {
+    if (!buttonForm.label.trim()) {
+      showToast('Button label is required');
+      return;
+    }
+    try {
+      if (editingButton) {
+        await adminFetch(`/api/admin/menu-buttons/${editingButton.id}`, {
+          method: 'PUT',
+          body: JSON.stringify(buttonForm),
+        });
+        showToast('Action button updated successfully');
+      } else {
+        await adminFetch('/api/admin/menu-buttons', {
+          method: 'POST',
+          body: JSON.stringify(buttonForm),
+        });
+        showToast('Action button created successfully');
+      }
+      setIsButtonModalOpen(false);
+      loadAll();
+    } catch (err: any) {
+      showToast(err.message || 'Failed to save action button');
+    }
+  };
+
+  const handleDeleteButton = async (btnId: string) => {
+    if (!window.confirm('Are you sure you want to delete this action button?')) return;
+    try {
+      await adminFetch(`/api/admin/menu-buttons/${btnId}`, {
+        method: 'DELETE',
+      });
+      showToast('Action button removed');
+      loadAll();
+    } catch (err: any) {
+      showToast(err.message || 'Failed to delete action button');
+    }
+  };
+
+  const handleToggleEnableButton = async (btn: any) => {
+    try {
+      await adminFetch(`/api/admin/menu-buttons/${btn.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ is_enabled: btn.is_enabled ? 0 : 1 }),
+      });
+      showToast(`Button ${btn.is_enabled ? 'hidden' : 'enabled'}`);
+      loadAll();
+    } catch (err: any) {
+      showToast(err.message || 'Failed to toggle button status');
+    }
+  };
+
+  const handleReorderButton = async (index: number, direction: 'up' | 'down') => {
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= buttons.length) return;
+
+    const newButtons = [...buttons];
+    const temp = newButtons[index];
+    newButtons[index] = newButtons[targetIndex];
+    newButtons[targetIndex] = temp;
+
+    const reorderPayload = newButtons.map((b, idx) => ({
+      id: b.id,
+      sort_order: idx + 1,
+    }));
+
+    setButtons(newButtons);
+
+    try {
+      await adminFetch('/api/admin/menu-buttons/reorder/batch', {
+        method: 'PUT',
+        body: JSON.stringify({ items: reorderPayload }),
+      });
+      showToast('Buttons reordered');
+    } catch (err: any) {
+      showToast(err.message || 'Failed to reorder buttons');
+      loadAll();
     }
   };
 
@@ -515,6 +675,16 @@ export const AdminMenus: React.FC = () => {
               <span>Add Category</span>
             </button>
           )}
+          {activeMenuTab === 'buttons' && (
+            <button
+              type="button"
+              className="admin-btn admin-btn-primary"
+              onClick={handleOpenCreateButton}
+            >
+              <Plus size={16} />
+              <span>Add Button</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -537,7 +707,7 @@ export const AdminMenus: React.FC = () => {
         </div>
       )}
 
-      {/* TOP TABS: DISHES | CATEGORIES | MENU VIDEO */}
+      {/* TOP TABS: DISHES | CATEGORIES | MENU VIDEO | BUTTONS */}
       <div className="admin-tabs-row">
         <button
           type="button"
@@ -562,6 +732,14 @@ export const AdminMenus: React.FC = () => {
         >
           <Video size={16} />
           <span>Menu Video & Headers</span>
+        </button>
+        <button
+          type="button"
+          className={`admin-tab-btn ${activeMenuTab === 'buttons' ? 'active' : ''}`}
+          onClick={() => setActiveMenuTab('buttons')}
+        >
+          <Sliders size={16} />
+          <span>Menu Buttons ({buttons.length})</span>
         </button>
       </div>
 
@@ -1078,6 +1256,218 @@ export const AdminMenus: React.FC = () => {
             <button type="button" className="admin-btn admin-btn-primary" onClick={handleSaveMenuVideo}>
               Save Menu Video & Headers
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 4: MENU ACTION BUTTONS */}
+      {activeMenuTab === 'buttons' && (
+        <div style={{ maxWidth: '960px' }}>
+          <div className="admin-card">
+            <div className="admin-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h3 className="admin-card-title">Customizable Menu Action Buttons ({buttons.length})</h3>
+                <p style={{ fontSize: '13px', color: 'var(--admin-text-muted)', margin: '4px 0 0 0' }}>
+                  Manage, customize colors, reorder, or enable/disable order and service action buttons in the dish detail modal.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="admin-btn admin-btn-primary"
+                onClick={handleOpenCreateButton}
+              >
+                <Plus size={16} />
+                <span>Add Button</span>
+              </button>
+            </div>
+
+            {buttons.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '48px 20px', color: 'var(--admin-text-muted)' }}>
+                <Sliders size={40} style={{ opacity: 0.35, marginBottom: '12px' }} />
+                <h4 style={{ margin: '0 0 6px 0', color: 'var(--admin-text-dark)' }}>No Action Buttons Configured</h4>
+                <p style={{ fontSize: '13.5px', margin: 0 }}>Add WhatsApp, Call Waiter, Zomato, Swiggy, or custom external buttons.</p>
+                <button
+                  type="button"
+                  className="admin-btn admin-btn-primary"
+                  style={{ marginTop: '16px' }}
+                  onClick={handleOpenCreateButton}
+                >
+                  <Plus size={16} />
+                  <span>Create First Button</span>
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '16px' }}>
+                {buttons.map((btn, index) => {
+                  const isEnabled = btn.is_enabled === 1 || btn.is_enabled === true;
+                  return (
+                    <div
+                      key={btn.id}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '16px 20px',
+                        border: '1px solid var(--admin-border)',
+                        borderRadius: 'var(--admin-radius-md)',
+                        backgroundColor: isEnabled ? '#FFFFFF' : 'var(--admin-card-bg-subtle, #F9FAFB)',
+                        opacity: isEnabled ? 1 : 0.65,
+                        transition: 'all 0.2s ease',
+                      }}
+                    >
+                      {/* Left: Reorder & Info */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                          <button
+                            type="button"
+                            className="admin-btn admin-btn-ghost admin-btn-sm"
+                            disabled={index === 0}
+                            style={{ padding: '2px', height: '24px', width: '24px' }}
+                            onClick={() => handleReorderButton(index, 'up')}
+                            title="Move up"
+                          >
+                            <ArrowUp size={14} />
+                          </button>
+                          <button
+                            type="button"
+                            className="admin-btn admin-btn-ghost admin-btn-sm"
+                            disabled={index === buttons.length - 1}
+                            style={{ padding: '2px', height: '24px', width: '24px' }}
+                            onClick={() => handleReorderButton(index, 'down')}
+                            title="Move down"
+                          >
+                            <ArrowDown size={14} />
+                          </button>
+                        </div>
+
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                            <span
+                              style={{
+                                fontSize: '11px',
+                                fontWeight: 700,
+                                textTransform: 'uppercase',
+                                padding: '2px 8px',
+                                borderRadius: '4px',
+                                backgroundColor:
+                                  btn.type === 'whatsapp'
+                                    ? 'rgba(30, 123, 70, 0.15)'
+                                    : btn.type === 'zomato'
+                                    ? 'rgba(226, 55, 68, 0.15)'
+                                    : btn.type === 'swiggy'
+                                    ? 'rgba(252, 128, 25, 0.15)'
+                                    : btn.type === 'call_waiter'
+                                    ? 'rgba(43, 23, 11, 0.12)'
+                                    : 'rgba(79, 70, 229, 0.15)',
+                                color:
+                                  btn.type === 'whatsapp'
+                                    ? '#1E7B46'
+                                    : btn.type === 'zomato'
+                                    ? '#E23744'
+                                    : btn.type === 'swiggy'
+                                    ? '#FC8019'
+                                    : btn.type === 'call_waiter'
+                                    ? '#2B170B'
+                                    : '#4F46E5',
+                              }}
+                            >
+                              {btn.type.replace('_', ' ')}
+                            </span>
+                            <strong style={{ fontSize: '15px', color: 'var(--admin-text-dark)' }}>{btn.label}</strong>
+                          </div>
+                          <div style={{ fontSize: '12.5px', color: 'var(--admin-text-muted)', marginTop: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {btn.type === 'whatsapp' && <span>Phone: {btn.phone || '+91 72496 64983'} (Auto dish prefill)</span>}
+                            {btn.type === 'call_waiter' && <span>Notifies table service bell on screen</span>}
+                            {(btn.type === 'zomato' || btn.type === 'swiggy' || btn.type === 'custom') && (
+                              <span>Links to: {btn.url || '(none)'}</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Middle: Color Swatches & Button Preview */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', margin: '0 16px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title={`Base: ${btn.bg_color || '#1F2937'}, Hover: ${btn.hover_color || '#EA580C'}`}>
+                          <span
+                            style={{
+                              width: '18px',
+                              height: '18px',
+                              borderRadius: '50%',
+                              backgroundColor: btn.bg_color || '#1F2937',
+                              border: '2px solid #FFFFFF',
+                              boxShadow: '0 0 0 1px #E5E7EB',
+                            }}
+                          />
+                          <span
+                            style={{
+                              width: '18px',
+                              height: '18px',
+                              borderRadius: '50%',
+                              backgroundColor: btn.hover_color || '#EA580C',
+                              border: '2px solid #FFFFFF',
+                              boxShadow: '0 0 0 1px #E5E7EB',
+                            }}
+                          />
+                        </div>
+
+                        {/* Interactive button preview */}
+                        <div
+                          style={{
+                            position: 'relative',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '8px 16px',
+                            borderRadius: '8px',
+                            backgroundColor: btn.bg_color || '#1F2937',
+                            color: '#FFFFFF',
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            overflow: 'hidden',
+                            letterSpacing: '-0.02em',
+                            cursor: 'pointer',
+                            userSelect: 'none',
+                          }}
+                        >
+                          <span style={{ position: 'relative', zIndex: 2 }}>{btn.label}</span>
+                        </div>
+                      </div>
+
+                      {/* Right: Actions */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <button
+                          type="button"
+                          className={`admin-btn ${isEnabled ? 'admin-btn-secondary' : 'admin-btn-ghost'} admin-btn-sm`}
+                          onClick={() => handleToggleEnableButton(btn)}
+                          title={isEnabled ? 'Hide this button from menu' : 'Show this button on menu'}
+                        >
+                          {isEnabled ? <Eye size={14} /> : <EyeOff size={14} />}
+                          <span>{isEnabled ? 'Enabled' : 'Disabled'}</span>
+                        </button>
+                        <button
+                          type="button"
+                          className="admin-btn admin-btn-secondary admin-btn-sm"
+                          onClick={() => handleOpenEditButton(btn)}
+                          title="Edit button"
+                        >
+                          <Edit size={14} />
+                          <span>Edit</span>
+                        </button>
+                        <button
+                          type="button"
+                          className="admin-btn admin-btn-ghost admin-btn-sm"
+                          style={{ color: 'var(--admin-danger)' }}
+                          onClick={() => handleDeleteButton(btn.id)}
+                          title="Delete button"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -1602,6 +1992,185 @@ export const AdminMenus: React.FC = () => {
             <div style={{ marginTop: '20px', textAlign: 'right' }}>
               <button type="button" className="admin-btn admin-btn-ghost" onClick={() => setDeleteCatChoice(null)}>
                 Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MENU BUTTON CREATE / EDIT MODAL */}
+      {isButtonModalOpen && (
+        <div className="admin-modal-backdrop" onClick={() => setIsButtonModalOpen(false)}>
+          <div className="admin-modal-content" style={{ maxWidth: '540px' }} onClick={(e) => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, margin: 0, color: 'var(--admin-text-dark)' }}>
+                {editingButton ? `Edit Button: "${editingButton.label}"` : 'Add Action Button'}
+              </h2>
+              <button
+                type="button"
+                onClick={() => setIsButtonModalOpen(false)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--admin-text-muted)' }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Button Type Selector */}
+            <div className="admin-form-group">
+              <label className="admin-label">Button Type *</label>
+              <select
+                className="admin-select"
+                value={buttonForm.type}
+                onChange={(e) => handleButtonTypeChange(e.target.value)}
+              >
+                <option value="whatsapp">WhatsApp Order (Direct WhatsApp Prefill)</option>
+                <option value="call_waiter">Call Waiter (Table Notification Alert)</option>
+                <option value="zomato">Zomato (External Ordering Link)</option>
+                <option value="swiggy">Swiggy (External Ordering Link)</option>
+                <option value="custom">Custom (Custom Link & Action)</option>
+              </select>
+            </div>
+
+            {/* Button Label */}
+            <div className="admin-form-group">
+              <label className="admin-label">Button Label *</label>
+              <input
+                type="text"
+                className="admin-input"
+                required
+                value={buttonForm.label}
+                onChange={(e) => setButtonForm({ ...buttonForm, label: e.target.value })}
+                placeholder="e.g. Order via WhatsApp or Order on Zomato"
+              />
+            </div>
+
+            {/* URL field for zomato, swiggy, custom */}
+            {(buttonForm.type === 'zomato' || buttonForm.type === 'swiggy' || buttonForm.type === 'custom') && (
+              <div className="admin-form-group">
+                <label className="admin-label">Target URL *</label>
+                <input
+                  type="url"
+                  className="admin-input"
+                  value={buttonForm.url}
+                  onChange={(e) => setButtonForm({ ...buttonForm, url: e.target.value })}
+                  placeholder="https://www.zomato.com/solapur"
+                />
+              </div>
+            )}
+
+            {/* Phone field for WhatsApp */}
+            {buttonForm.type === 'whatsapp' && (
+              <div className="admin-form-group">
+                <label className="admin-label">WhatsApp Number *</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={buttonForm.phone}
+                  onChange={(e) => setButtonForm({ ...buttonForm, phone: e.target.value })}
+                  placeholder="+91 72496 64983"
+                />
+                <small style={{ color: 'var(--admin-text-muted)', fontSize: '11.5px', marginTop: '4px', display: 'block' }}>
+                  Orders dynamically include dish name, selected portion variant, and price.
+                </small>
+              </div>
+            )}
+
+            {/* Colors: Base and Hover */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '16px' }}>
+              <div className="admin-form-group">
+                <label className="admin-label">Background Color</label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <input
+                    type="color"
+                    value={buttonForm.bg_color}
+                    onChange={(e) => setButtonForm({ ...buttonForm, bg_color: e.target.value })}
+                    style={{ width: '38px', height: '38px', border: '1px solid var(--admin-border)', borderRadius: '6px', cursor: 'pointer', padding: 0 }}
+                  />
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={buttonForm.bg_color}
+                    onChange={(e) => setButtonForm({ ...buttonForm, bg_color: e.target.value })}
+                    style={{ flex: 1 }}
+                  />
+                </div>
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-label">Hover Wave Color</label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <input
+                    type="color"
+                    value={buttonForm.hover_color}
+                    onChange={(e) => setButtonForm({ ...buttonForm, hover_color: e.target.value })}
+                    style={{ width: '38px', height: '38px', border: '1px solid var(--admin-border)', borderRadius: '6px', cursor: 'pointer', padding: 0 }}
+                  />
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={buttonForm.hover_color}
+                    onChange={(e) => setButtonForm({ ...buttonForm, hover_color: e.target.value })}
+                    style={{ flex: 1 }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Visibility checkbox */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+              <input
+                type="checkbox"
+                id="btnIsEnabled"
+                checked={buttonForm.is_enabled === 1}
+                onChange={(e) => setButtonForm({ ...buttonForm, is_enabled: e.target.checked ? 1 : 0 })}
+                style={{ cursor: 'pointer', width: '16px', height: '16px' }}
+              />
+              <label htmlFor="btnIsEnabled" style={{ fontSize: '13.5px', fontWeight: 600, color: 'var(--admin-text-dark)', cursor: 'pointer' }}>
+                Enable and show this button in menu modal
+              </label>
+            </div>
+
+            {/* Live Interactive Preview */}
+            <div style={{ padding: '16px', backgroundColor: '#FAF4EC', borderRadius: '10px', marginBottom: '20px', textAlign: 'center' }}>
+              <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#6B5545', textTransform: 'uppercase', marginBottom: '10px' }}>
+                Live Button Preview
+              </div>
+              <div
+                style={{
+                  position: 'relative',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '10px 24px',
+                  borderRadius: '8px',
+                  backgroundColor: buttonForm.bg_color || '#1F2937',
+                  color: '#FFFFFF',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  letterSpacing: '-0.02em',
+                  boxShadow: '0 4px 14px rgba(0,0,0,0.12)',
+                  userSelect: 'none',
+                }}
+              >
+                <span>{buttonForm.label || 'Action Button'}</span>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+              <button
+                type="button"
+                className="admin-btn admin-btn-ghost"
+                onClick={() => setIsButtonModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="admin-btn admin-btn-primary"
+                onClick={handleSaveButton}
+              >
+                {editingButton ? 'Save Changes' : 'Create Button'}
               </button>
             </div>
           </div>

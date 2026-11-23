@@ -10,6 +10,52 @@
     "headlineHtml": "Vegetarian<br><em>Delights</em>",
     "description": "Fresh Ingredients • Authentic Taste\nFamily Friendly"
   },
+  "buttons": [
+    {
+      "id": "btn_whatsapp",
+      "type": "whatsapp",
+      "label": "Order via WhatsApp",
+      "phone": "+91 72496 64983",
+      "url": "https://wa.me/917249664983",
+      "bg_color": "#1E7B46",
+      "hover_color": "#ea580c",
+      "is_enabled": 1,
+      "sort_order": 1
+    },
+    {
+      "id": "btn_waiter",
+      "type": "call_waiter",
+      "label": "Call Waiter",
+      "phone": "",
+      "url": "",
+      "bg_color": "#2B170B",
+      "hover_color": "#C04A0C",
+      "is_enabled": 1,
+      "sort_order": 2
+    },
+    {
+      "id": "btn_zomato",
+      "type": "zomato",
+      "label": "Order on Zomato",
+      "phone": "",
+      "url": "https://www.zomato.com/solapur",
+      "bg_color": "#E23744",
+      "hover_color": "#B81D29",
+      "is_enabled": 1,
+      "sort_order": 3
+    },
+    {
+      "id": "btn_swiggy",
+      "type": "swiggy",
+      "label": "Order on Swiggy",
+      "phone": "",
+      "url": "https://www.swiggy.com/restaurants",
+      "bg_color": "#FC8019",
+      "hover_color": "#D8660C",
+      "is_enabled": 1,
+      "sort_order": 4
+    }
+  ],
   "categories": [
     "Grill Sandwich",
     "Pizza",

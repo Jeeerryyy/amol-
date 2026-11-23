@@ -84,8 +84,19 @@
 }
 
 .footer-logo {
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   margin-bottom: 14px;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  filter: drop-shadow(0 2px 8px rgba(43, 23, 11, 0.08));
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.footer-logo-link:hover .footer-logo {
+  transform: scale(1.04);
+  filter: drop-shadow(0 4px 14px rgba(192, 74, 12, 0.2));
 }
 
 .footer-brand-title {

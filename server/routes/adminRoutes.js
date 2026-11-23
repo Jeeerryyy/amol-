@@ -1240,5 +1240,100 @@ router.get('/export/reviews', async (req, res, next) => {
   }
 });
 
+// ============================================================================
+// 14. CUSTOMIZABLE MENU ACTION BUTTONS (Zomato, Swiggy, WhatsApp, Call Waiter, Custom)
+// ============================================================================
+router.get('/menu-buttons', async (req, res, next) => {
+  try {
+    const buttons = await query('SELECT * FROM menu_buttons ORDER BY sort_order ASC, created_at ASC');
+    return res.json(buttons);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/menu-buttons', async (req, res, next) => {
+  try {
+    const { type = 'custom', label, url = '', phone = '', bg_color = '#1E7B46', hover_color = '#ea580c', is_enabled = 1 } = req.body;
+    if (!label || !label.trim()) {
+      return res.status(400).json({ error: 'Button label is required.' });
+    }
+
+    const id = `btn_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const now = new Date().toISOString();
+    const [maxOrder] = await query('SELECT MAX(sort_order) AS max_o FROM menu_buttons');
+    const sort_order = (maxOrder?.max_o || 0) + 1;
+
+    await query(
+      'INSERT INTO menu_buttons (id, type, label, url, phone, bg_color, hover_color, is_enabled, sort_order, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
+      [id, type, label.trim(), url.trim(), phone.trim(), bg_color, hover_color, is_enabled ? 1 : 0, sort_order, now, now]
+    );
+
+    const [created] = await query('SELECT * FROM menu_buttons WHERE id = $1', [id]);
+    return res.status(201).json(created);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/menu-buttons/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { type, label, url, phone, bg_color, hover_color, is_enabled, sort_order } = req.body;
+    const now = new Date().toISOString();
+
+    const [existing] = await query('SELECT * FROM menu_buttons WHERE id = $1', [id]);
+    if (!existing) {
+      return res.status(404).json({ error: 'Menu button not found.' });
+    }
+
+    const updated = {
+      type: type !== undefined ? type : existing.type,
+      label: label !== undefined ? label.trim() : existing.label,
+      url: url !== undefined ? url.trim() : existing.url,
+      phone: phone !== undefined ? phone.trim() : existing.phone,
+      bg_color: bg_color !== undefined ? bg_color : existing.bg_color,
+      hover_color: hover_color !== undefined ? hover_color : existing.hover_color,
+      is_enabled: is_enabled !== undefined ? (is_enabled ? 1 : 0) : existing.is_enabled,
+      sort_order: sort_order !== undefined ? Number(sort_order) : existing.sort_order,
+    };
+
+    await query(
+      'UPDATE menu_buttons SET type = $1, label = $2, url = $3, phone = $4, bg_color = $5, hover_color = $6, is_enabled = $7, sort_order = $8, updated_at = $9 WHERE id = $10',
+      [updated.type, updated.label, updated.url, updated.phone, updated.bg_color, updated.hover_color, updated.is_enabled, updated.sort_order, now, id]
+    );
+
+    const [saved] = await query('SELECT * FROM menu_buttons WHERE id = $1', [id]);
+    return res.json(saved);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete('/menu-buttons/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await query('DELETE FROM menu_buttons WHERE id = $1', [id]);
+    return res.json({ success: true, message: 'Button deleted successfully.' });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/menu-buttons/reorder/batch', async (req, res, next) => {
+  try {
+    const { items } = req.body;
+    if (Array.isArray(items)) {
+      for (const item of items) {
+        await query('UPDATE menu_buttons SET sort_order = $1 WHERE id = $2', [item.sort_order, item.id]);
+      }
+    }
+    const buttons = await query('SELECT * FROM menu_buttons ORDER BY sort_order ASC');
+    return res.json({ success: true, buttons });
+  } catch (err) {
+    next(err);
+  }
+});
+
 export default router;
 

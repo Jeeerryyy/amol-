@@ -32,6 +32,7 @@ lerna-debug.log*
 *.log
 scratch/
 audit-artifacts/
+audit-runtime-results.json
 baseline-screenshots/
 playwright-report/
 test-results/
