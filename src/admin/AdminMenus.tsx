@@ -1305,8 +1305,10 @@ export const AdminMenus: React.FC = () => {
                       key={btn.id}
                       style={{
                         display: 'flex',
+                        flexWrap: 'wrap',
                         alignItems: 'center',
                         justifyContent: 'space-between',
+                        gap: '12px',
                         padding: '16px 20px',
                         border: '1px solid var(--admin-border)',
                         borderRadius: 'var(--admin-radius-md)',
@@ -1316,7 +1318,7 @@ export const AdminMenus: React.FC = () => {
                       }}
                     >
                       {/* Left: Reorder & Info */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: '1 1 280px', minWidth: 0 }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                           <button
                             type="button"
@@ -1386,7 +1388,7 @@ export const AdminMenus: React.FC = () => {
                       </div>
 
                       {/* Middle: Color Swatches & Button Preview */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', margin: '0 16px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title={`Base: ${btn.bg_color || '#1F2937'}, Hover: ${btn.hover_color || '#EA580C'}`}>
                           <span
                             style={{
@@ -1434,7 +1436,7 @@ export const AdminMenus: React.FC = () => {
                       </div>
 
                       {/* Right: Actions */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                         <button
                           type="button"
                           className={`admin-btn ${isEnabled ? 'admin-btn-secondary' : 'admin-btn-ghost'} admin-btn-sm`}
@@ -2001,7 +2003,7 @@ export const AdminMenus: React.FC = () => {
       {/* MENU BUTTON CREATE / EDIT MODAL */}
       {isButtonModalOpen && (
         <div className="admin-modal-backdrop" onClick={() => setIsButtonModalOpen(false)}>
-          <div className="admin-modal-content" style={{ maxWidth: '540px' }} onClick={(e) => e.stopPropagation()}>
+          <div className="admin-modal-content" style={{ maxWidth: '540px', width: '100%', maxHeight: '92vh', overflowY: 'auto' }} onClick={(e) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
               <h2 style={{ fontSize: '18px', fontWeight: 700, margin: 0, color: 'var(--admin-text-dark)' }}>
                 {editingButton ? `Edit Button: "${editingButton.label}"` : 'Add Action Button'}
@@ -2076,7 +2078,7 @@ export const AdminMenus: React.FC = () => {
             )}
 
             {/* Colors: Base and Hover */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '14px', marginBottom: '16px' }}>
               <div className="admin-form-group">
                 <label className="admin-label">Background Color</label>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

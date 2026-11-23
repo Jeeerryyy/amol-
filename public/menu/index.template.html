@@ -692,7 +692,7 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       margin-top: 14px;
       width: 100%;
     }
@@ -707,10 +707,10 @@
       align-items: center;
       justify-content: center;
       flex: 1 1 calc(50% - 6px);
-      min-width: 135px;
-      padding: 10px 18px;
+      min-width: 140px;
+      padding: 10px 16px;
       overflow: hidden;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
       color: #FFFFFF !important;
       background-color: var(--btn-base-bg, #1F2937);
       border-radius: 8px;
@@ -718,13 +718,14 @@
       cursor: pointer;
       text-decoration: none;
       font-family: var(--font-sans);
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 600;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
       min-height: 44px;
       user-select: none;
       box-sizing: border-box;
+      text-align: center;
     }
 
     .uiverse-menu-btn:hover {
@@ -800,6 +801,9 @@
       justify-content: center;
       gap: 8px;
       white-space: nowrap;
+      max-width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     .uiverse-menu-btn .btn-icon-svg {
@@ -1206,14 +1210,22 @@
       }
 
       .modal-actions-row {
+        display: flex !important;
         flex-direction: column !important;
-        gap: 8px !important;
+        gap: 10px !important;
+        width: 100% !important;
+        margin-top: 14px !important;
       }
 
-      .modal-action-btn {
+      .modal-action-btn,
+      .uiverse-menu-btn {
         width: 100% !important;
-        height: 44px !important;
-        font-size: 14px !important;
+        flex: 1 1 100% !important;
+        min-width: 0 !important;
+        min-height: 46px !important;
+        padding: 12px 18px !important;
+        font-size: 13.5px !important;
+        box-sizing: border-box !important;
       }
     }
   </style>
@@ -1608,6 +1620,10 @@
         variantsContainer.innerHTML = '';
       }
 
+      window.currentModalDish = dish;
+      window.currentModalPrice = currentPrice;
+      window.currentModalIsSoldOut = isSoldOut;
+
       renderModalActionButtons(dish, currentPrice, isSoldOut);
 
       const thumbStrip = document.getElementById('modalThumbStrip');
@@ -1631,6 +1647,7 @@
       if (!variant) return;
 
       activeDishSelectedVariant = variant;
+      window.currentModalPrice = variant.price;
       document.getElementById('modalDishPrice').innerText = `₹ ${variant.price} (${variant.label})`;
 
       document.querySelectorAll('.variant-select-btn').forEach(btn => {
@@ -1724,6 +1741,7 @@
     }
 
     function closeModal() {
+      window.currentModalDish = null;
       document.getElementById('dishModal').classList.remove('open');
     }
 
@@ -1779,8 +1797,11 @@
           return d;
         });
 
-        if (Array.isArray(data.buttons) && data.buttons.length > 0) {
+        if (Array.isArray(data.buttons)) {
           menuActionButtons = data.buttons;
+          if (window.currentModalDish && document.getElementById('dishModal')?.classList.contains('open')) {
+            renderModalActionButtons(window.currentModalDish, window.currentModalPrice, window.currentModalIsSoldOut);
+          }
         }
 
         if (data.menu && data.menu.video_url) {
@@ -1813,8 +1834,11 @@
               ];
             }
 
-            if (Array.isArray(data.buttons) && data.buttons.length > 0) {
+            if (Array.isArray(data.buttons)) {
               menuActionButtons = data.buttons;
+              if (window.currentModalDish && document.getElementById('dishModal')?.classList.contains('open')) {
+                renderModalActionButtons(window.currentModalDish, window.currentModalPrice, window.currentModalIsSoldOut);
+              }
             }
 
             allDishes = (data.dishes || []).map(d => {
