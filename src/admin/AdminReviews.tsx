@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Star, X, Info, ChevronUp, ChevronDown } from 'lucide-react';
 import { adminApi } from './adminApi';
 
 interface ReviewOption {
@@ -315,7 +316,7 @@ export const AdminReviews: React.FC = () => {
                           onClick={() => handleMoveOption(index, 'up')}
                           title="Move Up"
                         >
-                          ▲
+                          <ChevronUp size={14} />
                         </button>
                         <button
                           className="admin-btn-icon"
@@ -323,7 +324,7 @@ export const AdminReviews: React.FC = () => {
                           onClick={() => handleMoveOption(index, 'down')}
                           title="Move Down"
                         >
-                          ▼
+                          <ChevronDown size={14} />
                         </button>
                       </div>
                     </td>
@@ -332,7 +333,7 @@ export const AdminReviews: React.FC = () => {
                     </td>
                     <td>
                       <span className={`admin-badge ${opt.positive_only ? 'admin-badge-success' : 'admin-badge-neutral'}`}>
-                        {opt.positive_only ? '4★ & 5★ Only' : 'All Ratings (1★-5★)'}
+                        {opt.positive_only ? '4 & 5 Stars Only' : 'All Ratings (1-5 Stars)'}
                       </span>
                     </td>
                     <td>
@@ -373,8 +374,8 @@ export const AdminReviews: React.FC = () => {
                   <h3 className="admin-modal-title">
                     {isEditingOption.id.startsWith('new_') ? 'Add Review Option' : 'Edit Review Option'}
                   </h3>
-                  <button className="admin-close-btn" onClick={() => setIsEditingOption(null)}>
-                    ✕
+                  <button className="admin-close-btn" onClick={() => setIsEditingOption(null)} aria-label="Close modal">
+                    <X size={18} />
                   </button>
                 </div>
                 <form onSubmit={handleSaveOption} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
@@ -489,8 +490,8 @@ export const AdminReviews: React.FC = () => {
       {activeTab === 'stats' && stats && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {/* Notice alert */}
-          <div style={{ padding: '12px 16px', background: 'var(--admin-surface-subtle)', border: '1px solid var(--admin-border)', borderRadius: 'var(--admin-radius-sm)', color: 'var(--admin-text-secondary)', fontSize: '13px' }}>
-            ℹ️ <strong>Privacy Notice:</strong> {stats.notice}
+          <div style={{ padding: '12px 16px', background: 'var(--admin-surface-subtle)', border: '1px solid var(--admin-border)', borderRadius: 'var(--admin-radius-sm)', color: 'var(--admin-text-secondary)', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Info size={16} color="var(--admin-accent)" /> <div><strong>Privacy Notice:</strong> {stats.notice}</div>
           </div>
 
           {/* KPI Cards */}
@@ -515,7 +516,10 @@ export const AdminReviews: React.FC = () => {
 
             <div className="admin-card">
               <span className="admin-kpi-label">Average Rating Selected</span>
-              <span className="admin-kpi-value">★ {stats.averageStars}</span>
+              <span className="admin-kpi-value" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                <Star size={20} fill="#f59e0b" color="#f59e0b" />
+                <span>{stats.averageStars}</span>
+              </span>
               <span style={{ fontSize: '12px', color: '#888' }}>Out of 5.0 stars</span>
             </div>
           </div>
@@ -532,7 +536,10 @@ export const AdminReviews: React.FC = () => {
                   const pct = Math.round((count / total) * 100);
                   return (
                     <div key={star} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span style={{ width: '40px', fontSize: '13px', fontWeight: 'bold' }}>{star} ★</span>
+                      <span style={{ width: '48px', fontSize: '13px', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                        <span>{star}</span>
+                        <Star size={13} fill="#f59e0b" color="#f59e0b" />
+                      </span>
                       <div style={{ flex: 1, height: '14px', background: 'var(--admin-surface-subtle)', borderRadius: '7px', overflow: 'hidden' }}>
                         <div
                           style={{

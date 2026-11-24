@@ -44,11 +44,13 @@ export const AdminApp: React.FC = () => {
     };
   }, []);
 
-  // Listen to hash changes for sub-navigation
+  // Listen to hash and pathname changes for sub-navigation
   useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash.replace('#/admin', '').replace('#admin', '');
-      const parts = hash.split('/').filter(Boolean);
+    const handleNav = () => {
+      const pathPart = window.location.pathname.replace(/^\/admin\/?/, '');
+      const hashPart = window.location.hash.replace(/^#\/?admin\/?/, '');
+      const raw = hashPart || pathPart;
+      const parts = raw.split('/').filter(Boolean);
       const section = parts[0] as AdminSection;
       const validSections: AdminSection[] = ['dashboard', 'qrcodes', 'menus', 'gallery', 'website', 'reviews', 'settings'];
       if (validSections.includes(section)) {
@@ -56,9 +58,13 @@ export const AdminApp: React.FC = () => {
       }
     };
 
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+    handleNav();
+    window.addEventListener('hashchange', handleNav);
+    window.addEventListener('popstate', handleNav);
+    return () => {
+      window.removeEventListener('hashchange', handleNav);
+      window.removeEventListener('popstate', handleNav);
+    };
   }, []);
 
   // Check auth status on load

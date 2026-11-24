@@ -6,6 +6,7 @@ import {
   Image as ImageIcon,
   Phone,
   MapPin,
+  Route,
   Clock,
   FileText,
   ExternalLink,
@@ -15,6 +16,7 @@ import {
   Youtube,
   Star,
   UtensilsCrossed,
+  HelpCircle,
 } from 'lucide-react';
 import './Footer.css';
 
@@ -141,6 +143,12 @@ export const Footer: React.FC = () => {
               </a>
             </li>
             <li>
+              <a href="#/faq" className="footer-icon-link">
+                <HelpCircle size={15} className="link-icon" />
+                <span>FAQ</span>
+              </a>
+            </li>
+            <li>
               <a
                 href="#/review"
                 target="_blank"
@@ -179,7 +187,7 @@ export const Footer: React.FC = () => {
               rel="noopener noreferrer"
               className="footer-directions-btn"
             >
-              <MapPin size={14} />
+              <Route size={14} />
               <span>Get Directions</span>
               <ExternalLink size={13} />
             </a>

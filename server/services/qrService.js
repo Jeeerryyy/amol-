@@ -99,12 +99,17 @@ export async function generateTableTentPDF({ qrUrl, label, restaurantName = 'Amo
       .font('Helvetica')
       .text(label.toUpperCase(), 0, 110, { align: 'center', characterSpacing: 1.5 });
 
-    // Call to action instruction
+    // Call to action instruction (tailored for review, menu, or general)
+    const isReview = /review|feedback|rate|star/i.test(label);
+    const instruction = isReview
+      ? 'Scan with your phone camera to rate & review us'
+      : 'Scan with your phone camera to view menu';
+
     doc
       .fillColor('#2B170B')
       .fontSize(13)
       .font('Helvetica-Bold')
-      .text('Scan with your phone camera to view menu', 0, 140, { align: 'center' });
+      .text(instruction, 0, 140, { align: 'center' });
 
     // Center QR Code Image
     const qrSize = 240;

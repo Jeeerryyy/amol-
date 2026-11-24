@@ -4,7 +4,7 @@ import { Phone, Menu as MenuIcon, X as CloseIcon, Star } from 'lucide-react';
 import './Navbar.css';
 
 interface NavbarProps {
-  activePage?: 'home' | 'about' | 'contact' | 'gallery';
+  activePage?: 'home' | 'about' | 'contact' | 'gallery' | 'faq';
   isAboutPage?: boolean;
 }
 
@@ -61,6 +61,13 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage = 'home', isAboutPage
         ...link,
         href: '#/contact',
         isActive: current === 'contact',
+      };
+    }
+    if (link.label === 'FAQ') {
+      return {
+        ...link,
+        href: '#/faq',
+        isActive: current === 'faq',
       };
     }
     if (link.label === 'Home') {

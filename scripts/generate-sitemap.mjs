@@ -62,6 +62,11 @@ const routes = [
     changefreq: 'weekly'
   },
   {
+    path: '/faq',
+    priority: '0.7',
+    changefreq: 'weekly'
+  },
+  {
     path: '/privacy-policy',
     priority: '0.3',
     changefreq: 'monthly'

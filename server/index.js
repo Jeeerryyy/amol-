@@ -126,7 +126,14 @@ app.use(appRouter);
 // 7. Fallback SPA Routing for Render / Container Mode
 if (fs.existsSync(distPath)) {
   app.use((req, res, next) => {
-    if (req.method !== 'GET' || req.path.startsWith('/api') || req.path.startsWith('/q/')) {
+    if (
+      req.method !== 'GET' ||
+      req.path.startsWith('/api') ||
+      req.path.startsWith('/q/') ||
+      req.path.startsWith('/qr/') ||
+      req.path === '/q' ||
+      req.path === '/qr'
+    ) {
       return next();
     }
     const indexPath = path.join(distPath, 'index.html');

@@ -1,0 +1,61 @@
+/* FAQ Subpage Styling */
+.faq-page-wrapper {
+  position: relative;
+  background-color: var(--color-cream-bg, #FAF6EE);
+  min-height: calc(100vh - 80px);
+}
+
+.faq-breadcrumb-bar {
+  background-color: rgba(245, 237, 224, 0.6);
+  border-bottom: 1px solid var(--color-border, #E8DACB);
+  padding: 14px 0;
+}
+
+.faq-breadcrumb-nav {
+  display: flex;
+  align-items: center;
+}
+
+.faq-breadcrumb-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+}
+
+.faq-breadcrumb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--color-text-muted, #6B5545);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.faq-breadcrumb-link:hover {
+  color: var(--color-accent-orange, #D4561A);
+}
+
+.breadcrumb-icon {
+  color: var(--color-text-muted, #6B5545);
+}
+
+.faq-breadcrumb-separator {
+  display: flex;
+  align-items: center;
+  color: var(--color-border, #C4B5A5);
+}
+
+.faq-breadcrumb-current {
+  color: var(--color-accent-orange, #D4561A);
+  font-weight: 600;
+}
+
+.faq-page-main .faq-section {
+  border-top: none;
+  padding-top: 56px;
+}

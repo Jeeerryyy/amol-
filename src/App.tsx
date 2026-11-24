@@ -5,7 +5,6 @@ import { PopularDishes } from './components/PopularDishes/PopularDishes';
 import { AboutSection } from './components/About/AboutSection';
 import { GallerySection } from './components/Gallery/GallerySection';
 import { TestimonialsSection } from './components/Testimonials/TestimonialsSection';
-import { FAQ } from './components/FAQ/FAQ';
 import { Footer } from './components/Footer/Footer';
 import './styles/tokens.css';
 
@@ -16,6 +15,7 @@ const LegalPage = React.lazy(() => import('./pages/LegalPage/LegalPage').then((m
 const AboutPage = React.lazy(() => import('./pages/AboutPage/AboutPage').then((m) => ({ default: m.AboutPage })));
 const ContactPage = React.lazy(() => import('./pages/ContactPage/ContactPage').then((m) => ({ default: m.ContactPage })));
 const GalleryPage = React.lazy(() => import('./pages/GalleryPage/GalleryPage').then((m) => ({ default: m.GalleryPage })));
+const FaqPage = React.lazy(() => import('./pages/FaqPage/FaqPage').then((m) => ({ default: m.FaqPage })));
 
 const FallbackLoader: React.FC<{ fullScreen?: boolean }> = ({ fullScreen = false }) => (
   <div
@@ -138,11 +138,14 @@ export const App: React.FC = () => {
     currentHash === '#/contact' || currentHash === '#contact-page' || currentPath === '/contact' || currentPath === '/contact/';
   const isGalleryPage =
     currentHash === '#/gallery' || currentHash === '#gallery' || currentHash === '#gallery-page' || currentPath === '/gallery' || currentPath === '/gallery/';
+  const isFaqPage =
+    currentHash === '#/faq' || currentHash === '#faq' || currentHash === '#faq-page' || currentPath === '/faq' || currentPath === '/faq/';
 
-  let activePage: 'home' | 'about' | 'contact' | 'gallery' = 'home';
+  let activePage: 'home' | 'about' | 'contact' | 'gallery' | 'faq' = 'home';
   if (isAboutPage) activePage = 'about';
   else if (isContactPage) activePage = 'contact';
   else if (isGalleryPage) activePage = 'gallery';
+  else if (isFaqPage) activePage = 'faq';
 
   return (
     <div className="landing-page-root paper-bg">
@@ -162,6 +165,10 @@ export const App: React.FC = () => {
           <Suspense fallback={<FallbackLoader />}>
             <GalleryPage />
           </Suspense>
+        ) : isFaqPage ? (
+          <Suspense fallback={<FallbackLoader />}>
+            <FaqPage />
+          </Suspense>
         ) : (
           <>
             {/* 2. Hero Section */}
@@ -178,9 +185,6 @@ export const App: React.FC = () => {
 
             {/* 6. What Our Guests Say Section */}
             <TestimonialsSection />
-
-            {/* 7. Frequently Asked Questions (GEO/AEO Accordion) */}
-            <FAQ />
           </>
         )}
       </main>

@@ -1,221 +1,164 @@
-# Amol Veg Resto — Modern Hospitality Platform
+# Amol Veg Resto — Project Icons (83 SVGs)
 
-> **Authentic Pure Vegetarian Dining Heritage Meets High-Performance Full-Stack Engineering**
+Every icon below is a **real, professional icon downloaded from a free open-source icon library** — no AI-generated artwork, no hand-drawn substitutes. All files are plain SVG, recolourable with `currentColor` (brand logos use their official single-colour path; set the colour in CSS).
 
-[![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=black)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Vite](https://img.shields.io/badge/Vite-6.1-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
-[![Node Express](https://img.shields.io/badge/Express-5.3-000000?logo=express&logoColor=white)](https://expressjs.com)
-[![Database](https://img.shields.io/badge/DB-PostgreSQL_%7C_SQLite-336791?logo=postgresql&logoColor=white)](https://www.postgresql.org)
-[![Cloudinary](https://img.shields.io/badge/Media-Cloudinary-3448C5?logo=cloudinary&logoColor=white)](https://cloudinary.com)
-[![Google Gemini](https://img.shields.io/badge/AI-Google_Gemini-4285F4?logo=google&logoColor=white)](https://ai.google.dev)
-[![Playwright](https://img.shields.io/badge/Testing-Playwright-2EAD33?logo=playwright&logoColor=white)](https://playwright.dev)
+## Sources & licences
 
----
+| Library | Licence | Attribution needed? | Used for |
+|---|---|---|---|
+| [Lucide](https://lucide.dev) | ISC | No | Most UI icons |
+| [Tabler Icons](https://tabler.io/icons) | MIT | No | Soups, Roti/Naan, Cold Coffee & Shakes |
+| [Icon Monks](https://www.iconmonks.co) (regular weight) | MIT | No | Food icons, chilli pepper |
+| [Simple Icons](https://simpleicons.org) | CC0 | No | Brand logos (WhatsApp, Zomato, Swiggy, Instagram, Facebook, YouTube) |
 
-## 🌟 Key Highlights
+**Trademark note:** the CC0/MIT licence covers the SVG file, not the trademark. Brand logos (WhatsApp, Zomato, Swiggy, Instagram, Facebook, YouTube) remain the property of their owners — use them as links/buttons as intended, don't imply endorsement.
 
-- **Dual-Engine Dynamic Dining**: Seamless real-time synchronization between Public Main Menu and Special AC Dining Menu with configurable percentage markups, rounding steps, and manual price overrides.
-- **Zero-Latency Dynamic QR Engine**: Sub-150ms 302 redirect engine (`/q/:code`) with non-blocking scan analytics, fingerprint deduplication, bot filtering, and print-ready A5 Table-Tent PDF generation.
-- **AI-Powered Review Booster**: Interactive multi-star rating assistant with instant local draft generation and real-time Server-Sent Events (SSE) streaming via Google Gemini.
-- **Hardened Admin Panel**: Complete management dashboard for menus, categories, pricing, gallery, SEO, legal pages, and QR codes with Bcrypt password hashing, httpOnly SameSite=Strict rolling sessions, and CSRF protection.
-- **OWASP Top 10 Hardened**: CSP, HSTS, frame protection, DB-backed rate limiting, parameterized queries, and sanitized inputs.
-- **Flexible Dual Deployment**: Ready for deployment with frontend on Vercel and backend on Render, or unified single-instance execution.
+## File map
 
----
+### 01-directions-maps (3)
 
-## 🏗️ System Architecture
+| File | Icon in the list | Source | Original icon |
+|---|---|---|---|
+| `map-pin-location.svg` | Map Pin / Location Marker | Lucide | `map-pin` |
+| `get-directions-route.svg` | Get Directions / Route | Lucide | `route` |
+| `external-link-open-new-tab.svg` | External Link / Open in New Tab | Lucide | `square-arrow-out-up-right` |
 
-```mermaid
-flowchart TD
-    subgraph Clients ["Client Layer"]
-        GuestMobile["Mobile Guest\n(QR Menu / AI Review)"]
-        WebVisitor["Desktop Visitor\n(Public Website)"]
-        Owner["Restaurant Owner\n(Mobile / Desktop Admin)"]
-    end
+### 02-navigation-header (8)
 
-    subgraph Edge ["Routing & CDN Layer (Vercel / Reverse Proxy)"]
-        ViteEdge["Static Assets & SPA Shell\n(/, /menu, /review, /admin)"]
-        QREngine["Dynamic QR Redirects\n(/q/:code -> 302 Destination)"]
-    end
+| File | Icon in the list | Source | Original icon |
+|---|---|---|---|
+| `menu-hamburger.svg` | Menu (Hamburger 3 Lines) | Lucide | `menu` |
+| `close-x-mark.svg` | Close (X Mark) | Lucide | `x` |
+| `home.svg` | Home | Lucide | `home` |
+| `utensils-crossed-fork-knife.svg` | Utensils / Crossed Fork & Knife | Lucide | `utensils` |
+| `photo-image.svg` | Photo / Image | Lucide | `image` |
+| `phone.svg` | Phone | Lucide | `phone` |
+| `mail-envelope.svg` | Mail / Envelope | Lucide | `mail` |
+| `clock-operating-hours.svg` | Clock / Operating Hours | Lucide | `clock` |
 
-    subgraph Backend ["Layered Backend (Node.js & Express 5 / Render)"]
-        PublicRoutes["Public API Routes\n(Cached ~60s + Fallbacks)"]
-        AuthMiddleware["Auth & Session Guard\n(httpOnly + CSRF + Rate Limiting)"]
-        AdminRoutes["Admin CMS Controllers\n(Menu, Pricing, Analytics, QR)"]
-        ReviewController["SSE AI Review Pipeline\n(Gemini 2.5 Flash Streaming)"]
-    end
+### 03-arrows-sliders-carousels (7)
 
-    subgraph Storage ["Data & External Services"]
-        Database[("PostgreSQL (Production)\nSQLite (Local Fallback)")]
-        Cloudinary[("Cloudinary Media Storage\nDirect Signed Uploads")]
-        Gemini[("Google Gemini API\nGenerative AI")]
-    end
+| File | Icon in the list | Source | Original icon |
+|---|---|---|---|
+| `chevron-left.svg` | Chevron Left | Lucide | `chevron-left` |
+| `chevron-right.svg` | Chevron Right | Lucide | `chevron-right` |
+| `chevron-down.svg` | Chevron Down | Lucide | `chevron-down` |
+| `chevron-up.svg` | Chevron Up | Lucide | `chevron-up` |
+| `arrow-left.svg` | Arrow Left | Lucide | `arrow-left` |
+| `arrow-right.svg` | Arrow Right | Lucide | `arrow-right` |
+| `arrow-forward-dish-card.svg` | Arrow Forward (Dish Card Indicator) | Lucide | `move-right` |
 
-    GuestMobile -->|Scans QR Table Tent| QREngine
-    QREngine -->|Sub-150ms 302| ViteEdge
-    WebVisitor -->|Visits / & /menu| ViteEdge
-    Owner -->|Manages CMS| AuthMiddleware
-    AuthMiddleware --> AdminRoutes
-    ViteEdge --> PublicRoutes
-    PublicRoutes --> Database
-    AdminRoutes --> Database
-    AdminRoutes -->|Asset Deletion| Cloudinary
-    ReviewController -->|SSE Streaming| Gemini
-```
+### 04-menu-food-badges (6)
 
----
+| File | Icon in the list | Source | Original icon |
+|---|---|---|---|
+| `pure-veg-leaf.svg` | Pure Veg Leaf | Lucide | `leaf` |
+| `spice-level-chili-pepper.svg` | Spice Level / Chili Pepper | Icon Monks | `pepper` |
+| `fresh-made-chef-hat-cutlery.svg` | Fresh Made / Chef Hat / Cutlery | Lucide | `chef-hat` |
+| `search-magnifying-glass.svg` | Search / Magnifying Glass | Lucide | `search` |
+| `search-clear-x-circle.svg` | Search Clear (X in Circle) | Lucide | `circle-x` |
+| `modal-close-x-mark.svg` | Modal Close (X Mark) | Lucide | `x` (same file as `02-navigation-header/close-x-mark.svg`) |
 
-## 📁 Repository Structure
+### 05-menu-action-buttons (5)
 
-```text
-amol-veg-resto/
-├── api/                    # Vercel Serverless Function entrypoint
-│   └── index.js
-├── public/                 # Static assets, logos, favicons, prerendered menu
-│   ├── favicon.ico
-│   ├── logo.png
-│   ├── menu/               # Prerendered SEO-friendly HTML menu
-│   └── sitemap.xml
-├── scripts/                # Database migrations, seeders, schema generators
-│   ├── migrate.js          # Run database DDL migrations
-│   ├── seed.js             # Idempotent database seeder
-│   ├── reset-password.js   # CLI utility to reset owner password
-│   ├── prerender-menu.mjs  # Pre-render crawlable HTML menu shell
-│   └── validate-schema.mjs # Schema.org JSON-LD validator
-├── server/                 # Layered Backend Architecture
-│   ├── config/             # Environment & runtime constants
-│   ├── controllers/        # Route controllers (Review Gen, etc.)
-│   ├── db/                 # Connection pooling, migrations, seeders
-│   ├── middleware/         # Auth, CSRF, Rate Limiting, Security Headers, Error Handlers
-│   ├── routes/             # Admin, Auth, Public, and Root router
-│   ├── services/           # Pricing, QR generation, Cloudinary, AI streaming, CSV exports
-│   ├── validation/         # Zod schemas for input validation
-│   └── index.js            # Express application entrypoint
-├── src/                    # React 18 TypeScript Frontend
-│   ├── admin/              # Admin CMS (Dashboard, Menus, QR, Settings, Analytics)
-│   ├── components/         # Shared presentation components (Navbar, Hero, Menu, FAQ)
-│   ├── pages/              # Code-split subpages (About, Contact, Gallery, Review, Legal)
-│   ├── styles/             # Warm paper design tokens & CSS
-│   ├── types/              # TypeScript interfaces
-│   ├── App.tsx             # Root router with React.lazy code splitting
-│   └── main.tsx            # React DOM mounting
-├── tests/                  # Automated verification & test suites
-│   ├── smoke.js            # Playwright headless critical path smoke tests (8/8)
-│   └── total-admin-test.mjs# 18-step administrative sync & security test suite
-├── .env.example            # Environment variable template
-├── render.yaml             # Render Blueprint deployment config
-├── vercel.json             # Vercel Edge routing & cache headers
-└── package.json            # Scripts & project dependencies
-```
+| File | Icon in the list | Source | Original icon |
+|---|---|---|---|
+| `whatsapp.svg` | WhatsApp | Simple Icons | `whatsapp` |
+| `call-waiter-service-bell.svg` | Call Waiter / Service Bell | Lucide | `bell` |
+| `zomato.svg` | Zomato | Simple Icons | `zomato` |
+| `swiggy.svg` | Swiggy | Simple Icons | `swiggy` |
+| `custom-action.svg` | Custom Action | Lucide | `shopping-bag` |
 
----
+### 06-gallery-lightbox (5)
 
-## 🚀 Getting Started
+| File | Icon in the list | Source | Original icon |
+|---|---|---|---|
+| `maximize-fullscreen.svg` | Maximize / Fullscreen | Lucide | `maximize` |
+| `grid-layout.svg` | Grid Layout | Lucide | `layout-grid` |
+| `utensils.svg` | Utensils | Lucide | `utensils` (same file as `02-navigation-header/utensils-crossed-fork-knife.svg`) |
+| `storefront-building.svg` | Storefront / Building | Lucide | `store` |
+| `users-people.svg` | Users / People | Lucide | `users` |
 
-### Prerequisites
+### 07-reviews-ratings (6)
 
-- **Node.js**: v18.0.0 or higher (v20+ recommended)
-- **npm**: v9.0.0 or higher
-- Optional: PostgreSQL database instance (Supabase, Neon, or local). If omitted, the server automatically boots with local SQLite.
+| File | Icon in the list | Source | Original icon |
+|---|---|---|---|
+| `rating-star-solid.svg` | Rating Star (Solid) | Lucide | `star` (same path as the outline, with `fill="currentColor"`) |
+| `rating-star-outline.svg` | Rating Star (Outline / Light) | Lucide | `star` |
+| `google-star.svg` | Google Star | Lucide | `star` (same file as `rating-star-solid.svg`) |
+| `copy-clipboard.svg` | Copy / Clipboard | Lucide | `copy` |
+| `reset-rotate-clockwise.svg` | Reset / Rotate Clockwise | Lucide | `rotate-cw` |
+| `message-square-speech-bubble.svg` | Message Square / Speech Bubble | Lucide | `message-square` |
 
-### 1. Installation
+### 08-social-compliance (4)
 
-```bash
-git clone https://github.com/your-org/amol-veg-resto.git
-cd amol-veg-resto
-npm install
-```
+| File | Icon in the list | Source | Original icon |
+|---|---|---|---|
+| `instagram.svg` | Instagram | Simple Icons | `instagram` |
+| `facebook.svg` | Facebook | Simple Icons | `facebook` |
+| `youtube.svg` | YouTube | Simple Icons | `youtube` |
+| `fssai-shield-certified-badge.svg` | FSSAI Shield / Certified Badge | Lucide | `shield-check` |
 
-### 2. Environment Setup
+### 09-admin-dashboard (15)
 
-Copy `.env.example` to `.env`:
+| File | Icon in the list | Source | Original icon |
+|---|---|---|---|
+| `dashboard-layout-grid.svg` | Dashboard / Layout Grid | Lucide | `layout-dashboard` |
+| `sliders-toggle-controls.svg` | Sliders / Toggle Controls | Lucide | `sliders-horizontal` |
+| `qr-code.svg` | QR Code | Lucide | `qr-code` |
+| `globe-website.svg` | Globe / Website | Lucide | `globe` |
+| `settings-gear.svg` | Settings / Gear | Lucide | `settings` |
+| `log-out.svg` | Log Out | Lucide | `log-out` |
+| `download.svg` | Download | Lucide | `download` |
+| `spreadsheet-csv.svg` | Spreadsheet / CSV | Lucide | `file-spreadsheet` |
+| `key-lock.svg` | Key / Lock | Lucide | `key-round` |
+| `trash-can.svg` | Trash Can | Lucide | `trash-2` |
+| `edit-pencil.svg` | Edit / Pencil | Lucide | `pencil` |
+| `eye-visible.svg` | Eye (Visible) | Lucide | `eye` |
+| `eye-off-hidden.svg` | Eye Off (Hidden) | Lucide | `eye-off` |
+| `checkmark.svg` | Checkmark | Lucide | `check` |
+| `alert-circle-info.svg` | Alert Circle / Info | Lucide | `circle-alert` |
 
-```bash
-cp .env.example .env
-```
+### 10-food-categories (24)
 
-Configure your credentials in `.env`:
+| File | Icon in the list | Source | Original icon |
+|---|---|---|---|
+| `all-dishes.svg` | All Dishes | Lucide | `utensils-crossed` |
+| `soups.svg` | Soups | Tabler | `soup` |
+| `paneer-starters.svg` | Paneer Starters | Icon Monks | `skewer` |
+| `chinese-starters.svg` | Chinese Starters | Icon Monks | `noodles` |
+| `tandoori.svg` | Tandoori | Lucide | `flame` |
+| `starters.svg` | Starters | Icon Monks | `bowl-food` |
+| `main-course.svg` | Main Course | Lucide | `cooking-pot` |
+| `paneer-main-course.svg` | Paneer Main Course | Icon Monks | `bowl-steam` |
+| `kaju-special.svg` | Kaju Special | Icon Monks | `nut` |
+| `kofta-dishes.svg` | Kofta Dishes | Icon Monks | `mochi` |
+| `shev-bhaji-special.svg` | Shev Bhaji & Special | Icon Monks | `soup` |
+| `punjabi-dishes.svg` | Punjabi Dishes | Icon Monks | `hot-pot` |
+| `dal-rice.svg` | Dal & Rice | Icon Monks | `bowl-spoon` |
+| `biryani-pulao.svg` | Biryani & Pulao | Icon Monks | `rice-bowl` |
+| `roti-naan-paratha.svg` | Roti, Naan & Paratha | Tabler | `bread` |
+| `south-indian.svg` | South Indian | Icon Monks | `taco` |
+| `fast-food-snacks.svg` | Fast Food / Snacks | Lucide | `sandwich` |
+| `beverages-cold-drinks.svg` | Beverages & Cold Drinks | Lucide | `cup-soda` |
+| `cold-coffee-shakes.svg` | Cold Coffee & Shakes | Tabler | `milkshake` |
+| `desserts-ice-cream.svg` | Desserts & Ice Cream | Lucide | `ice-cream-cone` |
+| `papad-raita-salad.svg` | Papad, Raita & Salad | Lucide | `salad` |
+| `thali-combos.svg` | Thali & Combos | Icon Monks | `bowl` |
+| `hot-beverages.svg` | Hot Beverages | Lucide | `coffee` |
+| `special-offers.svg` | Special Offers | Lucide | `badge-percent` |
 
-```env
-PORT=3001
-NODE_ENV=development
-DATABASE_URL=postgresql://postgres:your_password@localhost:5432/postgres
-AI_API_KEY=your_gemini_api_key
-ADMIN_EMAIL=owner@amolvegresto.in
-ADMIN_INITIAL_PASSWORD=YourSecurePassword123!
-```
+## Judgement calls (closest matches)
 
-### 3. Database Migration & Seeding
+- **Spice Level / Chili Pepper** — neither Lucide nor Tabler has a chilli icon. Used Icon Monks `pepper`, which is drawn as a chilli pepper.
+- **Search Clear (X in Circle)** — used Lucide `circle-x` (an X inside a circle), exactly as the list describes, rather than a plain X copy.
+- **South Indian (dosa)** — SVG Repo was unreachable when fetching (HTTP 429 rate-limit on its search pages, and its search page returned 404 through the fetch service), so no dosa icon could be verified from a real library. Used Icon Monks `taco` (a folded flatbread) as the closest verified match.
+- **Thali & Combos** — same SVG Repo issue; used Icon Monks `bowl` (a plain round bowl/platter). It is a different drawing from `bowl-food` (Starters) and `bowl-steam` (Paneer Main Course).
+- **Punjabi Dishes (handi)** — used Icon Monks `hot-pot`, a lidded cooking pot, distinct from the `cooking-pot` used for Main Course.
+- **Shev Bhaji & Special** — used Icon Monks `soup`; a different drawing from the Tabler `soup` used for Soups, so the two categories stay visually distinct.
+- **Solid star** — Lucide's `star` ships as an outline; the solid version is the identical path with `fill="currentColor"` applied. The outline and solid files share the same real artwork, not a different icon.
+- **Repeats** — the X, the Utensils icon and the solid star are delivered under each usage name as byte-identical copies, per the list (3 uses of X, 2 of Utensils, 2 of the solid star).
 
-```bash
-npm run migrate
-npm run seed
-```
+## Verification
 
-### 4. Running Locally
-
-Start the backend server:
-
-```bash
-npm run server
-```
-
-In a separate terminal, start the Vite frontend development server:
-
-```bash
-npm run dev
-```
-
-Visit:
-- **Public Website**: `http://localhost:5173/`
-- **Digital Menu**: `http://localhost:5173/menu/`
-- **Admin Panel**: `http://localhost:5173/admin`
-- **API Health**: `http://localhost:3001/api/health`
-
----
-
-## 🧪 Testing & Verification
-
-The codebase includes comprehensive automated test suites:
-
-```bash
-# 1. Playwright Headless Browser Smoke Test (8 Critical Paths)
-npm test
-
-# 2. Total Admin CMS & Public Live Sync Suite (18 Automated Steps)
-npm run test:admin
-
-# 3. Schema.org JSON-LD & Rich Snippets Validator
-npm run seo:validate
-
-# 4. Production TypeScript Typecheck & Vite Build
-npm run build
-```
-
----
-
-## 🔒 Security Hardening (OWASP Top 10)
-
-- **A1: Broken Access Control**: Strict role validation, indexed session lookup (`token LIKE $1 || ':%'`), and constant-time CSRF verification.
-- **A2: Cryptographic Failures**: Bcrypt password hashing (12 rounds), 256-bit cryptographically secure session tokens, and automated HSTS in production.
-- **A3: Injection**: Parameterized SQL queries throughout both PostgreSQL and SQLite backends; zero string-concatenated SQL queries.
-- **A5: Security Misconfiguration**: Strict Content Security Policy (CSP), `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, and `Permissions-Policy`.
-- **A7: Identification & Authentication Failures**: Database-backed rate limiting with exponential lockout after 5 failed attempts, rolling 7-day session expiry, and atomic session destruction on logout.
-- **A8: Software & Data Integrity**: Comprehensive input validation via Zod schemas and HTML sanitization on rich inputs.
-- **A9: Logging & Monitoring Failures**: Health monitoring endpoint (`/api/health`) and non-blocking audit logging for QR scans and review submissions.
-
----
-
-## 📍 About Amol Veg Resto
-
-- **Restaurant**: Amol Veg Resto
-- **Address**: Gala No 2, Plot 16/1, Karnik Nagar Rd, Sakhar Peth, Solapur, Maharashtra 413006
-- **Phone**: +91 72496 64983 / +91 81491 73027
-- **Cuisine**: Authentic Maharashtrian, Solapuri Specialties, North Indian & Tandoor Pure Vegetarian
-
----
-
-## 📄 License
-
-Proprietary © Amol Veg Resto. All rights reserved.
+Every file was checked after download: starts with `<svg`, larger than 200 bytes, and contains real path/shape data. 83 files, 0 failures, 0 missing. All 24 food-category icons are visually distinct files (verified by checksum — no unintended duplicates).

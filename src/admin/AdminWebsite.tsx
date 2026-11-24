@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { X } from 'lucide-react';
 import { AdminGallery } from './AdminGallery';
 import { adminApi, CloudinaryUploadResult } from './adminApi';
 
@@ -11,6 +12,12 @@ interface PopularDish {
   image_public_id?: string;
   is_visible: number;
   sort_order: number;
+}
+
+interface PopularHeader {
+  prefix: string;
+  highlight: string;
+  subtitle: string;
 }
 
 interface GalleryItem {
@@ -66,6 +73,12 @@ export const AdminWebsite: React.FC = () => {
 
   // Popular Dishes state
   const [popularDishes, setPopularDishes] = useState<PopularDish[]>([]);
+  const [popularHeader, setPopularHeader] = useState<PopularHeader>({
+    prefix: 'Our',
+    highlight: 'Popular Dishes',
+    subtitle: 'SIMPLE INGREDIENTS, MEMORABLE FLAVOURS.',
+  });
+  const [savingPopularHeader, setSavingPopularHeader] = useState(false);
   const [isEditingPop, setIsEditingPop] = useState<PopularDish | null>(null);
   const [menuDishes, setMenuDishes] = useState<any[]>([]);
   const [showDishPicker, setShowDishPicker] = useState(false);
@@ -119,7 +132,7 @@ export const AdminWebsite: React.FC = () => {
       const [pops, gals, site, legals, seos, dishes] = await Promise.all([
         adminApi.get<PopularDish[]>('/popular-dishes'),
         adminApi.get<GalleryItem[]>('/gallery'),
-        adminApi.get<{ contact?: SiteContact; footer?: SiteFooter }>('/site-content'),
+        adminApi.get<{ contact?: SiteContact; footer?: SiteFooter; popular_header?: PopularHeader }>('/site-content'),
         adminApi.get<LegalPage[]>('/legal-pages'),
         adminApi.get<SeoPage[]>('/seo-pages'),
         adminApi.get<any[]>('/dishes'),
@@ -129,6 +142,13 @@ export const AdminWebsite: React.FC = () => {
       setGalleryItems(gals || []);
       if (site?.contact) setContactData(site.contact);
       if (site?.footer) setFooterData(site.footer);
+      if (site?.popular_header) {
+        setPopularHeader({
+          prefix: site.popular_header.prefix !== undefined ? site.popular_header.prefix : 'Our',
+          highlight: site.popular_header.highlight !== undefined ? site.popular_header.highlight : 'Popular Dishes',
+          subtitle: site.popular_header.subtitle !== undefined ? site.popular_header.subtitle : 'SIMPLE INGREDIENTS, MEMORABLE FLAVOURS.',
+        });
+      }
       setLegalPages(legals || []);
       if (legals && legals.length > 0) setSelectedLegalPage(legals[0]);
       setSeoPages(seos || []);
@@ -257,6 +277,19 @@ export const AdminWebsite: React.FC = () => {
     } catch (err: any) {
       setUploadProgress(null);
       showToast(err.message || 'Upload failed', 'error');
+    }
+  };
+
+  const handleSavePopularHeader = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSavingPopularHeader(true);
+    try {
+      await adminApi.put('/site-content/popular_header', popularHeader);
+      showToast('Popular dishes section header updated successfully');
+    } catch (err: any) {
+      showToast(err.message || 'Failed to update section header', 'error');
+    } finally {
+      setSavingPopularHeader(false);
     }
   };
 
@@ -389,6 +422,131 @@ export const AdminWebsite: React.FC = () => {
           ===================================================================== */}
       {activeTab === 'popular' && (
         <div>
+          {/* Section Heading & Subtitle Customizer */}
+          <div
+            className="admin-content-card"
+            style={{
+              background: '#ffffff',
+              border: '1px solid #e5e7eb',
+              borderRadius: '8px',
+              padding: '20px',
+              marginBottom: '24px',
+            }}
+          >
+            <div style={{ marginBottom: '16px' }}>
+              <h3 style={{ margin: '0 0 4px', fontSize: '16px', fontWeight: 600, color: '#111827' }}>
+                Section Heading & Subtitle
+              </h3>
+              <p style={{ margin: 0, fontSize: '13px', color: '#6b7280' }}>
+                Customize the title and subtitle displayed above the popular dishes on the homepage.
+              </p>
+            </div>
+
+            <form onSubmit={handleSavePopularHeader} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#374151', marginBottom: '6px' }}>
+                    Title Prefix
+                  </label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={popularHeader.prefix}
+                    onChange={(e) => setPopularHeader({ ...popularHeader, prefix: e.target.value })}
+                    placeholder="e.g. Our"
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#374151', marginBottom: '6px' }}>
+                    Title Highlight (Accent Orange)
+                  </label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={popularHeader.highlight}
+                    onChange={(e) => setPopularHeader({ ...popularHeader, highlight: e.target.value })}
+                    placeholder="e.g. Popular Dishes"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#374151', marginBottom: '6px' }}>
+                  Section Subtitle
+                </label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={popularHeader.subtitle}
+                  onChange={(e) => setPopularHeader({ ...popularHeader, subtitle: e.target.value })}
+                  placeholder="e.g. SIMPLE INGREDIENTS, MEMORABLE FLAVOURS."
+                />
+              </div>
+
+              {/* Live Preview Box */}
+              <div
+                style={{
+                  padding: '20px',
+                  background: 'var(--color-cream-card, #fdfaf5)',
+                  borderRadius: '6px',
+                  border: '1px dashed #d1d5db',
+                  textAlign: 'center',
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: '11px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    color: '#9ca3af',
+                    display: 'block',
+                    marginBottom: '8px',
+                    fontWeight: 600,
+                  }}
+                >
+                  Live Homepage Header Preview
+                </span>
+                <h2
+                  style={{
+                    fontFamily: 'Playfair Display, Georgia, serif',
+                    fontSize: '32px',
+                    fontWeight: 700,
+                    margin: '0 0 8px',
+                    color: '#1a1815',
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {popularHeader.prefix ? `${popularHeader.prefix} ` : ''}
+                  <span style={{ color: '#d4561a' }}>{popularHeader.highlight}</span>
+                </h2>
+                <p
+                  style={{
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    letterSpacing: '0.14em',
+                    color: '#6b7280',
+                    textTransform: 'uppercase',
+                    margin: 0,
+                  }}
+                >
+                  {popularHeader.subtitle}
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <button
+                  type="submit"
+                  className="admin-btn admin-btn-primary"
+                  disabled={savingPopularHeader}
+                >
+                  {savingPopularHeader ? 'Saving...' : 'Save Section Header'}
+                </button>
+              </div>
+            </form>
+          </div>
+
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>
               Feature up to 12 popular dishes directly on the homepage carousel.
@@ -511,7 +669,7 @@ export const AdminWebsite: React.FC = () => {
                 <div className="admin-modal-header">
                   <h3 className="admin-modal-title">Select Dish from Menu</h3>
                   <button className="admin-close-btn" onClick={() => setShowDishPicker(false)}>
-                    ✕
+                    <X size={18} />
                   </button>
                 </div>
                 <div style={{ padding: '16px 0' }}>
@@ -569,7 +727,7 @@ export const AdminWebsite: React.FC = () => {
                     {isEditingPop.id.startsWith('new_') ? 'Add Popular Dish' : 'Edit Popular Dish'}
                   </h3>
                   <button className="admin-close-btn" onClick={() => setIsEditingPop(null)}>
-                    ✕
+                    <X size={18} />
                   </button>
                 </div>
                 <form onSubmit={handleSavePopularDish} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>

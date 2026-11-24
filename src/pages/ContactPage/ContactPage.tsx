@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { siteConfig } from '../../siteConfig';
 import {
   MapPin,
+  Route,
+  ExternalLink,
   Phone,
   Clock,
   User,
@@ -130,6 +132,17 @@ export const ContactPage: React.FC = () => {
                   <p className="contact-item-detail">
                     {displayAddress}
                   </p>
+                  <a
+                    href="https://maps.google.com/?cid=12646274485771746208"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact-directions-link inline-flex items-center gap-1.5 text-orange font-semibold text-xs mt-1.5 hover:underline"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#C85A17', fontWeight: 600, fontSize: '12px', marginTop: '6px', textDecoration: 'none' }}
+                  >
+                    <Route size={14} />
+                    <span>Get Directions on Google Maps</span>
+                    <ExternalLink size={12} />
+                  </a>
                 </div>
               </div>
 

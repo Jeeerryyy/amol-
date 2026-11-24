@@ -111,19 +111,150 @@ function isBotOrTestRunner(req, ua = '') {
   return false;
 }
 
+// Helper function to safely escape HTML in fallback pages
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Render branded, high-performance HTML fallback page
+function renderQrFallbackPage({
+  statusTitle,
+  message,
+  badgeText = 'Notice',
+  primaryBtnText = 'Browse Digital Menu',
+  primaryBtnHref = '/menu/',
+  secondaryBtnText = 'Visit Homepage',
+  secondaryBtnHref = '/',
+}) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeHtml(statusTitle)} | Amol Veg Resto</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #FAF4EC;
+      color: #2B170B;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .fallback-card {
+      background: #FFFFFF;
+      max-width: 440px;
+      width: 100%;
+      border-radius: 20px;
+      padding: 36px 28px;
+      border: 1.5px solid #E8DACB;
+      box-shadow: 0 10px 30px rgba(43, 23, 11, 0.08);
+      text-align: center;
+    }
+    .brand-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #C85A17;
+      margin-bottom: 12px;
+    }
+    .status-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 99px;
+      background: #FEE2E2;
+      color: #991B1B;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 750;
+      color: #2B170B;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+    p {
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: #6B5545;
+      margin-bottom: 24px;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 650;
+      border-radius: 99px;
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+    .btn-primary {
+      background-color: #2B170B;
+      color: #FAF4EC;
+    }
+    .btn-secondary {
+      background-color: #FAF4EC;
+      color: #C85A17;
+      border: 1px solid #E8DACB;
+    }
+    .btn:hover { opacity: 0.9; }
+    .footer-help {
+      margin-top: 20px;
+      font-size: 12.5px;
+      color: #8C705F;
+    }
+    .footer-help a {
+      color: #C85A17;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="fallback-card">
+    <div class="brand-eyebrow">Amol Veg Resto · Solapur</div>
+    <div><span class="status-badge">${escapeHtml(badgeText)}</span></div>
+    <h1>${escapeHtml(statusTitle)}</h1>
+    <p>${message}</p>
+    <div class="btn-group">
+      <a href="${escapeHtml(primaryBtnHref)}" class="btn btn-primary">${escapeHtml(primaryBtnText)}</a>
+      <a href="${escapeHtml(secondaryBtnHref)}" class="btn btn-secondary">${escapeHtml(secondaryBtnText)}</a>
+    </div>
+    <div class="footer-help">
+      Need assistance? Call our staff at <a href="tel:+917249664983">+91 72496 64983</a>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
 // ============================================================================
-// 1. DYNAMIC QR SCAN REDIRECT (/q/:code)
+// 1. DYNAMIC QR SCAN REDIRECT (/qr/:code and /q/:code)
+// Permanent dynamic redirect URL encoded once, destination fully editable anytime.
 // ============================================================================
-router.get('/q/:code', async (req, res) => {
-  const { code } = req.params;
+async function handleDynamicQrRedirect(req, res) {
+  const rawCode = req.params.code || '';
+  const code = rawCode.trim().toLowerCase();
   const clientIp = req.ip || req.connection?.remoteAddress || '127.0.0.1';
   const ua = req.get('user-agent') || '';
-
-  // Fail-safe default destinations
-  const fallbackDestinations = {
-    menu: '/menu/',
-    special: '/special-menu/',
-  };
 
   // 1. Rate limiting check
   if (!checkQrRateLimit(clientIp)) {
@@ -131,76 +262,96 @@ router.get('/q/:code', async (req, res) => {
   }
 
   try {
-    const qrs = await query('SELECT * FROM qr_codes WHERE id = $1', [code]);
+    const qrs = await query('SELECT * FROM qr_codes WHERE slug = $1 OR id = $1', [code]);
+
     if (qrs.length === 0) {
-      // Unknown code -> redirect to main menu
+      // Unknown code -> Render clean fallback 404 page
       res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-      return res.redirect(302, fallbackDestinations[code] || '/menu/');
+      return res.status(404).send(
+        renderQrFallbackPage({
+          statusTitle: 'QR Code Not Found',
+          message: `The scanned QR link (<strong>/qr/${escapeHtml(code)}</strong>) is not registered or has been moved.`,
+          badgeText: '404 · Unregistered QR',
+          primaryBtnText: 'Browse Digital Menu',
+          primaryBtnHref: '/menu/',
+          secondaryBtnText: 'Visit Homepage',
+          secondaryBtnHref: '/',
+        })
+      );
     }
 
     const qr = qrs[0];
 
-    // If QR code is disabled, show friendly unavailable page
+    // Check if QR code is paused/disabled
     if (!qr.is_enabled) {
-      res.setHeader('Cache-Control', 'no-store');
-      return res.status(503).send(`
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Menu Currently Unavailable | Amol Veg Resto</title>
-          <style>
-            body { font-family: sans-serif; background: #FAF4EC; color: #2B170B; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 20px; text-align: center; }
-            .card { background: white; padding: 36px 28px; border-radius: 16px; box-shadow: 0 4px 20px rgba(43,23,11,0.08); max-width: 420px; border: 1px solid #E8DACB; }
-            h2 { color: #C85A17; margin-top: 0; }
-            p { color: #6B5545; line-height: 1.5; }
-            a { display: inline-block; margin-top: 16px; padding: 10px 24px; background: #2B170B; color: white; border-radius: 99px; text-decoration: none; font-weight: 600; }
-          </style>
-        </head>
-        <body>
-          <div class="card">
-            <h2>Menu Temporarily Offline</h2>
-            <p>This digital menu QR code is currently inactive. Please ask our restaurant staff for assistance or visit our main website.</p>
-            <a href="/">Go to Homepage</a>
-          </div>
-        </body>
-        </html>
-      `);
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+      return res.status(503).send(
+        renderQrFallbackPage({
+          statusTitle: 'QR Stand Temporarily Paused',
+          message: `The <strong>${escapeHtml(qr.label || 'service')}</strong> QR stand is temporarily paused by our restaurant staff. Please ask our staff for assistance or browse our menu on our website.`,
+          badgeText: 'Temporarily Inactive',
+          primaryBtnText: 'Browse Digital Menu',
+          primaryBtnHref: '/menu/',
+          secondaryBtnText: 'Visit Homepage',
+          secondaryBtnHref: '/',
+        })
+      );
     }
 
-    // 2. Asynchronous Scan Logging (Non-blocking) - Real live customer scans only
-    if (!isBotOrTestRunner(req, ua) && req.method === 'GET') {
-      const ipHash = crypto.createHash('sha256').update(`${clientIp}:${ua}:${env.ipHashSalt}`).digest('hex');
-      const dedupeKey = `${ipHash}:${code}`;
-      const lastScan = scanDedupeMap.get(dedupeKey);
-      const now = Date.now();
+    // Check if destination is empty or missing
+    if (!qr.destination || !qr.destination.trim()) {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+      return res.status(200).send(
+        renderQrFallbackPage({
+          statusTitle: 'Destination In Progress',
+          message: `The destination link for <strong>${escapeHtml(qr.label)}</strong> is currently being configured. Please check back in a few moments or ask our team.`,
+          badgeText: 'Setup In Progress',
+          primaryBtnText: 'Browse Digital Menu',
+          primaryBtnHref: '/menu/',
+          secondaryBtnText: 'Visit Homepage',
+          secondaryBtnHref: '/',
+        })
+      );
+    }
 
-      // Dedupe same hash within 30s
-      if (!lastScan || now - lastScan > 30000) {
-        scanDedupeMap.set(dedupeKey, now);
-        const { device_type, os, browser } = parseUserAgent(ua);
-        const scanId = `scan_${Date.now()}_${crypto.randomBytes(3).toString('hex')}`;
-        const timestamp = new Date().toISOString();
+    // 2. Scan Logging: Log every scan (time, device) before redirecting
+    try {
+      const { device_type, os, browser } = parseUserAgent(ua);
+      const scanId = `scan_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`;
+      const timestamp = new Date().toISOString();
+      const ipHash = crypto.createHash('sha256').update(`${clientIp}:${ua}:${env.ipHashSalt || 'salt'}`).digest('hex');
 
-        // Non-blocking query execution
-        query(
-          'INSERT INTO scans (id, qr_id, ip_hash, device_type, os, browser, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-          [scanId, code, ipHash, device_type, os, browser, timestamp]
-        ).catch((err) => console.error('[QR Scan Log Error]', err));
-      }
+      // Fast non-blocking query to record scan without delaying customer redirect
+      query(
+        'INSERT INTO scans (id, qr_id, ip_hash, device_type, os, browser, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+        [scanId, qr.id, ipHash, device_type, os, browser, timestamp]
+      ).catch((err) => console.error('[QR Scan Log Error]', err));
+    } catch (logErr) {
+      console.error('[QR Scan Parse Error]', logErr);
     }
 
     // 3. Fast 302 Redirect (<150ms response) with Cache-Control: no-store
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-    const destination = qr.destination.startsWith('/') ? qr.destination : `/${qr.destination}`;
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+
+    let destination = qr.destination.trim();
+    if (!/^https?:\/\//i.test(destination)) {
+      if (!destination.startsWith('/') && !destination.startsWith('#')) {
+        destination = `/${destination}`;
+      }
+    }
+
     return res.redirect(302, destination);
   } catch (err) {
     console.error('[QR Redirect Error]', err);
-    res.setHeader('Cache-Control', 'no-store');
-    return res.redirect(302, fallbackDestinations[code] || '/menu/');
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+    return res.redirect(302, '/menu/');
   }
-});
+}
+
+router.get('/qr/:code', handleDynamicQrRedirect);
+router.get('/q/:code', handleDynamicQrRedirect);
 
 // ============================================================================
 // 2. PUBLIC SITE METADATA & CONTENT (/api/public/site)
@@ -264,10 +415,10 @@ router.get('/api/public/popular-dishes', async (req, res, next) => {
   } catch (err) {
     console.warn('[Public API] Database unavailable for /api/public/popular-dishes, serving fallback dishes');
     return res.json([
-      { id: 1, title: "Special Thali", name: "Special Thali", price: 120, description: "A delicious and wholesome dish made with fresh ingredients.", imageSrc: "/images/dishes/popular/dish-1.jpg" },
-      { id: 2, title: "South Indian Idli Sambar", name: "South Indian Idli Sambar", price: 100, description: "Soft, fluffy and served with our special chutney & sambar.", imageSrc: "/images/dishes/popular/dish-2.jpg" },
-      { id: 3, title: "Crispy Masala Dosa", name: "Crispy Masala Dosa", price: 110, description: "A flavourful and light option perfect for any time of the day.", imageSrc: "/images/dishes/popular/dish-3.jpg" },
-      { id: 4, title: "Amol Veg Platter", name: "Amol Veg Platter", price: 150, description: "A complete and satisfying meal made with fresh, pure veg ingredients.", imageSrc: "/images/dishes/popular/dish-4.jpg" }
+      { id: "pop-1", title: "Crispy Chilli Paneer", name: "Crispy Chilli Paneer", price: "₹150", description: "Fresh cottage cheese cubes tossed with bell peppers & spicy garlic sauce.", imageSrc: "/images/dishes/popular/dish-1.jpg", image_url: "/images/dishes/popular/dish-1.jpg" },
+      { id: "pop-2", title: "Paneer Butter Masala", name: "Paneer Butter Masala", price: "₹180", description: "Rich tomato, butter and cashew nut gravy finished with fresh cream.", imageSrc: "/images/dishes/popular/dish-2.jpg", image_url: "/images/dishes/popular/dish-2.jpg" },
+      { id: "pop-3", title: "Solapuri Shev Bhaji", name: "Solapuri Shev Bhaji", price: "₹130", description: "Authentic Solapur spicy red gravy topped with crisp gram flour sev.", imageSrc: "/images/dishes/popular/dish-3.jpg", image_url: "/images/dishes/popular/dish-3.jpg" },
+      { id: "pop-4", title: "Special Veg Thali", name: "Special Veg Thali", price: "₹220", description: "Complete traditional feast with fresh rotis, seasonal curries, dal and rice.", imageSrc: "/images/dishes/popular/dish-4.jpg", image_url: "/images/dishes/popular/dish-4.jpg" }
     ]);
   }
 });
@@ -415,18 +566,19 @@ router.get('/api/public/menu/:menuId', async (req, res, next) => {
 // 5B. PUBLIC MENU ACTION BUTTONS (/api/public/menu-buttons)
 // ============================================================================
 router.get('/api/public/menu-buttons', async (req, res) => {
-  const cached = getCached('menu_buttons');
-  if (cached) return sendCachedJson(res, cached);
+  // Always set real-time cache headers so browser fetches latest customizations
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
 
   try {
-    const buttons = await query('SELECT * FROM menu_buttons WHERE is_enabled = 1 ORDER BY sort_order ASC');
-    setCached('menu_buttons', buttons, 60);
-    return sendCachedJson(res, buttons);
+    const buttons = await query('SELECT * FROM menu_buttons WHERE is_enabled = 1 ORDER BY sort_order ASC, created_at ASC');
+    return res.json(buttons || []);
   } catch (err) {
     console.warn('[Public API] Database error for menu buttons, fallback:', err.message);
     return res.json([
-      { id: 'btn_whatsapp', type: 'whatsapp', label: 'Order via WhatsApp', phone: '+91 72496 64983', bg_color: '#1E7B46', hover_color: '#ea580c', is_enabled: 1 },
-      { id: 'btn_waiter', type: 'call_waiter', label: 'Call Waiter', bg_color: '#2B170B', hover_color: '#C04A0C', is_enabled: 1 }
+      { id: 'btn_whatsapp', type: 'whatsapp', label: 'Order via WhatsApp', phone: '+91 72496 64983', bg_color: '#1E7B46', hover_color: '#ea580c', is_enabled: 1, sort_order: 1 },
+      { id: 'btn_waiter', type: 'call_waiter', label: 'Call Waiter', bg_color: '#2B170B', hover_color: '#C04A0C', is_enabled: 1, sort_order: 2 }
     ]);
   }
 });

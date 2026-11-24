@@ -422,8 +422,9 @@ export const AdminDashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{ fontSize: '32px', fontWeight: 700, color: 'var(--admin-text-main)' }}>
-                {reviews.averageStars || '5.0'} ★
+              <div style={{ fontSize: '32px', fontWeight: 700, color: 'var(--admin-text-main)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span>{reviews.averageStars || '5.0'}</span>
+                <Star size={24} fill="#f59e0b" color="#f59e0b" />
               </div>
               <div>
                 <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--admin-accent)', textTransform: 'uppercase' }}>Average Rating</div>

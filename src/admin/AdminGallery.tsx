@@ -15,6 +15,7 @@ import {
   Check,
   AlertCircle,
   ExternalLink,
+  X,
 } from 'lucide-react';
 
 export interface GalleryItem {
@@ -564,10 +565,10 @@ export const AdminGallery: React.FC = () => {
                       {item.aspect === 'wide'
                         ? '16:9'
                         : item.aspect === 'tall'
-                        ? '3:4'
-                        : item.aspect === 'square'
-                        ? '1:1'
-                        : '4:3'}
+                          ? '3:4'
+                          : item.aspect === 'square'
+                            ? '1:1'
+                            : '4:3'}
                     </span>
                   </div>
 
@@ -706,8 +707,9 @@ export const AdminGallery: React.FC = () => {
                 type="button"
                 className="admin-close-btn"
                 onClick={() => setIsModalOpen(false)}
+                aria-label="Close modal"
               >
-                ✕
+                <X size={18} />
               </button>
             </div>
 
@@ -944,8 +946,9 @@ export const AdminGallery: React.FC = () => {
                 type="button"
                 className="admin-close-btn"
                 onClick={() => setDeleteTarget(null)}
+                aria-label="Close modal"
               >
-                ✕
+                <X size={18} />
               </button>
             </div>
 

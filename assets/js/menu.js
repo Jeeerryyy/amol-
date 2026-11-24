@@ -419,7 +419,9 @@
       menuContainer.classList.remove('menu-booting');
       menuContainer.innerHTML = `
         <div style="text-align: center; padding: 4.5rem 1rem; color: #746D66;">
-          <div style="font-size: 2.4rem; margin-bottom: 0.75rem;">🌿</div>
+          <div style="display: flex; justify-content: center; margin-bottom: 0.75rem;">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+          </div>
           <h3 class="font-serif" style="font-size: 1.5rem; color: #2B1B13; font-weight: 600;">No dishes found</h3>
           <p style="margin-top: 0.4rem; font-size: 0.95rem; color: #746D66; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.5;">
             We couldn't find any dishes matching "${searchQuery || 'your filters'}". Try searching for Paneer, Naan, Sandwich, or Biryani.
@@ -516,7 +518,7 @@
             </div>
           ` : item.isSpicy ? `
             <div class="dish-badge-top-right">
-              <span class="badge-tag badge-spicy">Spicy 🌶️</span>
+              <span class="badge-tag badge-spicy">Spicy</span>
             </div>
           ` : ''}
         </div>
@@ -590,28 +592,28 @@
         type: 'image',
         url: mainImg,
         thumb: mainImg,
-        tag: '📸 Main View',
+        tag: 'Main View',
         label: `${dish.name} - Signature Plating`
       },
       {
         type: 'image',
         url: secondaryImg,
         thumb: secondaryImg,
-        tag: '🔍 Close-up',
+        tag: 'Close-up',
         label: `${dish.name} - Texture & Garnish`
       },
       {
         type: 'image',
         url: tertiaryImg,
         thumb: tertiaryImg,
-        tag: '🍲 Kitchen Prep',
+        tag: 'Kitchen Prep',
         label: `${dish.name} - Fresh Preparation`
       },
       {
         type: 'video',
         url: videoPlaceholder,
         thumb: mainImg,
-        tag: '🎥 Video Reel',
+        tag: 'Video Reel',
         label: `${dish.name} - Sizzle Video`
       }
     ];
@@ -702,10 +704,10 @@
         </span>
       `;
       if (dish.isBestseller) {
-        badgesHtml += `<span class="badge-tag badge-bestseller" style="font-size: 0.72rem; padding: 4px 10px;">⭐ Popular Special</span>`;
+        badgesHtml += `<span class="badge-tag badge-bestseller" style="font-size: 0.72rem; padding: 4px 10px;">Popular Special</span>`;
       }
       if (dish.isSpicy) {
-        badgesHtml += `<span class="badge-tag badge-spicy" style="font-size: 0.72rem; padding: 4px 10px;">🌶️ Spicy Delight</span>`;
+        badgesHtml += `<span class="badge-tag badge-spicy" style="font-size: 0.72rem; padding: 4px 10px;">Spicy Delight</span>`;
       }
       dishModalBadges.innerHTML = badgesHtml;
     }

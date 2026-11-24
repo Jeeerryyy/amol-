@@ -920,7 +920,9 @@
           <input type="text" id="searchInput" class="search-input"
             placeholder="Search" oninput="handleSearch(this.value)">
           <button type="button" id="searchClearBtn" class="search-clear-btn" onclick="clearSearch()"
-            style="display: none;">✕</button>
+            style="display: none;" aria-label="Clear search">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
         </div>
         <div class="menu-results-count" id="resultsCount">
           Showing <strong>22</strong> items
@@ -935,7 +937,9 @@
   <!-- DISH DETAIL MODAL -->
   <div class="dish-modal-backdrop" id="dishModal" onclick="closeModal()">
     <div class="dish-modal-container" onclick="event.stopPropagation()">
-      <button type="button" class="modal-close-btn" onclick="closeModal()">✕</button>
+      <button type="button" class="modal-close-btn" onclick="closeModal()" aria-label="Close modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
       <div class="dish-modal-content-grid">
         <!-- Left Media -->
         <div class="modal-media-column">
@@ -953,15 +957,31 @@
           <div class="modal-divider"></div>
           <div class="modal-attributes-row">
             <div class="modal-attr-item">
-              <span class="attr-icon-circle">🍃</span>
+              <span class="attr-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                </svg>
+              </span>
               <span class="attr-label">100% Pure Veg</span>
             </div>
             <div class="modal-attr-item">
-              <span class="attr-icon-circle">🌶️</span>
+              <span class="attr-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D32F2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14.5 4.5c2.5 0 4 1.5 4 4 0 5-4.5 11.5-8.5 13.5-3 1.5-6 0-6-3.5 0-5 5.5-12 10.5-14Z"/>
+                  <path d="M14 4c0-2 1.5-3 3-3"/>
+                </svg>
+              </span>
               <span class="attr-label" id="modalSpiceLevel">Medium Spicy</span>
             </div>
             <div class="modal-attr-item">
-              <span class="attr-icon-circle">🍽️</span>
+              <span class="attr-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B85D19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+                  <path d="M7 2v20"/>
+                  <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+                </svg>
+              </span>
               <span class="attr-label">Fresh Made</span>
             </div>
           </div>
@@ -970,7 +990,7 @@
             <a href="#" id="modalWhatsAppBtn" target="_blank" class="modal-action-btn btn-primary-brown">Order via
               WhatsApp</a>
             <button type="button" class="modal-action-btn btn-secondary-outline"
-              onclick="showToast('🛎️ Waiter notified! A server will visit your table shortly.')">Call Waiter</button>
+              onclick="showToast('Waiter notified! A server will visit your table shortly.')">Call Waiter</button>
           </div>
         </div>
       </div>

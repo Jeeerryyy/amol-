@@ -1,27 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import { adminFetch } from './adminApi';
-import { Download, Check, Copy, Edit3 } from 'lucide-react';
+import {
+  Download,
+  Check,
+  Copy,
+  Edit3,
+  Plus,
+  Trash2,
+  ExternalLink,
+  BarChart2,
+  Play,
+  Pause,
+  RefreshCw,
+} from 'lucide-react';
+
+interface QRCodeItem {
+  id: string;
+  slug?: string;
+  label: string;
+  destination: string;
+  is_enabled: number | boolean;
+  scanCount?: number;
+  created_at?: string;
+  updated_at?: string;
+}
 
 export const AdminQRCodes: React.FC = () => {
-  const [qrs, setQrs] = useState<any[]>([]);
+  const [qrs, setQrs] = useState<QRCodeItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editForm, setEditForm] = useState<{ label: string; destination: string; is_enabled: boolean }>({
+  const [editForm, setEditForm] = useState<{
+    label: string;
+    slug: string;
+    destination: string;
+    is_enabled: boolean;
+  }>({
     label: '',
+    slug: '',
     destination: '',
     is_enabled: true,
   });
+
+  const [isCreating, setIsCreating] = useState<boolean>(false);
+  const [createForm, setCreateForm] = useState<{
+    label: string;
+    slug: string;
+    destination: string;
+    is_enabled: boolean;
+  }>({
+    label: '',
+    slug: '',
+    destination: '/menu/',
+    is_enabled: true,
+  });
+
   const [saveSuccess, setSaveSuccess] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const loadQrs = () => {
     setLoading(true);
     adminFetch('/api/admin/qr-codes')
-      .then((data) => {
+      .then((data: QRCodeItem[]) => {
         setQrs(data);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.error(err);
+        setErrorMessage(err.message || 'Failed to load QR codes');
         setLoading(false);
       });
   };
@@ -30,27 +75,92 @@ export const AdminQRCodes: React.FC = () => {
     loadQrs();
   }, []);
 
-  const handleEditClick = (qr: any) => {
+  const handleEditClick = (qr: QRCodeItem) => {
     setEditingId(qr.id);
     setEditForm({
       label: qr.label,
+      slug: qr.slug || qr.id,
       destination: qr.destination,
       is_enabled: Boolean(qr.is_enabled),
     });
   };
 
+  const handleToggleStatus = async (qr: QRCodeItem) => {
+    try {
+      const nextStatus = !qr.is_enabled;
+      await adminFetch(`/api/admin/qr-codes/${qr.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          label: qr.label,
+          slug: qr.slug || qr.id,
+          destination: qr.destination,
+          is_enabled: nextStatus,
+        }),
+      });
+      setSaveSuccess(`${qr.label} is now ${nextStatus ? 'Active' : 'Paused'}.`);
+      setTimeout(() => setSaveSuccess(''), 3000);
+      loadQrs();
+    } catch (err: any) {
+      alert(err.message || 'Failed to toggle status');
+    }
+  };
+
   const handleSave = async (id: string) => {
     try {
+      setErrorMessage('');
       await adminFetch(`/api/admin/qr-codes/${id}`, {
         method: 'PUT',
         body: JSON.stringify(editForm),
       });
-      setSaveSuccess(`Updated ${editForm.label} successfully.`);
+      setSaveSuccess(`Updated "${editForm.label}" successfully.`);
       setTimeout(() => setSaveSuccess(''), 3000);
       setEditingId(null);
       loadQrs();
     } catch (err: any) {
-      alert(err.message || 'Failed to update QR Code');
+      setErrorMessage(err.message || 'Failed to update QR Code');
+    }
+  };
+
+  const handleCreateNew = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      setErrorMessage('');
+      if (!createForm.label.trim()) {
+        setErrorMessage('Please enter a descriptive label.');
+        return;
+      }
+      await adminFetch('/api/admin/qr-codes', {
+        method: 'POST',
+        body: JSON.stringify(createForm),
+      });
+      setSaveSuccess(`Created new dynamic QR "${createForm.label}" successfully.`);
+      setTimeout(() => setSaveSuccess(''), 3000);
+      setIsCreating(false);
+      setCreateForm({
+        label: '',
+        slug: '',
+        destination: '/menu/',
+        is_enabled: true,
+      });
+      loadQrs();
+    } catch (err: any) {
+      setErrorMessage(err.message || 'Failed to create QR Code');
+    }
+  };
+
+  const handleDelete = async (id: string, label: string) => {
+    if (!window.confirm(`Are you sure you want to delete "${label}"? This action cannot be undone.`)) {
+      return;
+    }
+    try {
+      await adminFetch(`/api/admin/qr-codes/${id}`, {
+        method: 'DELETE',
+      });
+      setSaveSuccess(`Deleted "${label}".`);
+      setTimeout(() => setSaveSuccess(''), 3000);
+      loadQrs();
+    } catch (err: any) {
+      alert(err.message || 'Failed to delete QR code');
     }
   };
 
@@ -60,26 +170,51 @@ export const AdminQRCodes: React.FC = () => {
 
   const copyUrl = (url: string) => {
     navigator.clipboard.writeText(url);
-    alert('Copied link to clipboard: ' + url);
+    setSaveSuccess('Copied link: ' + url);
+    setTimeout(() => setSaveSuccess(''), 3000);
   };
 
   const siteUrl = window.location.origin;
 
+  const destinationPresets = [
+    { label: 'Main Menu', value: '/menu/' },
+    { label: 'Special Menu', value: '/special-menu/' },
+    { label: 'Review Page', value: '/review' },
+    { label: 'Homepage', value: '/' },
+  ];
+
   if (loading && qrs.length === 0) {
-    return <div style={{ padding: '40px', textAlign: 'center' }}>Loading QR codes...</div>;
+    return (
+      <div style={{ padding: '60px 20px', textAlign: 'center', color: 'var(--admin-text-dim)' }}>
+        <RefreshCw size={24} className="spin-icon" style={{ marginBottom: '12px' }} />
+        <div>Loading dynamic QR codes...</div>
+      </div>
+    );
   }
 
   return (
     <div>
+      {/* Page Header */}
       <div className="admin-page-header">
         <div>
           <h1 className="admin-page-title">Dynamic QR Codes</h1>
           <p className="admin-page-subtitle">
-            Update menu destinations anytime without re-printing table tents. Download print-ready A5 stands.
+            All QR codes encode permanent short redirect URLs (/qr/:slug). Edit destinations anytime without re-printing table stands.
           </p>
+        </div>
+        <div>
+          <button
+            type="button"
+            className="admin-btn admin-btn-primary"
+            onClick={() => setIsCreating(!isCreating)}
+          >
+            <Plus size={16} />
+            <span>{isCreating ? 'Close New QR Form' : 'Add New Dynamic QR'}</span>
+          </button>
         </div>
       </div>
 
+      {/* Notifications */}
       {saveSuccess && (
         <div
           style={{
@@ -88,7 +223,7 @@ export const AdminQRCodes: React.FC = () => {
             color: 'var(--admin-success)',
             borderRadius: 'var(--admin-radius-md)',
             marginBottom: '20px',
-            fontWeight: 600,
+            fontWeight: 650,
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
@@ -99,41 +234,185 @@ export const AdminQRCodes: React.FC = () => {
         </div>
       )}
 
+      {errorMessage && (
+        <div
+          style={{
+            padding: '12px 16px',
+            backgroundColor: 'var(--admin-danger-soft, #FEE2E2)',
+            color: 'var(--admin-danger, #DC2626)',
+            borderRadius: 'var(--admin-radius-md)',
+            marginBottom: '20px',
+            fontWeight: 650,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}
+        >
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
+      {/* Create New QR Code Modal / Drawer */}
+      {isCreating && (
+        <div className="admin-card" style={{ padding: '24px', marginBottom: '28px', border: '1.5px solid var(--admin-accent)' }}>
+          <h2 style={{ fontSize: '18px', fontWeight: 700, margin: '0 0 16px 0', color: 'var(--admin-text-main)' }}>
+            Create New Dynamic QR Code
+          </h2>
+          <form onSubmit={handleCreateNew}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+              <div className="admin-form-group">
+                <label className="admin-label">Stand Label *</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={createForm.label}
+                  onChange={(e) => setCreateForm({ ...createForm, label: e.target.value })}
+                  placeholder="e.g. VIP Lounge Stand, Counter Stand"
+                  required
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label className="admin-label">Permanent Slug * (/qr/:slug)</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={createForm.slug}
+                  onChange={(e) => setCreateForm({ ...createForm, slug: e.target.value })}
+                  placeholder="e.g. vip-lounge (letters, numbers, dashes)"
+                />
+                <div className="admin-hint">This permanent URL is printed on the physical stand.</div>
+              </div>
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Destination Link (Editable Anytime)</label>
+              <input
+                type="text"
+                className="admin-input"
+                value={createForm.destination}
+                onChange={(e) => setCreateForm({ ...createForm, destination: e.target.value })}
+                placeholder="/menu/, /review, or https://..."
+                required
+              />
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '8px' }}>
+                <span style={{ fontSize: '12px', color: 'var(--admin-text-dim)', alignSelf: 'center' }}>Quick Presets:</span>
+                {destinationPresets.map((preset) => (
+                  <button
+                    key={preset.value}
+                    type="button"
+                    className="admin-badge admin-badge-neutral"
+                    style={{ cursor: 'pointer', border: '1px solid var(--admin-border)' }}
+                    onClick={() => setCreateForm({ ...createForm, destination: preset.value })}
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="admin-form-group">
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '13.5px', fontWeight: 600 }}>
+                <input
+                  type="checkbox"
+                  checked={createForm.is_enabled}
+                  onChange={(e) => setCreateForm({ ...createForm, is_enabled: e.target.checked })}
+                />
+                <span>Active immediately upon creation</span>
+              </label>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', marginTop: '16px' }}>
+              <button
+                type="button"
+                className="admin-btn admin-btn-secondary"
+                onClick={() => setIsCreating(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="admin-btn admin-btn-primary"
+              >
+                Create Dynamic QR
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Dynamic QRs Grid */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
           gap: '24px',
         }}
       >
         {qrs.map((qr) => {
           const isEditing = editingId === qr.id;
-          const encodedScanUrl = `${siteUrl}/q/${qr.id}`;
+          const slug = qr.slug || qr.id;
+          const encodedScanUrl = `${siteUrl}/qr/${slug}`;
+          const isCore = ['menu', 'special', 'review'].includes(qr.id);
 
           return (
-            <div key={qr.id} className="admin-card" style={{ padding: '28px' }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <div key={qr.id} className="admin-card" style={{ padding: '26px' }}>
+              {/* Header with Title and Status Switch */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '16px', gap: '12px' }}>
                 <div>
-                  <span className="admin-badge admin-badge-neutral" style={{ textTransform: 'uppercase', marginBottom: '6px' }}>
-                    Code Slug: {qr.id}
-                  </span>
-                  <h2 style={{ fontSize: '20px', fontWeight: 700, margin: '4px 0 0 0', color: 'var(--admin-text-main)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                    <span className="admin-badge admin-badge-neutral" style={{ fontWeight: 700, textTransform: 'uppercase' }}>
+                      Slug: /qr/{slug}
+                    </span>
+                    {isCore && (
+                      <span className="admin-badge" style={{ backgroundColor: 'var(--admin-surface-subtle)', color: 'var(--admin-text-dim)', fontSize: '11px' }}>
+                        Core QR
+                      </span>
+                    )}
+                  </div>
+                  <h2 style={{ fontSize: '19px', fontWeight: 750, margin: '2px 0 0 0', color: 'var(--admin-text-main)' }}>
                     {qr.label}
                   </h2>
                 </div>
 
-                <span className={`admin-badge ${qr.is_enabled ? 'admin-badge-success' : 'admin-badge-danger'}`}>
-                  {qr.is_enabled ? 'Active / Online' : 'Disabled (Offline)'}
-                </span>
+                {/* 1-Click Active / Pause Toggle Button */}
+                <button
+                  type="button"
+                  onClick={() => handleToggleStatus(qr)}
+                  className={`admin-badge ${qr.is_enabled ? 'admin-badge-success' : 'admin-badge-danger'}`}
+                  style={{
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '6px 12px',
+                    border: 'none',
+                    fontSize: '12px',
+                    fontWeight: 700,
+                  }}
+                  title="Click to toggle Active / Paused status"
+                >
+                  {qr.is_enabled ? (
+                    <>
+                      <Play size={11} fill="currentColor" />
+                      <span>Active</span>
+                    </>
+                  ) : (
+                    <>
+                      <Pause size={11} fill="currentColor" />
+                      <span>Paused</span>
+                    </>
+                  )}
+                </button>
               </div>
 
-              {/* QR Preview & Info */}
-              <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap' }}>
+              {/* QR Preview & Details Box */}
+              <div style={{ display: 'flex', gap: '18px', alignItems: 'center', marginBottom: '22px', flexWrap: 'wrap' }}>
                 {/* Visual QR Image Preview */}
                 <div
                   style={{
-                    width: '140px',
-                    height: '140px',
+                    width: '135px',
+                    height: '135px',
                     backgroundColor: 'var(--admin-surface-subtle)',
                     border: '1.5px solid var(--admin-border)',
                     borderRadius: '12px',
@@ -141,6 +420,7 @@ export const AdminQRCodes: React.FC = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    flexShrink: 0,
                   }}
                 >
                   <img
@@ -151,36 +431,54 @@ export const AdminQRCodes: React.FC = () => {
                 </div>
 
                 <div style={{ flex: 1, minWidth: '180px' }}>
-                  <div style={{ fontSize: '12px', color: 'var(--admin-text-dim)', marginBottom: '2px' }}>Encoded Scan URL:</div>
+                  <div style={{ fontSize: '11.5px', color: 'var(--admin-text-dim)', marginBottom: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    Permanent Stand URL:
+                  </div>
                   <div
                     style={{
-                      fontSize: '13.5px',
-                      fontWeight: 600,
+                      fontSize: '13px',
+                      fontWeight: 650,
                       color: 'var(--admin-accent)',
                       wordBreak: 'break-all',
-                      marginBottom: '8px',
+                      marginBottom: '10px',
                       cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
                     }}
                     onClick={() => copyUrl(encodedScanUrl)}
-                    title="Click to copy"
+                    title="Click to copy permanent link"
                   >
-                    {encodedScanUrl} <Copy size={13} style={{ display: 'inline', verticalAlign: 'middle' }} />
+                    <span>{encodedScanUrl}</span>
+                    <Copy size={13} />
                   </div>
 
-                  <div style={{ fontSize: '12px', color: 'var(--admin-text-dim)', marginBottom: '2px' }}>Current Destination:</div>
-                  <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--admin-text-main)', marginBottom: '12px' }}>
-                    {qr.destination}
+                  <div style={{ fontSize: '11.5px', color: 'var(--admin-text-dim)', marginBottom: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    Current Destination:
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '14px',
+                      fontWeight: 650,
+                      color: 'var(--admin-text-main)',
+                      marginBottom: '10px',
+                      wordBreak: 'break-all',
+                    }}
+                  >
+                    {qr.destination || <em style={{ color: 'var(--admin-danger)' }}>Not set (shows fallback page)</em>}
                   </div>
 
-                  <div style={{ fontSize: '13px', color: 'var(--admin-text-muted)' }}>
-                    Total Scans Logged: <strong>{qr.scanCount || 0}</strong>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--admin-text-muted)' }}>
+                    <BarChart2 size={15} color="var(--admin-accent)" />
+                    <span>Total Scans Logged:</span>
+                    <strong style={{ color: 'var(--admin-text-main)', fontSize: '14px' }}>{qr.scanCount || 0}</strong>
                   </div>
                 </div>
               </div>
 
-              {/* Edit Mode vs Standard Details */}
+              {/* Edit Mode vs Action Buttons */}
               {isEditing ? (
-                <div style={{ background: 'var(--admin-surface-subtle)', padding: '16px', borderRadius: 'var(--admin-radius-md)', marginBottom: '20px' }}>
+                <div style={{ background: 'var(--admin-surface-subtle)', padding: '16px', borderRadius: 'var(--admin-radius-md)', marginBottom: '18px' }}>
                   <div className="admin-form-group">
                     <label className="admin-label">Label</label>
                     <input
@@ -193,62 +491,119 @@ export const AdminQRCodes: React.FC = () => {
                   </div>
 
                   <div className="admin-form-group">
+                    <label className="admin-label">Slug (/qr/:slug)</label>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      value={editForm.slug}
+                      onChange={(e) => setEditForm({ ...editForm, slug: e.target.value })}
+                      placeholder="Slug e.g. review, menu, special"
+                    />
+                    <div className="admin-hint">Unique short slug printed on the stand.</div>
+                  </div>
+
+                  <div className="admin-form-group">
                     <label className="admin-label">Redirect Destination (URL or Path)</label>
                     <input
                       type="text"
                       className="admin-input"
                       value={editForm.destination}
                       onChange={(e) => setEditForm({ ...editForm, destination: e.target.value })}
-                      placeholder="Enter your website URL"
+                      placeholder="e.g. /menu/, /review, or https://..."
                     />
-                    <div className="admin-hint">Changing this updates where customers land immediately without reprint.</div>
+                    {/* Quick Preset Buttons */}
+                    <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '6px' }}>
+                      <span style={{ fontSize: '11.5px', color: 'var(--admin-text-dim)', alignSelf: 'center' }}>Presets:</span>
+                      {destinationPresets.map((preset) => (
+                        <button
+                          key={preset.value}
+                          type="button"
+                          className="admin-badge admin-badge-neutral"
+                          style={{ cursor: 'pointer', fontSize: '11px' }}
+                          onClick={() => setEditForm({ ...editForm, destination: preset.value })}
+                        >
+                          {preset.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
 
                   <div className="admin-form-group" style={{ marginBottom: '16px' }}>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '13.5px', fontWeight: 600 }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '13px', fontWeight: 600 }}>
                       <input
                         type="checkbox"
                         checked={editForm.is_enabled}
                         onChange={(e) => setEditForm({ ...editForm, is_enabled: e.target.checked })}
                       />
-                      <span>QR Active (Uncheck to temporarily show 'Unavailable' page)</span>
+                      <span>Active (Uncheck to pause and show fallback page)</span>
                     </label>
                   </div>
 
                   <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-                    <button type="button" className="admin-btn admin-btn-secondary admin-btn-sm" onClick={() => setEditingId(null)}>
+                    <button
+                      type="button"
+                      className="admin-btn admin-btn-secondary admin-btn-sm"
+                      onClick={() => setEditingId(null)}
+                    >
                       Cancel
                     </button>
-                    <button type="button" className="admin-btn admin-btn-primary admin-btn-sm" onClick={() => handleSave(qr.id)}>
+                    <button
+                      type="button"
+                      className="admin-btn admin-btn-primary admin-btn-sm"
+                      onClick={() => handleSave(qr.id)}
+                    >
                       Save Changes
                     </button>
                   </div>
                 </div>
               ) : (
-                <div style={{ marginBottom: '20px' }}>
+                <div style={{ display: 'flex', gap: '8px', marginBottom: '18px' }}>
                   <button
                     type="button"
                     className="admin-btn admin-btn-secondary admin-btn-sm"
                     onClick={() => handleEditClick(qr)}
-                    style={{ width: '100%' }}
+                    style={{ flex: 1 }}
                   >
-                    <Edit3 size={15} />
-                    <span>Edit Destination & Label</span>
+                    <Edit3 size={14} />
+                    <span>Edit Destination & Slug</span>
                   </button>
+
+                  <a
+                    href={`/qr/${slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="admin-btn admin-btn-secondary admin-btn-sm"
+                    title="Test redirect in new tab"
+                  >
+                    <ExternalLink size={14} />
+                    <span>Test</span>
+                  </a>
+
+                  {!isCore && (
+                    <button
+                      type="button"
+                      className="admin-btn admin-btn-secondary admin-btn-sm"
+                      style={{ color: 'var(--admin-danger)' }}
+                      onClick={() => handleDelete(qr.id, qr.label)}
+                      title="Delete custom QR"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  )}
                 </div>
               )}
 
-              {/* DOWNLOAD OPTIONS */}
+              {/* Downloadable Print-Ready Formats */}
               <div style={{ borderTop: '1px solid var(--admin-border)', paddingTop: '16px' }}>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--admin-text-dim)', textTransform: 'uppercase', marginBottom: '10px' }}>
-                  Download Assets
+                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--admin-text-dim)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.5px' }}>
+                  Download Print Assets
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
                   <button
                     type="button"
                     className="admin-btn admin-btn-secondary admin-btn-sm"
                     onClick={() => handleDownload(qr.id, 'png')}
-                    title="1024px PNG image"
+                    title="1024px High-Resolution PNG"
                   >
                     <Download size={13} />
                     <span>PNG</span>
@@ -257,7 +612,7 @@ export const AdminQRCodes: React.FC = () => {
                     type="button"
                     className="admin-btn admin-btn-secondary admin-btn-sm"
                     onClick={() => handleDownload(qr.id, 'svg')}
-                    title="Vector SVG"
+                    title="Scalable Vector SVG for Print"
                   >
                     <Download size={13} />
                     <span>SVG</span>
@@ -266,7 +621,7 @@ export const AdminQRCodes: React.FC = () => {
                     type="button"
                     className="admin-btn admin-btn-primary admin-btn-sm"
                     onClick={() => handleDownload(qr.id, 'pdf')}
-                    title="Print-ready A5 Table Tent Stand PDF"
+                    title="Print-Ready A5 Table Tent Stand PDF"
                   >
                     <Download size={13} />
                     <span>A5 PDF</span>

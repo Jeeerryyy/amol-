@@ -12,8 +12,51 @@ import {
   recalculateAllNonOverriddenPrices,
 } from '../services/pricingService.js';
 import { exportContentBackup, exportScansCsv, exportReviewsCsv } from '../services/exportService.js';
+import { clearPublicCache } from './publicRoutes.js';
 
 const router = express.Router();
+
+// ============================================================================
+// PUBLIC QR CODE ASSET DOWNLOADS (PNG, SVG, A5 PDF STANDS)
+// Allows table tent downloads and QR preview images without session hiccups.
+// ============================================================================
+router.get('/qr-codes/:id/download', async (req, res) => {
+  const { id } = req.params;
+  const format = (req.query.format || 'png').toLowerCase();
+
+  const qrs = await query('SELECT * FROM qr_codes WHERE id = $1 OR slug = $1', [id]);
+  if (qrs.length === 0) return res.status(404).send('QR Code not found');
+
+  const qr = qrs[0];
+  const siteUrl = (process.env.SITE_URL || 'http://localhost:5173').replace(/\/$/, '');
+  const slug = qr.slug || qr.id;
+  // Permanent dynamic redirect URL encoded once on table stands
+  const encodedQrUrl = `${siteUrl}/qr/${slug}`;
+
+  if (format === 'svg') {
+    const svgString = await generateQRCode(encodedQrUrl, 'svg');
+    res.setHeader('Content-Type', 'image/svg+xml');
+    res.setHeader('Content-Disposition', `attachment; filename="${slug}-qr.svg"`);
+    return res.send(svgString);
+  } else if (format === 'pdf') {
+    const pdfBuffer = await generateTableTentPDF({
+      qrUrl: encodedQrUrl,
+      label: qr.label,
+      restaurantName: 'Amol Veg Resto',
+    });
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${slug}-table-tent-a5.pdf"`);
+    return res.send(pdfBuffer);
+  } else {
+    // PNG default (1024px High-Res)
+    const pngBuffer = await generateQRCode(encodedQrUrl, 'png');
+    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Content-Disposition', `attachment; filename="${slug}-qr.png"`);
+    return res.send(pngBuffer);
+  }
+});
+
+// All subsequent management routes require owner authentication
 router.use(requireAuth);
 
 // ============================================================================
@@ -723,63 +766,107 @@ router.put('/menus/:id', async (req, res) => {
 });
 
 // ============================================================================
-// 6. QR CODES MANAGEMENT & DOWNLOADS
+// 6. DYNAMIC QR CODES MANAGEMENT & DOWNLOADS
+// Truly dynamic: Encodes permanent short redirect /qr/:slug, destination fully editable.
 // ============================================================================
 router.get('/qr-codes', async (req, res) => {
-  const qrs = await query('SELECT * FROM qr_codes ORDER BY id ASC');
+  const qrs = await query('SELECT * FROM qr_codes ORDER BY created_at ASC, id ASC');
   // Enrich with total scan counts
   for (const qr of qrs) {
-    const [count] = await query('SELECT COUNT(*) as count FROM scans WHERE qr_id = $1', [qr.id]);
+    const slug = qr.slug || qr.id;
+    const [count] = await query(
+      'SELECT COUNT(*) as count FROM scans WHERE qr_id = $1 OR qr_id = $2',
+      [qr.id, slug]
+    );
     qr.scanCount = count?.count || 0;
   }
   return res.json(qrs);
 });
 
-router.put('/qr-codes/:id', async (req, res) => {
-  const { id } = req.params;
-  const { label, destination, is_enabled } = req.body || {};
+router.post('/qr-codes', async (req, res) => {
+  const { label, slug, destination, is_enabled } = req.body || {};
+  if (!label || !label.trim()) {
+    return res.status(400).json({ error: 'Label is required.' });
+  }
+
+  const rawSlug = slug || label;
+  const cleanSlug = rawSlug
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9_-]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+  if (!cleanSlug) {
+    return res.status(400).json({ error: 'Valid slug is required (alphanumeric, dashes).' });
+  }
+
+  const existing = await query('SELECT id FROM qr_codes WHERE slug = $1 OR id = $1', [cleanSlug]);
+  if (existing.length > 0) {
+    return res.status(400).json({ error: `Slug "${cleanSlug}" is already taken.` });
+  }
+
+  const id = `qr_${cleanSlug}_${Date.now().toString(36)}`;
   const now = new Date().toISOString();
 
   await query(
-    'UPDATE qr_codes SET label = $1, destination = $2, is_enabled = $3, updated_at = $4 WHERE id = $5',
-    [label, destination, is_enabled ? 1 : 0, now, id]
+    'INSERT INTO qr_codes (id, slug, label, destination, is_enabled, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+    [
+      id,
+      cleanSlug,
+      label.trim(),
+      (destination || '/menu/').trim(),
+      is_enabled !== false ? 1 : 0,
+      now,
+      now,
+    ]
+  );
+
+  return res.status(201).json({ success: true, id, slug: cleanSlug });
+});
+
+router.put('/qr-codes/:id', async (req, res) => {
+  const { id } = req.params;
+  const { label, slug, destination, is_enabled } = req.body || {};
+  const now = new Date().toISOString();
+
+  const qrs = await query('SELECT * FROM qr_codes WHERE id = $1', [id]);
+  if (qrs.length === 0) return res.status(404).json({ error: 'QR Code not found' });
+
+  let cleanSlug = (slug || qrs[0].slug || id)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9_-]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+  if (!cleanSlug) cleanSlug = id;
+
+  // Check unique slug constraint against other rows
+  const existing = await query('SELECT id FROM qr_codes WHERE slug = $1 AND id != $2', [cleanSlug, id]);
+  if (existing.length > 0) {
+    return res.status(400).json({ error: `Slug "${cleanSlug}" is already in use by another QR code.` });
+  }
+
+  await query(
+    'UPDATE qr_codes SET label = $1, slug = $2, destination = $3, is_enabled = $4, updated_at = $5 WHERE id = $6',
+    [label?.trim() || qrs[0].label, cleanSlug, (destination || '').trim(), is_enabled ? 1 : 0, now, id]
   );
 
   return res.json({ success: true });
 });
 
-router.get('/qr-codes/:id/download', async (req, res) => {
+router.delete('/qr-codes/:id', async (req, res) => {
   const { id } = req.params;
-  const format = (req.query.format || 'png').toLowerCase();
-
-  const qrs = await query('SELECT * FROM qr_codes WHERE id = $1', [id]);
-  if (qrs.length === 0) return res.status(404).send('QR Code not found');
-
-  const qr = qrs[0];
-  const siteUrl = (process.env.SITE_URL || 'http://localhost:5173').replace(/\/$/, '');
-  const encodedQrUrl = `${siteUrl}/q/${qr.id}`;
-
-  if (format === 'svg') {
-    const svgString = await generateQRCode(encodedQrUrl, 'svg');
-    res.setHeader('Content-Type', 'image/svg+xml');
-    res.setHeader('Content-Disposition', `attachment; filename="${qr.id}-menu-qr.svg"`);
-    return res.send(svgString);
-  } else if (format === 'pdf') {
-    const pdfBuffer = await generateTableTentPDF({
-      qrUrl: encodedQrUrl,
-      label: qr.label,
-      restaurantName: 'Amol Veg Resto',
+  // Protect core system QR codes
+  if (['menu', 'special', 'review'].includes(id)) {
+    return res.status(400).json({
+      error: 'Core system QR codes cannot be deleted. You can pause or edit their destination anytime.',
     });
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename="${qr.id}-table-tent-a5.pdf"`);
-    return res.send(pdfBuffer);
-  } else {
-    // PNG default (1024px)
-    const pngBuffer = await generateQRCode(encodedQrUrl, 'png');
-    res.setHeader('Content-Type', 'image/png');
-    res.setHeader('Content-Disposition', `attachment; filename="${qr.id}-menu-qr.png"`);
-    return res.send(pngBuffer);
   }
+
+  await query('DELETE FROM qr_codes WHERE id = $1', [id]);
+  return res.json({ success: true });
 });
 
 // ============================================================================
@@ -807,6 +894,7 @@ router.post('/popular-dishes', async (req, res) => {
     'INSERT INTO popular_dishes (id, title, description, price, image_url, image_public_id, is_visible, sort_order, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',
     [id, title, description || '', price || '', image_url || '', image_public_id || null, is_visible ? 1 : 0, sort_order, now, now]
   );
+  clearPublicCache();
 
   return res.json({ success: true, id });
 });
@@ -820,6 +908,7 @@ router.put('/popular-dishes/:id', async (req, res) => {
     'UPDATE popular_dishes SET title = $1, description = $2, price = $3, image_url = $4, image_public_id = $5, is_visible = $6, sort_order = $7, updated_at = $8 WHERE id = $9',
     [title, description, price, image_url, image_public_id, is_visible ? 1 : 0, sort_order, now, id]
   );
+  clearPublicCache();
 
   return res.json({ success: true });
 });
@@ -831,6 +920,7 @@ router.delete('/popular-dishes/:id', async (req, res) => {
     await cloudinaryService.deleteAsset(existing[0].image_public_id, 'image');
   }
   await query('DELETE FROM popular_dishes WHERE id = $1', [id]);
+  clearPublicCache();
   return res.json({ success: true });
 });
 
@@ -841,6 +931,7 @@ router.put('/popular-dishes/reorder/batch', async (req, res) => {
       await query('UPDATE popular_dishes SET sort_order = $1 WHERE id = $2', [item.sort_order, item.id]);
     }
   }
+  clearPublicCache();
   return res.json({ success: true });
 });
 
@@ -924,6 +1015,7 @@ router.put('/site-content/:key', async (req, res) => {
   } else {
     await query('UPDATE site_content SET data = $1, updated_at = $2 WHERE key = $3', [serialized, now, key]);
   }
+  clearPublicCache();
 
   return res.json({ success: true });
 });
@@ -1269,6 +1361,7 @@ router.post('/menu-buttons', async (req, res, next) => {
       [id, type, label.trim(), url.trim(), phone.trim(), bg_color, hover_color, is_enabled ? 1 : 0, sort_order, now, now]
     );
 
+    clearPublicCache();
     const [created] = await query('SELECT * FROM menu_buttons WHERE id = $1', [id]);
     return res.status(201).json(created);
   } catch (err) {
@@ -1303,6 +1396,7 @@ router.put('/menu-buttons/:id', async (req, res, next) => {
       [updated.type, updated.label, updated.url, updated.phone, updated.bg_color, updated.hover_color, updated.is_enabled, updated.sort_order, now, id]
     );
 
+    clearPublicCache();
     const [saved] = await query('SELECT * FROM menu_buttons WHERE id = $1', [id]);
     return res.json(saved);
   } catch (err) {
@@ -1314,6 +1408,7 @@ router.delete('/menu-buttons/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     await query('DELETE FROM menu_buttons WHERE id = $1', [id]);
+    clearPublicCache();
     return res.json({ success: true, message: 'Button deleted successfully.' });
   } catch (err) {
     next(err);
@@ -1328,6 +1423,7 @@ router.put('/menu-buttons/reorder/batch', async (req, res, next) => {
         await query('UPDATE menu_buttons SET sort_order = $1 WHERE id = $2', [item.sort_order, item.id]);
       }
     }
+    clearPublicCache();
     const buttons = await query('SELECT * FROM menu_buttons ORDER BY sort_order ASC');
     return res.json({ success: true, buttons });
   } catch (err) {

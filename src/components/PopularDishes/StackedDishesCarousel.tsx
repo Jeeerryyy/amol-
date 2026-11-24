@@ -152,7 +152,7 @@ export const StackedDishesCarousel: React.FC<StackedDishesCarouselProps> = ({ di
                   src={dish.imageSrc || `/images/dishes/popular/dish-${(index % 4) + 1}.jpg`}
                   alt={dish.title || dish.placeholderText || `Special Vegetarian Dish ${index + 1}`}
                   className="stacked-card-img"
-                  loading={isTop ? 'eager' : 'lazy'}
+                  loading="eager"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = '/images/dish-placeholder.svg';
                   }}

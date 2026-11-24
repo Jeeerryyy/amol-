@@ -441,7 +441,7 @@ export async function runCompleteMenuUpdate() {
         price: basePrice,
         base_price: basePrice,
         special_price: specialPrice,
-        description: `Authentic pure vegetarian ${d.name} prepared fresh with traditional spices.`,
+        description: '',
         images: ['/images/dish-placeholder.svg'],
         tags: ['veg'],
         spice_level: 'medium',

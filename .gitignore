@@ -50,8 +50,11 @@ Thumbs.db
 *.sw?
 
 # Video and large binary zip files
+*.zip
 assets/*.zip
 assets/*.mp4
 frame_*.jpg
 current_menu_*.png
 *.png.tmp
+modal-*-preview.png
+public/popular-dishes-*.png

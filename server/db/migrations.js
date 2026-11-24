@@ -1,4 +1,4 @@
-import { exec } from './connection.js';
+import { exec, query } from './connection.js';
 
 export async function runMigrations() {
   console.log('[Migrations] Running database table setup & indexes...');
@@ -101,6 +101,7 @@ export async function runMigrations() {
 
     CREATE TABLE IF NOT EXISTS qr_codes (
       id TEXT PRIMARY KEY,
+      slug TEXT,
       label TEXT NOT NULL,
       destination TEXT NOT NULL,
       is_enabled INTEGER NOT NULL DEFAULT 1,
@@ -226,6 +227,21 @@ export async function runMigrations() {
   `;
 
   await exec(ddl);
+
+  // Migration: Add slug column to qr_codes if missing
+  try {
+    const cols = await query('PRAGMA table_info(qr_codes)');
+    const hasSlug = cols.some((c) => c.name === 'slug');
+    if (!hasSlug) {
+      await query('ALTER TABLE qr_codes ADD COLUMN slug TEXT');
+      await query('UPDATE qr_codes SET slug = id WHERE slug IS NULL');
+      await query('CREATE UNIQUE INDEX IF NOT EXISTS idx_qr_codes_slug ON qr_codes(slug)');
+      console.log('[Migrations] Added slug column to qr_codes table.');
+    }
+  } catch (err) {
+    console.warn('[Migrations] Note on qr_codes.slug migration:', err.message);
+  }
+
   console.log('[Migrations] Tables and indexes created successfully.');
 }
 

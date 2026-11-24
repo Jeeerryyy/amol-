@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { adminFetch, uploadToCloudinary } from './adminApi';
 import {
   UtensilsCrossed,
+  MessageCircle,
+  Bell,
+  ShoppingBag,
+  ExternalLink,
   Plus,
   Search,
   Copy,
@@ -18,6 +22,28 @@ import {
   Layers,
   Sliders,
 } from 'lucide-react';
+
+
+// Helper: check if hex color is light to ensure high contrast text & icons
+const isLightHex = (hex?: string): boolean => {
+  if (!hex || typeof hex !== 'string') return false;
+  let c = hex.replace('#', '').trim();
+  if (c.length === 3) c = c.split('').map(x => x + x).join('');
+  if (c.length !== 6) return false;
+  const r = parseInt(c.substring(0, 2), 16);
+  const g = parseInt(c.substring(2, 4), 16);
+  const b = parseInt(c.substring(4, 6), 16);
+  const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+  return luma > 185;
+};
+
+const renderAdminButtonIcon = (type: string, size = 14) => {
+  if (type === 'whatsapp') return <MessageCircle size={size} />;
+  if (type === 'call_waiter') return <Bell size={size} />;
+  if (type === 'zomato') return <UtensilsCrossed size={size} />;
+  if (type === 'swiggy') return <ShoppingBag size={size} />;
+  return <ExternalLink size={size} />;
+};
 
 export const AdminMenus: React.FC = () => {
   const [activeMenuTab, setActiveMenuTab] = useState<'dishes' | 'categories' | 'video' | 'buttons'>('dishes');
@@ -133,12 +159,23 @@ export const AdminMenus: React.FC = () => {
     }
   };
 
+  const loadButtons = async () => {
+    try {
+      const btnList = await adminFetch('/api/admin/menu-buttons');
+      if (Array.isArray(btnList)) {
+        setButtons(btnList);
+      }
+    } catch (err) {
+      console.error('Failed to reload menu buttons:', err);
+    }
+  };
+
   const handleButtonTypeChange = (newType: string) => {
     const presets: Record<string, { label: string; bg_color: string; hover_color: string; url?: string; phone?: string }> = {
       whatsapp: { label: 'Order via WhatsApp', bg_color: '#1E7B46', hover_color: '#EA580C', phone: '+91 72496 64983' },
-      call_waiter: { label: 'Call Waiter', bg_color: '#2B170B', hover_color: '#C04A0C' },
-      zomato: { label: 'Order on Zomato', bg_color: '#E23744', hover_color: '#B81D29', url: 'https://www.zomato.com' },
-      swiggy: { label: 'Order on Swiggy', bg_color: '#FC8019', hover_color: '#D8660C', url: 'https://www.swiggy.com' },
+      call_waiter: { label: 'Call Waiter', bg_color: '#FAF4EC', hover_color: '#EADECF' },
+      zomato: { label: 'Order on Zomato', bg_color: '#E23744', hover_color: '#B81D29', url: 'https://www.zomato.com/solapur' },
+      swiggy: { label: 'Order on Swiggy', bg_color: '#FC8019', hover_color: '#D8660C', url: 'https://www.swiggy.com/restaurants' },
       custom: { label: 'Explore More', bg_color: '#1F2937', hover_color: '#EA580C', url: 'https://amolresto.com' },
     };
 
@@ -159,7 +196,7 @@ export const AdminMenus: React.FC = () => {
     setButtonForm({
       type: 'zomato',
       label: 'Order on Zomato',
-      url: 'https://www.zomato.com',
+      url: 'https://www.zomato.com/solapur',
       phone: '',
       bg_color: '#E23744',
       hover_color: '#B81D29',
@@ -192,20 +229,22 @@ export const AdminMenus: React.FC = () => {
     }
     try {
       if (editingButton) {
-        await adminFetch(`/api/admin/menu-buttons/${editingButton.id}`, {
+        const updated = await adminFetch(`/api/admin/menu-buttons/${editingButton.id}`, {
           method: 'PUT',
           body: JSON.stringify(buttonForm),
         });
+        setButtons(prev => prev.map(b => (b.id === editingButton.id ? (updated || { ...b, ...buttonForm }) : b)));
         showToast('Action button updated successfully');
       } else {
-        await adminFetch('/api/admin/menu-buttons', {
+        const created = await adminFetch('/api/admin/menu-buttons', {
           method: 'POST',
           body: JSON.stringify(buttonForm),
         });
+        setButtons(prev => [...prev, created || { ...buttonForm, id: `btn_${Date.now()}` }]);
         showToast('Action button created successfully');
       }
       setIsButtonModalOpen(false);
-      loadAll();
+      loadButtons();
     } catch (err: any) {
       showToast(err.message || 'Failed to save action button');
     }
@@ -213,26 +252,34 @@ export const AdminMenus: React.FC = () => {
 
   const handleDeleteButton = async (btnId: string) => {
     if (!window.confirm('Are you sure you want to delete this action button?')) return;
+    const previous = [...buttons];
+    setButtons(prev => prev.filter(b => b.id !== btnId));
+    showToast('Action button removed');
     try {
       await adminFetch(`/api/admin/menu-buttons/${btnId}`, {
         method: 'DELETE',
       });
-      showToast('Action button removed');
-      loadAll();
+      loadButtons();
     } catch (err: any) {
+      setButtons(previous);
       showToast(err.message || 'Failed to delete action button');
     }
   };
 
   const handleToggleEnableButton = async (btn: any) => {
+    const nextEnabled = btn.is_enabled ? 0 : 1;
+    // Optimistic toggle - instant UI update without page flash
+    setButtons(prev => prev.map(b => (b.id === btn.id ? { ...b, is_enabled: nextEnabled } : b)));
+    showToast(`Button ${nextEnabled ? 'enabled' : 'hidden'}`);
     try {
       await adminFetch(`/api/admin/menu-buttons/${btn.id}`, {
         method: 'PUT',
-        body: JSON.stringify({ is_enabled: btn.is_enabled ? 0 : 1 }),
+        body: JSON.stringify({ is_enabled: nextEnabled }),
       });
-      showToast(`Button ${btn.is_enabled ? 'hidden' : 'enabled'}`);
-      loadAll();
+      loadButtons();
     } catch (err: any) {
+      // Revert on error
+      setButtons(prev => prev.map(b => (b.id === btn.id ? { ...b, is_enabled: btn.is_enabled } : b)));
       showToast(err.message || 'Failed to toggle button status');
     }
   };
@@ -241,27 +288,30 @@ export const AdminMenus: React.FC = () => {
     const targetIndex = direction === 'up' ? index - 1 : index + 1;
     if (targetIndex < 0 || targetIndex >= buttons.length) return;
 
+    const previous = [...buttons];
     const newButtons = [...buttons];
     const temp = newButtons[index];
     newButtons[index] = newButtons[targetIndex];
     newButtons[targetIndex] = temp;
 
-    const reorderPayload = newButtons.map((b, idx) => ({
-      id: b.id,
+    const reorderedWithSort = newButtons.map((b, idx) => ({
+      ...b,
       sort_order: idx + 1,
     }));
 
-    setButtons(newButtons);
+    setButtons(reorderedWithSort);
 
     try {
       await adminFetch('/api/admin/menu-buttons/reorder/batch', {
         method: 'PUT',
-        body: JSON.stringify({ items: reorderPayload }),
+        body: JSON.stringify({
+          items: reorderedWithSort.map(b => ({ id: b.id, sort_order: b.sort_order }))
+        }),
       });
       showToast('Buttons reordered');
     } catch (err: any) {
+      setButtons(previous);
       showToast(err.message || 'Failed to reorder buttons');
-      loadAll();
     }
   };
 
@@ -1303,6 +1353,8 @@ export const AdminMenus: React.FC = () => {
                   return (
                     <div
                       key={btn.id}
+                      className="admin-menu-button-row"
+                      data-button-id={btn.id}
                       style={{
                         display: 'flex',
                         flexWrap: 'wrap',
@@ -1413,26 +1465,37 @@ export const AdminMenus: React.FC = () => {
                         </div>
 
                         {/* Interactive button preview */}
-                        <div
-                          style={{
-                            position: 'relative',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            padding: '8px 16px',
-                            borderRadius: '8px',
-                            backgroundColor: btn.bg_color || '#1F2937',
-                            color: '#FFFFFF',
-                            fontSize: '12px',
-                            fontWeight: 600,
-                            overflow: 'hidden',
-                            letterSpacing: '-0.02em',
-                            cursor: 'pointer',
-                            userSelect: 'none',
-                          }}
-                        >
-                          <span style={{ position: 'relative', zIndex: 2 }}>{btn.label}</span>
-                        </div>
+                        {(() => {
+                          const isLight = isLightHex(btn.bg_color);
+                          const previewTextColor = isLight ? '#2B170B' : '#FFFFFF';
+                          const previewBorder = isLight ? '1px solid #D5C2AF' : '1px solid transparent';
+                          return (
+                            <div
+                              style={{
+                                position: 'relative',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '7px',
+                                padding: '8px 20px',
+                                borderRadius: '8px',
+                                backgroundColor: btn.bg_color || '#1F2937',
+                                color: previewTextColor,
+                                border: previewBorder,
+                                fontSize: '13px',
+                                fontWeight: 700,
+                                overflow: 'hidden',
+                                letterSpacing: '-0.01em',
+                                cursor: 'pointer',
+                                userSelect: 'none',
+                                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                              }}
+                            >
+                              {renderAdminButtonIcon(btn.type, 14)}
+                              <span style={{ position: 'relative', zIndex: 2 }}>{btn.label}</span>
+                            </div>
+                          );
+                        })()}
                       </div>
 
                       {/* Right: Actions */}
@@ -2115,6 +2178,43 @@ export const AdminMenus: React.FC = () => {
                     style={{ flex: 1 }}
                   />
                 </div>
+              </div>
+            </div>
+
+            {/* Quick Palette Presets */}
+            <div style={{ marginBottom: '18px' }}>
+              <label className="admin-label" style={{ fontSize: '12px' }}>Quick Brand & Theme Presets</label>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '6px' }}>
+                {[
+                  { name: 'WhatsApp Green', bg: '#1E7B46', hover: '#176538' },
+                  { name: 'Warm Cream Pill', bg: '#FAF4EC', hover: '#EADECF' },
+                  { name: 'Zomato Red', bg: '#E23744', hover: '#B81D29' },
+                  { name: 'Swiggy Orange', bg: '#FC8019', hover: '#D8660C' },
+                  { name: 'Espresso Brown', bg: '#2B170B', hover: '#C04A0C' },
+                  { name: 'Dark Slate', bg: '#1F2937', hover: '#EA580C' },
+                ].map((preset) => (
+                  <button
+                    key={preset.name}
+                    type="button"
+                    onClick={() => setButtonForm({ ...buttonForm, bg_color: preset.bg, hover_color: preset.hover })}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '4px 10px',
+                      borderRadius: '8px',
+                      fontSize: '11.5px',
+                      fontWeight: 600,
+                      backgroundColor: preset.bg,
+                      color: isLightHex(preset.bg) ? '#2B170B' : '#FFFFFF',
+                      border: isLightHex(preset.bg) ? '1px solid #D5C2AF' : '1px solid transparent',
+                      cursor: 'pointer',
+                      boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                    }}
+                  >
+                    <span>{preset.name}</span>
+                  </button>
+                ))}
               </div>
             </div>
 

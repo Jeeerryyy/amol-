@@ -48,15 +48,21 @@ export async function seedDatabase() {
 
   // 3. SEED QR CODES
   const defaultQRs = [
-    { id: 'menu', label: 'Main Menu', destination: '/menu', is_enabled: 1 },
-    { id: 'special', label: 'Special Menu', destination: '/special-menu', is_enabled: 1 },
+    { id: 'menu', slug: 'menu', label: 'Main Menu Stand', destination: '/menu/', is_enabled: 1 },
+    { id: 'special', slug: 'special', label: 'Special Menu Stand', destination: '/special-menu/', is_enabled: 1 },
+    { id: 'review', slug: 'review', label: 'Review Us', destination: '/review', is_enabled: 1 },
   ];
   for (const qr of defaultQRs) {
     const existing = await query('SELECT id FROM qr_codes WHERE id = $1', [qr.id]);
     if (existing.length === 0) {
       await query(
-        'INSERT INTO qr_codes (id, label, destination, is_enabled, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)',
-        [qr.id, qr.label, qr.destination, qr.is_enabled, now, now]
+        'INSERT INTO qr_codes (id, slug, label, destination, is_enabled, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+        [qr.id, qr.slug, qr.label, qr.destination, qr.is_enabled, now, now]
+      );
+    } else {
+      await query(
+        "UPDATE qr_codes SET slug = $1 WHERE id = $2 AND (slug IS NULL OR slug = '')",
+        [qr.slug, qr.id]
       );
     }
   }

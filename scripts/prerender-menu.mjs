@@ -92,7 +92,7 @@ const categoryTabsHtml = catTabList.map(c => {
 }).join('');
 
 // 2. Build Dishes Grid HTML
-function renderDishCardHtml(d) {
+function renderDishCardHtml(d, isAboveFold = false) {
   const isSoldOut = d.is_available === 0 || d.is_available === false;
   const cardClasses = `menu-dish-card ${isSoldOut ? 'sold-out' : ''}`;
   const imgUrl = (d.images && d.images.length > 0 && d.images[0]) ? d.images[0] : '/images/dish-placeholder.svg';
@@ -111,11 +111,12 @@ function renderDishCardHtml(d) {
   }
 
   const isJain = Array.isArray(d.tags) && d.tags.includes('jain');
+  const loadingAttr = isAboveFold ? 'loading="eager" fetchpriority="high"' : 'loading="lazy" fetchpriority="auto"';
 
   return `
     <article class="${cardClasses}" onclick="openDish('${d.id}')" itemscope itemtype="https://schema.org/MenuItem">
       <div class="dish-card-image-box">
-        <img src="${imgUrl}" alt="${d.name} at Amol Veg Resto Solapur" class="dish-card-img" width="220" height="176" loading="lazy" itemprop="image" onerror="this.src='/images/dish-placeholder.svg'">
+        <img src="${imgUrl}" alt="${d.name} at Amol Veg Resto Solapur" class="dish-card-img" width="220" height="176" ${loadingAttr} decoding="async" itemprop="image" onerror="this.src='/images/dish-placeholder.svg'">
         ${badgeHtml}
         ${isSoldOut ? '<span class="dish-soldout-badge">Sold Out</span>' : ''}
       </div>
@@ -138,6 +139,7 @@ function renderDishCardHtml(d) {
 }
 
 let dishesGridHtml = '';
+let renderedDishesCount = 0;
 categories.forEach(cat => {
   const catLabel = typeof cat === 'string' ? cat : (cat.name || cat.label);
   const catId = typeof cat === 'string' ? cat : (cat.id || cat.name);
@@ -157,7 +159,10 @@ categories.forEach(cat => {
         <span class="category-group-badge">${catDishes.length} items</span>
       </header>
       <div class="dishes-cards-grid">
-        ${catDishes.map(d => renderDishCardHtml(d)).join('\n')}
+        ${catDishes.map(d => {
+          renderedDishesCount++;
+          return renderDishCardHtml(d, renderedDishesCount <= 8);
+        }).join('\n')}
       </div>
     </section>
   `;
@@ -331,9 +336,12 @@ html = html.replace(
 // Ensure video preload is none for rapid mobile page paint
 html = html.replace(/preload="auto"/g, 'preload="none"');
 
-// Pre-populate categories and allDishes for instant 0ms client-side responsiveness
+// Pre-populate categories, allDishes, and action buttons for instant 0ms client-side responsiveness
 html = html.replace('let allDishes = [];', () => 'let allDishes = ' + JSON.stringify(dishes) + ';');
 html = html.replace(/let categories = \[\s*\{\s*id:\s*'All'[\s\S]*?\}\s*\];/, () => 'let categories = ' + JSON.stringify(catTabList) + ';');
+if (menuData.buttons && Array.isArray(menuData.buttons)) {
+  html = html.replace(/let menuActionButtons = \[\s*\{[\s\S]*?\}\s*\];/, () => 'let menuActionButtons = ' + JSON.stringify(menuData.buttons) + ';');
+}
 
 // Update Showing count in HTML
 html = html.replace(

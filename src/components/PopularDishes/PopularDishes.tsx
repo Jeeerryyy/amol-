@@ -8,16 +8,25 @@ import './PopularDishes.css';
 export const PopularDishes: React.FC = () => {
   const { popularDishes } = siteConfig;
   const [dishes, setDishes] = useState<DishItem[]>(popularDishes.dishes);
+  const [header, setHeader] = useState({
+    prefix: popularDishes.heading.prefix,
+    highlight: popularDishes.heading.highlight,
+    subtitle: popularDishes.subtitle,
+  });
 
   useEffect(() => {
-    const fetchDishes = () => {
-      fetch('/api/public/popular-dishes')
-        .then((res) => {
-          if (!res.ok) throw new Error('API unavailable');
-          return res.json();
-        })
-        .then((data: any[]) => {
-          if (Array.isArray(data) && data.length > 0) {
+    let isMounted = true;
+
+    const fetchData = async () => {
+      try {
+        const [resDishes, resSite] = await Promise.all([
+          fetch(`/api/public/popular-dishes?_t=${Date.now()}`, { cache: 'no-store' }),
+          fetch(`/api/public/site?_t=${Date.now()}`, { cache: 'no-store' }),
+        ]);
+
+        if (resDishes.ok) {
+          const data = await resDishes.json();
+          if (Array.isArray(data) && data.length > 0 && isMounted) {
             const mapped: DishItem[] = data.map((d, idx) => ({
               id: String(d.id || idx),
               title: d.title || d.name || `Special Dish ${idx + 1}`,
@@ -28,21 +37,33 @@ export const PopularDishes: React.FC = () => {
             }));
             setDishes(mapped);
           }
-        })
-        .catch((err) => {
-          // Fall back gracefully to bundled siteConfig dishes
-          console.warn('[PopularDishes] Using bundled fallback dishes:', err);
-        });
+        }
+
+        if (resSite.ok) {
+          const site = await resSite.json();
+          const popHeader = site?.content?.popular_header;
+          if (popHeader && isMounted) {
+            setHeader({
+              prefix: popHeader.prefix !== undefined ? popHeader.prefix : popularDishes.heading.prefix,
+              highlight: popHeader.highlight !== undefined ? popHeader.highlight : popularDishes.heading.highlight,
+              subtitle: popHeader.subtitle !== undefined ? popHeader.subtitle : popularDishes.subtitle,
+            });
+          }
+        }
+      } catch (err) {
+        // Fall back gracefully to bundled siteConfig dishes
+        console.warn('[PopularDishes] Using bundled fallback data:', err);
+      }
     };
 
-    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-      const handle = (window as any).requestIdleCallback(fetchDishes, { timeout: 3500 });
-      return () => (window as any).cancelIdleCallback(handle);
-    } else {
-      const timer = setTimeout(fetchDishes, 1500);
-      return () => clearTimeout(timer);
-    }
-  }, []);
+    fetchData();
+    const interval = setInterval(fetchData, 3500);
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, [popularDishes]);
 
   return (
     <section className="popular-dishes-section" id="popular-dishes">
@@ -50,10 +71,10 @@ export const PopularDishes: React.FC = () => {
         {/* Section Header */}
         <div className="section-header-center">
           <h2 className="section-main-heading">
-            {popularDishes.heading.prefix}{' '}
-            <span className="text-orange">{popularDishes.heading.highlight}</span>
+            {header.prefix ? `${header.prefix} ` : ''}
+            <span className="text-orange">{header.highlight}</span>
           </h2>
-          <p className="section-subtitle">{popularDishes.subtitle}</p>
+          <p className="section-subtitle">{header.subtitle}</p>
         </div>
 
         {/* Desktop Cards Grid (> 640px) */}

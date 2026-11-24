@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { KeyRound, Download, FileSpreadsheet } from 'lucide-react';
 import { adminApi } from './adminApi';
 
 interface PricingSettings {
@@ -222,7 +223,11 @@ export const AdminSettings: React.FC = () => {
           </form>
 
           <div style={{ marginTop: '20px', padding: '14px', background: 'var(--admin-surface-card)', border: '1px solid var(--admin-border)', borderRadius: 'var(--admin-radius-sm)', fontSize: '13px', color: 'var(--admin-text-secondary)', boxShadow: 'var(--admin-shadow-sm)' }}>
-            <strong>💡 CLI Emergency Reset:</strong> If you are locked out or forget your password, you can run from the server terminal:
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+              <KeyRound size={16} color="var(--admin-accent)" />
+              <strong>CLI Emergency Reset:</strong>
+            </div>
+            <span>If you are locked out or forget your password, you can run from the server terminal:</span>
             <pre style={{ margin: '6px 0 0', padding: '8px', background: 'var(--admin-surface-subtle)', border: '1px solid var(--admin-border-subtle)', borderRadius: '4px', overflowX: 'auto' }}>
               node scripts/reset-password.js newPasswordHere
             </pre>
@@ -326,9 +331,11 @@ export const AdminSettings: React.FC = () => {
             </p>
             <button
               className="admin-btn admin-btn-primary"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
               onClick={() => handleDownloadFile('/export/content')}
             >
-              📥 Download Full Content JSON
+              <Download size={16} />
+              <span>Download Full Content JSON</span>
             </button>
           </div>
 
@@ -362,6 +369,7 @@ export const AdminSettings: React.FC = () => {
               <div style={{ alignSelf: 'flex-end' }}>
                 <button
                   className="admin-btn admin-btn-outline"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                   onClick={() => {
                     const query = new URLSearchParams();
                     if (scanFromDate) query.append('from', scanFromDate);
@@ -369,7 +377,8 @@ export const AdminSettings: React.FC = () => {
                     handleDownloadFile(`/export/scans?${query.toString()}`);
                   }}
                 >
-                  📊 Download Scans CSV
+                  <FileSpreadsheet size={16} />
+                  <span>Download Scans CSV</span>
                 </button>
               </div>
             </div>
@@ -405,6 +414,7 @@ export const AdminSettings: React.FC = () => {
               <div style={{ alignSelf: 'flex-end' }}>
                 <button
                   className="admin-btn admin-btn-outline"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                   onClick={() => {
                     const query = new URLSearchParams();
                     if (reviewFromDate) query.append('from', reviewFromDate);
@@ -412,7 +422,8 @@ export const AdminSettings: React.FC = () => {
                     handleDownloadFile(`/export/reviews?${query.toString()}`);
                   }}
                 >
-                  ⭐ Download Reviews CSV
+                  <FileSpreadsheet size={16} />
+                  <span>Download Reviews CSV</span>
                 </button>
               </div>
             </div>

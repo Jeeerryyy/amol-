@@ -12,7 +12,15 @@ export const DishCard: React.FC<DishCardProps> = ({ dish }) => {
       {/* Food Photo Placeholder / Image */}
       <div className="dish-card-media">
         {dish.imageSrc ? (
-          <img src={dish.imageSrc} alt={dish.title} className="dish-img" />
+          <img
+            src={dish.imageSrc}
+            alt={dish.title}
+            className="dish-img"
+            loading="eager"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/images/dish-placeholder.svg';
+            }}
+          />
         ) : (
           <PlaceholderImage
             label={dish.placeholderText || dish.title}

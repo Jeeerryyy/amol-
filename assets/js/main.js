@@ -146,7 +146,7 @@
       ],
       mains: [
         { name: "Paneer Kaju Masala", price: "₹220", cat: "Paneer Main Course", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600&auto=format&fit=crop&q=80", desc: "Rich Mughlai inspired combination of fresh paneer and cashews in golden gravy.", tag: "Rich Gravy" },
-        { name: "Veg Kolhapuri", price: "₹160", cat: "Punjabi Dishes", img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&auto=format&fit=crop&q=80", desc: "Authentic spicy Maharashtra specialty with mixed garden vegetables.", tag: "🌶️ Spicy" },
+        { name: "Veg Kolhapuri", price: "₹160", cat: "Punjabi Dishes", img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&auto=format&fit=crop&q=80", desc: "Authentic spicy Maharashtra specialty with mixed garden vegetables.", tag: "Spicy" },
         { name: "Dal Tadka", price: "₹140", cat: "Main Course", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&auto=format&fit=crop&q=80", desc: "Yellow lentils tempered with fragrant garlic, cumin seeds, and pure desi ghee.", tag: "Comfort Classic" },
         { name: "Veg Dum Biryani", price: "₹180", cat: "Rice & Biryani", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&auto=format&fit=crop&q=80", desc: "Fragrant basmati layered with seasonal vegetables, saffron, and whole spices.", tag: "Aromatic" }
       ],
