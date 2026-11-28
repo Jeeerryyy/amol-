@@ -4,6 +4,7 @@ import sanitizeHtml from 'sanitize-html';
 import { z } from 'zod';
 import { query } from '../db/connection.js';
 import { requireAuth } from '../middleware/auth.js';
+import { checkDownloadRateLimit } from '../middleware/rateLimiter.js';
 import { cloudinaryService } from '../services/cloudinaryService.js';
 import { generateQRCode, generateTableTentPDF } from '../services/qrService.js';
 import {
@@ -16,48 +17,96 @@ import { clearPublicCache } from './publicRoutes.js';
 
 const router = express.Router();
 
+const SEO_PAGE_NAMES = {
+  home: 'Homepage',
+  about: 'About Us',
+  gallery: 'Photo Gallery',
+  contact: 'Contact & Location',
+  menu: 'Digital Menu',
+  'special-menu': 'Special Menu',
+  review: 'Review Portal',
+  'privacy-policy': 'Privacy Policy',
+  'terms-and-conditions': 'Terms & Conditions',
+};
+
+function isSafeRedirectDestination(raw) {
+  if (raw === undefined || raw === null) return true;
+  if (typeof raw !== 'string') return false;
+  const trimmed = raw.trim();
+  if (!trimmed) return true;
+  if (/^(javascript|data|vbscript):/i.test(trimmed)) return false;
+  if (trimmed.startsWith('//')) return false;
+  if (/^https?:\/\//i.test(trimmed)) return true;
+  if (trimmed.startsWith('/') || trimmed.startsWith('#')) return true;
+  return !/^[a-z][a-z0-9+.-]*:/i.test(trimmed);
+}
+
+function isSafeActionUrl(raw) {
+  if (!raw || typeof raw !== 'string') return true;
+  const trimmed = raw.trim();
+  if (!trimmed) return true;
+  if (/^(javascript|data|vbscript):/i.test(trimmed)) return false;
+  if (trimmed.startsWith('//')) return false;
+  return /^(https?:\/\/|tel:|mailto:|\/|#)/i.test(trimmed);
+}
+
+function isSafeHexColor(raw) {
+  return typeof raw === 'string' && /^#[0-9a-f]{3,8}$/i.test(raw.trim());
+}
+
+// All management & QR export routes require owner authentication
+router.use(requireAuth);
+
 // ============================================================================
-// PUBLIC QR CODE ASSET DOWNLOADS (PNG, SVG, A5 PDF STANDS)
-// Allows table tent downloads and QR preview images without session hiccups.
+// AUTHENTICATED QR CODE ASSET DOWNLOADS (PNG, SVG, A5 PDF STANDS)
 // ============================================================================
-router.get('/qr-codes/:id/download', async (req, res) => {
-  const { id } = req.params;
-  const format = (req.query.format || 'png').toLowerCase();
+router.get('/qr-codes/:id/download', async (req, res, next) => {
+  try {
+    const clientIp = req.ip || req.connection?.remoteAddress || '127.0.0.1';
+    if (!checkDownloadRateLimit(clientIp)) {
+      return res.status(429).json({ error: 'Download rate limit reached. Please wait a moment.' });
+    }
 
-  const qrs = await query('SELECT * FROM qr_codes WHERE id = $1 OR slug = $1', [id]);
-  if (qrs.length === 0) return res.status(404).send('QR Code not found');
+    const { id } = req.params;
+    const format = String(req.query.format || 'png').toLowerCase();
+    if (!['png', 'svg', 'pdf'].includes(format)) {
+      return res.status(400).json({ error: 'Unsupported format. Use png, svg, or pdf.' });
+    }
 
-  const qr = qrs[0];
-  const siteUrl = (process.env.SITE_URL || 'http://localhost:5173').replace(/\/$/, '');
-  const slug = qr.slug || qr.id;
-  // Permanent dynamic redirect URL encoded once on table stands
-  const encodedQrUrl = `${siteUrl}/qr/${slug}`;
+    const qrs = await query('SELECT * FROM qr_codes WHERE id = $1 OR slug = $1', [id]);
+    if (qrs.length === 0) return res.status(404).send('QR Code not found');
 
-  if (format === 'svg') {
-    const svgString = await generateQRCode(encodedQrUrl, 'svg');
-    res.setHeader('Content-Type', 'image/svg+xml');
-    res.setHeader('Content-Disposition', `attachment; filename="${slug}-qr.svg"`);
-    return res.send(svgString);
-  } else if (format === 'pdf') {
-    const pdfBuffer = await generateTableTentPDF({
-      qrUrl: encodedQrUrl,
-      label: qr.label,
-      restaurantName: 'Amol Veg Resto',
-    });
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename="${slug}-table-tent-a5.pdf"`);
-    return res.send(pdfBuffer);
-  } else {
-    // PNG default (1024px High-Res)
-    const pngBuffer = await generateQRCode(encodedQrUrl, 'png');
-    res.setHeader('Content-Type', 'image/png');
-    res.setHeader('Content-Disposition', `attachment; filename="${slug}-qr.png"`);
-    return res.send(pngBuffer);
+    const qr = qrs[0];
+    const siteUrl = (process.env.SITE_URL || 'http://localhost:5173').replace(/\/$/, '');
+    const slug = (qr.slug || qr.id).replace(/[^a-z0-9_-]/gi, '-');
+    // Permanent dynamic redirect URL encoded once on table stands
+    const encodedQrUrl = `${siteUrl}/qr/${slug}`;
+
+    if (format === 'svg') {
+      const svgString = await generateQRCode(encodedQrUrl, 'svg');
+      res.setHeader('Content-Type', 'image/svg+xml');
+      res.setHeader('Content-Disposition', `attachment; filename="${slug}-qr.svg"`);
+      return res.send(svgString);
+    } else if (format === 'pdf') {
+      const pdfBuffer = await generateTableTentPDF({
+        qrUrl: encodedQrUrl,
+        label: qr.label,
+        restaurantName: 'Amol Veg Resto',
+      });
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="${slug}-table-tent-a5.pdf"`);
+      return res.send(pdfBuffer);
+    } else {
+      // PNG default (1024px High-Res)
+      const pngBuffer = await generateQRCode(encodedQrUrl, 'png');
+      res.setHeader('Content-Type', 'image/png');
+      res.setHeader('Content-Disposition', `attachment; filename="${slug}-qr.png"`);
+      return res.send(pngBuffer);
+    }
+  } catch (err) {
+    next(err);
   }
 });
-
-// All subsequent management routes require owner authentication
-router.use(requireAuth);
 
 // ============================================================================
 // 1. CLOUDINARY DIRECT UPLOAD SIGNATURE
@@ -184,10 +233,10 @@ router.get('/dashboard', async (req, res) => {
 
     return res.json({
       kpis: {
-        today: { total: todayScans?.count || 0, main: todayMain?.count || 0, special: todaySpecial?.count || 0 },
-        last7Days: { total: sevenDaysScans?.count || 0, main: sevenDaysMain?.count || 0, special: sevenDaysSpecial?.count || 0 },
-        last30Days: { total: thirtyDaysScans?.count || 0, main: thirtyDaysMain?.count || 0, special: thirtyDaysSpecial?.count || 0 },
-        allTime: { total: allScans?.count || 0, main: allMainScans?.count || 0, special: allSpecialScans?.count || 0 },
+        today: { total: Number(todayScans?.count ?? 0), main: Number(todayMain?.count ?? 0), special: Number(todaySpecial?.count ?? 0) },
+        last7Days: { total: Number(sevenDaysScans?.count ?? 0), main: Number(sevenDaysMain?.count ?? 0), special: Number(sevenDaysSpecial?.count ?? 0) },
+        last30Days: { total: Number(thirtyDaysScans?.count ?? 0), main: Number(thirtyDaysMain?.count ?? 0), special: Number(thirtyDaysSpecial?.count ?? 0) },
+        allTime: { total: Number(allScans?.count ?? 0), main: Number(allMainScans?.count ?? 0), special: Number(allSpecialScans?.count ?? 0) },
       },
       scansList: rangeScans,
       peakHours: hoursCount,
@@ -195,16 +244,18 @@ router.get('/dashboard', async (req, res) => {
       devices: devicesCount,
       osBreakdown: osCount,
       menuHealth: {
-        totalDishes: dishesTotal?.count || 0,
-        soldOut: dishesSoldOut?.count || 0,
-        hidden: dishesHidden?.count || 0,
-        mainMenuCount: dishesBoth?.count || 0,
-        specialMenuCount: (dishesBoth?.count || 0) + (dishesSpecialOnly?.count || 0),
+        totalDishes: Number(dishesTotal?.count ?? 0),
+        soldOut: Number(dishesSoldOut?.count ?? 0),
+        hidden: Number(dishesHidden?.count ?? 0),
+        mainMenuCount: Number(dishesBoth?.count ?? 0),
+        specialMenuCount: Number(dishesBoth?.count ?? 0) + Number(dishesSpecialOnly?.count ?? 0),
       },
       reviews: {
-        started: revStarted?.count || 0,
-        submitted: revSubmitted?.count || 0,
-        conversionPercent: revStarted?.count ? Math.round(((revSubmitted?.count || 0) / revStarted.count) * 100) : 0,
+        started: Number(revStarted?.count ?? 0),
+        submitted: Number(revSubmitted?.count ?? 0),
+        conversionPercent: Number(revStarted?.count ?? 0)
+          ? Math.round((Number(revSubmitted?.count ?? 0) / Number(revStarted.count)) * 100)
+          : 0,
         averageStars: revAvgStars?.avg_stars ? Number(revAvgStars.avg_stars).toFixed(1) : '5.0',
       },
     });
@@ -233,6 +284,7 @@ router.post('/categories', async (req, res) => {
     'INSERT INTO categories (id, name, description, visible, sort_order, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7)',
     [id, name.trim(), description || '', visible !== undefined ? (visible ? 1 : 0) : 1, sort_order || 0, now, now]
   );
+  clearPublicCache('menu');
 
   return res.json({ success: true, id });
 });
@@ -240,12 +292,26 @@ router.post('/categories', async (req, res) => {
 router.put('/categories/:id', async (req, res) => {
   const { name, description, visible, sort_order } = req.body || {};
   const { id } = req.params;
-  const now = new Date().toISOString();
+  if (name !== undefined && !String(name).trim()) {
+    return res.status(400).json({ error: 'Category name cannot be empty' });
+  }
+  const existing = await query('SELECT * FROM categories WHERE id = $1', [id]);
+  if (existing.length === 0) return res.status(404).json({ error: 'Category not found' });
 
+  const now = new Date().toISOString();
+  const prev = existing[0];
   await query(
     'UPDATE categories SET name = $1, description = $2, visible = $3, sort_order = $4, updated_at = $5 WHERE id = $6',
-    [name, description, visible ? 1 : 0, sort_order, now, id]
+    [
+      name !== undefined ? name.trim() : prev.name,
+      description !== undefined ? description : prev.description,
+      visible !== undefined ? (visible ? 1 : 0) : prev.visible,
+      sort_order !== undefined ? Number(sort_order) : prev.sort_order,
+      now,
+      id,
+    ]
   );
+  clearPublicCache('menu');
 
   return res.json({ success: true });
 });
@@ -255,9 +321,10 @@ router.delete('/categories/:id', async (req, res) => {
   const { reassignToCategoryId, deleteDishes } = req.query;
 
   // Check dishes in this category
-  const [dishCount] = await query('SELECT COUNT(*) as count FROM dishes WHERE category_id = $1 AND deleted_at IS NULL', [id]);
+  const [dishCountRow] = await query('SELECT COUNT(*) as count FROM dishes WHERE category_id = $1 AND deleted_at IS NULL', [id]);
+  const count = Number(dishCountRow?.count ?? 0);
 
-  if (dishCount?.count > 0) {
+  if (count > 0) {
     if (reassignToCategoryId) {
       await query('UPDATE dishes SET category_id = $1 WHERE category_id = $2', [reassignToCategoryId, id]);
     } else if (deleteDishes === 'true') {
@@ -265,14 +332,15 @@ router.delete('/categories/:id', async (req, res) => {
       await query('UPDATE dishes SET deleted_at = $1 WHERE category_id = $2', [now, id]);
     } else {
       return res.status(400).json({
-        error: `Category contains ${dishCount.count} dish(es). You must choose to reassign them to another category or delete them too.`,
+        error: `Category contains ${count} dish(es). You must choose to reassign them to another category or delete them too.`,
         requiresChoice: true,
-        dishCount: dishCount.count,
+        dishCount: count,
       });
     }
   }
 
   await query('DELETE FROM categories WHERE id = $1', [id]);
+  clearPublicCache('menu');
   return res.json({ success: true });
 });
 
@@ -282,6 +350,7 @@ router.put('/categories/reorder/batch', async (req, res) => {
     for (const item of items) {
       await query('UPDATE categories SET sort_order = $1 WHERE id = $2', [item.sort_order, item.id]);
     }
+    clearPublicCache('menu');
   }
   return res.json({ success: true });
 });
@@ -408,6 +477,9 @@ router.post('/dishes', async (req, res) => {
       }
     }
 
+    const hasDishOverride =
+      special_price_override !== null && special_price_override !== undefined && special_price_override !== '';
+
     await query(
       `INSERT INTO dishes (
         id, name, description, category_id, serving_note, price_type, base_price, special_price,
@@ -422,7 +494,7 @@ router.post('/dishes', async (req, res) => {
         price_type,
         Number(base_price) || 0,
         specialPrice,
-        special_price_override ? Number(special_price_override) : null,
+        hasDishOverride ? Number(special_price_override) : null,
         JSON.stringify(tags),
         spice_level,
         JSON.stringify(badges),
@@ -440,10 +512,12 @@ router.post('/dishes', async (req, res) => {
       for (let vIdx = 0; vIdx < variants.length; vIdx++) {
         const v = variants[vIdx];
         const vId = `${id}_var_${vIdx}`;
+        const hasVarOverride =
+          v.special_price_override !== null && v.special_price_override !== undefined && v.special_price_override !== '';
         let vSpecial = null;
         if (scope === 'special_only') {
           vSpecial = Number(v.base_price) || 0;
-        } else if (v.special_price_override !== null && v.special_price_override !== undefined && v.special_price_override !== '') {
+        } else if (hasVarOverride) {
           vSpecial = Number(v.special_price_override);
         } else {
           vSpecial = calculateSpecialPrice(v.base_price, markup, rounding);
@@ -451,7 +525,7 @@ router.post('/dishes', async (req, res) => {
 
         await query(
           'INSERT INTO dish_variants (id, dish_id, label, base_price, special_price, special_price_override, sort_order, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-          [vId, id, v.label, Number(v.base_price) || 0, vSpecial, v.special_price_override ? Number(v.special_price_override) : null, vIdx, now]
+          [vId, id, v.label, Number(v.base_price) || 0, vSpecial, hasVarOverride ? Number(v.special_price_override) : null, vIdx, now]
         );
       }
     }
@@ -461,6 +535,7 @@ router.post('/dishes', async (req, res) => {
       const limitedImages = images.slice(0, 5);
       for (let imgIdx = 0; imgIdx < limitedImages.length; imgIdx++) {
         const img = limitedImages[imgIdx];
+        if (!isSafeActionUrl(img.url)) continue;
         const imgId = `${id}_img_${imgIdx}`;
         await query(
           'INSERT INTO dish_images (id, dish_id, public_id, url, width, height, sort_order, is_cover, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
@@ -469,6 +544,7 @@ router.post('/dishes', async (req, res) => {
       }
     }
 
+    clearPublicCache('menu');
     return res.json({ success: true, id });
   } catch (err) {
     console.error('[Admin] Error creating dish:', err);
@@ -530,6 +606,9 @@ router.put('/dishes/:id', async (req, res) => {
       }
     }
 
+    const hasDishOverride =
+      special_price_override !== null && special_price_override !== undefined && special_price_override !== '';
+
     await query(
       `UPDATE dishes SET
         name = $1, description = $2, category_id = $3, serving_note = $4, price_type = $5,
@@ -545,7 +624,7 @@ router.put('/dishes/:id', async (req, res) => {
         price_type,
         Number(base_price) || 0,
         specialPrice,
-        special_price_override ? Number(special_price_override) : null,
+        hasDishOverride ? Number(special_price_override) : null,
         JSON.stringify(tags),
         spice_level,
         JSON.stringify(badges),
@@ -565,10 +644,12 @@ router.put('/dishes/:id', async (req, res) => {
         for (let vIdx = 0; vIdx < body.variants.length; vIdx++) {
           const v = body.variants[vIdx];
           const vId = `${id}_var_${vIdx}_${Date.now()}`;
+          const hasVarOverride =
+            v.special_price_override !== null && v.special_price_override !== undefined && v.special_price_override !== '';
           let vSpecial = null;
           if (scope === 'special_only') {
             vSpecial = Number(v.base_price) || 0;
-          } else if (v.special_price_override !== null && v.special_price_override !== undefined && v.special_price_override !== '') {
+          } else if (hasVarOverride) {
             vSpecial = Number(v.special_price_override);
           } else {
             vSpecial = calculateSpecialPrice(v.base_price, markup, rounding);
@@ -576,11 +657,12 @@ router.put('/dishes/:id', async (req, res) => {
 
           await query(
             'INSERT INTO dish_variants (id, dish_id, label, base_price, special_price, special_price_override, sort_order, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-            [vId, id, v.label, Number(v.base_price) || 0, vSpecial, v.special_price_override ? Number(v.special_price_override) : null, vIdx, now]
+            [vId, id, v.label, Number(v.base_price) || 0, vSpecial, hasVarOverride ? Number(v.special_price_override) : null, vIdx, now]
           );
         }
       }
     }
+    clearPublicCache('menu');
 
     // Only replace images if explicitly provided
     if (body.images !== undefined) {
@@ -687,6 +769,7 @@ router.post('/dishes/:id/duplicate', async (req, res) => {
     );
   }
 
+  clearPublicCache('menu');
   return res.json({ success: true, newId });
 });
 
@@ -716,6 +799,7 @@ router.post('/dishes/bulk', async (req, res) => {
     }
   }
 
+  clearPublicCache('menu');
   return res.json({ success: true, affected: dishIds.length });
 });
 
@@ -725,6 +809,7 @@ router.put('/dishes/reorder/batch', async (req, res) => {
     for (const item of items) {
       await query('UPDATE dishes SET sort_order = $1 WHERE id = $2', [item.sort_order, item.id]);
     }
+    clearPublicCache('menu');
   }
   return res.json({ success: true });
 });
@@ -761,6 +846,7 @@ router.put('/menus/:id', async (req, res) => {
     WHERE id = $8`,
     [title, subtitle, video_url || null, video_public_id || null, poster_url || null, poster_public_id || null, now, id]
   );
+  clearPublicCache('menu');
 
   return res.json({ success: true });
 });
@@ -778,7 +864,7 @@ router.get('/qr-codes', async (req, res) => {
       'SELECT COUNT(*) as count FROM scans WHERE qr_id = $1 OR qr_id = $2',
       [qr.id, slug]
     );
-    qr.scanCount = count?.count || 0;
+    qr.scanCount = Number(count?.count ?? 0);
   }
   return res.json(qrs);
 });
@@ -787,6 +873,10 @@ router.post('/qr-codes', async (req, res) => {
   const { label, slug, destination, is_enabled } = req.body || {};
   if (!label || !label.trim()) {
     return res.status(400).json({ error: 'Label is required.' });
+  }
+  const destStr = (destination !== undefined && destination !== null ? String(destination) : '/menu/').trim();
+  if (!isSafeRedirectDestination(destStr)) {
+    return res.status(400).json({ error: 'Invalid destination URL. Only http(s) URLs or internal routes are allowed.' });
   }
 
   const rawSlug = slug || label;
@@ -815,7 +905,7 @@ router.post('/qr-codes', async (req, res) => {
       id,
       cleanSlug,
       label.trim(),
-      (destination || '/menu/').trim(),
+      destStr,
       is_enabled !== false ? 1 : 0,
       now,
       now,
@@ -828,6 +918,10 @@ router.post('/qr-codes', async (req, res) => {
 router.put('/qr-codes/:id', async (req, res) => {
   const { id } = req.params;
   const { label, slug, destination, is_enabled } = req.body || {};
+  const destStr = destination !== undefined && destination !== null ? String(destination).trim() : '';
+  if (!isSafeRedirectDestination(destStr)) {
+    return res.status(400).json({ error: 'Invalid destination URL. Only http(s) URLs or internal routes are allowed.' });
+  }
   const now = new Date().toISOString();
 
   const qrs = await query('SELECT * FROM qr_codes WHERE id = $1', [id]);
@@ -850,7 +944,7 @@ router.put('/qr-codes/:id', async (req, res) => {
 
   await query(
     'UPDATE qr_codes SET label = $1, slug = $2, destination = $3, is_enabled = $4, updated_at = $5 WHERE id = $6',
-    [label?.trim() || qrs[0].label, cleanSlug, (destination || '').trim(), is_enabled ? 1 : 0, now, id]
+    [label?.trim() || qrs[0].label, cleanSlug, destStr, is_enabled ? 1 : 0, now, id]
   );
 
   return res.json({ success: true });
@@ -880,12 +974,15 @@ router.get('/popular-dishes', async (req, res) => {
 
 router.post('/popular-dishes', async (req, res) => {
   const [totalCount] = await query('SELECT COUNT(*) as count FROM popular_dishes');
-  if (totalCount?.count >= 12) {
+  if (Number(totalCount?.count ?? 0) >= 12) {
     return res.status(400).json({ error: 'Maximum limit of 12 popular dishes reached.' });
   }
 
   const { title, description, price, image_url, image_public_id, is_visible = 1, sort_order = 0 } = req.body || {};
   if (!title) return res.status(400).json({ error: 'Title is required' });
+  if (image_url && !isSafeActionUrl(image_url)) {
+    return res.status(400).json({ error: 'Invalid image URL protocol.' });
+  }
 
   const id = `pop_${Date.now()}_${crypto.randomBytes(3).toString('hex')}`;
   const now = new Date().toISOString();
@@ -1030,12 +1127,13 @@ router.put('/legal-pages/:id', async (req, res) => {
   const { id } = req.params;
   const { title, content_html } = req.body || {};
 
-  // Sanitize rich text HTML
+  // Sanitize rich text HTML strictly blocking javascript:/data: schemes
   const sanitizedHtml = sanitizeHtml(content_html || '', {
     allowedTags: ['h1', 'h2', 'h3', 'h4', 'p', 'b', 'i', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'br', 'hr', 'blockquote'],
     allowedAttributes: {
       a: ['href', 'target', 'rel'],
     },
+    allowedSchemes: ['http', 'https', 'mailto', 'tel'],
   });
 
   const now = new Date().toISOString();
@@ -1045,6 +1143,7 @@ router.put('/legal-pages/:id', async (req, res) => {
     now,
     id,
   ]);
+  clearPublicCache('site');
 
   return res.json({ success: true });
 });
@@ -1052,18 +1151,27 @@ router.put('/legal-pages/:id', async (req, res) => {
 // SEO Pages
 router.get('/seo-pages', async (req, res) => {
   const pages = await query('SELECT * FROM seo_pages ORDER BY id ASC');
-  return res.json(pages);
+  return res.json(
+    pages.map((p) => ({
+      ...p,
+      page_name: SEO_PAGE_NAMES[p.id] || p.id.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+    }))
+  );
 });
 
 router.put('/seo-pages/:id', async (req, res) => {
   const { id } = req.params;
   const { title, meta_description, og_image_url, noindex } = req.body || {};
+  if (og_image_url && !isSafeActionUrl(og_image_url)) {
+    return res.status(400).json({ error: 'Invalid OG image URL protocol.' });
+  }
   const now = new Date().toISOString();
 
   await query(
     'UPDATE seo_pages SET title = $1, meta_description = $2, og_image_url = $3, noindex = $4, updated_at = $5 WHERE id = $6',
     [title || '', meta_description || '', og_image_url || null, noindex ? 1 : 0, now, id]
   );
+  clearPublicCache();
 
   return res.json({ success: true });
 });
@@ -1122,7 +1230,7 @@ router.post('/reviews/options', async (req, res) => {
 
   // Guardrail: Max 14 visible options
   const [visibleCount] = await query('SELECT COUNT(*) as count FROM review_options WHERE is_visible = 1');
-  if (visibleCount?.count >= 14) {
+  if (Number(visibleCount?.count ?? 0) >= 14) {
     return res.status(400).json({ error: 'Cannot add option: Maximum limit of 14 visible options reached.' });
   }
 
@@ -1150,13 +1258,14 @@ router.put('/reviews/options/:id', async (req, res) => {
   // Guardrail check if hiding or revealing: min 3, max 14 visible
   if (is_visible !== undefined) {
     const [currentVisible] = await query('SELECT COUNT(*) as count FROM review_options WHERE is_visible = 1');
+    const visCount = Number(currentVisible?.count ?? 0);
     const existing = await query('SELECT is_visible FROM review_options WHERE id = $1', [id]);
     const currentlyVisible = existing[0]?.is_visible === 1;
 
-    if (!is_visible && currentlyVisible && currentVisible?.count <= 3) {
+    if (!is_visible && currentlyVisible && visCount <= 3) {
       return res.status(400).json({ error: 'At least 3 visible review options are required.' });
     }
-    if (is_visible && !currentlyVisible && currentVisible?.count >= 14) {
+    if (is_visible && !currentlyVisible && visCount >= 14) {
       return res.status(400).json({ error: 'Maximum 14 visible review options allowed.' });
     }
   }
@@ -1181,7 +1290,7 @@ router.put('/reviews/options/:id', async (req, res) => {
 router.delete('/reviews/options/:id', async (req, res) => {
   const { id } = req.params;
   const [currentVisible] = await query('SELECT COUNT(*) as count FROM review_options WHERE is_visible = 1');
-  if (currentVisible?.count <= 3) {
+  if (Number(currentVisible?.count ?? 0) <= 3) {
     return res.status(400).json({ error: 'Cannot delete: Minimum 3 visible review options must remain.' });
   }
 
@@ -1212,10 +1321,12 @@ router.get('/reviews/stats', async (req, res) => {
     let sumStars = 0;
     let totalRated = 0;
     for (const r of starRows) {
-      if (r.stars >= 1 && r.stars <= 5) {
-        starCounts[r.stars] = r.count;
-        sumStars += r.stars * r.count;
-        totalRated += r.count;
+      const starsVal = Number(r.stars);
+      const countVal = Number(r.count ?? 0);
+      if (starsVal >= 1 && starsVal <= 5) {
+        starCounts[starsVal] = countVal;
+        sumStars += starsVal * countVal;
+        totalRated += countVal;
       }
     }
 
@@ -1244,14 +1355,16 @@ router.get('/reviews/stats', async (req, res) => {
        ORDER BY day DESC LIMIT 14`
     );
 
+    const startedCount = Number(startedRow?.count ?? 0);
+    const submittedCount = Number(submittedRow?.count ?? 0);
     return res.json({
-      started: startedRow?.count || 0,
-      submitted: submittedRow?.count || 0,
-      conversionPercent: startedRow?.count ? Math.round(((submittedRow?.count || 0) / startedRow.count) * 100) : 0,
+      started: startedCount,
+      submitted: submittedCount,
+      conversionPercent: startedCount ? Math.round((submittedCount / startedCount) * 100) : 0,
       averageStars,
       starDistribution: starCounts,
       optionSelectionCounts: optionCounts,
-      dailyTrend: dailySubmissions.reverse(),
+      dailyTrend: dailySubmissions.map((d) => ({ ...d, count: Number(d.count ?? 0) })).reverse(),
       notice: 'Submitted = opened Google review page. We cannot see whether the customer finished posting.',
     });
   } catch (err) {
@@ -1350,15 +1463,20 @@ router.post('/menu-buttons', async (req, res, next) => {
     if (!label || !label.trim()) {
       return res.status(400).json({ error: 'Button label is required.' });
     }
+    if (!isSafeActionUrl(url)) {
+      return res.status(400).json({ error: 'Invalid button URL scheme.' });
+    }
+    const safeBgColor = isSafeHexColor(bg_color) ? bg_color.trim() : '#1E7B46';
+    const safeHoverColor = isSafeHexColor(hover_color) ? hover_color.trim() : '#ea580c';
 
-    const id = `btn_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const id = `btn_${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`;
     const now = new Date().toISOString();
     const [maxOrder] = await query('SELECT MAX(sort_order) AS max_o FROM menu_buttons');
-    const sort_order = (maxOrder?.max_o || 0) + 1;
+    const sort_order = Number(maxOrder?.max_o ?? 0) + 1;
 
     await query(
       'INSERT INTO menu_buttons (id, type, label, url, phone, bg_color, hover_color, is_enabled, sort_order, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
-      [id, type, label.trim(), url.trim(), phone.trim(), bg_color, hover_color, is_enabled ? 1 : 0, sort_order, now, now]
+      [id, type, label.trim(), String(url || '').trim(), String(phone || '').trim(), safeBgColor, safeHoverColor, is_enabled ? 1 : 0, sort_order, now, now]
     );
 
     clearPublicCache();
@@ -1379,14 +1497,17 @@ router.put('/menu-buttons/:id', async (req, res, next) => {
     if (!existing) {
       return res.status(404).json({ error: 'Menu button not found.' });
     }
+    if (url !== undefined && !isSafeActionUrl(url)) {
+      return res.status(400).json({ error: 'Invalid button URL scheme.' });
+    }
 
     const updated = {
       type: type !== undefined ? type : existing.type,
       label: label !== undefined ? label.trim() : existing.label,
-      url: url !== undefined ? url.trim() : existing.url,
-      phone: phone !== undefined ? phone.trim() : existing.phone,
-      bg_color: bg_color !== undefined ? bg_color : existing.bg_color,
-      hover_color: hover_color !== undefined ? hover_color : existing.hover_color,
+      url: url !== undefined ? String(url).trim() : existing.url,
+      phone: phone !== undefined ? String(phone).trim() : existing.phone,
+      bg_color: bg_color !== undefined && isSafeHexColor(bg_color) ? bg_color.trim() : existing.bg_color,
+      hover_color: hover_color !== undefined && isSafeHexColor(hover_color) ? hover_color.trim() : existing.hover_color,
       is_enabled: is_enabled !== undefined ? (is_enabled ? 1 : 0) : existing.is_enabled,
       sort_order: sort_order !== undefined ? Number(sort_order) : existing.sort_order,
     };
@@ -1426,6 +1547,29 @@ router.put('/menu-buttons/reorder/batch', async (req, res, next) => {
     clearPublicCache();
     const buttons = await query('SELECT * FROM menu_buttons ORDER BY sort_order ASC');
     return res.json({ success: true, buttons });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// ============================================================================
+// 15. CUSTOMER CONTACT INQUIRIES MANAGEMENT
+// ============================================================================
+router.get('/inquiries', async (req, res, next) => {
+  try {
+    const inquiries = await query('SELECT * FROM contact_inquiries ORDER BY created_at DESC LIMIT 200');
+    return res.json(inquiries);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/inquiries/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const status = req.body?.status === 'resolved' ? 'resolved' : 'new';
+    await query('UPDATE contact_inquiries SET status = $1 WHERE id = $2', [status, id]);
+    return res.json({ success: true, status });
   } catch (err) {
     next(err);
   }

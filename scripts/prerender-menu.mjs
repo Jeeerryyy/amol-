@@ -45,7 +45,7 @@ function getCategoryIcon(catName) {
     return `<svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M9 22 C9 34 16 38 24 38 C32 38 39 34 39 22 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><line x1="6" y1="22" x2="42" y2="22" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M17 14 C17 10 19 8 19 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M24 15 C24 11 26 9 26 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M31 14 C31 10 33 8 33 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`;
   }
   if (name.includes('noodle')) {
-    return `<svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 24 C10 34 16 38 24 38 C32 34 38 24 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><ellipse cx="24" cy="24" rx="14" ry="4" stroke="currentColor" stroke-width="2.4"/><line x1="16" y1="8" x2="30" y2="24" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><line x1="20" y1="6" x2="34" y2="22" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>`;
+    return `<svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 24 C10 34 16 38 24 38 C32 38 38 34 38 24 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><ellipse cx="24" cy="24" rx="14" ry="4" stroke="currentColor" stroke-width="2.4"/><line x1="16" y1="8" x2="30" y2="24" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><line x1="20" y1="6" x2="34" y2="22" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>`;
   }
   if (name.includes('chinese') || name.includes('manchurian') || name.includes('schezwan')) {
     return `<svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 24 C10 35 15 40 24 40 C33 40 38 35 38 24 Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><line x1="7" y1="24" x2="41" y2="24" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><line x1="16" y1="7" x2="28" y2="23" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><line x1="20" y1="5" x2="32" y2="21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>`;
@@ -62,6 +62,31 @@ function getCategoryIcon(catName) {
   return `<svg viewBox="0 0 48 48" width="30" height="30" fill="none"><path d="M10 21 C10 35 15 41 24 41 C33 41 38 35 38 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="24" cy="21" rx="14" ry="4" stroke="currentColor" stroke-width="2.6"/><path d="M10 24 C5 24 5 30 10 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M38 24 C43 24 43 30 38 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M32 9 L23 23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M20 22 C19 25 24 27 26 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`;
 }
 
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function escapeJsSingle(str) {
+  return String(str === null || str === undefined ? '' : str)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'");
+}
+
+function safeMediaUrl(raw, fallback = '/images/dish-placeholder.svg') {
+  if (!raw || typeof raw !== 'string') return fallback;
+  const trimmed = raw.trim();
+  if (!trimmed || /^(javascript|data|vbscript):/i.test(trimmed) || trimmed.startsWith('//')) {
+    return fallback;
+  }
+  return trimmed;
+}
+
 // 1. Build Category Tabs HTML
 const catTabList = [{ id: 'All', label: 'All', icon: getCategoryIcon('All') }];
 categories.forEach(c => {
@@ -72,19 +97,21 @@ categories.forEach(c => {
 
 const categoryTabsHtml = catTabList.map(c => {
   const isActive = c.id === 'All';
+  const safeIdAttr = escapeHtml(escapeJsSingle(c.id));
+  const safeLabel = escapeHtml(c.label);
   return `
     <div class="category-tab-wrapper">
       <button
         type="button"
         class="category-tab-btn ${isActive ? 'active' : ''}"
-        onclick="selectCategory('${c.id}')"
-        aria-label="${c.label} category"
+        onclick="selectCategory('${safeIdAttr}')"
+        aria-label="${safeLabel} category"
         aria-pressed="${isActive}"
       >
         <div class="category-icon-box">
           ${c.icon}
         </div>
-        <span class="tab-label">${c.label}</span>
+        <span class="tab-label">${safeLabel}</span>
       </button>
       ${isActive ? '<div class="tab-active-indicator"></div>' : ''}
     </div>
@@ -95,41 +122,45 @@ const categoryTabsHtml = catTabList.map(c => {
 function renderDishCardHtml(d, isAboveFold = false) {
   const isSoldOut = d.is_available === 0 || d.is_available === false;
   const cardClasses = `menu-dish-card ${isSoldOut ? 'sold-out' : ''}`;
-  const imgUrl = (d.images && d.images.length > 0 && d.images[0]) ? d.images[0] : '/images/dish-placeholder.svg';
+  const rawImg = (d.images && d.images.length > 0 && d.images[0]) ? d.images[0] : '/images/dish-placeholder.svg';
+  const imgUrl = safeMediaUrl(rawImg, '/images/dish-placeholder.svg');
   
   let badgeHtml = '';
   if (Array.isArray(d.badges) && d.badges.length > 0) {
-    badgeHtml = `<span class="dish-badge-pill">${d.badges[0]}</span>`;
+    badgeHtml = `<span class="dish-badge-pill">${escapeHtml(d.badges[0])}</span>`;
   } else if (d.tag) {
-    badgeHtml = `<span class="dish-badge-pill">${d.tag}</span>`;
+    badgeHtml = `<span class="dish-badge-pill">${escapeHtml(d.tag)}</span>`;
   }
 
-  let priceStr = `₹ ${d.price}`;
+  let priceStr = `₹ ${Number(d.price) || 0}`;
   if (d.variants && d.variants.length > 0) {
-    const lowest = Math.min(...d.variants.map(v => v.price));
+    const lowest = Math.min(...d.variants.map(v => Number(v.price) || 0));
     priceStr = `From ₹ ${lowest}`;
   }
 
   const isJain = Array.isArray(d.tags) && d.tags.includes('jain');
   const loadingAttr = isAboveFold ? 'loading="eager" fetchpriority="high"' : 'loading="lazy" fetchpriority="auto"';
+  const safeName = escapeHtml(d.name);
+  const safeDesc = escapeHtml(d.description || `${d.name} prepared fresh with authentic spices at Amol Veg Resto.`);
+  const safeIdAttr = escapeHtml(escapeJsSingle(d.id));
 
   return `
-    <article class="${cardClasses}" onclick="openDish('${d.id}')" itemscope itemtype="https://schema.org/MenuItem">
+    <article class="${cardClasses}" onclick="openDish('${safeIdAttr}')" itemscope itemtype="https://schema.org/MenuItem">
       <div class="dish-card-image-box">
-        <img src="${imgUrl}" alt="${d.name} at Amol Veg Resto Solapur" class="dish-card-img" width="220" height="176" ${loadingAttr} decoding="async" itemprop="image" onerror="this.src='/images/dish-placeholder.svg'">
+        <img src="${escapeHtml(imgUrl)}" alt="${safeName} at Amol Veg Resto Solapur" class="dish-card-img" ${loadingAttr} decoding="async" itemprop="image" onerror="this.src='/images/dish-placeholder.svg'">
         ${badgeHtml}
         ${isSoldOut ? '<span class="dish-soldout-badge">Sold Out</span>' : ''}
       </div>
       <div class="dish-card-body">
         <h3 class="dish-card-title" itemprop="name">
           <span class="dish-veg-symbol" title="Pure Veg"><span class="dish-veg-symbol-dot"></span></span>
-          ${d.name}
+          ${safeName}
           ${isJain ? '<span style="font-size:10px; color:#2E7D32; font-weight:700; margin-left:4px;">[JAIN]</span>' : ''}
         </h3>
-        <p class="sr-only" itemprop="description">${d.description || `${d.name} prepared fresh with authentic spices at Amol Veg Resto.`}</p>
+        <p class="sr-only" itemprop="description">${safeDesc}</p>
         <link itemprop="suitableForDiet" href="https://schema.org/VegetarianDiet" />
         <div class="dish-card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-          <meta itemprop="price" content="${d.price}" />
+          <meta itemprop="price" content="${Number(d.price) || 0}" />
           <meta itemprop="priceCurrency" content="INR" />
           ${priceStr}
         </div>
@@ -153,9 +184,9 @@ categories.forEach(cat => {
   if (catDishes.length === 0) return;
 
   dishesGridHtml += `
-    <section class="category-group-block" id="cat-group-${catIdSlug}" itemscope itemtype="https://schema.org/MenuSection">
+    <section class="category-group-block" id="cat-group-${escapeHtml(catIdSlug)}" itemscope itemtype="https://schema.org/MenuSection">
       <header class="category-group-header">
-        <h2 class="category-group-heading" itemprop="name">${catLabel}</h2>
+        <h2 class="category-group-heading" itemprop="name">${escapeHtml(catLabel)}</h2>
         <span class="category-group-badge">${catDishes.length} items</span>
       </header>
       <div class="dishes-cards-grid">

@@ -6,6 +6,8 @@ import { MAX_LOGIN_ATTEMPTS, LOCKOUT_WINDOW_MS, RATE_LIMITS } from '../config/co
 const memoryLoginFailures = new Map();
 const memoryAiHits = new Map();
 const memoryQrHits = new Map();
+const memoryContactHits = new Map();
+const memoryDownloadHits = new Map();
 
 /**
  * Check if a login attempt is allowed based on IP and email.
@@ -162,6 +164,41 @@ export function checkQrRateLimit(ip) {
 
   hits.push(now);
   memoryQrHits.set(ip, hits);
+  return true;
+}
+
+/**
+ * Rate limiter for public contact form submissions (max 5 per 10 minutes per IP)
+ */
+export function checkContactRateLimit(ip) {
+  const now = Date.now();
+  const windowMs = 10 * 60 * 1000;
+  let hits = memoryContactHits.get(ip) || [];
+  hits = hits.filter((t) => now - t < windowMs);
+
+  if (hits.length >= 5) {
+    return false;
+  }
+
+  hits.push(now);
+  memoryContactHits.set(ip, hits);
+  return true;
+}
+
+/**
+ * Rate limiter for QR PNG/SVG/PDF asset generation (max 40 per minute per IP)
+ */
+export function checkDownloadRateLimit(ip) {
+  const now = Date.now();
+  let hits = memoryDownloadHits.get(ip) || [];
+  hits = hits.filter((t) => now - t < 60000);
+
+  if (hits.length >= 40) {
+    return false;
+  }
+
+  hits.push(now);
+  memoryDownloadHits.set(ip, hits);
   return true;
 }
 

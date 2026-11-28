@@ -57,11 +57,18 @@ export const PopularDishes: React.FC = () => {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 3500);
+    const interval = setInterval(() => {
+      if (!document.hidden) fetchData();
+    }, 3500);
+    const handleVisibility = () => {
+      if (!document.hidden) fetchData();
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
 
     return () => {
       isMounted = false;
       clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, [popularDishes]);
 

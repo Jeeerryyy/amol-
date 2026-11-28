@@ -45,15 +45,17 @@ export const TestimonialsSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Pager Buttons: Prev (outline) and Next (filled orange) */}
-        <div className="testimonials-pager">
-          <button className="pager-arrow-btn pager-prev" aria-label="Previous review">
-            <ArrowLeft size={18} color="var(--color-text-dark)" />
-          </button>
-          <button className="pager-arrow-btn pager-next" aria-label="Next review">
-            <ArrowRight size={18} color="#ffffff" />
-          </button>
-        </div>
+        {/* Pager Buttons: only rendered when more than one page of reviews exists */}
+        {testimonials.reviews.length > 2 && (
+          <div className="testimonials-pager">
+            <button type="button" className="pager-arrow-btn pager-prev" aria-label="Previous review">
+              <ArrowLeft size={18} color="var(--color-text-dark)" />
+            </button>
+            <button type="button" className="pager-arrow-btn pager-next" aria-label="Next review">
+              <ArrowRight size={18} color="#ffffff" />
+            </button>
+          </div>
+        )}
 
         {/* Actions: Review Us Button + External Google Reviews Link */}
         <div className="testimonials-actions-wrap">

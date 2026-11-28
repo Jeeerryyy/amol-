@@ -47,6 +47,11 @@
       ]
     }
   ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "public/menu/restaurant_menu_data.json"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/:path*",
@@ -54,6 +59,10 @@
     },
     {
       "source": "/q/:path*",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/qr/:path*",
       "destination": "/api/index.js"
     },
     {

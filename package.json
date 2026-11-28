@@ -3,6 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "server": "node server/index.js",
@@ -12,6 +15,7 @@
     "seo:validate": "node scripts/validate-schema.mjs",
     "preview": "vite preview",
     "test": "node tests/smoke.js",
+    "test:unit": "node --test tests/security-and-integrity.test.mjs",
     "lint": "tsc -b",
     "migrate": "node scripts/migrate.js",
     "seed": "node scripts/seed.js",

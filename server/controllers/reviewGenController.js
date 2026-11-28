@@ -20,7 +20,7 @@ export async function handleGenerateReview(req, res) {
   // 2. Validate request payload using Zod schema
   const parseResult = generateReviewSchema.safeParse(req.body);
   if (!parseResult.success) {
-    return res.status(400).json({ error: parseResult.error.errors[0]?.message || 'Invalid input parameters' });
+    return res.status(400).json({ error: parseResult.error.issues?.[0]?.message || 'Invalid input parameters' });
   }
 
   const { stars, options, selectedIds, seed, previousReview } = parseResult.data;

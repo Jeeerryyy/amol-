@@ -486,8 +486,10 @@ async function runAudit() {
 
     // 5.3 Valid Login
     try {
-      await page.fill('input[type="email"]', 'owner@amolvegresto.com');
-      await page.fill('input[type="password"]', 'Admin@12345');
+      const adminEmail = process.env.ADMIN_EMAIL || 'owner@amolvegresto.in';
+      const adminPass = process.env.ADMIN_INITIAL_PASSWORD || 'Admin@nirvanaa26';
+      await page.fill('input[type="email"]', adminEmail);
+      await page.fill('input[type="password"]', adminPass);
       await page.click('button[type="submit"]');
       await page.waitForTimeout(1000);
 
@@ -552,7 +554,10 @@ async function runAudit() {
     const fakeSessionRes = await fetch(`${API_URL}/api/admin/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'owner@amolvegresto.com', password: 'Admin@12345' }),
+      body: JSON.stringify({
+        email: process.env.ADMIN_EMAIL || 'owner@amolvegresto.in',
+        password: process.env.ADMIN_INITIAL_PASSWORD || 'Admin@nirvanaa26',
+      }),
     });
     const cookie = fakeSessionRes.headers.get('set-cookie')?.split(';')[0];
     const noCsrfMutation = await fetch(`${API_URL}/api/admin/categories`, {

@@ -159,8 +159,8 @@ export const GalleryPage: React.FC = () => {
             const isActive = activeCategory === category.id;
             const count =
               category.id === 'all'
-                ? galleryPage.items.length
-                : galleryPage.items.filter((item) => item.category === category.id).length;
+                ? itemsList.length
+                : itemsList.filter((item) => item.category === category.id).length;
 
             return (
               <button
@@ -364,7 +364,7 @@ export const GalleryPage: React.FC = () => {
               Nothing compares to the aroma of fresh dosas and sambar served piping hot in Sakhar Peth, Solapur.
             </p>
             <div className="experience-cta-actions">
-              <a href="#popular-dishes" className="gallery-cta-btn-primary">
+              <a href="/menu/" className="gallery-cta-btn-primary">
                 <Utensils size={16} />
                 <span>Explore Menu</span>
               </a>

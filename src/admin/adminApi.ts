@@ -21,6 +21,62 @@ export interface CloudinaryUploadResult {
   height?: number;
 }
 
+export function extractErrorMessage(
+  payload: unknown,
+  rawText = '',
+  status = 0,
+  fallback = 'Request failed'
+): string {
+  if (typeof payload === 'string' && payload.trim()) {
+    return payload.trim();
+  }
+  if (payload && typeof payload === 'object') {
+    const obj = payload as Record<string, unknown>;
+    if (typeof obj.error === 'string' && obj.error.trim()) {
+      return obj.error.trim();
+    }
+    if (obj.error && typeof obj.error === 'object') {
+      const nested = obj.error as Record<string, unknown>;
+      const nestedMsg =
+        (typeof nested.message === 'string' && nested.message.trim()) ||
+        (typeof nested.error === 'string' && nested.error.trim()) ||
+        '';
+      const nestedCode = typeof nested.code === 'string' && nested.code.trim() ? nested.code.trim() : '';
+      if (nestedMsg && nestedCode) return `${nestedMsg} (${nestedCode})`;
+      if (nestedMsg) return nestedMsg;
+      if (nestedCode) return nestedCode;
+    }
+    if (typeof obj.message === 'string' && obj.message.trim()) {
+      return obj.message.trim();
+    }
+    if (Array.isArray(obj.errors) && obj.errors.length > 0) {
+      const first = obj.errors[0] as Record<string, unknown> | string;
+      if (typeof first === 'string' && first.trim()) return first.trim();
+      if (first && typeof first === 'object' && typeof first.message === 'string' && first.message.trim()) {
+        return first.message.trim();
+      }
+    }
+  }
+  const cleanText = rawText.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  if (cleanText && cleanText.length <= 240) {
+    return cleanText;
+  }
+  return status ? `${fallback} (HTTP ${status})` : fallback;
+}
+
+async function parseErrorResponse(res: Response, fallback: string): Promise<string> {
+  const rawText = await res.text().catch(() => '');
+  if (!rawText) {
+    return res.status ? `${fallback} (HTTP ${res.status})` : fallback;
+  }
+  try {
+    const parsed = JSON.parse(rawText);
+    return extractErrorMessage(parsed, rawText, res.status, fallback);
+  } catch {
+    return extractErrorMessage(null, rawText, res.status, fallback);
+  }
+}
+
 export async function adminFetch(endpoint: string, options: RequestInit = {}): Promise<any> {
   const headers = new Headers(options.headers || {});
   headers.set('Accept', 'application/json');
@@ -42,23 +98,34 @@ export async function adminFetch(endpoint: string, options: RequestInit = {}): P
 
   const API_BASE = ((import.meta as any).env?.VITE_API_URL || '').replace(/\/$/, '');
   const targetUrl = API_BASE ? `${API_BASE}${normalizedEndpoint}` : normalizedEndpoint;
-  const res = await fetch(targetUrl, {
-    ...options,
-    headers,
-    credentials: 'include', // sends httpOnly session cookie
-  });
+
+  let res: Response;
+  try {
+    res = await fetch(targetUrl, {
+      ...options,
+      headers,
+      credentials: 'include', // sends httpOnly session cookie
+    });
+  } catch (networkErr: unknown) {
+    const msg = networkErr instanceof Error ? networkErr.message : '';
+    throw new Error(
+      msg && !/failed to fetch/i.test(msg)
+        ? msg
+        : 'Unable to reach the server. Please check your connection and try again.'
+    );
+  }
 
   if (res.status === 401) {
     if (!endpoint.includes('/login')) {
       window.dispatchEvent(new CustomEvent('admin_unauthorized'));
     }
-    const errData = await res.json().catch(() => ({}));
-    throw new Error(errData.error || 'Unauthorized. Please log in.');
+    const errMsg = await parseErrorResponse(res, 'Unauthorized. Please log in.');
+    throw new Error(errMsg);
   }
 
   if (!res.ok) {
-    const errData = await res.json().catch(() => ({}));
-    throw new Error(errData.error || `Request failed with status ${res.status}`);
+    const errMsg = await parseErrorResponse(res, `Request failed with status ${res.status}`);
+    throw new Error(errMsg);
   }
 
   const contentType = res.headers.get('content-type');
@@ -160,7 +227,13 @@ export async function uploadToCloudinary(
           reject(new Error('Failed to parse Cloudinary response'));
         }
       } else {
-        reject(new Error(`Upload failed with status ${xhr.status}: ${xhr.responseText}`));
+        let parsedErr: unknown = null;
+        try {
+          parsedErr = JSON.parse(xhr.responseText);
+        } catch {
+          parsedErr = null;
+        }
+        reject(new Error(extractErrorMessage(parsedErr, xhr.responseText, xhr.status, 'Upload failed')));
       }
     };
 

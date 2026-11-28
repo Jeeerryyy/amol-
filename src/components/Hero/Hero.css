@@ -130,8 +130,8 @@
   border-radius: 0;
   border: none;
   box-shadow: none;
-  backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   z-index: 2;
 }
 
@@ -184,8 +184,8 @@
   border-radius: 0;
   border: none;
   box-shadow: none;
-  backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   z-index: 2;
 }
 
@@ -318,8 +318,15 @@
 }
 
 @keyframes heroPromptBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(3px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(3px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

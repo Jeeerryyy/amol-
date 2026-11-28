@@ -49,6 +49,8 @@ export const ContactPage: React.FC = () => {
     : contactPage.info.call.tel;
   const displayHours = footerInfo.opening_hours || contactPage.info.hours.detail;
   const displayAddress = contactInfo.address || 'Gala No 2, Plot 16/1, Karnik Nagar Rd, Sakhar Peth, Solapur – 413006';
+  const displayMapsUrl = contactInfo.maps_url || siteConfig.seo.googleMapsUrl;
+  const whatsappDigits = (contactInfo.whatsapp || siteConfig.footer.visitUs.phone).replace(/\D/g, '');
 
   // Form state
   const [formData, setFormData] = useState({
@@ -61,18 +63,55 @@ export const ContactPage: React.FC = () => {
 
   const [rating, setRating] = useState<number>(0);
   const [hoverRating, setHoverRating] = useState<number>(0);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitError, setSubmitError] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    if (submitError) setSubmitError('');
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setSubmitError('');
+    setIsSubmitting(true);
+
+    try {
+      const topicPrefix = formData.type ? `[${formData.type}] ` : '';
+      const ratingNote = rating > 0 ? ` (Experience Rating: ${rating}/5)` : '';
+      const res = await fetch('/api/public/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          phone: formData.phone.trim(),
+          email: formData.email.trim(),
+          message: `${topicPrefix}${formData.message.trim()}${ratingNote}`,
+        }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const apiErr =
+          typeof json?.error === 'string'
+            ? json.error
+            : typeof json?.error?.message === 'string'
+            ? json.error.message
+            : typeof json?.message === 'string'
+            ? json.message
+            : 'Unable to submit your message. Please try again or call us.';
+        setSubmitError(apiErr);
+        return;
+      }
+      setIsSubmitted(true);
+    } catch {
+      setSubmitError('Network error while sending message. Please call +91 72496 64983 or message us on WhatsApp.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -133,7 +172,7 @@ export const ContactPage: React.FC = () => {
                     {displayAddress}
                   </p>
                   <a
-                    href="https://maps.google.com/?cid=12646274485771746208"
+                    href={displayMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="contact-directions-link inline-flex items-center gap-1.5 text-orange font-semibold text-xs mt-1.5 hover:underline"
@@ -190,26 +229,37 @@ export const ContactPage: React.FC = () => {
                   <div className="success-text-wrap">
                     <h3 className="success-title">Message Received!</h3>
                     <p className="success-desc">
-                      Thank you for reaching out to Amol Veg Resto. We'll be in touch with you shortly.
+                      Thank you for reaching out to Amol Veg Resto. Our team has logged your inquiry and will reply shortly.
                     </p>
                   </div>
-                  <button
-                    type="button"
-                    className="send-another-btn"
-                    onClick={() => {
-                      setIsSubmitted(false);
-                      setFormData({
-                        name: '',
-                        phone: '',
-                        email: '',
-                        type: '',
-                        message: '',
-                      });
-                      setRating(0);
-                    }}
-                  >
-                    Send Another Message
-                  </button>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <a
+                      href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent(`Hello Amol Veg Resto, I am ${formData.name || 'a guest'}: ${formData.message}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="send-another-btn"
+                      style={{ textDecoration: 'none', backgroundColor: '#1E7B46', color: '#FFFFFF', borderColor: '#1E7B46' }}
+                    >
+                      Chat on WhatsApp
+                    </a>
+                    <button
+                      type="button"
+                      className="send-another-btn"
+                      onClick={() => {
+                        setIsSubmitted(false);
+                        setFormData({
+                          name: '',
+                          phone: '',
+                          email: '',
+                          type: '',
+                          message: '',
+                        });
+                        setRating(0);
+                      }}
+                    >
+                      Send Another Message
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form className="contact-form" onSubmit={handleSubmit}>
@@ -345,9 +395,26 @@ export const ContactPage: React.FC = () => {
                     </div>
                   </div>
 
+                  {submitError && (
+                    <div
+                      role="alert"
+                      style={{
+                        padding: '8px 16px',
+                        borderRadius: '12px',
+                        backgroundColor: '#FEF2F2',
+                        border: '0.5px solid #FECACA',
+                        color: '#B91C1C',
+                        fontSize: '13.5px',
+                        marginBottom: '16px',
+                      }}
+                    >
+                      {submitError}
+                    </div>
+                  )}
+
                   {/* Submit Button */}
-                  <button type="submit" className="contact-submit-btn">
-                    <span>{contactPage.form.buttonText}</span>
+                  <button type="submit" className="contact-submit-btn" disabled={isSubmitting}>
+                    <span>{isSubmitting ? 'Sending Message...' : contactPage.form.buttonText}</span>
                     <ArrowRight size={18} strokeWidth={2.4} />
                   </button>
                 </form>

@@ -23,61 +23,61 @@ export async function getPricingSettings() {
   let rounding = 1;
 
   for (const row of settingsRows) {
-    if (row.key === 'special_markup_percent') markup = Number(row.value) || 10;
-    if (row.key === 'rounding_step') rounding = Number(row.value) || 1;
+    const numVal = Number(row.value);
+    if (row.key === 'special_markup_percent' && !Number.isNaN(numVal)) markup = numVal;
+    if (row.key === 'rounding_step' && !Number.isNaN(numVal) && numVal > 0) rounding = numVal;
   }
 
   return { markup, rounding };
 }
 
 /**
- * Recalculate all non-overridden dishes and variants
- * Called when owner changes global markup % or rounding step in Settings > Pricing.
- * High-performance set-based SQL execution (<10ms across 250+ dishes).
+ * Recalculate all non-overridden dishes and variants belonging to scope = 'both'.
+ * Preserves dedicated special_only dishes and explicit per-item overrides.
  */
 export async function recalculateAllNonOverriddenPrices() {
   const { markup, rounding } = await getPricingSettings();
   const now = new Date().toISOString();
 
   if (isPostgres) {
-    // Single atomic set-based PostgreSQL query
     await query(
       `UPDATE dishes
        SET special_price = ROUND((base_price * (1 + $1::numeric / 100)) / $2::numeric) * $2::numeric,
            updated_at = $3
-       WHERE scope = 'both' AND special_price_override IS NULL AND price_type = 'single'`,
+       WHERE scope = 'both' AND special_price_override IS NULL AND price_type = 'single' AND deleted_at IS NULL`,
       [markup, rounding, now]
     );
 
     await query(
       `UPDATE dish_variants
        SET special_price = ROUND((base_price * (1 + $1::numeric / 100)) / $2::numeric) * $2::numeric
-       WHERE special_price_override IS NULL`,
+       WHERE special_price_override IS NULL
+         AND dish_id IN (SELECT id FROM dishes WHERE scope = 'both' AND deleted_at IS NULL)`,
       [markup, rounding]
     );
   } else {
-    // Single atomic set-based SQLite query
     await query(
       `UPDATE dishes
        SET special_price = ROUND((base_price * (1 + (? / 100.0))) / ?) * ?,
            updated_at = ?
-       WHERE scope = 'both' AND special_price_override IS NULL AND price_type = 'single'`,
+       WHERE scope = 'both' AND special_price_override IS NULL AND price_type = 'single' AND deleted_at IS NULL`,
       [markup, rounding, rounding, now]
     );
 
     await query(
       `UPDATE dish_variants
        SET special_price = ROUND((base_price * (1 + (? / 100.0))) / ?) * ?
-       WHERE special_price_override IS NULL`,
+       WHERE special_price_override IS NULL
+         AND dish_id IN (SELECT id FROM dishes WHERE scope = 'both' AND deleted_at IS NULL)`,
       [markup, rounding, rounding]
     );
   }
 
   const [countDishes] = await query(
-    "SELECT COUNT(*) as count FROM dishes WHERE scope = 'both' AND special_price_override IS NULL AND price_type = 'single'"
+    "SELECT COUNT(*) as count FROM dishes WHERE scope = 'both' AND special_price_override IS NULL AND price_type = 'single' AND deleted_at IS NULL"
   );
   const [countVariants] = await query(
-    'SELECT COUNT(*) as count FROM dish_variants WHERE special_price_override IS NULL'
+    "SELECT COUNT(*) as count FROM dish_variants WHERE special_price_override IS NULL AND dish_id IN (SELECT id FROM dishes WHERE scope = 'both' AND deleted_at IS NULL)"
   );
 
   return {

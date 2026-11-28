@@ -1,6 +1,43 @@
 import crypto from 'crypto';
 import { query } from '../db/connection.js';
+import { env } from '../config/env.js';
 import { SESSION_COOKIE_NAME, SESSION_TTL_DAYS } from '../config/constants.js';
+
+/**
+ * Compute session cookie flags that support both same-origin deployments (Vercel monolith)
+ * and cross-origin HTTPS deployments (Vercel frontend + Render backend).
+ */
+export function getSessionCookieOptions(req, includeMaxAge = true) {
+  const reqOrigin = req?.headers?.origin;
+  const reqHost = String(req?.headers?.['x-forwarded-host'] || req?.headers?.host || '')
+    .split(',')[0]
+    .trim()
+    .split(':')[0];
+  let isCrossSite = false;
+  if (reqOrigin && reqHost) {
+    try {
+      isCrossSite = new URL(reqOrigin).hostname !== reqHost;
+    } catch {
+      isCrossSite = false;
+    }
+  }
+  const isHttps = Boolean(
+    env.isProd ||
+    req?.secure ||
+    String(req?.headers?.['x-forwarded-proto'] || '').includes('https')
+  );
+  const useNone = isCrossSite && isHttps;
+  const options = {
+    httpOnly: true,
+    secure: isHttps,
+    sameSite: useNone ? 'none' : 'lax',
+    path: '/',
+  };
+  if (includeMaxAge) {
+    options.maxAge = SESSION_TTL_DAYS * 24 * 60 * 60 * 1000;
+  }
+  return options;
+}
 
 const memorySessions = new Map();
 
@@ -13,10 +50,30 @@ export function generateTokens() {
   return { sessionToken, csrfToken };
 }
 
+const SESSION_TOKEN_REGEX = /^[a-f0-9]{64}$/i;
+
+/**
+ * Validate session token format (64 lowercase/uppercase hex chars)
+ */
+function isValidSessionTokenFormat(token) {
+  return typeof token === 'string' && SESSION_TOKEN_REGEX.test(token);
+}
+
+/**
+ * Timing-safe string equality comparison to prevent timing attacks
+ */
+function safeEqual(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  if (bufA.length !== bufB.length) return false;
+  return crypto.timingSafeEqual(bufA, bufB);
+}
+
 /**
  * Create a session in DB with 7-day rolling expiry, falling back gracefully to memory
  */
-export async function createSession(ownerId) {
+export async function createSession(ownerId, ownerEmail = 'owner@amolvegresto.in') {
   const { sessionToken, csrfToken } = generateTokens();
   const id = `sess_${crypto.randomBytes(12).toString('hex')}`;
   const expiresAt = new Date(Date.now() + SESSION_TTL_DAYS * 24 * 60 * 60 * 1000).toISOString();
@@ -28,7 +85,7 @@ export async function createSession(ownerId) {
   memorySessions.set(sessionToken, {
     sessionId: id,
     ownerId,
-    email: 'owner@amolvegresto.in',
+    email: ownerEmail,
     csrfToken,
     expiresAt,
   });
@@ -46,23 +103,23 @@ export async function createSession(ownerId) {
 }
 
 /**
- * Validate session from cookie with direct index lookup (O(1) database query)
- * Extends session with rolling 7-day TTL, fallback to memory
+ * Validate session from cookie with exact prefix lookup (no LIKE wildcard injection)
+ * Extends session with rolling 7-day TTL, fallback to memory only when DB is offline
  */
 export async function validateSession(rawSessionToken) {
-  if (!rawSessionToken || typeof rawSessionToken !== 'string') return null;
+  if (!isValidSessionTokenFormat(rawSessionToken)) return null;
 
   try {
     const now = new Date().toISOString();
     const rows = await query(
-      'SELECT s.id, s.owner_id, s.token, s.expires_at, o.email FROM sessions s JOIN owner o ON s.owner_id = o.id WHERE s.token LIKE $1 || \':%\' AND s.expires_at > $2 LIMIT 1',
+      "SELECT s.id, s.owner_id, s.token, s.expires_at, o.email FROM sessions s JOIN owner o ON s.owner_id = o.id WHERE SUBSTR(s.token, 1, 64) = $1 AND SUBSTR(s.token, 65, 1) = ':' AND s.expires_at > $2 LIMIT 1",
       [rawSessionToken, now]
     );
 
     if (rows && rows.length > 0) {
       const row = rows[0];
       const [tokenPart, csrfPart] = (row.token || '').split(':');
-      if (tokenPart === rawSessionToken) {
+      if (safeEqual(tokenPart, rawSessionToken)) {
         // 7-day rolling expiry update
         const newExpiry = new Date(Date.now() + SESSION_TTL_DAYS * 24 * 60 * 60 * 1000).toISOString();
         await query('UPDATE sessions SET expires_at = $1 WHERE id = $2', [newExpiry, row.id]).catch(() => {});
@@ -75,45 +132,71 @@ export async function validateSession(rawSessionToken) {
         };
       }
     }
+    return null;
   } catch (err) {
-    // Database unreachable, fall back to memory
+    // Database unreachable, fall back to memory store
+    const mem = memorySessions.get(rawSessionToken);
+    if (mem) {
+      if (new Date(mem.expiresAt).getTime() <= Date.now()) {
+        memorySessions.delete(rawSessionToken);
+        return null;
+      }
+      return {
+        sessionId: mem.sessionId,
+        ownerId: mem.ownerId,
+        email: mem.email,
+        csrfToken: mem.csrfToken,
+      };
+    }
+    return null;
   }
-
-  const mem = memorySessions.get(rawSessionToken);
-  if (mem) {
-    return {
-      sessionId: mem.sessionId,
-      ownerId: mem.ownerId,
-      email: mem.email,
-      csrfToken: mem.csrfToken,
-    };
-  }
-
-  return null;
 }
 
 /**
- * Destroy a session atomically
+ * Destroy a session atomically (strict token validation prevents wildcard wipe)
  */
 export async function destroySession(rawSessionToken) {
-  if (!rawSessionToken || typeof rawSessionToken !== 'string') return;
+  if (!isValidSessionTokenFormat(rawSessionToken)) return;
   memorySessions.delete(rawSessionToken);
   try {
-    await query('DELETE FROM sessions WHERE token LIKE $1 || \':%\'', [rawSessionToken]);
+    await query("DELETE FROM sessions WHERE SUBSTR(token, 1, 64) = $1 AND SUBSTR(token, 65, 1) = ':'", [rawSessionToken]);
   } catch (err) {
     // Ignore offline error
   }
 }
 
 /**
- * Timing-safe string equality comparison to prevent timing attacks on CSRF tokens
+ * Invalidate all other sessions for an owner (e.g., on password/credential change)
  */
-function safeEqual(a, b) {
-  if (typeof a !== 'string' || typeof b !== 'string') return false;
-  const bufA = Buffer.from(a);
-  const bufB = Buffer.from(b);
-  if (bufA.length !== bufB.length) return false;
-  return crypto.timingSafeEqual(bufA, bufB);
+export async function destroyOtherSessions(ownerId, keepSessionToken) {
+  for (const [token, session] of memorySessions.entries()) {
+    if (session.ownerId === ownerId && token !== keepSessionToken) {
+      memorySessions.delete(token);
+    }
+  }
+  try {
+    if (isValidSessionTokenFormat(keepSessionToken)) {
+      await query(
+        "DELETE FROM sessions WHERE owner_id = $1 AND NOT (SUBSTR(token, 1, 64) = $2 AND SUBSTR(token, 65, 1) = ':')",
+        [ownerId, keepSessionToken]
+      );
+    } else {
+      await query('DELETE FROM sessions WHERE owner_id = $1', [ownerId]);
+    }
+  } catch (err) {
+    // Ignore offline error
+  }
+}
+
+/**
+ * Keep in-memory session email metadata in sync after account update
+ */
+export function updateSessionEmail(rawSessionToken, newEmail) {
+  if (!isValidSessionTokenFormat(rawSessionToken)) return;
+  const mem = memorySessions.get(rawSessionToken);
+  if (mem) {
+    mem.email = newEmail;
+  }
 }
 
 /**
@@ -127,7 +210,7 @@ export async function requireAuth(req, res, next) {
 
   const session = await validateSession(rawSessionToken);
   if (!session) {
-    res.clearCookie(SESSION_COOKIE_NAME, { path: '/' });
+    res.clearCookie(SESSION_COOKIE_NAME, getSessionCookieOptions(req, false));
     return res.status(401).json({ error: 'Session expired or invalid. Please log in again.' });
   }
 

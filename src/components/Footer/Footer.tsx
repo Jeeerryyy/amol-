@@ -59,11 +59,12 @@ export const Footer: React.FC = () => {
   const telHref = contact.phone ? `tel:${contact.phone.replace(/\s+/g, '')}` : footer.visitUs.tel;
   const mapsHref = contact.maps_url || footer.visitUs.directionsUrl;
 
-  const instagramHref = contact.instagram || '#';
-  const facebookHref = contact.facebook || '#';
+  const isValidExternalUrl = (u?: string) => Boolean(u && u !== '#' && /^https?:\/\//i.test(u));
+  const instagramHref = isValidExternalUrl(contact.instagram) ? contact.instagram : '';
+  const facebookHref = isValidExternalUrl(contact.facebook) ? contact.facebook : '';
   const whatsappHref = contact.whatsapp
     ? `https://wa.me/${contact.whatsapp.replace(/\D/g, '')}`
-    : footer.socials[2]?.url || '#';
+    : footer.socials[2]?.url || 'https://wa.me/917249664983';
 
   const copyright = footerContent.copyright_text || footer.bottomBar.copyright;
   const fssaiText = footerContent.fssai_license
@@ -199,30 +200,36 @@ export const Footer: React.FC = () => {
           <h4 className="footer-col-title">Follow Us</h4>
           <div className="footer-title-rule" aria-hidden="true" />
           <ul className="footer-links-list footer-social-vertical">
-            <li>
-              <a href={instagramHref} className="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                <span className="social-icon-btn"><Instagram size={14} /></span>
-                <span>Instagram</span>
-              </a>
-            </li>
-            <li>
-              <a href={facebookHref} className="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                <span className="social-icon-btn"><Facebook size={14} /></span>
-                <span>Facebook</span>
-              </a>
-            </li>
+            {instagramHref && (
+              <li>
+                <a href={instagramHref} className="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                  <span className="social-icon-btn"><Instagram size={14} /></span>
+                  <span>Instagram</span>
+                </a>
+              </li>
+            )}
+            {facebookHref && (
+              <li>
+                <a href={facebookHref} className="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                  <span className="social-icon-btn"><Facebook size={14} /></span>
+                  <span>Facebook</span>
+                </a>
+              </li>
+            )}
             <li>
               <a href={whatsappHref} className="footer-social-link" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
                 <span className="social-icon-btn"><MessageCircle size={14} /></span>
                 <span>WhatsApp</span>
               </a>
             </li>
-            <li>
-              <a href="#" className="footer-social-link" aria-label="YouTube">
-                <span className="social-icon-btn"><Youtube size={14} /></span>
-                <span>YouTube</span>
-              </a>
-            </li>
+            {isValidExternalUrl(contact.youtube) && (
+              <li>
+                <a href={contact.youtube} className="footer-social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                  <span className="social-icon-btn"><Youtube size={14} /></span>
+                  <span>YouTube</span>
+                </a>
+              </li>
+            )}
           </ul>
         </div>
 
@@ -254,15 +261,19 @@ export const Footer: React.FC = () => {
           <span className="bottom-bar-sep">|</span>
           <span>{fssaiText}</span>
           <span className="bottom-bar-sep">|</span>
-          <a
-            href={footer.bottomBar.agencyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="agency-credit-link"
-          >
-            <span>{footer.bottomBar.agencyName}</span>
-            <ExternalLink size={12} />
-          </a>
+          {isValidExternalUrl(footer.bottomBar.agencyUrl) ? (
+            <a
+              href={footer.bottomBar.agencyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="agency-credit-link"
+            >
+              <span>{footer.bottomBar.agencyName}</span>
+              <ExternalLink size={12} />
+            </a>
+          ) : (
+            <span className="agency-credit-link">{footer.bottomBar.agencyName}</span>
+          )}
         </div>
       </div>
     </footer>

@@ -219,10 +219,8 @@ const updatedHtml = `<!DOCTYPE html>
     <meta name="geo.position" content="17.6681849;75.9245468" />
     <meta name="ICBM" content="17.6681849, 75.9245468" />
 
-    <!-- Search Engine Verification Placeholders -->
-    <meta name="google-site-verification" content="GOOGLE_SEARCH_CONSOLE_VERIFICATION_TOKEN" />
-    <meta name="msvalidate.01" content="BING_WEBMASTER_VERIFICATION_TOKEN" />
-
+    <!-- Search Engine Verification (injected from environment when configured) -->
+${process.env.GOOGLE_SITE_VERIFICATION ? `    <meta name="google-site-verification" content="${process.env.GOOGLE_SITE_VERIFICATION.replace(/"/g, '&quot;')}" />\n` : ''}${process.env.BING_SITE_VERIFICATION ? `    <meta name="msvalidate.01" content="${process.env.BING_SITE_VERIFICATION.replace(/"/g, '&quot;')}" />\n` : ''}
     <!-- Favicon & Brand Icons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

@@ -148,7 +148,6 @@ export const ReviewPage: React.FC = () => {
       })
         .then(async (res) => {
           if (!res.ok) {
-            // Silently fall back to local draft
             setIsPolishing(false);
             return;
           }
@@ -191,6 +190,7 @@ export const ReviewPage: React.FC = () => {
                       hasReceivedFirstToken = true;
                       if (firstTokenTimeoutRef.current) {
                         clearTimeout(firstTokenTimeoutRef.current);
+                        firstTokenTimeoutRef.current = null;
                       }
                     }
 
@@ -216,6 +216,19 @@ export const ReviewPage: React.FC = () => {
             // Silently ignore network/server errors
           }
           setIsPolishing(false);
+        })
+        .finally(() => {
+          if (firstTokenTimeoutRef.current) {
+            clearTimeout(firstTokenTimeoutRef.current);
+            firstTokenTimeoutRef.current = null;
+          }
+          if (hardTimeoutRef.current) {
+            clearTimeout(hardTimeoutRef.current);
+            hardTimeoutRef.current = null;
+          }
+          if (abortControllerRef.current === controller) {
+            abortControllerRef.current = null;
+          }
         });
     },
     []
@@ -232,7 +245,7 @@ export const ReviewPage: React.FC = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'started', stars: rating }),
-      }).catch(() => {});
+      }).catch(() => { });
     }
 
     // If rating is 1-3, filter out positiveOnly options (e.g. pureveg)
@@ -354,7 +367,7 @@ export const ReviewPage: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: eventPayload,
         keepalive: true,
-      }).catch(() => {});
+      }).catch(() => { });
     }
 
     // 3. Open Google Review URL in a new tab immediately
@@ -508,41 +521,19 @@ export const ReviewPage: React.FC = () => {
             <h1 className="step-heading">{REVIEW_CONFIG.UI.ratingHeading}</h1>
 
             <div className="rating" role="radiogroup" aria-label="Star rating out of 5">
-              {[5, 4, 3, 2, 1].map((val) => (
-                <React.Fragment key={val}>
-                  <input
-                    value={val}
-                    name="rating"
-                    id={`star${val}`}
-                    type="radio"
-                    checked={stars === val}
-                    onChange={() => handleStarSelect(val)}
-                  />
-                  <label
+              {[5, 4, 3, 2, 1].map((val) => {
+                const isSelected = stars >= val;
+                return (
+                  <button
+                    key={val}
+                    type="button"
+                    role="radio"
+                    aria-checked={stars === val}
+                    aria-label={`${val} star${val > 1 ? 's' : ''}`}
                     title={`${val} star${val > 1 ? 's' : ''}`}
-                    htmlFor={`star${val}`}
+                    className={`star-btn ${isSelected ? 'is-selected' : ''}`}
+                    onClick={() => handleStarSelect(val)}
                   >
-                    <button
-                      type="button"
-                      className="star-btn"
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        opacity: 0,
-                        zIndex: 10,
-                        width: '100%',
-                        height: '100%',
-                        cursor: 'pointer',
-                        border: 'none',
-                        background: 'transparent',
-                        padding: 0,
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleStarSelect(val);
-                      }}
-                      aria-label={`${val} star${val > 1 ? 's' : ''}`}
-                    />
                     <svg
                       strokeLinejoin="round"
                       strokeLinecap="round"
@@ -554,6 +545,7 @@ export const ReviewPage: React.FC = () => {
                       width="35"
                       xmlns="http://www.w3.org/2000/svg"
                       className="svgOne"
+                      aria-hidden="true"
                     >
                       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                     </svg>
@@ -568,13 +560,14 @@ export const ReviewPage: React.FC = () => {
                       width="35"
                       xmlns="http://www.w3.org/2000/svg"
                       className="svgTwo"
+                      aria-hidden="true"
                     >
                       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                     </svg>
                     <div className="ombre" />
-                  </label>
-                </React.Fragment>
-              ))}
+                  </button>
+                );
+              })}
             </div>
 
             <div className="star-feedback-label" aria-live="polite">

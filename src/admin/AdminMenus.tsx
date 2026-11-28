@@ -1003,7 +1003,7 @@ export const AdminMenus: React.FC = () => {
                           <img
                             src={imgUrl}
                             alt=""
-                            style={{ width: '44px', height: '44px', borderRadius: '8px', objectFit: 'cover' }}
+                            style={{ width: '44px', height: '44px', borderRadius: '8px', objectFit: 'contain', backgroundColor: '#F8EFE4' }}
                             onError={(e: any) => (e.target.src = '/logo.png')}
                           />
                         </td>
@@ -1796,7 +1796,7 @@ export const AdminMenus: React.FC = () => {
                         border: i === 0 ? '2px solid var(--admin-accent)' : '1px solid var(--admin-border)',
                       }}
                     >
-                      <img src={img.url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <img src={img.url} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain', backgroundColor: '#F8EFE4' }} />
                       {i === 0 && (
                         <span
                           style={{
@@ -2246,7 +2246,8 @@ export const AdminMenus: React.FC = () => {
                   padding: '10px 24px',
                   borderRadius: '8px',
                   backgroundColor: buttonForm.bg_color || '#1F2937',
-                  color: '#FFFFFF',
+                  color: isLightHex(buttonForm.bg_color) ? '#2B170B' : '#FFFFFF',
+                  border: isLightHex(buttonForm.bg_color) ? '1px solid #D5C2AF' : '1px solid transparent',
                   fontSize: '13px',
                   fontWeight: 600,
                   letterSpacing: '-0.02em',

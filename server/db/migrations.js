@@ -1,4 +1,4 @@
-import { exec, query } from './connection.js';
+import { exec, query, isPostgres } from './connection.js';
 
 export async function runMigrations() {
   console.log('[Migrations] Running database table setup & indexes...');
@@ -208,7 +208,18 @@ export async function runMigrations() {
       updated_at TEXT NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS contact_inquiries (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      email TEXT,
+      message TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'new',
+      created_at TEXT NOT NULL
+    );
+
     CREATE INDEX IF NOT EXISTS idx_menu_buttons_sort ON menu_buttons(is_enabled, sort_order);
+    CREATE INDEX IF NOT EXISTS idx_contact_inquiries_created ON contact_inquiries(created_at);
 
     CREATE INDEX IF NOT EXISTS idx_scans_qr_created ON scans(qr_id, created_at);
     CREATE INDEX IF NOT EXISTS idx_scans_created_at ON scans(created_at);
@@ -228,10 +239,19 @@ export async function runMigrations() {
 
   await exec(ddl);
 
-  // Migration: Add slug column to qr_codes if missing
+  // Migration: Add slug column to qr_codes if missing (dual-engine safe)
   try {
-    const cols = await query('PRAGMA table_info(qr_codes)');
-    const hasSlug = cols.some((c) => c.name === 'slug');
+    let hasSlug = false;
+    if (isPostgres) {
+      const pgCols = await query(
+        "SELECT column_name FROM information_schema.columns WHERE table_name = 'qr_codes' AND column_name = 'slug'"
+      );
+      hasSlug = pgCols.length > 0;
+    } else {
+      const cols = await query('PRAGMA table_info(qr_codes)');
+      hasSlug = cols.some((c) => c.name === 'slug');
+    }
+
     if (!hasSlug) {
       await query('ALTER TABLE qr_codes ADD COLUMN slug TEXT');
       await query('UPDATE qr_codes SET slug = id WHERE slug IS NULL');
@@ -240,6 +260,15 @@ export async function runMigrations() {
     }
   } catch (err) {
     console.warn('[Migrations] Note on qr_codes.slug migration:', err.message);
+  }
+
+  // Migration: Clean legacy TODO draft banner from seeded legal_pages (PG + SQLite compatible)
+  try {
+    await query(
+      "UPDATE legal_pages SET content_html = REPLACE(content_html, '<p><strong>TODO: replace with reviewed legal text.</strong></p>', '') WHERE content_html LIKE '%TODO: replace with reviewed legal text.%'"
+    );
+  } catch (err) {
+    console.warn('[Migrations] Note on legal_pages cleanup:', err.message);
   }
 
   console.log('[Migrations] Tables and indexes created successfully.');

@@ -4,16 +4,18 @@ import { query } from '../db/connection.js';
 import {
   createSession,
   destroySession,
+  destroyOtherSessions,
+  updateSessionEmail,
   requireAuth,
+  getSessionCookieOptions,
 } from '../middleware/auth.js';
 import {
   checkLoginRateLimit,
   recordLoginFailure,
   resetLoginFailure,
 } from '../middleware/rateLimiter.js';
-import { SESSION_COOKIE_NAME, SESSION_TTL_DAYS } from '../config/constants.js';
-import { env } from '../config/env.js';
-import { loginSchema } from '../validation/schemas.js';
+import { SESSION_COOKIE_NAME } from '../config/constants.js';
+import { loginSchema, changeCredentialsSchema } from '../validation/schemas.js';
 
 const router = express.Router();
 
@@ -24,9 +26,18 @@ router.post('/login', async (req, res, next) => {
   try {
     const clientIp = req.ip || req.connection?.remoteAddress || '127.0.0.1';
 
-    const parseResult = loginSchema.safeParse(req.body);
+    let body = req.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch {
+        return res.status(400).json({ error: 'Invalid JSON request body.' });
+      }
+    }
+
+    const parseResult = loginSchema.safeParse(body);
     if (!parseResult.success) {
-      return res.status(400).json({ error: parseResult.error.errors[0]?.message || 'Invalid input format' });
+      return res.status(400).json({ error: parseResult.error.issues?.[0]?.message || 'Invalid input format' });
     }
 
     const { email, password } = parseResult.data;
@@ -41,11 +52,8 @@ router.post('/login', async (req, res, next) => {
     try {
       owners = await query('SELECT id, email, password_hash FROM owner WHERE LOWER(email) = LOWER($1)', [email]);
     } catch (dbErr) {
-      console.warn('[Auth] Database offline, checking seeded owner credentials:', dbErr.message);
-      if (email.toLowerCase() === 'owner@amolvegresto.in' && password === 'Admin@nirvanaa26') {
-        const hash = await bcrypt.hash('Admin@nirvanaa26', 10);
-        owners = [{ id: 'owner_default', email: 'owner@amolvegresto.in', password_hash: hash }];
-      }
+      console.error('[Auth] Database error during login lookup:', dbErr.message);
+      return res.status(503).json({ error: 'Authentication service temporarily unavailable. Please try again shortly.' });
     }
 
     if (owners.length === 0) {
@@ -62,16 +70,10 @@ router.post('/login', async (req, res, next) => {
 
     // Login successful
     await resetLoginFailure(clientIp, email);
-    const session = await createSession(owner.id);
+    const session = await createSession(owner.id, owner.email);
 
-    // Set httpOnly, Secure, SameSite=Strict cookie with 7-day rolling expiry
-    res.cookie(SESSION_COOKIE_NAME, session.sessionToken, {
-      httpOnly: true,
-      secure: env.isProd,
-      sameSite: 'strict',
-      maxAge: SESSION_TTL_DAYS * 24 * 60 * 60 * 1000,
-      path: '/',
-    });
+    // Set httpOnly session cookie (supports same-origin and cross-site HTTPS deployments)
+    res.cookie(SESSION_COOKIE_NAME, session.sessionToken, getSessionCookieOptions(req, true));
 
     return res.json({
       success: true,
@@ -92,7 +94,7 @@ router.post('/logout', async (req, res, next) => {
     if (rawToken) {
       await destroySession(rawToken);
     }
-    res.clearCookie(SESSION_COOKIE_NAME, { path: '/' });
+    res.clearCookie(SESSION_COOKIE_NAME, getSessionCookieOptions(req, false));
     return res.json({ success: true });
   } catch (err) {
     next(err);
@@ -116,16 +118,22 @@ router.get('/me', requireAuth, (req, res) => {
  */
 async function handleCredentialsUpdate(req, res, next) {
   try {
-    const currentPassword = req.body.currentPassword || req.body.current_password;
-    const newEmail = req.body.newEmail || req.body.email;
-    const newPassword = req.body.newPassword || req.body.new_password;
+    const rawPayload = {
+      currentPassword: req.body?.currentPassword ?? req.body?.current_password,
+      newEmail: req.body?.newEmail ?? req.body?.email ?? undefined,
+      newPassword: req.body?.newPassword ?? req.body?.new_password ?? undefined,
+    };
+    if (rawPayload.newEmail === '') delete rawPayload.newEmail;
+    if (rawPayload.newPassword === '') delete rawPayload.newPassword;
 
-    if (!currentPassword) {
-      return res.status(400).json({ error: 'Current password is required.' });
+    const parsed = changeCredentialsSchema.safeParse(rawPayload);
+    if (!parsed.success) {
+      return res.status(400).json({ error: parsed.error.issues?.[0]?.message || 'Invalid credential input.' });
     }
 
-    if (newPassword && newPassword.length < 8) {
-      return res.status(400).json({ error: 'New password must be at least 8 characters.' });
+    const { currentPassword, newEmail, newPassword } = parsed.data;
+    if (!newEmail && !newPassword) {
+      return res.status(400).json({ error: 'Provide a new email address or a new password to update.' });
     }
 
     const owners = await query('SELECT id, email, password_hash FROM owner WHERE id = $1', [req.owner.id]);
@@ -147,14 +155,22 @@ async function handleCredentialsUpdate(req, res, next) {
       updatedEmail = newEmail.toLowerCase().trim();
     }
 
+    let passwordUpdated = false;
     if (newPassword) {
       updatedHash = await bcrypt.hash(newPassword, 12);
+      passwordUpdated = true;
     }
 
     await query(
       'UPDATE owner SET email = $1, password_hash = $2, updated_at = $3 WHERE id = $4',
       [updatedEmail, updatedHash, now, owner.id]
     );
+
+    const currentToken = req.cookies?.[SESSION_COOKIE_NAME];
+    updateSessionEmail(currentToken, updatedEmail);
+    if (passwordUpdated) {
+      await destroyOtherSessions(owner.id, currentToken);
+    }
 
     return res.json({
       success: true,

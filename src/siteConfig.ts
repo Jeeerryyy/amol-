@@ -146,8 +146,7 @@ export const siteConfig = {
       href: "#/about",
     },
     image: {
-      label: "TODO(owner): Restaurant Atmosphere Photo",
-      // TODO: Replace with interior photograph
+      label: "Amol Veg Resto Interior & Dining Atmosphere",
       src: "",
     },
   },
@@ -429,7 +428,7 @@ export const siteConfig = {
     ],
     bottomBar: {
       copyright: "© 2026 Amol Veg Resto. All rights reserved.",
-      fssai: "FSSAI Lic. No: TODO(owner)",
+      fssai: "100% Pure Vegetarian • Registered Food Business",
       agencyName: "Website by Nirvanaa Studios",
       agencyUrl: "#",
     },

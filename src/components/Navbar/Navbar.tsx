@@ -79,7 +79,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage = 'home', isAboutPage
     }
     return {
       ...link,
-      href: current !== 'home' ? `#/${link.href}` : link.href,
+      href:
+        current !== 'home' && link.href.startsWith('#') && !link.href.startsWith('#/')
+          ? `#/${link.href}`
+          : link.href,
       isActive: false,
     };
   });
@@ -253,8 +256,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage = 'home', isAboutPage
           </a>
 
           <div className="mobile-drawer-info">
-            <div>Old Pune Naka, Solapur</div>
-            <div className="mobile-drawer-hours">Open Daily: 11:00 AM – 11:00 PM</div>
+            <div>Sakhar Peth, Solapur</div>
+            <div className="mobile-drawer-hours">Open Daily: {siteConfig.seo.openingHoursDisplay}</div>
           </div>
         </div>
       </div>

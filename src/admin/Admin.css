@@ -22,6 +22,7 @@
 
   /* 3. Brex Typography Colors */
   --admin-text-main: #15191E;
+  --admin-text-dark: #15191E;
   --admin-text-heading: #000000;
   --admin-text-secondary: #60646C;
   --admin-text-muted: #60646C;
@@ -30,9 +31,11 @@
 
   /* 4. Brex Action Colors (Urgency & Forward Momentum) */
   --admin-accent: #FF5900;           /* Primary Action Orange */
+  --admin-primary-action: #FF5900;
   --admin-accent-hover: #E64E00;     /* Darker Orange Hover */
   --admin-accent-active: #CC4400;    /* Active State */
   --admin-accent-soft: rgba(255, 89, 0, 0.08);
+  --admin-card-bg-subtle: #F3F3F7;
 
   /* 5. Brex Interactive & Semantics */
   --admin-primary-blue: #006EF5;
@@ -826,6 +829,188 @@
 .admin-mobile-nav-btn.active {
   color: var(--admin-accent);
   font-weight: 600;
+}
+
+/* ==========================================================================
+   Supplementary Page Layout, Tabs, KPI, Icon Button & Modal Utility Classes
+   ========================================================================== */
+.admin-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.admin-content-card {
+  background-color: var(--admin-surface-card);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.admin-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--admin-border);
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.admin-tab {
+  padding: 10px 16px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--admin-text-secondary);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.admin-tab:hover {
+  color: var(--admin-text-main);
+  background-color: rgba(21, 25, 30, 0.04);
+  border-radius: var(--admin-radius-sm) var(--admin-radius-sm) 0 0;
+}
+
+.admin-tab.active {
+  color: var(--admin-accent);
+  border-bottom-color: var(--admin-accent);
+  font-weight: 600;
+}
+
+.admin-table-container {
+  width: 100%;
+  overflow-x: auto;
+  background-color: #FFFFFF;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+}
+
+.admin-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: var(--admin-radius-sm);
+  border: 1px solid var(--admin-border);
+  background-color: #FFFFFF;
+  color: var(--admin-text-main);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.admin-btn-icon:hover {
+  background-color: var(--admin-surface-subtle);
+  border-color: var(--admin-border-light);
+}
+
+.admin-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--admin-border-subtle);
+}
+
+.admin-modal-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--admin-text-heading);
+}
+
+.admin-close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--admin-radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--admin-text-secondary);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.admin-close-btn:hover {
+  background-color: var(--admin-surface-subtle);
+  color: var(--admin-text-main);
+}
+
+.admin-empty-state,
+.admin-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--admin-text-secondary);
+  background-color: var(--admin-surface);
+  border: 1px dashed var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  gap: 10px;
+}
+
+.admin-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.admin-kpi-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--admin-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-kpi-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--admin-text-heading);
+  line-height: 1.2;
+}
+
+.admin-toast-success {
+  border-left-color: var(--admin-success);
+}
+
+.admin-toast-error {
+  border-left-color: var(--admin-danger);
+}
+
+.admin-menu-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-sm);
+  background-color: #FFFFFF;
 }
 
 /* ==========================================================================

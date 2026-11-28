@@ -30,10 +30,9 @@ export const LegalPage: React.FC<LegalPageProps> = ({ slug }) => {
             content_html: `
               <h2>Privacy Policy</h2>
               <p><em>Last updated: November 2026</em></p>
-              <p><strong>TODO: replace with reviewed legal text.</strong></p>
               <p>Amol Veg Resto ("we", "our", or "us") values your privacy. This policy outlines how information is handled when you browse our website, view our digital menu, or share reviews.</p>
               <h3>Information We Collect</h3>
-              <p>We do not collect personal identifiers from website visitors unless voluntarily provided. When accessing our digital menu via QR codes, anonymous device and browser type may be logged for service analytics.</p>
+              <p>We do not collect personal identifiers from website visitors unless voluntarily provided through our contact inquiry form. When accessing our digital menu via QR codes, anonymous device and browser type may be logged for service analytics.</p>
               <h3>Third-Party Services</h3>
               <p>Our review system enables visitors to post ratings directly to Google Reviews. We do not store your private Google credentials or review contents on our servers.</p>
             `,
@@ -44,7 +43,6 @@ export const LegalPage: React.FC<LegalPageProps> = ({ slug }) => {
             content_html: `
               <h2>Terms and Conditions</h2>
               <p><em>Last updated: November 2026</em></p>
-              <p><strong>TODO: replace with reviewed legal text.</strong></p>
               <p>Welcome to Amol Veg Resto. By accessing our website, viewing our digital menus, or dining with us, you agree to comply with and be bound by the following terms.</p>
               <h3>Menu Pricing and Availability</h3>
               <p>Dishes, prices, and special offers listed on our digital menus are subject to daily kitchen availability and seasonal ingredient changes. Taxes are applicable as per local regulations.</p>

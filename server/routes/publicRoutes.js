@@ -2,10 +2,12 @@ import express from 'express';
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
+import sanitizeHtml from 'sanitize-html';
 import { query } from '../db/connection.js';
 import { env } from '../config/env.js';
-import { checkQrRateLimit } from '../middleware/rateLimiter.js';
+import { checkQrRateLimit, checkContactRateLimit } from '../middleware/rateLimiter.js';
 import { REVIEW_CONFIG } from '../../review.config.js';
+import { contactInquirySchema } from '../validation/schemas.js';
 
 const router = express.Router();
 
@@ -46,8 +48,18 @@ export function invalidatePublicCache() {
   cache.clear();
 }
 
-// In-memory QR scan dedupe map: key is `hash:qrId` -> timestamp
-const scanDedupeMap = new Map();
+// Validate dynamic redirect URL scheme (blocks javascript:, data:, vbscript:, protocol-relative //)
+function isSafeRedirectDestination(raw) {
+  if (!raw || typeof raw !== 'string') return false;
+  const trimmed = raw.trim();
+  if (!trimmed) return false;
+  if (/^(javascript|data|vbscript):/i.test(trimmed)) return false;
+  if (trimmed.startsWith('//')) return false;
+  if (/^https?:\/\//i.test(trimmed)) return true;
+  if (trimmed.startsWith('/') || trimmed.startsWith('#')) return true;
+  // Bare relative path without colon/scheme (e.g. 'menu/')
+  return !/^[a-z][a-z0-9+.-]*:/i.test(trimmed);
+}
 
 // Device, OS, Browser detection helper
 function parseUserAgent(ua = '') {
@@ -80,35 +92,6 @@ function parseUserAgent(ua = '') {
   else if (/edg/i.test(lower)) browser = 'Edge';
 
   return { device_type, os, browser };
-}
-
-function isBotOrTestRunner(req, ua = '') {
-  // 1. Explicit test headers or params from automated suites
-  if (
-    req.headers['x-test-suite'] ||
-    req.headers['x-test-runner'] ||
-    req.headers['x-playwright-test'] ||
-    req.headers['x-cypress-action'] ||
-    req.query.test === '1' ||
-    req.query._test
-  ) {
-    return true;
-  }
-
-  // 2. Empty user agent
-  if (!ua || !ua.trim()) return true;
-
-  const lower = ua.toLowerCase();
-
-  // 3. Automated testing frameworks, headless tools & HTTP libraries
-  const scriptOrTestPatterns = /node|undici|axios|playwright|puppeteer|cypress|supertest|postman|insomnia|curl|wget|python|go-http|java|httpclient|okhttp|urllib|rest-client|lighthouse|headlesschrome/i;
-  if (scriptOrTestPatterns.test(lower)) return true;
-
-  // 4. Search crawlers, bots, social preview fetchers
-  const botPatterns = /bot|crawl|spider|preview|facebookexternalhit|slackbot|whatsapp|telegrambot|twitterbot|pinterest|discordbot|bingbot|googlebot|yandex|duckduckbot/i;
-  if (botPatterns.test(lower)) return true;
-
-  return false;
 }
 
 // Helper function to safely escape HTML in fallback pages
@@ -336,7 +319,9 @@ async function handleDynamicQrRedirect(req, res) {
     res.setHeader('Expires', '0');
 
     let destination = qr.destination.trim();
-    if (!/^https?:\/\//i.test(destination)) {
+    if (!isSafeRedirectDestination(destination)) {
+      destination = '/menu/';
+    } else if (!/^https?:\/\//i.test(destination)) {
       if (!destination.startsWith('/') && !destination.startsWith('#')) {
         destination = `/${destination}`;
       }
@@ -390,10 +375,12 @@ router.get('/api/public/site', async (req, res, next) => {
       content: {
         contact: {
           phone: "+91 72496 64983",
-          address: "Gala No 2, Markandeya Yentramag Society, near Uphar Bakery, Sakhar Peth, Solapur, Maharashtra 413006",
-          hours: "Opens 12 PM",
+          alternate_phone: "+91 81491 73027",
+          email: "owner@amolvegresto.in",
+          address: "Gala No 2, Plot 16/1, Karnik Nagar Rd, Sakhar Peth, Solapur, Maharashtra 413006",
+          hours: "11:00 AM – 11:30 PM",
           whatsapp: "+91 72496 64983",
-          mapsUrl: "https://maps.app.goo.gl/zp7RDvhrkJNiTKri9"
+          maps_url: "https://maps.app.goo.gl/zp7RDvhrkJNiTKri9"
         }
       },
       seo: {}
@@ -548,6 +535,10 @@ router.get('/api/public/menu/:menuId', async (req, res, next) => {
           },
           categories: raw.categories || [],
           dishes: raw.dishes || [],
+          buttons: [
+            { id: 'btn_whatsapp', type: 'whatsapp', label: 'Order via WhatsApp', phone: '+91 72496 64983', bg_color: '#1E7B46', hover_color: '#ea580c', is_enabled: 1, sort_order: 1 },
+            { id: 'btn_waiter', type: 'call_waiter', label: 'Call Waiter', bg_color: '#2B170B', hover_color: '#C04A0C', is_enabled: 1, sort_order: 2 }
+          ],
           seo: {
             title: menuId === 'special' ? 'Special Menu | Amol Veg Resto' : 'Menu | Amol Veg Resto',
             meta_description: 'Pure vegetarian dining at Amol Veg Resto.',
@@ -647,8 +638,13 @@ router.post('/api/public/review-events', async (req, res, next) => {
     const eventId = `rev_ev_${Date.now()}_${crypto.randomBytes(3).toString('hex')}`;
     const now = new Date().toISOString();
 
-    const starNum = stars !== undefined && stars !== null ? Number(stars) : null;
-    const safeOptionIds = Array.isArray(optionIds) ? JSON.stringify(optionIds.slice(0, 15)) : null;
+    const starNum =
+      stars !== undefined && stars !== null && Number.isInteger(Number(stars)) && Number(stars) >= 1 && Number(stars) <= 5
+        ? Number(stars)
+        : null;
+    const safeOptionIds = Array.isArray(optionIds)
+      ? JSON.stringify(optionIds.filter((id) => typeof id === 'string').slice(0, 15))
+      : null;
 
     await query(
       'INSERT INTO review_events (id, event_type, stars, option_ids, device_type, created_at) VALUES ($1, $2, $3, $4, $5, $6)',
@@ -675,8 +671,51 @@ router.get('/api/public/legal/:id', async (req, res, next) => {
     return sendCachedJson(res, {
       id,
       title: id === 'privacy-policy' ? 'Privacy Policy' : 'Terms & Conditions',
-      content: `<p>Welcome to Amol Veg Resto. For questions, please contact +91 72496 64983.</p>`
+      content_html: `<p>Welcome to Amol Veg Resto. For any questions regarding our policies, please contact +91 72496 64983.</p>`
     }, 300);
+  }
+});
+
+// ============================================================================
+// 9. PUBLIC CONTACT INQUIRY SUBMISSION (/api/public/contact)
+// ============================================================================
+router.post('/api/public/contact', async (req, res) => {
+  try {
+    const clientIp = req.ip || req.connection?.remoteAddress || '127.0.0.1';
+    if (!checkContactRateLimit(clientIp)) {
+      return res.status(429).json({ error: 'Too many inquiries submitted. Please call +91 72496 64983 or try again in a few minutes.' });
+    }
+
+    const parsed = contactInquirySchema.safeParse(req.body || {});
+    if (!parsed.success) {
+      return res.status(400).json({ error: parsed.error.issues?.[0]?.message || 'Please complete all required inquiry fields.' });
+    }
+
+    const cleanName = sanitizeHtml(parsed.data.name, { allowedTags: [], allowedAttributes: {} }).trim();
+    const cleanPhone = sanitizeHtml(parsed.data.phone, { allowedTags: [], allowedAttributes: {} }).trim();
+    const cleanEmail = sanitizeHtml(parsed.data.email || '', { allowedTags: [], allowedAttributes: {} }).trim();
+    const cleanMessage = sanitizeHtml(parsed.data.message, { allowedTags: [], allowedAttributes: {} }).trim();
+
+    if (!cleanName || !cleanMessage) {
+      return res.status(400).json({ error: 'Please enter valid text for your name and message.' });
+    }
+
+    const id = `inq_${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`;
+    const now = new Date().toISOString();
+
+    await query(
+      'INSERT INTO contact_inquiries (id, name, phone, email, message, status, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+      [id, cleanName, cleanPhone, cleanEmail || null, cleanMessage, 'new', now]
+    );
+
+    return res.status(201).json({
+      success: true,
+      id,
+      message: 'Thank you! Your inquiry has been received by our restaurant team.',
+    });
+  } catch (err) {
+    console.error('[Public API] Failed to save contact inquiry:', err);
+    return res.status(500).json({ error: 'Unable to submit inquiry right now. Please call +91 72496 64983.' });
   }
 });
 

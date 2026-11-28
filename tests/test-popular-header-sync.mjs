@@ -104,9 +104,9 @@ async function main() {
     const finalSubtitle = await section.locator('.section-subtitle').innerText();
     console.log(`   FINAL VERIFIED HOMEPAGE: Heading="${finalHeading}", Subtitle="${finalSubtitle}"`);
 
-    // Take screenshot of updated section
-    await section.screenshot({ path: 'public/popular-dishes-header-verified.png' });
-    console.log('   Saved screenshot to public/popular-dishes-header-verified.png');
+    // Take screenshot of updated section in gitignored test-results/
+    await section.screenshot({ path: 'test-results/popular-dishes-header-verified.png' });
+    console.log('   Saved screenshot to test-results/popular-dishes-header-verified.png');
 
     console.log('\nALL POPULAR DISHES HEADER ADMIN & REAL-TIME SYNC CHECKS PASSED PERFECTLY!');
   } finally {

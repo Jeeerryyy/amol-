@@ -10,6 +10,22 @@ export const changePasswordSchema = z.object({
   newPassword: z.string().min(8, 'New password must be at least 8 characters long'),
 });
 
+export const changeCredentialsSchema = z.object({
+  currentPassword: z.string().min(1, 'Current password is required'),
+  newEmail: z.string().trim().email('Please enter a valid email address').optional(),
+  newPassword: z.string().min(8, 'New password must be at least 8 characters long').max(128).optional(),
+});
+
+export const contactInquirySchema = z.object({
+  name: z.string().trim().min(2, 'Please enter your name').max(100),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^[+\d][\d\s()-]{6,18}$/, 'Please enter a valid phone number'),
+  email: z.string().trim().email('Please enter a valid email address').optional().or(z.literal('')),
+  message: z.string().trim().min(5, 'Please enter your message (at least 5 characters)').max(1500),
+});
+
 export const categorySchema = z.object({
   name: z.string().trim().min(1, 'Category name is required').max(100),
   description: z.string().trim().max(500).optional().nullable(),
@@ -21,7 +37,7 @@ export const dishSchema = z.object({
   name: z.string().trim().min(1, 'Dish name is required').max(150),
   description: z.string().trim().max(1000).optional().nullable(),
   category_id: z.string().min(1, 'Category ID is required'),
-  scope: z.enum(['main', 'special', 'both']).default('both'),
+  scope: z.enum(['main', 'special', 'special_only', 'both']).default('both'),
   price_type: z.enum(['single', 'variant']).default('single'),
   base_price: z.number().min(0).optional().nullable(),
   special_price: z.number().min(0).optional().nullable(),

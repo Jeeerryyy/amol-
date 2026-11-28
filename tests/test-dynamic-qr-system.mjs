@@ -24,6 +24,7 @@ async function runTests() {
   }
 
   const db = new DatabaseSync(path.resolve('data/restaurant.db'));
+  db.exec('PRAGMA busy_timeout = 5000;');
 
   // -------------------------------------------------------------------------
   // 1. DATABASE & SEED CHECKS
@@ -129,19 +130,35 @@ async function runTests() {
   // -------------------------------------------------------------------------
   console.log('\n--- 5. PRINT-READY ASSET DOWNLOADS ---');
 
-  const resPng = await fetch(`${API_BASE}/api/admin/qr-codes/review/download?format=png`);
+  const unauthDownload = await fetch(`${API_BASE}/api/admin/qr-codes/review/download?format=png`);
+  assert(unauthDownload.status === 401, 'Unauthenticated QR download is rejected (401)');
+
+  const loginRes = await fetch(`${API_BASE}/api/admin/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: process.env.ADMIN_EMAIL || 'owner@amolvegresto.in',
+      password: process.env.ADMIN_INITIAL_PASSWORD || 'Admin@nirvanaa26',
+    }),
+  });
+  assert(loginRes.status === 200, 'Admin authentication succeeded for QR asset download tests');
+  const rawSetCookie = loginRes.headers.get('set-cookie') || '';
+  const sessionCookie = rawSetCookie.split(';')[0];
+  const authHeaders = sessionCookie ? { Cookie: sessionCookie } : {};
+
+  const resPng = await fetch(`${API_BASE}/api/admin/qr-codes/review/download?format=png`, { headers: authHeaders });
   assert(resPng.status === 200, `PNG download status is 200`);
   assert(resPng.headers.get('content-type') === 'image/png', `PNG Content-Type is image/png`);
   const pngBuffer = await resPng.arrayBuffer();
   assert(pngBuffer.byteLength > 2000, `PNG file has valid size (${pngBuffer.byteLength} bytes)`);
 
-  const resSvg = await fetch(`${API_BASE}/api/admin/qr-codes/review/download?format=svg`);
+  const resSvg = await fetch(`${API_BASE}/api/admin/qr-codes/review/download?format=svg`, { headers: authHeaders });
   assert(resSvg.status === 200, `SVG download status is 200`);
   assert(resSvg.headers.get('content-type')?.includes('svg'), `SVG Content-Type is svg+xml`);
   const svgText = await resSvg.text();
   assert(svgText.includes('<svg') && svgText.includes('</svg>'), 'SVG body contains valid SVG tags');
 
-  const resPdf = await fetch(`${API_BASE}/api/admin/qr-codes/review/download?format=pdf`);
+  const resPdf = await fetch(`${API_BASE}/api/admin/qr-codes/review/download?format=pdf`, { headers: authHeaders });
   assert(resPdf.status === 200, `PDF download status is 200`);
   assert(resPdf.headers.get('content-type') === 'application/pdf', `PDF Content-Type is application/pdf`);
   const pdfBuffer = await resPdf.arrayBuffer();

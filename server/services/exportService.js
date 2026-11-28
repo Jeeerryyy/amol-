@@ -31,18 +31,56 @@ export async function exportContentBackup() {
 }
 
 /**
+ * Escape CSV cell safely (RFC 4180 + formula injection neutralization for Excel/Sheets)
+ */
+export function escapeCsvCell(value) {
+  let str = value === null || value === undefined ? '' : String(value);
+  if (/^[\t\r ]*[=+\-@\t\r]/.test(str)) {
+    str = `'${str}`;
+  }
+  return `"${str.replace(/"/g, '""')}"`;
+}
+
+/**
+ * Parse and validate optional ISO date query string
+ */
+function parseDateOrThrow(rawDate, label) {
+  if (!rawDate) return null;
+  const parsed = new Date(rawDate);
+  if (Number.isNaN(parsed.getTime())) {
+    const err = new Error(`Invalid '${label}' date parameter.`);
+    err.statusCode = 400;
+    err.isOperational = true;
+    throw err;
+  }
+  return parsed.toISOString();
+}
+
+/**
+ * Format UTC/ISO timestamp cleanly in IST (+05:30)
+ */
+function formatIstTimestamp(raw) {
+  const d = new Date(raw);
+  if (Number.isNaN(d.getTime())) return '';
+  return new Date(d.getTime() + 5.5 * 3600000).toISOString().replace('Z', '+05:30');
+}
+
+/**
  * Generate CSV export of QR scans with IST timestamps
  */
 export async function exportScansCsv({ from, to } = {}) {
   let sql = 'SELECT * FROM scans WHERE 1=1';
   const params = [];
 
-  if (from) {
-    params.push(new Date(from).toISOString());
+  const fromIso = parseDateOrThrow(from, 'from');
+  const toIso = parseDateOrThrow(to, 'to');
+
+  if (fromIso) {
+    params.push(fromIso);
     sql += ` AND created_at >= $${params.length}`;
   }
-  if (to) {
-    params.push(new Date(to).toISOString());
+  if (toIso) {
+    params.push(toIso);
     sql += ` AND created_at <= $${params.length}`;
   }
   sql += ' ORDER BY created_at DESC';
@@ -51,8 +89,15 @@ export async function exportScansCsv({ from, to } = {}) {
 
   let csv = 'id,qr_id,device_type,os,browser,created_at_ist\n';
   for (const r of rows) {
-    const istTime = new Date(new Date(r.created_at).getTime() + 5.5 * 3600000).toISOString().replace('Z', '+05:30');
-    csv += `"${r.id}","${r.qr_id}","${r.device_type}","${r.os}","${r.browser}","${istTime}"\n`;
+    const istTime = formatIstTimestamp(r.created_at);
+    csv += [
+      escapeCsvCell(r.id),
+      escapeCsvCell(r.qr_id),
+      escapeCsvCell(r.device_type),
+      escapeCsvCell(r.os),
+      escapeCsvCell(r.browser),
+      escapeCsvCell(istTime),
+    ].join(',') + '\n';
   }
   return csv;
 }
@@ -64,12 +109,15 @@ export async function exportReviewsCsv({ from, to } = {}) {
   let sql = 'SELECT * FROM review_events WHERE 1=1';
   const params = [];
 
-  if (from) {
-    params.push(new Date(from).toISOString());
+  const fromIso = parseDateOrThrow(from, 'from');
+  const toIso = parseDateOrThrow(to, 'to');
+
+  if (fromIso) {
+    params.push(fromIso);
     sql += ` AND created_at >= $${params.length}`;
   }
-  if (to) {
-    params.push(new Date(to).toISOString());
+  if (toIso) {
+    params.push(toIso);
     sql += ` AND created_at <= $${params.length}`;
   }
   sql += ' ORDER BY created_at DESC';
@@ -78,8 +126,15 @@ export async function exportReviewsCsv({ from, to } = {}) {
 
   let csv = 'id,event_type,stars,option_ids,device_type,created_at_ist\n';
   for (const r of rows) {
-    const istTime = new Date(new Date(r.created_at).getTime() + 5.5 * 3600000).toISOString().replace('Z', '+05:30');
-    csv += `"${r.id}","${r.event_type}","${r.stars || ''}","${(r.option_ids || '').replace(/"/g, '""')}","${r.device_type || ''}","${istTime}"\n`;
+    const istTime = formatIstTimestamp(r.created_at);
+    csv += [
+      escapeCsvCell(r.id),
+      escapeCsvCell(r.event_type),
+      escapeCsvCell(r.stars),
+      escapeCsvCell(r.option_ids),
+      escapeCsvCell(r.device_type),
+      escapeCsvCell(istTime),
+    ].join(',') + '\n';
   }
   return csv;
 }

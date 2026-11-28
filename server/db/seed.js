@@ -10,6 +10,28 @@ import { REVIEW_CONFIG } from '../../review.config.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+async function batchInsert(table, columns, rows, chunkSize = 40) {
+  if (!rows || rows.length === 0) return;
+  const colList = columns.join(', ');
+  for (let offset = 0; offset < rows.length; offset += chunkSize) {
+    const chunk = rows.slice(offset, offset + chunkSize);
+    const params = [];
+    const placeholders = chunk
+      .map((row) => {
+        const rowPh = row.map((val) => {
+          params.push(val);
+          return `$${params.length}`;
+        });
+        return `(${rowPh.join(', ')})`;
+      })
+      .join(', ');
+    await query(
+      `INSERT INTO ${table} (${colList}) VALUES ${placeholders} ON CONFLICT (id) DO NOTHING`,
+      params
+    );
+  }
+}
+
 export async function seedDatabase() {
   await runMigrations();
 
@@ -215,57 +237,53 @@ export async function seedDatabase() {
 
         console.log(`[Seed] Ingesting ${cats.length} categories and ${dishList.length} dishes from JSON...`);
 
+        const catRows = [];
         let catOrder = 1;
         for (const cat of cats) {
           const catId = cat.id || `cat_${catOrder}`;
           const catName = cat.name || cat;
-          await query(
-            'INSERT INTO categories (id, name, description, visible, sort_order, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-            [catId, catName, '', 1, catOrder++, now, now]
-          );
+          catRows.push([catId, catName, '', 1, catOrder++, now, now]);
         }
+        await batchInsert(
+          'categories',
+          ['id', 'name', 'description', 'visible', 'sort_order', 'created_at', 'updated_at'],
+          catRows,
+          50
+        );
 
+        const dishRows = [];
+        const imageRows = [];
+        const variantRows = [];
         let dishOrder = 1;
         for (const d of dishList) {
           const dishId = d.id || `dish_${dishOrder}`;
           const price = Number(d.price || d.base_price || 100);
           const markup = 10;
-          const specialPrice = Math.round((price * (1 + markup / 100)));
+          const specialPrice = Math.round(price * (1 + markup / 100));
 
-          await query(
-            `INSERT INTO dishes (
-              id, name, description, category_id, serving_note, price_type,
-              base_price, special_price, special_price_override,
-              tags, spice_level, badges, is_available, is_visible, scope, sort_order,
-              created_at, updated_at
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`,
-            [
-              dishId,
-              d.name,
-              d.description || '',
-              d.category_id || (cats[0]?.id || 'cat_1'),
-              d.serving_note || '',
-              d.variants && d.variants.length > 0 ? 'variants' : 'single',
-              price,
-              specialPrice,
-              null,
-              JSON.stringify(d.tags || ['veg']),
-              d.spice_level || 'none',
-              JSON.stringify(d.badges || []),
-              d.is_available !== undefined ? (d.is_available ? 1 : 0) : 1,
-              1,
-              'both',
-              dishOrder++,
-              now,
-              now,
-            ]
-          );
+          dishRows.push([
+            dishId,
+            d.name,
+            d.description || '',
+            d.category_id || (cats[0]?.id || 'cat_1'),
+            d.serving_note || '',
+            d.variants && d.variants.length > 0 ? 'variants' : 'single',
+            price,
+            specialPrice,
+            null,
+            JSON.stringify(d.tags || ['veg']),
+            d.spice_level || 'none',
+            JSON.stringify(d.badges || []),
+            d.is_available !== undefined ? (d.is_available ? 1 : 0) : 1,
+            1,
+            'both',
+            dishOrder++,
+            now,
+            now,
+          ]);
 
           if (d.image) {
-            await query(
-              'INSERT INTO dish_images (id, dish_id, public_id, url, sort_order, is_cover, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-              [`img_${dishId}_1`, dishId, null, d.image, 1, 1, now]
-            );
+            imageRows.push([`img_${dishId}_1`, dishId, null, d.image, 1, 1, now]);
           }
 
           if (d.variants && Array.isArray(d.variants)) {
@@ -273,13 +291,43 @@ export async function seedDatabase() {
             for (const v of d.variants) {
               const vPrice = Number(v.price || v.base_price || price);
               const vSpecial = Math.round(vPrice * 1.1);
-              await query(
-                'INSERT INTO dish_variants (id, dish_id, label, base_price, special_price, special_price_override, sort_order, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-                [`var_${dishId}_${vOrder}`, dishId, v.name || v.label, vPrice, vSpecial, null, vOrder++, now]
-              );
+              variantRows.push([
+                `var_${dishId}_${vOrder}`,
+                dishId,
+                v.name || v.label,
+                vPrice,
+                vSpecial,
+                null,
+                vOrder++,
+                now,
+              ]);
             }
           }
         }
+
+        await batchInsert(
+          'dishes',
+          [
+            'id', 'name', 'description', 'category_id', 'serving_note', 'price_type',
+            'base_price', 'special_price', 'special_price_override',
+            'tags', 'spice_level', 'badges', 'is_available', 'is_visible', 'scope', 'sort_order',
+            'created_at', 'updated_at',
+          ],
+          dishRows,
+          40
+        );
+        await batchInsert(
+          'dish_images',
+          ['id', 'dish_id', 'public_id', 'url', 'sort_order', 'is_cover', 'created_at'],
+          imageRows,
+          80
+        );
+        await batchInsert(
+          'dish_variants',
+          ['id', 'dish_id', 'label', 'base_price', 'special_price', 'special_price_override', 'sort_order', 'created_at'],
+          variantRows,
+          80
+        );
         console.log(`[Seed] Ingestion completed with ${dishList.length} menu items.`);
       } catch (e) {
         console.error('[Seed Error] Failed to parse menu json:', e);
